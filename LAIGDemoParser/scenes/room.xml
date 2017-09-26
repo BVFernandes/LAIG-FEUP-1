@@ -21,7 +21,7 @@
 
 <!-- Lights -->
 <LIGHTS>
-  
+
 	<LIGHT id="light0">
         <enable value ="1" />
         <position  x="0" y="10" z="0" w="1" />
@@ -166,11 +166,11 @@
 
         <DESCENDANTS>
 
-            <NODEREF id="luzes" />
-            <NODEREF id="piramide" />
-            <NODEREF id="arvores" />
+            <NODEREF id="candeiro" />
+            <NODEREF id="paredes" />
+            <NODEREF id="mesa" />
             <NODEREF id="chao" />
-            <NODEREF id="bancos" />
+            <NODEREF id="sofa" />
         </DESCENDANTS>
 
     </NODE>
@@ -190,66 +190,48 @@
 
     </NODE>
 
-    <!-- The lights -->
-     <NODE id="luzes">
-        <MATERIAL id="lightMaterial" />
-        <TEXTURE id="clear" />
+    <!-- The wall -->
+    <NODE id="paredes">
+        <MATERIAL id="null" />
+        <TEXTURE id="rocks" />
+
+        <SCALE sx="6" sy="1" sz="5" />
+        <TRANSLATION x="0" y="0" z="4" />
+        <ROTATION axis="x" angle="-90" />
 
         <DESCENDANTS>
-            <NODEREF id="luz1" />
-            <NODEREF id="luz2" />
-            <NODEREF id="luz3" />
-            <NODEREF id="luz4" />
+          <NODEREF id="parede1" />
+          <NODEREF id="parede2" />
         </DESCENDANTS>
 
     </NODE>
 
-    <!-- The first light -->
-     <NODE id="luz1">
+    <!-- The wall1 -->
+    <NODE id="parede1">
         <MATERIAL id="null" />
-        <TEXTURE id="null" />
+        <TEXTURE id="rocks" />
+
+        <SCALE sx="6" sy="1" sz="5" />
+        <TRANSLATION x="0" y="0" z="4" />
+        <ROTATION axis="x" angle="-90" />
 
         <DESCENDANTS>
-            <NODEREF id="luz_candeeiro" />
+          <LEAF  type="rectangle" args="0 4 5 0" />
         </DESCENDANTS>
 
     </NODE>
 
-   <!-- The second light -->
-    <NODE id="luz2">
+    <!-- The wall2 -->
+    <NODE id="parede2">
         <MATERIAL id="null" />
-        <TEXTURE id="null" />
+        <TEXTURE id="rocks" />
 
-        <TRANSLATION x="30" y="0" z="0" />
+        <SCALE sx="6" sy="1" sz="5" />
+        <TRANSLATION x="0" y="0" z="4" />
+        <ROTATION axis="x" angle="-90" />
 
         <DESCENDANTS>
-            <NODEREF id="luz_candeeiro" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <!-- The third light -->
-    <NODE id="luz3">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="0" y="0" z="20" />
-
-        <DESCENDANTS>
-           <NODEREF id="luz_candeeiro" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <!-- The fourth light -->
-    <NODE id="luz4">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="30" y="0" z="20" />
-
-        <DESCENDANTS>
-           <NODEREF id="luz_candeeiro" />
+          <LEAF  type="rectangle" args="0 4 5 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -275,7 +257,7 @@
         <SCALE sx="-1" sy="1" sz="1" />
 
         <DESCENDANTS>
-						<LEAF id="sphere1" type="sphere" args="2 20 20" />
+            <LEAF id="sphere1" type="sphere" args="2 20 20" />
 
         </DESCENDANTS>
 
@@ -290,51 +272,94 @@
         <ROTATION axis="x" angle="-90" />
 
         <DESCENDANTS>
-					<LEAF id="cylinder1" type="cylinder" args="4 1 1 20 20" />
+          <LEAF id="cylinder1" type="cylinder" args="4 1 1 20 20" />
         </DESCENDANTS>
 
     </NODE>
 
+
     <!-- Street bench -->
-    <NODE id="bancos">
+    <NODE id="sofa">
         <MATERIAL id="lightMaterial" />
         <TEXTURE id="banco" />
 
         <DESCENDANTS>
-       		<NODEREF id="banco1" />
-            <NODEREF id="banco2" />
+       		<NODEREF id="sofa_topo" />
+          <NODEREF id="sofa_base" />
+          <NODEREF id="sofa_cabeceira" />
+          <NODEREF id="sofa_lateral_l" />
+          <NODEREF id="sofa_lateral_r" />
         </DESCENDANTS>
 
     </NODE>
 
     <!-- One bench -->
-    <NODE id="banco2">
+    <NODE id="sofa_topo">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
         <TRANSLATION x="7.5" y="-2" z="21" />
 
         <DESCENDANTS>
-            <NODEREF id="banco" />
+            <NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
 
     <!-- Another bench -->
-     <NODE id="banco1">
+     <NODE id="sofa_base">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
         <TRANSLATION x="7.5" y="-2" z="4" />
 
         <DESCENDANTS>
-            <NODEREF id="banco" />
+            <NODEREF id="cubo" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- One bench -->
+    <NODE id="sofa_cabeceira">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="7.5" y="-2" z="21" />
+
+        <DESCENDANTS>
+            <LEAF id="cylinder2" type="cylinder" args="4 1 1 20 20" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Another bench -->
+     <NODE id="sofa_lateral_l">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="7.5" y="-2" z="4" />
+
+        <DESCENDANTS>
+            <NODEREF id="cubo" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- One bench -->
+    <NODE id="sofa_lateral_r">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="7.5" y="-2" z="21" />
+
+        <DESCENDANTS>
+            <NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
 
     <!-- Generic bench -->
-    <NODE id="banco">
+    <NODE id="cubo">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
