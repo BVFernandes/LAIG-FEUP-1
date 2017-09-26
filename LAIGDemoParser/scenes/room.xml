@@ -358,6 +358,103 @@
 
     </NODE>
 
+    <!-- Trees -->
+    <NODE id="mesa">
+        <MATERIAL id="null" />
+        <TEXTURE id="clear" />
+
+        <DESCENDANTS>
+            <NODEREF id="mesa_tampo" />
+            <NODEREF id="mesa_pernas" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- One tree -->
+    <NODE id="mesa_tampo">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-2" y="0" z="5" />
+
+        <DESCENDANTS>
+            <NODEREF id="cubo" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Another tree -->
+    <NODE id="mesa_pernas">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="22" y="0" z="5" />
+
+        <DESCENDANTS>
+            <NODEREF id="mesa_pernas1" />
+            <NODEREF id="mesa_pernas2" />
+            <NODEREF id="mesa_pernas3" />
+            <NODEREF id="mesa_pernas4" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Generic tree -->
+    <NODE id="mesa_pernas1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="perna" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Generic tree -->
+    <NODE id="mesa_pernas2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="perna" />
+        </DESCENDANTS>
+
+    </NODE>
+    <!-- Generic tree -->
+    <NODE id="mesa_pernas3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="perna" />
+        </DESCENDANTS>
+
+    </NODE>
+    <!-- Generic tree -->
+    <NODE id="mesa_pernas4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="perna" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- Tree trunk -->
+    <NODE id="perna">
+        <MATERIAL id="trunkTreeMaterial" />
+        <TEXTURE id="trunk" />
+
+        <ROTATION axis="x" angle="90" />
+        <TRANSLATION x="5" y="5" z="-4" />
+
+        <DESCENDANTS>
+					<LEAF type="cylinder" args="4 1 1 20 20" />
+        </DESCENDANTS>
+
+    </NODE>
+
     <!-- Generic bench -->
     <NODE id="cubo">
         <MATERIAL id="null" />
@@ -377,87 +474,7 @@
         </DESCENDANTS>
 
     </NODE>
-
-    <!-- Trees -->
-    <NODE id="arvores">
-        <MATERIAL id="null" />
-        <TEXTURE id="clear" />
-
-        <DESCENDANTS>
-            <NODEREF id="arvore1" />
-            <NODEREF id="arvore2" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <!-- One tree -->
-    <NODE id="arvore1">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="-2" y="0" z="5" />
-
-        <DESCENDANTS>
-            <NODEREF id="arvore" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <!-- Another tree -->
-    <NODE id="arvore2">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="22" y="0" z="5" />
-
-        <DESCENDANTS>
-            <NODEREF id="arvore" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <!-- Generic tree -->
-    <NODE id="arvore">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <DESCENDANTS>
-            <NODEREF id="troncoArvore" />
-            <NODEREF id="folhasArvore" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <!-- Tree trunk -->
-    <NODE id="troncoArvore">
-        <MATERIAL id="trunkTreeMaterial" />
-        <TEXTURE id="trunk" />
-
-        <ROTATION axis="x" angle="90" />
-        <TRANSLATION x="5" y="5" z="-4" />
-
-        <DESCENDANTS>
-					<LEAF type="cylinder" args="4 1 1 20 20" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <!-- Tree leaves -->
-     <NODE id="folhasArvore">
-        <MATERIAL id="leavesTreeMaterial" />
-        <TEXTURE id="folhas" />
-
-        <DESCENDANTS>
-       		<NODEREF id="faceCubo1" />
-            <NODEREF id="faceCubo2" />
-            <NODEREF id="faceCubo3" />
-            <NODEREF id="faceCubo4" />
-            <NODEREF id="faceCubo5" />
-            <NODEREF id="faceCubo6" />
-        </DESCENDANTS>
-
-    </NODE>
-
+    
     <!-- A cube face -->
     <NODE id="faceCubo1">
         <MATERIAL id="null" />
