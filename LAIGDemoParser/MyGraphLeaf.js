@@ -28,9 +28,9 @@ MyGraphLeaf.prototype.createSphere=function() {
 
 MyGraphLeaf.prototype.createTriangle=function() {
 	const p1 = [this.args[0], this.args[1], this.args[2]];
-	const p2 = [this.args[3], this.args[3], this.args[4]];
-	const p3 = [this.args[5], this.args[6], this.args[7]];
-	this.model = new MyTriangle(this.graph.scene,false,p1,p2,p3);
+	const p2 = [this.args[3], this.args[4], this.args[5]];
+	const p3 = [this.args[6], this.args[7], this.args[8]];
+	this.model = new MyTriangle(this.graph.scene,true,p3,p2,p1);
 }
 
 MyGraphLeaf.prototype.create=function() {

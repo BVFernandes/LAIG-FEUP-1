@@ -1507,7 +1507,6 @@ MySceneGraph.prototype.displayScene = function() {
 	for(var i=0;i < root.leaves.length;i++){
 		this.scene.pushMatrix();
 		this.materials[this.defaultMaterialID].apply();
-
 		if(root.textureID != null && root.textureID != "null" ){
 			this.textures[currTextureID][0].bind();
 		}	
@@ -1548,16 +1547,20 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, cur
 
 
 	for(var i=0;i < node.leaves.length;i++){
-
+		/*
 		this.materials[this.defaultMaterialID].apply();
 
 		if(newMaterialID != null && node.newMaterialID != "null" ){
 			this.materials[newMaterialID][0].apply();	
 		}
+		 */
+
+		//this.materials[this.defaultMaterialID].apply();
+		this.textures["vidral"][0].bind();
 
 		//Aplicar aqui as coordenadas de textura? Ou diretamente nas primitivas xD
 		if(node.textureID != null && node.textureID != "null" ){
-			this.textures[newTextureID][0].bind();
+			//this.textures["vidral"][0].bind();
 		}	
 		node.leaves[i].display();
 
