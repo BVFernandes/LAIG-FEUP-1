@@ -12,18 +12,18 @@ function MyTriangle(scene,doubleface,p1,p2,p3) {
 
 	//Distance between p1 and p2
 	this.a = Math.sqrt( Math.pow((this.p2[0] - this.p1[0]), 2) +
-			Math.pow((this.p2[1] - this.p1[2]), 2) +
-			Math.pow((this.p2[3] - this.p1[3]), 2));
-	
+			Math.pow((this.p2[1] - this.p1[1]), 2) +
+			Math.pow((this.p2[2] - this.p1[2]), 2));
+
 	//Distance between p1 and p3
 	this.b = Math.sqrt( Math.pow((this.p1[0] - this.p3[0]), 2) +
-			Math.pow((this.p1[1] - this.p3[2]), 2) +
-			Math.pow((this.p1[3] - this.p3[3]), 2));
-	
+			Math.pow((this.p1[1] - this.p3[1]), 2) +
+			Math.pow((this.p1[2] - this.p3[2]), 2));
+
 	//Distance between p3 and p2
-	this.c = Math.sqrt( Math.pow((this.p3[0] - this.p3[0]), 2) +
-			Math.pow((this.p3[1] - this.p2[2]), 2) +
-			Math.pow((this.p3[3] - this.p2[3]), 2));
+	this.c = Math.sqrt( Math.pow((this.p3[0] - this.p2[0]), 2) +
+			Math.pow((this.p3[1] - this.p2[1]), 2) +
+			Math.pow((this.p3[2] - this.p2[2]), 2));
 
 	this.initBuffers();
 };
@@ -60,7 +60,7 @@ MyTriangle.prototype.initBuffers = function() {
 		vecProd[0], vecProd[1], vecProd[2],
 		vecProd[0], vecProd[1], vecProd[2]];
 
-	
+
 	//Bugs on texture, needed to review some trignometry
 	/*
 	 * Lei dos cossenos
@@ -68,18 +68,19 @@ MyTriangle.prototype.initBuffers = function() {
 	 * a² = b² + c² – 2bc.cos A
 	 * b² = a² + c² – 2ac.cos B
 	 */
-	var cosB = (Math.pow(this.c,2)-Math.pow(this.a,2)-Math.pow(this.b,2))/(-2*this.a*this.b);
-	var senB = Math.sin(Math.acos(cosB));
+	var cosTeta = (Math.pow(this.c,2)-Math.pow(this.a,2)-Math.pow(this.b,2))/(-2*this.a*this.b);
+	var Teta = Math.acos(cosTeta);
+
 	
 	this.texCoords = [
+		(this.a/15.0),0,
 		0,0,
-		this.a/15.0,0,
-		cosB,senB
-		//Math.cos(Math.acos(this.a/this.b))/15.0,Math.sin(Math.acos(this.a/this.b))/10.0
-	 ];
+		(Math.cos(Teta)*this.b /15.0 ),(Math.sin(Teta)*this.b/10.0)
+		];
+	
 	
 	/*
-	 * this.texCoords = [
+	  this.texCoords = [
 			1,0,
 			0,0,
 			1,1];
