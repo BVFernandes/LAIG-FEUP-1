@@ -1498,29 +1498,7 @@ MySceneGraph.generateRandomString = function(length) {
 
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
-
-	//Select the root of graph
-	var root =  this.nodes[this.idRoot];
-	var currTextureID = root.textureID;
-	var currMaterialID = root.materialID;
-
-	for(var i=0;i < root.leaves.length;i++){
-		this.scene.pushMatrix();
-		this.materials[this.defaultMaterialID].apply();
-
-		if(root.textureID != null && root.textureID != "null" ){
-			this.textures[currTextureID][0].bind();
-		}	
-
-		this.scene.multMatrix(root.transformMatrix);
-		root.leaves[i].display();
-		this.scene.popMatrix();
-	}
-
-	for(var j=0;j < root.children.length; j++){
-		this.displaySceneAux(root.children[j],currTextureID,currMaterialID);
-	}
-
+	this.displaySceneAux(this.idRoot,null,null);
 }
 
 MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, currMaterialID) {
@@ -1550,16 +1528,15 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, cur
 		this.textures[newTextureID][0].bind();
 
 	for(var i=0;i < node.leaves.length;i++){
-		
 		if(newTextureID != "clear" && newTextureID != null){
 			node.leaves[i].updateTexCoords(this.textures[newTextureID][1],this.textures[newTextureID][2]);
 		}
 		node.leaves[i].display();
-
 	}
 
-	for(var j=0;j < node.children.length; j++)
+	for(var j=0;j < node.children.length; j++){
 		this.displaySceneAux(node.children[j],newTextureID,newMaterialID);
+	}
 
 	this.scene.popMatrix();
 }
