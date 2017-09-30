@@ -2,9 +2,12 @@
  * MyCylinder
  * @constructor
  */
-function MyCylinder(scene, slices, stacks, interior) {
+function MyCylinder(scene, height, bradius, tradius, slices, stacks, interior) {
 	CGFobject.call(this,scene);
 
+	this.height = height;
+	this.bradius = bradius;
+	this.tradius = tradius;
 	this.slices = slices;
 	this.stacks = stacks;
 	this.interior = interior | false;
@@ -18,8 +21,9 @@ MyCylinder.prototype.constructor = MyCylinder;
 MyCylinder.prototype.initBuffers = function() {
 	ang = 0;
 	angnorm = Math.PI/this.slices;
-	z = 1;
-	zdelta = z/this.stacks; // Stack Height
+	zdelta = this.height/this.stacks; // Stack Height
+	raddelta = (this.tradius-this.bradius)/this.stacks;
+	stepRad = this.bradius;
 
 	this.vertices = [];
 	this.normals = [];
@@ -36,8 +40,8 @@ MyCylinder.prototype.initBuffers = function() {
 			for(j = 0; j <= this.slices; j++){
 				ang = j*2*Math.PI/this.slices;
 
-				x1 = Math.cos(ang);
-				y1 = Math.sin(ang);
+				x1 = stepRad*Math.cos(ang);
+				y1 = stepRad*Math.sin(ang);
 
 				this.vertices.push(x1,y1, i*zdelta);
 				this.normals.push(x1, y1, 0);
@@ -47,13 +51,14 @@ MyCylinder.prototype.initBuffers = function() {
 			}
 			stepS = 0;
 			stepT+= 1/this.stacks;
+			stepRad+= raddelta;
 		}
 
 		for(h = 0; h <= this.slices; h++){
 			ang = h*2*Math.PI/this.slices;
 
-			x1 = Math.cos(ang);
-			y1 = Math.sin(ang);
+			x1 = stepRad*Math.cos(ang);
+			y1 = stepRad*Math.sin(ang);
 
 			this.vertices.push(x1,y1, (i+1)*zdelta);
 			this.normals.push(x1, y1, 0);
@@ -63,6 +68,7 @@ MyCylinder.prototype.initBuffers = function() {
 
 		stepS = 0;
 		stepT+= 1/this.stacks;
+		stepRad+= raddelta;
 
 		for(k = 0; k < this.slices; k++){
 			this.indices.push(k+ad_index, k+1+ad_index, k+(this.slices+1)+ad_index);
@@ -78,6 +84,7 @@ MyCylinder.prototype.initBuffers = function() {
 	this.primitiveType = this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
 };
+
 
 MyCylinder.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
 

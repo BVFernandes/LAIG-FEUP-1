@@ -19,7 +19,7 @@ MyGraphLeaf.prototype.createRectangle=function() {
 }
 
 MyGraphLeaf.prototype.createCylinder=function() {
-	this.model = new MyCylinder(this.graph.scene, this.args[3], this.args[4]); 
+	this.model = new MyCylinder(this.graph.scene, this.args[0], this.args[1], this.args[2], this.args[3], this.args[4]);
 }
 
 MyGraphLeaf.prototype.createSphere=function() {
