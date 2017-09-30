@@ -61,8 +61,8 @@ MyRectangle.prototype.initBuffers = function () {
 
 
 MyRectangle.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
-	var maxS=(this.x2-this.x1)/amplif_factor_s;
-	var maxT=(this.y2-this.y1)/amplif_factor_t;
+	var maxS=(this.rightBottom[0]-this.leftTop[0])/amplif_factor_s; // delta x
+	var maxT=(this.rightBottom[1]-this.leftTop[1])/amplif_factor_t; // delta y
 	
 	this.texCoords = [
 		0,0,

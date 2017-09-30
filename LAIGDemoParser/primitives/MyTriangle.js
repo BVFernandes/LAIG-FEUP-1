@@ -84,17 +84,18 @@ MyTriangle.prototype.initBuffers = function() {
 			1,0,
 			0,0,
 			1,1];
-	 */
+	*/
 
 	this.initGLBuffers();
 };
 
 MyTriangle.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
+	/*
 	this.texCoords = [
 		(this.c - this.a * Math.cos(this.b))/amplif_factor_s, this.a * Math.sin(this.b)/amplif_factor_t,
 		0, 0,
 		this.c/amplif_factor_s, 0
 		];
-
+*/
 	this.updateTexCoordsGLBuffers();
 }

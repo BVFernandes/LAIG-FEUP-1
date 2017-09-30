@@ -1507,6 +1507,7 @@ MySceneGraph.prototype.displayScene = function() {
 	for(var i=0;i < root.leaves.length;i++){
 		this.scene.pushMatrix();
 		this.materials[this.defaultMaterialID].apply();
+
 		if(root.textureID != null && root.textureID != "null" ){
 			this.textures[currTextureID][0].bind();
 		}	
@@ -1523,45 +1524,36 @@ MySceneGraph.prototype.displayScene = function() {
 }
 
 MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, currMaterialID) {
-	this.scene.pushMatrix();
-
 	var node = this.nodes[currNodeID];
+
+	this.scene.pushMatrix();
 	this.scene.multMatrix(node.transformMatrix);
 
+	var newTextureID = node.textureID;
+	var newMaterialID = node.materialID;
 
-	var newTextureID;
-	if(node.textureID != "null")
-		newTextureID = node.textureID;
-	else
-		newTextureID = currTextureID;
-
-	var newMaterialID;
-	if(node.MaterialID != "null")
-		newMaterialID = node.MaterialID;
-	else
+	if(newMaterialID == "null")
 		newMaterialID = currMaterialID;
 
-
-	//node.textureID = newTextureID;
-	//node.MaterialID = newMaterialID;
-
+	if(newTextureID == "null"){
+		if(currTextureID != "null"){
+			newTextureID = currTextureID;
+		} 
+	} /*else if (newTextureID == "clear")
+		this.textures[currTextureID][0].unbind();
+*/
+	
+	if(newMaterialID != null && newMaterialID != "null")
+		this.materials[newMaterialID].apply();
+	
+	if(newTextureID != "clear" && newTextureID != null)
+		this.textures[newTextureID][0].bind();
 
 	for(var i=0;i < node.leaves.length;i++){
-		/*
-		this.materials[this.defaultMaterialID].apply();
-
-		if(newMaterialID != null && node.newMaterialID != "null" ){
-			this.materials[newMaterialID][0].apply();	
+		
+		if(newTextureID != "clear" && newTextureID != null){
+			node.leaves[i].updateTexCoords(this.textures[newTextureID][1],this.textures[newTextureID][2]);
 		}
-		 */
-
-		//this.materials[this.defaultMaterialID].apply();
-		this.textures["vidral"][0].bind();
-
-		//Aplicar aqui as coordenadas de textura? Ou diretamente nas primitivas xD
-		if(node.textureID != null && node.textureID != "null" ){
-			//this.textures["vidral"][0].bind();
-		}	
 		node.leaves[i].display();
 
 	}

@@ -86,3 +86,9 @@ MyHalfSphere.prototype.initBuffers = function() {
 	this.primitiveType = this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
 };
+
+MyHalfSphere.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
+	
+
+	this.updateTexCoordsGLBuffers();
+}

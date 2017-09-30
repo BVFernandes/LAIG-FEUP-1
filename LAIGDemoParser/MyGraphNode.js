@@ -5,7 +5,7 @@
 
 function MyGraphNode(graph, nodeID) {
 	this.graph = graph;
-
+	this.scene = graph.scene;
 	this.nodeID = nodeID;
 
 	// IDs of child nodes.
@@ -22,6 +22,7 @@ function MyGraphNode(graph, nodeID) {
 
 	this.transformMatrix = mat4.create();
 	mat4.identity(this.transformMatrix);
+	
 }
 
 /**
@@ -37,5 +38,3 @@ MyGraphNode.prototype.addChild = function(nodeID) {
 MyGraphNode.prototype.addLeaf = function(leaf) {
 	this.leaves.push(leaf);
 }
-
-

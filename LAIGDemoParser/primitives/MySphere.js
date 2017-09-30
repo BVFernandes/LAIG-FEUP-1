@@ -28,3 +28,9 @@ MySphere.prototype.display = function() {
 	this.hSphere.display();
 	this.scene.popMatrix();	
 }
+
+MySphere.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
+	
+
+	this.updateTexCoordsGLBuffers();
+}

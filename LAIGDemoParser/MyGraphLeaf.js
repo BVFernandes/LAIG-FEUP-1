@@ -54,3 +54,8 @@ MyGraphLeaf.prototype.create=function() {
 MyGraphLeaf.prototype.display=function() {
 	this.model.display();
 }
+
+MyGraphLeaf.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t) {
+	this.model.updateTexCoords(amplif_factor_s,amplif_factor_t);
+}
+
