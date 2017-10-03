@@ -1504,7 +1504,7 @@ MySceneGraph.prototype.displayScene = function() {
 	this.displaySceneAux(this.idRoot);
 }
 
-/*
+
 MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, currMaterialID) {
 	var node = this.nodes[currNodeID];
 
@@ -1521,7 +1521,7 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, cur
 		if(currTextureID != "null"){
 			newTextureID = currTextureID;
 		}
-	} 
+	}
 
 	if(newMaterialID != null && newMaterialID != "null")
 		this.materials[newMaterialID].apply();
@@ -1542,9 +1542,9 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, cur
 
 	this.scene.popMatrix();
 }
-*/
 
 
+/*
 MySceneGraph.prototype.displaySceneAux = function(currNodeID) {
 	var node = this.nodes[currNodeID];
 
@@ -1597,4 +1597,5 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID) {
 
 	this.scene.popMatrix();
 }
+*/
 /* ends here */

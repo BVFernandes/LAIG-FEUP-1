@@ -14,7 +14,7 @@ MyCouch.prototype.constructor = MyCouch;
 
 MyCouch.prototype.display  = function () {
 
-  //bottom
+  //top
 	this.scene.pushMatrix();
 	this.scene.scale(3, 1, 5);
 	this.scene.couchAppearance.apply();

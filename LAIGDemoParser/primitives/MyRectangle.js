@@ -31,7 +31,7 @@ MyRectangle.prototype.initBuffers = function () {
 		];
 
 	this.indices = [
-		0, 1, 2, 
+		0, 1, 2,
 		3, 2, 1
 		];
 
@@ -46,14 +46,14 @@ MyRectangle.prototype.initBuffers = function () {
 
 	//Needed to implement how to update tex coords according to the amplification factor. But tested with brute force and it's ok!
 
-	var maxS=(this.rightBottom[0]-this.leftTop[0]); // delta x
-	var maxT=(this.rightBottom[1]-this.leftTop[1]); // delta y
+	this.maxS=(this.rightBottom[0]-this.leftTop[0]); // delta x
+	this.maxT=(this.leftTop[1]-this.rightBottom[1]); // delta y
 
 	this.texCoords = [
 		0,0,
-		maxS,0,
-		0,maxT,
-		maxS,maxT
+		this.maxS,0,
+		0,this.maxT,
+		this.maxS,this.maxT
 		];
 
 	this.initGLBuffers();
@@ -61,14 +61,14 @@ MyRectangle.prototype.initBuffers = function () {
 
 
 MyRectangle.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
-	var maxS=(this.rightBottom[0]-this.leftTop[0])/amplif_factor_s; // delta x
-	var maxT=(this.rightBottom[1]-this.leftTop[1])/amplif_factor_t; // delta y
-	
+	var UmaxS=this.maxS/amplif_factor_s; // delta x
+	var UmaxT=this.maxT/amplif_factor_t; // delta y
+
 	this.texCoords = [
 		0,0,
-		maxS,0,
-		0,maxT,
-		maxS,maxT
+		UmaxS,0,
+		0,UmaxT,
+		UmaxS,UmaxT
 		];
 
 	this.updateTexCoordsGLBuffers();
