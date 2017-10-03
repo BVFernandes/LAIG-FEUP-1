@@ -33,13 +33,6 @@
 			deve ser único dentro de cada bloco (por exemplo, não podem existir duas fontes de luz com o mesmo
 		identificador).
 
-	->Outros
-		-Apagar console.logs desnecessários, visto que limita demasiado o desempenho da cena
-		-Apagar comentários desnecessários como as primitivas das stacks e as funções que se encontram no SceneGraph
-		-Ver documentos que se encontram no moodle pode ser que as funções das bibliotecas utilizadas possam melhorar o desempenho
-		-Ler laig-cenas.txt by damas e verificar o que for necessário corrigir
-		-Mudar nome dos diretórios xD
-		-Onde se verifica se os valores default estão corretos? No XMLScene?
 		
 -> Enunciado
 
@@ -57,6 +50,20 @@
 	- Folha "sphere": tem pólos norte e sul respetivamente nos lados positivo e negativo do eixo ZZ; o centro
 	está na origem das coordenadas.
 	
+		
+-> Outros
+
+	-Apagar console.logs desnecessários, visto que limita demasiado o desempenho da cena
+	
+	-Apagar comentários desnecessários como as primitivas das stacks e as funções que se encontram no SceneGraph
+	
+	-Ver documentos que se encontram no moodle pode ser que as funções das bibliotecas utilizadas possam melhorar o desempenho
+	
+	-Ler laig-cenas.txt by damas e verificar o que for necessário corrigir
+	
+	-Mudar nome dos diretórios xD
+	
+	-Onde se verifica se os valores default estão corretos? No XMLScene?
 		
 		
 ## Critérios de avaliação:
