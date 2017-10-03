@@ -31,7 +31,7 @@ function MySceneGraph(filename, scene) {
 	this.axisCoords['y'] = [0, 1, 0];
 	this.axisCoords['z'] = [0, 0, 1];
 
-	// File reading 
+	// File reading
 	this.reader = new CGFXMLreader();
 
 	/*
@@ -46,7 +46,7 @@ function MySceneGraph(filename, scene) {
 /*
  * Callback to be executed after successful reading
  */
-MySceneGraph.prototype.onXMLReady = function() 
+MySceneGraph.prototype.onXMLReady = function()
 {
 	console.log("XML Loading finished.");
 	var rootElement = this.reader.xmlDoc.documentElement;
@@ -172,7 +172,7 @@ MySceneGraph.prototype.parseInitials = function(initialsNode) {
 	var indexFrustum = nodeNames.indexOf("frustum");
 	if (indexFrustum == -1) {
 		this.onXMLMinorError("frustum planes missing; assuming 'near = 0.1' and 'far = 500'");
-	} 
+	}
 	else {
 		this.near = this.reader.getFloat(children[indexFrustum], 'near');
 		this.far = this.reader.getFloat(children[indexFrustum], 'far');
@@ -228,7 +228,7 @@ MySceneGraph.prototype.parseInitials = function(initialsNode) {
 	// Translation.
 	this.initialTransforms = mat4.create();
 	mat4.identity(this.initialTransforms);
-	if (translationIndex == -1) 
+	if (translationIndex == -1)
 		this.onXMLMinorError("initial translation undefined; assuming T = (0, 0, 0)");
 	else {
 		var tx = this.reader.getFloat(children[translationIndex], 'x');
@@ -475,7 +475,7 @@ MySceneGraph.prototype.parseIllumination = function(illuminationNode) {
 		}
 		else
 			this.onXMLMinorError("unable to parse A component of the ambient illumination; assuming A = 1");
-	} 
+	}
 	else
 		this.onXMLMinorError("global ambient illumination undefined; assuming Ia = (0, 0, 0, 1)");
 
@@ -534,7 +534,7 @@ MySceneGraph.prototype.parseIllumination = function(illuminationNode) {
 		}
 		else
 			this.onXMLMinorError("unable to parse A component of the background colour; assuming A = 1");
-	} 
+	}
 	else
 		this.onXMLMinorError("background clear colour undefined; assuming (R, G, B, A) = (0, 0, 0, 1)");
 
@@ -593,12 +593,12 @@ MySceneGraph.prototype.parseLights = function(lightsNode) {
 		var enableLight = true;
 		if (enableIndex == -1) {
 			this.onXMLMinorError("enable value missing for ID = " + lightId + "; assuming 'value = 1'");
-		} 
+		}
 		else {
 			var aux = this.reader.getFloat(grandChildren[enableIndex], 'value');
 			if (aux == null ) {
 				this.onXMLMinorError("unable to parse value component of the 'enable light' field for ID = " + lightId + "; assuming 'value = 1'");
-			} 
+			}
 			else if (isNaN(aux))
 				return "'enable value' is a non numeric value on the LIGHTS block";
 			else if (aux != 0 &&     aux != 1)
@@ -655,7 +655,7 @@ MySceneGraph.prototype.parseLights = function(lightsNode) {
 			}
 			else
 				return "unable to parse w-coordinate of the light position for ID = " + lightId;
-		} 
+		}
 		else
 			return "light position undefined for ID = " + lightId;
 
@@ -712,7 +712,7 @@ MySceneGraph.prototype.parseLights = function(lightsNode) {
 			}
 			else
 				return "unable to parse A component of the ambient illumination for ID = " + lightId;
-		} 
+		}
 		else
 			return "ambient component undefined for ID = " + lightId;
 
@@ -770,7 +770,7 @@ MySceneGraph.prototype.parseLights = function(lightsNode) {
 			}
 			else
 				return "unable to parse A component of the diffuse illumination for ID = " + lightId;
-		} 
+		}
 		else
 			return "diffuse component undefined for ID = " + lightId;
 
@@ -828,7 +828,7 @@ MySceneGraph.prototype.parseLights = function(lightsNode) {
 			}
 			else
 				return "unable to parse A component of the specular illumination for ID = " + lightId;
-		} 
+		}
 		else
 			return "specular component undefined for ID = " + lightId;
 
@@ -884,7 +884,7 @@ MySceneGraph.prototype.parseTextures = function(texturesNode) {
 					filepath = this.reader.getString(texSpecs[j], 'path');
 					if (filepath == null )
 						return "unable to parse texture file path for ID = " + textureID;
-				} 
+				}
 				else if (name == "amplif_factor") {
 					if (amplifFactorS != null  || amplifFactorT != null )
 						return "duplicate amplification factors in texture with ID = " + textureID;
@@ -900,7 +900,7 @@ MySceneGraph.prototype.parseTextures = function(texturesNode) {
 						return "'amplifFactorT' is a non numeric value";
 					else if (amplifFactorS <= 0 || amplifFactorT <= 0)
 						return "value for amplifFactor must be positive";
-				} 
+				}
 				else
 					this.onXMLMinorError("unknown tag name <" + name + ">");
 			}
@@ -916,7 +916,7 @@ MySceneGraph.prototype.parseTextures = function(texturesNode) {
 
 			this.textures[textureID] = [texture, amplifFactorS, amplifFactorT];
 			oneTextureDefined = true;
-		} 
+		}
 		else
 			this.onXMLMinorError("unknown tag name <" + nodeName + ">");
 	}
@@ -979,7 +979,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 		var specularComponent = [];
 		// R.
 		var r = this.reader.getFloat(materialSpecs[specularIndex], 'r');
-		if (r == null ) 
+		if (r == null )
 			return "unable to parse R component of specular reflection for material with ID = " + materialID;
 		else if (isNaN(r))
 			return "specular 'r' is a non numeric value on the MATERIALS block";
@@ -1181,7 +1181,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					return "failed to retrieve root node ID";
 				this.idRoot = root;
 			}
-		} 
+		}
 		else if (nodeName == "NODE") {
 			// Retrieves node ID.
 			var nodeID = this.reader.getString(children[i], 'id');
@@ -1338,7 +1338,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 						this.nodes[nodeID].addChild(curId);
 						sizeChildren++;
 					}
-				}                    
+				}
 				else
 					if (descendants[j].nodeName == "LEAF")
 					{
@@ -1372,7 +1372,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			}
 			if (sizeChildren == 0)
 				return "at least one descendant must be defined for each intermediate node";
-		} 
+		}
 		else
 			this.onXMLMinorError("unknown tag name <" + nodeName);
 	}
@@ -1428,7 +1428,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 	}
 	case 'patch':
 		break;
-	default: 
+	default:
 		break;
 	}
 
@@ -1520,13 +1520,12 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, cur
 	if(newTextureID == "null"){
 		if(currTextureID != "null"){
 			newTextureID = currTextureID;
-		} 
-	} /*else if (newTextureID == "clear")
-		this.textures[currTextureID][0].unbind();
-	
+		}
+	} 
+
 	if(newMaterialID != null && newMaterialID != "null")
 		this.materials[newMaterialID].apply();
-	
+
 	if(newTextureID != "clear" && newTextureID != null)
 		this.textures[newTextureID][0].bind();
 
@@ -1551,7 +1550,7 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID) {
 
 	this.scene.pushMatrix();
 	this.scene.multMatrix(node.transformMatrix);
-	
+
 	var matPush = false;
 	var texPush = false;
 
@@ -1568,7 +1567,7 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID) {
 	for(var j=0;j < node.children.length; j++){
 		this.displaySceneAux(node.children[j]);
 	}
-	
+
 	var matStackSize = this.matStack.length;
 	var materialID;
 	if(matStackSize != 0){
@@ -1577,7 +1576,7 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID) {
 		if(matPush)
 			this.matStack.pop();
 	}
-	
+
 	var texStackSize = this.texStack.length;
 	var textureID = "null";
 	if(texStackSize != 0){
@@ -1587,7 +1586,7 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID) {
 		if(texPush)
 			this.texStack.pop();
 	}
-	
+
 	for(var i=0;i < node.leaves.length;i++){
 		if(textureID != "clear" && texStackSize != 0){
 			node.leaves[i].updateTexCoords(this.textures[textureID][1],this.textures[textureID][2]);

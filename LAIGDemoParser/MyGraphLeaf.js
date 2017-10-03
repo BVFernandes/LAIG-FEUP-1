@@ -12,7 +12,7 @@ function MyGraphLeaf(graph, xmlelem, args) {
 	this.create();
 }
 
-MyGraphLeaf.prototype.createRectangle=function() {	
+MyGraphLeaf.prototype.createRectangle=function() {
 	const p1 = [this.args[0],this.args[1]];
 	const p2 = [this.args[2],this.args[3]];
 	this.model = new MyRectangle(this.graph.scene,p1,p2);
@@ -30,7 +30,7 @@ MyGraphLeaf.prototype.createTriangle=function() {
 	const p1 = [this.args[0], this.args[1], this.args[2]];
 	const p2 = [this.args[3], this.args[4], this.args[5]];
 	const p3 = [this.args[6], this.args[7], this.args[8]];
-	this.model = new MyTriangle(this.graph.scene,true,p3,p2,p1);
+	this.model = new MyTriangle(this.graph.scene,true,p1,p2,p3);
 }
 
 MyGraphLeaf.prototype.create=function() {
@@ -58,4 +58,3 @@ MyGraphLeaf.prototype.display=function() {
 MyGraphLeaf.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t) {
 	this.model.updateTexCoords(amplif_factor_s,amplif_factor_t);
 }
-
