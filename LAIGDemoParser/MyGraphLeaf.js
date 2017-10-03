@@ -13,17 +13,27 @@ function MyGraphLeaf(graph, xmlelem, args) {
 }
 
 MyGraphLeaf.prototype.createRectangle=function() {
-	const p1 = [this.args[0],this.args[1]];
-	const p2 = [this.args[2],this.args[3]];
+	let p1 = [this.args[0],this.args[1]];
+	let p2 = [this.args[2],this.args[3]];
 	this.model = new MyRectangle(this.graph.scene,p1,p2);
 }
 
 MyGraphLeaf.prototype.createCylinder=function() {
-	this.model = new MyCylinder(this.graph.scene, this.args[0], this.args[1], this.args[2], this.args[3], this.args[4]);
+	let height = this.args[0];
+	let bottom_radius = this.args[1];
+	let top_radius = this.args[2];
+	let slices = this.args[3];
+	let stacks = this.args[4];
+
+	this.model = new MyCylinder(this.graph.scene, height, bottom_radius, top_radius, slices, stacks);
 }
 
 MyGraphLeaf.prototype.createSphere=function() {
-	this.model = new MySphere(this.graph.scene, this.args[0], this.args[1], this.args[2]);
+	let radius = this.args[0];
+	let slices = this.args[1];
+	let stacks = this.args[2];
+
+	this.model = new MySphere(this.graph.scene, radius, slices, stacks);
 }
 
 MyGraphLeaf.prototype.createTriangle=function() {
