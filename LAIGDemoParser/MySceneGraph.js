@@ -1500,11 +1500,10 @@ MySceneGraph.generateRandomString = function(length) {
 
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
-	//this.displaySceneAux(this.idRoot,null,null);
-	this.displaySceneAux(this.idRoot);
+	this.nodes[this.idRoot].display(null,null);
 }
 
-
+/*
 MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, currMaterialID) {
 	var node = this.nodes[currNodeID];
 
@@ -1543,8 +1542,6 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, cur
 	this.scene.popMatrix();
 }
 
-
-/*
 MySceneGraph.prototype.displaySceneAux = function(currNodeID) {
 	var node = this.nodes[currNodeID];
 
