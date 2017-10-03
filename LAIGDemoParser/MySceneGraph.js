@@ -12,6 +12,8 @@ var NODES_INDEX = 6;
 /**
  * MySceneGraph class, representing the scene graph.
  * @constructor
+ * @param {string} filename scene's filename
+ * @param {CGFScene} scene CGFScene to be used
  */
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null ;
@@ -21,8 +23,8 @@ function MySceneGraph(filename, scene) {
 	scene.graph = this;
 
 	this.nodes = [];
-	this.texStack = [];
-	this.matStack = [];
+	//this.texStack = [];
+	//this.matStack = [];
 
 	this.idRoot = null;                    // The id of the root element.
 
