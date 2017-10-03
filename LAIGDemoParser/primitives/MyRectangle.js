@@ -44,8 +44,7 @@ MyRectangle.prototype.initBuffers = function () {
 		0, 0, 1
 		];
 
-	//Needed to implement how to update tex coords according to the amplification factor. But tested with brute force and it's ok!
-
+	
 	this.maxS=(this.rightBottom[0]-this.leftTop[0]); // delta x
 	this.maxT=(this.leftTop[1]-this.rightBottom[1]); // delta y
 

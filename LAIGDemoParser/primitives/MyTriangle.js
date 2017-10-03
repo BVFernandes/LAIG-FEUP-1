@@ -31,7 +31,7 @@ MyTriangle.prototype.initBuffers = function() {
 
 	this.primitiveType = this.scene.gl.TRIANGLES;
 
-
+	//Calculate two vectors and made the product vectorial to obtain a perpendicular vector
 	let vecA=[this.p2[0]-this.p1[0],this.p2[1]-this.p1[1],this.p2[2]-this.p1[2]]; // x y z
 	let vecB=[this.p3[0]-this.p1[0],this.p3[1]-this.p1[1],this.p3[2]-this.p1[2]];
 
@@ -44,31 +44,32 @@ MyTriangle.prototype.initBuffers = function() {
 		vecProd[0], vecProd[1], vecProd[2],
 		vecProd[0], vecProd[1], vecProd[2]];
 
-		//Distance between p1 and p2
-		this.a = Math.sqrt( Math.pow((this.p2[0] - this.p1[0]), 2) +
-				Math.pow((this.p2[1] - this.p1[1]), 2) +
-				Math.pow((this.p2[2] - this.p1[2]), 2));
+	//Distance between p1 and p2
+	this.dp1p2 = Math.sqrt( Math.pow((this.p2[0] - this.p1[0]), 2) +
+			Math.pow((this.p2[1] - this.p1[1]), 2) +
+			Math.pow((this.p2[2] - this.p1[2]), 2));
 
-		//Distance between p1 and p3
-		this.b = Math.sqrt( Math.pow((this.p1[0] - this.p3[0]), 2) +
-				Math.pow((this.p1[1] - this.p3[1]), 2) +
-				Math.pow((this.p1[2] - this.p3[2]), 2));
+	//Distance between p1 and p3
+	this.dp1p3 = Math.sqrt( Math.pow((this.p1[0] - this.p3[0]), 2) +
+			Math.pow((this.p1[1] - this.p3[1]), 2) +
+			Math.pow((this.p1[2] - this.p3[2]), 2));
 
-		//Distance between p3 and p2
-		this.c = Math.sqrt( Math.pow((this.p3[0] - this.p2[0]), 2) +
-				Math.pow((this.p3[1] - this.p2[1]), 2) +
-				Math.pow((this.p3[2] - this.p2[2]), 2));
+	//Distance between p3 and p2
+	this.dp2p3 = Math.sqrt( Math.pow((this.p3[0] - this.p2[0]), 2) +
+			Math.pow((this.p3[1] - this.p2[1]), 2) +
+			Math.pow((this.p3[2] - this.p2[2]), 2));
 
-
-
-		    this.cos = ((this.p3[0]-this.p1[0])*(this.p2[0]-this.p1[0])+(this.p3[1]-this.p1[1])*(this.p2[1]-this.p1[2])+(this.p3[2]-this.p1[2])*(this.p2[2]-this.p1[2]))/(this.a*this.b);
-		    this.s_coord = this.cos*this.b;
-				this.t_coord = -Math.sqrt(Math.pow(this.b,2)-Math.pow(this.s_coord,2));
-		    this.texCoords = [
-		        0, 0,
-		        this.a, 0,
-		        this.s_coord,this.t_coord,
-		    ];
+	
+	this.cos = ((this.p3[0]-this.p1[0])*(this.p2[0]-this.p1[0])+(this.p3[1]-this.p1[1])*(this.p2[1]-this.p1[2])+(this.p3[2]-this.p1[2])*(this.p2[2]-this.p1[2]))/(this.dp1p2*this.dp1p3);
+	
+	this.s_coord = this.cos*this.dp1p3;
+	this.t_coord = -Math.sqrt(Math.pow(this.dp1p3,2)-Math.pow(this.s_coord,2));
+	
+	this.texCoords = [
+		0, 0,
+		this.dp1p2, 0,
+		this.s_coord,this.t_coord,
+		];
 
 
 	this.initGLBuffers();
@@ -76,11 +77,11 @@ MyTriangle.prototype.initBuffers = function() {
 
 MyTriangle.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
 
-this.texCoords = [
+	this.texCoords = [
 		0, 0,
-		this.a/amplif_factor_s, 0,
+		this.dp1p2/amplif_factor_s, 0,
 		this.s_coord/amplif_factor_s,this.t_coord/amplif_factor_t,
-];
+		];
 
 	this.updateTexCoordsGLBuffers();
 }

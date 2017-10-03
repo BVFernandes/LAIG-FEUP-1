@@ -17,6 +17,7 @@ XMLscene.prototype.constructor = XMLscene;
 
 /**
  * Initializes the scene, setting some WebGL defaults, initializing the camera and the axis.
+ * @param  {[CGFapplication]} scene application
  */
 XMLscene.prototype.init = function(application) {
 	CGFscene.prototype.init.call(this, application);
@@ -65,6 +66,27 @@ XMLscene.prototype.initLights = function() {
 		}
 	}
 
+}
+
+/**
+ * Updates lights accordingly to the user input on the interface
+ */
+XMLscene.prototype.updateLights = function () {
+	var i = 0;
+	for (var key in this.lightValues) {
+		if (this.lightValues.hasOwnProperty(key)) {
+			if (this.lightValues[key]) {
+				this.lights[i].setVisible(true);
+				this.lights[i].enable();
+			}
+			else {
+				this.lights[i].setVisible(false);
+				this.lights[i].disable();
+			}
+			this.lights[i].update();
+			i++;
+		}
+	}
 }
 
 /**
@@ -121,21 +143,8 @@ XMLscene.prototype.display = function() {
 		// Draw axis
 		this.axis.display();
 
-		var i = 0;
-		for (var key in this.lightValues) {
-			if (this.lightValues.hasOwnProperty(key)) {
-				if (this.lightValues[key]) {
-					this.lights[i].setVisible(true);
-					this.lights[i].enable();
-				}
-				else {
-					this.lights[i].setVisible(false);
-					this.lights[i].disable();
-				}
-				this.lights[i].update();
-				i++;
-			}
-		}
+		// Update Lights
+		this.updateLights();
 
 		// Displays the scene.
 		this.graph.displayScene();

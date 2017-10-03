@@ -1597,5 +1597,5 @@ MySceneGraph.prototype.displaySceneAux = function(currNodeID) {
 
 	this.scene.popMatrix();
 }
-*/
+ */
 /* ends here */

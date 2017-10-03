@@ -199,7 +199,8 @@
         <TEXTURE id="couch" />
 
         <TRANSLATION x="0" y="3" z="0" />
-
+		<ROTATION axis="y" angle="180" />
+		
         <DESCENDANTS>
             <LEAF type="sphere" args="1 20 20" />
         </DESCENDANTS>

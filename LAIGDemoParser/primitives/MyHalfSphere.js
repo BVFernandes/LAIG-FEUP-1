@@ -87,8 +87,4 @@ MyHalfSphere.prototype.initBuffers = function() {
 	this.initGLBuffers();
 };
 
-MyHalfSphere.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
-	
-
-	this.updateTexCoordsGLBuffers();
-}
+MyHalfSphere.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){}

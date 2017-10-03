@@ -22,7 +22,7 @@ function MyGraphNode(graph, nodeID) {
 
 	this.transformMatrix = mat4.create();
 	mat4.identity(this.transformMatrix);
-	
+
 }
 
 /**
