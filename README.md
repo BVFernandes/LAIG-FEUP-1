@@ -6,6 +6,7 @@
 
 ## To-Do List
 -> XML
+
 	- Adicionar o resto das coisas de acordo com o esboço
 	
 	- Adicionar uma animação talvez um carrinho, avião ou barco. Em que também seja possivel movimentar com as teclas "awsd"
@@ -18,6 +19,7 @@
 	
 
 -> Código
+
 	->MyInterface
 		- Adicionar função que lida com o input do keyboard
 	
@@ -40,6 +42,7 @@
 		-Onde se verifica se os valores default estão corretos? No XMLScene?
 		
 -> Enunciado
+
 	-Ver na parte das luzes o w na light position w=1, point light, w=0, directional light
 	
 	- Cilindro Slices e Stacks estão trocadas! 
