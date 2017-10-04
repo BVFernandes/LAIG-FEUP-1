@@ -53,6 +53,30 @@
       <file path="images_room/rock.jpg" />
       <amplif_factor s="1" t="1" />
   </TEXTURE>
+  
+  	<!-- Painting 1 -->
+  <TEXTURE id="painting1_tex">
+      <file path="images_room/painting1form.jpg" />
+      <amplif_factor s="1.6" t="2.1" />
+  </TEXTURE>
+  
+  	<!-- Painting 2 -->
+  <TEXTURE id="painting2_tex">
+      <file path="images_room/painting2.jpg" />
+      <amplif_factor s="1.6" t="2.1" />
+  </TEXTURE>
+  
+  <!-- Wood -->
+  <TEXTURE id="wood_tex">
+      <file path="images_room/wood.jpg" />
+      <amplif_factor s="1" t="1" />
+  </TEXTURE>
+  
+  <!-- Carpet -->
+  <TEXTURE id="carpet_tex">
+      <file path="images_room/carpet.jpg" />
+      <amplif_factor s="0.1" t="0.1" />
+  </TEXTURE>
 
 </TEXTURES>
 
@@ -60,31 +84,40 @@
 <MATERIALS>
 
       <!-- A default material -->
-      <MATERIAL id="defaultMaterial">
-          <shininess value="1" />
-          <specular r="0.0" g="0.0" b="0.0" a="1" />
-          <diffuse r="0.4" g="0.4" b="0.4" a="1" />
-          <ambient r="0.4" g="0.4" b="0.4" a="1" />
-          <emission r="0.0" g="0.0" b="0.0" a="1" />
-      </MATERIAL>
+	<MATERIAL id="defaultMaterial">
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.4" g="0.4" b="0.4" a="1" />
+        <ambient r="0.4" g="0.4" b="0.4" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
 
 		<!-- Metal material -->
-  <MATERIAL id="metalMaterial">
-      <shininess value="50" />
-      <specular r="1" g="1" b="1" a="0.5" />
-      <diffuse r="0.6" g="0.6" b="0.6" a="1" />
-      <ambient r="0.3" g="0.3" b="0.3" a="1" />
-      <emission r="0.0" g="0.0" b="0.0" a="1" />
-  </MATERIAL>
+	<MATERIAL id="metalMaterial">
+		<shininess value="255" />
+		<specular r="1" g="1" b="1" a="0.5" />
+		<diffuse r="0.6" g="0.6" b="0.6" a="1" />
+		<ambient r="0.3" g="0.3" b="0.3" a="1" />
+		<emission r="0.0" g="0.0" b="0.0" a="1" />
+	</MATERIAL>
 
-  <!-- Floor material -->
-<MATERIAL id="floorMaterial">
-    <shininess value="50" />
-    <specular r="0.5" g="0.5" b="0.5" a="0.5" />
-    <diffuse r="0" g="0" b="0" a="1" />
-    <ambient r="0.3" g="0.3" b="0.3" a="1" />
-    <emission r="0.0" g="0.0" b="0.0" a="1" />
-</MATERIAL>
+	<!-- Floor material -->
+	<MATERIAL id="floorMaterial">
+		<shininess value="50" />
+		<specular r="0.5" g="0.5" b="0.5" a="0.5" />
+		<diffuse r="0" g="0" b="0" a="1" />
+		<ambient r="0.3" g="0.3" b="0.3" a="1" />
+		<emission r="0.0" g="0.0" b="0.0" a="1" />
+	</MATERIAL>
+	
+	<!-- Plastic material -->
+	<MATERIAL id="plasticMaterial">
+		<shininess value="50" />
+		<specular r="0.1" g="0.1" b="0.1" a="1" />
+		<diffuse r="0.1" g="0.1" b="0.1" a="1" />
+		<ambient r="0.1" g="0.1" b="0.1" a="1" />
+		<emission r="0.0" g="0.0" b="0.0" a="1" />
+	</MATERIAL>
 
 </MATERIALS>
 
@@ -107,9 +140,14 @@
         <DESCENDANTS>
             <NODEREF id="floor" />
             <NODEREF id="walls" />
-             <NODEREF id="lamp" />
+            <NODEREF id="lamp" />
             <NODEREF id="couch" />
             <NODEREF id="table" />
+			<NODEREF id="shelf" />
+			<NODEREF id="television" />
+			<NODEREF id="painting1" />
+			<NODEREF id="painting2" />
+			<NODEREF id="carpet" />
         </DESCENDANTS>
 
     </NODE>
@@ -171,7 +209,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <SCALE sx="15" sy="5" sz="1" />
+        <SCALE sx="15" sy="5" sz="0" />
 
         <DESCENDANTS>
           <LEAF  type="rectangle" args="-0.5 0.5 0.5 -0.5" />
@@ -322,10 +360,10 @@
 
 </NODE>
 
-<!-- Table -->
+	<!-- Table -->
    <NODE id="table">
        <MATERIAL id="null" />
-       <TEXTURE id="couch_head" />
+       <TEXTURE id="null" />
 
        <TRANSLATION x="1.5" y="0" z="7.5" />
 
@@ -339,7 +377,7 @@
    <!-- Table Top -->
    <NODE id="table_top">
        <MATERIAL id="null" />
-       <TEXTURE id="null" />
+       <TEXTURE id="wood_tex" />
 
       <TRANSLATION x="0" y="1" z="0" />
        <SCALE sx="2.5" sy="0.5" sz="5"/>
@@ -433,9 +471,209 @@
 
    </NODE>
 
+	<!-- Shelf -->
+	<NODE id="shelf">
+     <MATERIAL id="null" />
+     <TEXTURE id="couch" />
 
-<!-- Unitary Cube -->
-<!-- Tree leaves -->
+	 <TRANSLATION x="5" y="3" z="0.5"/>
+	 
+     <DESCENDANTS>
+       <NODEREF id="shelf_base" />
+       <NODEREF id="shelf_panel_r" />
+       <NODEREF id="shelf_panel_l" />
+     </DESCENDANTS>
+
+	</NODE>
+
+	<!-- Shelf Base -->
+	<NODE id="shelf_base">
+     <MATERIAL id="null" />
+     <TEXTURE id="wood_tex" />
+
+	 <SCALE sx="5" sy="0.5" sz="1"/>
+
+     <DESCENDANTS>
+       <NODEREF id="cube" />
+     </DESCENDANTS>
+
+	</NODE>
+	
+	<!-- Shelf Right Panel -->
+	<NODE id="shelf_panel_r">
+     <MATERIAL id="metalMaterial" />
+     <TEXTURE id="clear" />
+
+     <TRANSLATION x="-2.55" y="0.25" z="-0.25"/>
+	 <SCALE sx="0.1" sy="1" sz="0.5" />
+	 
+     <DESCENDANTS>
+       <NODEREF id="cube" />
+     </DESCENDANTS>
+
+	</NODE>
+ 
+	<!-- Shelf Left Panel -->
+	<NODE id="shelf_panel_l">
+     <MATERIAL id="metalMaterial" />
+     <TEXTURE id="clear" />
+
+     <TRANSLATION x="2.55" y="0.25" z="-0.25"/>
+	 <SCALE sx="0.1" sy="1" sz="0.5" />
+
+     <DESCENDANTS>
+       <NODEREF id="cube" />
+     </DESCENDANTS>
+
+	</NODE>
+ 
+	<!-- Television -->
+	<NODE id="television">
+     <MATERIAL id="plasticMaterial" />
+     <TEXTURE id="null" />
+
+     <TRANSLATION x="2" y="2.25" z="7.5"/>
+	 <ROTATION axis="y" angle="90" />
+	 <SCALE sx="1.2" sy="2" sz="1" />
+
+     <DESCENDANTS>
+       <NODEREF id="tv_main" />
+	   <NODEREF id="tv_sec" />
+	   <NODEREF id="tv_thrd" />
+	   <NODEREF id="tv_screen" />
+     </DESCENDANTS>
+
+	</NODE>
+	
+	<!-- Television Main -->
+	<NODE id="tv_main">
+     <MATERIAL id="null" />
+     <TEXTURE id="null" />
+
+	 <SCALE sx="2" sy="1" sz="1" />
+
+     <DESCENDANTS>
+       <NODEREF id="cube" />
+     </DESCENDANTS>
+
+	</NODE>
+	
+	<!-- Television Sec -->
+	<NODE id="tv_sec">
+     <MATERIAL id="null" />
+     <TEXTURE id="null" />
+
+	 <TRANSLATION x="0" y="0" z="-0.65"/>
+	 <SCALE sx="1.8" sy="0.8" sz="0.3" />
+
+     <DESCENDANTS>
+       <NODEREF id="cube" />
+     </DESCENDANTS>
+
+	</NODE>
+	
+	<!-- Television Third -->
+	<NODE id="tv_thrd">
+     <MATERIAL id="null" />
+     <TEXTURE id="null" />
+
+     <TRANSLATION x="0" y="0" z="-1"/>
+	 <SCALE sx="1" sy="0.6" sz="0.4" />
+
+     <DESCENDANTS>
+	   <NODEREF id="cube" />
+     </DESCENDANTS>
+
+	</NODE>
+	
+	<!-- Television Screen -->
+	<NODE id="tv_screen">
+     <MATERIAL id="defaultMaterial" />
+     <TEXTURE id="painting1_tex" />
+
+     <TRANSLATION x="0" y="0" z="0.55"/>
+
+     <DESCENDANTS>
+		<LEAF  type="rectangle" args="-0.9 0.4 0.9 -0.4" />
+     </DESCENDANTS>
+
+	</NODE>
+
+	
+	 <!-- The left-most painting -->
+    <NODE id="painting1">
+        <MATERIAL id="null" />
+        <TEXTURE id="painting1_tex" />
+		
+        <TRANSLATION x="0.1" y="2.5" z="11.3" />
+        <ROTATION axis="y" angle="90" />
+
+        <DESCENDANTS>
+			<NODEREF id="painting_frame" />
+			<NODEREF id="painting_canvas" />
+		</DESCENDANTS>
+
+    </NODE>
+	
+	
+	 <!-- The left-most painting -->
+    <NODE id="painting2">
+        <MATERIAL id="null" />
+        <TEXTURE id="painting2_tex" />
+
+        <TRANSLATION x="0.1" y="2.5" z="3.75" />
+        <ROTATION axis="y" angle="90" />
+
+        <DESCENDANTS>
+			<NODEREF id="painting_frame" />
+			<NODEREF id="painting_canvas" />
+		</DESCENDANTS>
+
+    </NODE>
+	
+	
+	 <!-- The left-most painting -->
+    <NODE id="painting_frame">
+        <MATERIAL id="null" />
+        <TEXTURE id="wood_tex" />
+
+        <SCALE sx="2" sy="2.5" sz="0.2" />
+
+        <DESCENDANTS>
+			<NODEREF id="cube" />
+		</DESCENDANTS>
+
+    </NODE>
+	
+	 <!-- The left-most painting -->
+    <NODE id="painting_canvas">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="0" z="0.105" />
+
+        <DESCENDANTS>
+			<LEAF  type="rectangle" args="-0.8 1.05 0.8 -1.05" />
+		</DESCENDANTS>
+
+    </NODE>
+	
+	 <!-- The left-most painting -->
+    <NODE id="carpet">
+        <MATERIAL id="null" />
+        <TEXTURE id="carpet_tex" />
+
+        <TRANSLATION x="7" y="0.05" z="7.5" />
+		<ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+			<LEAF  type="rectangle" args="-3 4 3 -4" />
+		</DESCENDANTS>
+
+    </NODE>
+	
+	<!-- Unitary Cube -->
+	<!-- Tree leaves -->
  <NODE id="cube">
     <MATERIAL id="null" />
     <TEXTURE id="null" />
