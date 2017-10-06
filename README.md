@@ -7,9 +7,11 @@
 ## To-Do List
 -> XML
 
+	-Refactor ao XML
+	
 	- Adicionar o resto das coisas de acordo com o esboço
 	
-	- Adicionar uma animação talvez um carrinho, avião ou barco. Em que também seja possivel movimentar com as teclas "awsd"
+	- Adicionar uma animação de um aspirador tipo pé das colunas. Em que também seja possivel movimentar com as teclas "awsd"
 	
 	- Talvez uma animação simples que não seja o relógio. Ainda pensei na lareira mas não vejo forma de modular tal coisa.
 	
