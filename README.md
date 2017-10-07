@@ -9,6 +9,8 @@
 
 	-Refactor ao XML
 	
+	-Ver que texturas não são utilizadas para não dar load no inicio(otimização)
+	
 	- Adicionar o resto das coisas de acordo com o esboço
 	
 	- Adicionar uma animação de um aspirador tipo pé das colunas. Em que também seja possivel movimentar com as teclas "awsd"
