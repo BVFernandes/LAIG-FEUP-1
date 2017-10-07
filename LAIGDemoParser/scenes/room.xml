@@ -54,21 +54,9 @@
   <!-- Textures -->
   <TEXTURES>
 
-    <!-- Rust -->
-    <TEXTURE id="rustTexture">
-      <file path="images_room/rust.jpg" />
-      <amplif_factor s="1" t=" 1" />
-    </TEXTURE>
-
     <!-- Leather -->
     <TEXTURE id="leatherTexture">
       <file path="images_room/leather3.jpg" />
-      <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <!-- Ocean Rock -->
-    <TEXTURE id="oceanRockTexture">
-      <file path="images_room/rock.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 

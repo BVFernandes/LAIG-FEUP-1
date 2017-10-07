@@ -36,6 +36,7 @@
 		-Cada uma dessas entidades contém um identificador do tipo string . Cada identificador
 			deve ser único dentro de cada bloco (por exemplo, não podem existir duas fontes de luz com o mesmo
 		identificador).
+		- Warning: tag <NODES> out of order
 
 		
 -> Enunciado
