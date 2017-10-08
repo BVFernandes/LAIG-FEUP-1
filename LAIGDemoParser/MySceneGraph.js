@@ -1407,13 +1407,13 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 		break;
 	}
 	case 'cylinder':{
-		if(valuesS.length != 5)
+		if(valuesS.length != 7)
 			this.onXMLError("Wrong number of arguments for leaf type: CYLINDER");
 		else{
 			for(var i=0;i<3;i++)
 				vals.push(parseFloat(valuesS[i]));
-			vals.push(parseInt(valuesS[3]));
-			vals.push(parseInt(valuesS[4]));
+			for(var j=3;j<7;j++)
+				vals.push(parseInt(valuesS[j]));
 		}
 		break;
 	}

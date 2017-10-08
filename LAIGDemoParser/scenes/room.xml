@@ -11,13 +11,11 @@
     <reference length="5" />
   </INITIALS>
 
-
   <!-- Illumination and clear colour -->
   <ILLUMINATION>
     <ambient r="0.2" g="0.2" b="0.2" a="1" />
     <background r="0" g="0" b="0.7" a="1" /> <!-- Blue color like deep ocean -->
   </ILLUMINATION>
-
 
   <!-- Lights -->
   <LIGHTS>
@@ -54,98 +52,79 @@
   <!-- Textures -->
   <TEXTURES>
 
-    <!-- Leather -->
+    <!-- Leather texture -->
     <TEXTURE id="leatherTexture">
-      <file path="images_room/leather3.jpg" />
+      <file path="images_room/leather.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Painting 1 -->
+    <!-- Painting 1 texture -->
     <TEXTURE id="painting1Texture">
-      <file path="images_room/painting1form.jpg" />
+      <file path="images_room/painting1.jpg" />
       <amplif_factor s="1.6" t="2.1" />
     </TEXTURE>
 
-    <!-- Painting 2 -->
+    <!-- Painting 2 texture -->
     <TEXTURE id="painting2Texture">
       <file path="images_room/painting2.jpg" />
       <amplif_factor s="1.6" t="2.1" />
     </TEXTURE>
 
-    <!-- Wood Floor -->
-    <TEXTURE id="woodFloorTexture">
-      <file path="images_room/woodF2.jpg" />
-      <amplif_factor s="0.1" t="0.1" />
+    <!-- Wood Floor texture -->
+	<TEXTURE id="woodFloorTexture">
+      <file path="images_room/floor.jpg" />
+      <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Wood -->
+    <!-- Wood texture -->
     <TEXTURE id="woodTexture">
       <file path="images_room/wood.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Carpet -->
-    <TEXTURE id="carpetTexture">
+    <!-- Carpet texture -->
+	<TEXTURE id="carpetTexture">
       <file path="images_room/carpet.jpg" />
-      <amplif_factor s="0.1" t="0.1" />
-    </TEXTURE>
-
-    <!-- Rock -->
-    <TEXTURE id="rockTexture">
-      <file path="images_room/fp.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Fire -->
+    <!-- Fireplace Rock texture-->
+    <TEXTURE id="rockTexture">
+      <file path="images_room/fireplace.jpg" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <!-- Fire texture -->
     <TEXTURE id="fireTexture">
       <file path="images_room/fire.jpg" />
       <amplif_factor s="3" t="2.4" />
     </TEXTURE>
 
-    <!-- Bricks -->
-    <TEXTURE id="brickTexture">
-      <file path="images_room/brick.jpg" />
+    <!-- Wall texture -->
+    <TEXTURE id="wallTexture">
+      <file path="images_room/wall.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Wall -->
-    <TEXTURE id="wall1Texture">
-      <file path="images_room/wall1.jpg" />
-      <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <!-- Lion King -->
+    <!-- Television screen texture -->
     <TEXTURE id="lionkingTexture">
       <file path="images_room/reileao1.jpg" />
       <amplif_factor s="2" t="1" />
     </TEXTURE>
 
-    <!-- Speaker -->
+    <!-- Speaker texture -->
     <TEXTURE id="speakerTexture">
-      <file path="images_room/speaker2.jpg" />
+      <file path="images_room/speaker.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Lamp bulb -->
+    <!-- Lamp bulb texture -->
     <TEXTURE id="lampTexture">
-      <file path="images_room/lamp2.jpg" />
+      <file path="images_room/lamp.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
-
-    <!-- Carpet 2 -->
-    <TEXTURE id="carpet2Texture">
-      <file path="images_room/carpet2.jpg" />
-      <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <!-- Another wood floor -->
-    <TEXTURE id="floor2Texture">
-      <file path="images_room/floor2.jpg" />
-      <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
+ 
   </TEXTURES>
-
 
   <!-- Materials -->
   <MATERIALS>
@@ -167,14 +146,14 @@
       <ambient r="0.3" g="0.3" b="0.3" a="1" />
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
-
-    <!-- Floor material -->
+	
+	<!-- Another Floor material -->
     <MATERIAL id="floorMaterial">
-      <shininess value="50" />
-      <specular r="0.5" g="0.5" b="0.5" a="0.5" />
-      <diffuse r="0" g="0" b="0" a="1" />
-      <ambient r="0.3" g="0.3" b="0.3" a="1" />
-      <emission r="0.0" g="0.0" b="0.0" a="1" />
+      <shininess value="1" />
+      <specular r="0" g="0" b="0" a="0" />
+      <diffuse r="0" g="0" b="0" a="0" />
+      <ambient r="1" g="1" b="1" a="1" />
+      <emission r="0.0" g="0.0" b="0.0" a="0" />
     </MATERIAL>
 
     <!-- Wall material -->
@@ -195,20 +174,11 @@
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-    <!-- Leather material -->
+    <!-- Glass material -->
     <MATERIAL id="glassMaterial">
       <shininess value="255" />
       <specular r="1" g="1" b="1" a="1" />
       <diffuse r="0" g="0" b="0" a="1" />
-      <ambient r="0.5" g="0.5" b="0.5" a="1" />
-      <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-    <!-- Leather material -->
-    <MATERIAL id="leatherMaterial">
-      <shininess value="50" />
-      <specular r="0" g="0" b="0" a="1" />
-      <diffuse r="0.5" g="0.5" b="0.5" a="1" />
       <ambient r="0.5" g="0.5" b="0.5" a="1" />
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
@@ -249,8 +219,8 @@
       <emission r="0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-    <!-- Another wood material -->
-    <MATERIAL id="wood2Material">
+    <!-- Wood material -->
+    <MATERIAL id="woodMaterial">
       <shininess value="1" />
       <specular r="0.0" g="0.0" b="0.0" a="1" />
       <diffuse r="0" g="0" b="0" a="1" />
@@ -258,17 +228,7 @@
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-    <!-- Another Floor material -->
-    <MATERIAL id="floor2Material">
-      <shininess value="1" />
-      <specular r="0" g="0" b="0" a="0" />
-      <diffuse r="0" g="0" b="0" a="0" />
-      <ambient r="1" g="1" b="1" a="1" />
-      <emission r="0.0" g="0.0" b="0.0" a="0" />
-    </MATERIAL>
-
   </MATERIALS>
-
 
   <!-- The nodes -->
   <NODES>
@@ -283,7 +243,7 @@
       <DESCENDANTS>
         <NODEREF id="floor" />
         <NODEREF id="walls" />
-        <NODEREF id="lamp" />
+        <NODEREF id="floor_lamp" />
         <NODEREF id="couch" />
         <NODEREF id="tv_table" />
         <NODEREF id="shelf" />
@@ -292,15 +252,15 @@
         <NODEREF id="painting2" />
         <NODEREF id="carpet" />
         <NODEREF id="fireplace" />
-        <NODEREF id="speakerSystem" />
+        <NODEREF id="speaker_system" />
         <NODEREF id="table_center" />
       </DESCENDANTS>
     </NODE>
 
     <!-- The floor -->
     <NODE id="floor">
-      <MATERIAL id="floor2Material" />
-      <TEXTURE id="floor2Texture" />
+      <MATERIAL id="floorMaterial" />
+      <TEXTURE id="woodFloorTexture" />
 
       <TRANSLATION x="7.5" y="0" z="7.5" />
       <ROTATION axis="x" angle="-90" />
@@ -311,7 +271,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- The walls -->
+    <!-- The Walls -->
     <NODE id="walls">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -325,7 +285,7 @@
     <!-- The Back Wall -->
     <NODE id="wall_back">
       <MATERIAL id="redWallMaterial" />
-      <TEXTURE id="wall1Texture" />
+      <TEXTURE id="wallTexture" />
 
       <TRANSLATION x="7.5" y="2.5" z="0" />
 
@@ -337,7 +297,7 @@
     <!-- The Left Wall -->
     <NODE id="wall_left">
       <MATERIAL id="null" />
-      <TEXTURE id="wall1Texture" />
+      <TEXTURE id="wallTexture" />
 
       <TRANSLATION x="0" y="2.5" z="7.5" />
       <ROTATION axis="y" angle="90" />
@@ -360,22 +320,22 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- Lamp post -->
-    <NODE id="lamp">
+    <!-- Floor lamp -->
+    <NODE id="floor_lamp">
       <MATERIAL id="metalMaterial" />
       <TEXTURE id="null" />
 
       <TRANSLATION x="13.6" y="0" z="13.6" />
 
       <DESCENDANTS>
-        <NODEREF id="light_bulb" />
-        <NODEREF id="light_post" />
-        <NODEREF id="light_base" />
+        <NODEREF id="lamp_bulb" />
+        <NODEREF id="lamp_post" />
+        <NODEREF id="lamp_base" />
       </DESCENDANTS>
     </NODE>
 
-    <!-- Light bulb -->
-    <NODE id="light_bulb">
+    <!-- Floor lamp bulb -->
+    <NODE id="lamp_bulb">
       <MATERIAL id="glassMaterial" />
       <TEXTURE id="lampTexture" />
 
@@ -387,8 +347,8 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- The post in the lamp post... -->
-    <NODE id="light_post">
+    <!-- Floor lamp post -->
+    <NODE id="lamp_post">
       <MATERIAL id="plasticMaterial" />
       <TEXTURE id="null" />
 
@@ -396,12 +356,12 @@
       <ROTATION axis="x" angle="-90" />
 
       <DESCENDANTS>
-        <LEAF type="cylinder" args="4 1 1 20 20" />
+        <LEAF type="cylinder" args="4 1 1 20 20 0 0" />
       </DESCENDANTS>
     </NODE>
 
-    <!-- The post in the lamp post... -->
-    <NODE id="light_base">
+    <!-- Floor lamp base -->
+    <NODE id="lamp_base">
       <MATERIAL id="plasticMaterial" />
       <TEXTURE id="null" />
 
@@ -414,7 +374,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- couch -->
+    <!-- Couch -->
     <NODE id="couch">
       <MATERIAL id="greyMaterial" />
       <TEXTURE id="leatherTexture" />
@@ -467,7 +427,7 @@
       <SCALE sx="2" sy="0.5" sz="3" />
 
       <DESCENDANTS>
-        <LEAF type="cylinder" args="1 0.5 0.5 20 20" />
+        <LEAF type="cylinder" args="1 0.5 0.5 20 20 1 1" />
       </DESCENDANTS>
     </NODE>
 
@@ -479,7 +439,7 @@
       <TRANSLATION x="1" y="2" z="-2.5" />
 
       <DESCENDANTS>
-        <LEAF type="cylinder" args="5 0.6 0.6 20 20" />
+        <LEAF type="cylinder" args="5 0.6 0.6 20 20 1 1" />
       </DESCENDANTS>
     </NODE>
 
@@ -505,7 +465,7 @@
       <SCALE sx="1" sy="0.25" sz="0.99" />
 
       <DESCENDANTS>
-        <LEAF type="cylinder" args="1 1 1 20 20" />
+        <LEAF type="cylinder" args="1 1 1 20 20 1 1" />
       </DESCENDANTS>
     </NODE>
 
@@ -531,7 +491,7 @@
       <SCALE sx="1" sy="0.25" sz="0.99" />
 
       <DESCENDANTS>
-        <LEAF type="cylinder" args="1 1 1 20 20" />
+        <LEAF type="cylinder" args="1 1 1 20 20 1 1" />
       </DESCENDANTS>
     </NODE>
 
@@ -550,7 +510,7 @@
 
     <!-- Table Top -->
     <NODE id="table_top">
-      <MATERIAL id="wood2Material" />
+      <MATERIAL id="woodMaterial" />
       <TEXTURE id="woodTexture" />
 
       <TRANSLATION x="0" y="1" z="0" />
@@ -563,7 +523,7 @@
 
     <!-- Table Legs -->
     <NODE id="table_legs">
-      <MATERIAL id="null" />
+      <MATERIAL id="speakerMaterial" />
       <TEXTURE id="null" />
 
       <DESCENDANTS>
@@ -624,14 +584,14 @@
 
     <!-- Table Leg -->
     <NODE id="table_leg">
-      <MATERIAL id="speakerMaterial" />
-      <TEXTURE id="clear" />
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
 
       <SCALE sx="0.2" sy="0.8" sz="0.2" />
       <ROTATION axis="x" angle="-90" />
 
       <DESCENDANTS>
-        <LEAF type="cylinder" args="1.5 1 1 20 20" />
+        <LEAF type="cylinder" args="1.5 1 1 20 20 0 0" />
       </DESCENDANTS>
     </NODE>
 
@@ -653,7 +613,7 @@
 
     <!-- Shelf Base -->
     <NODE id="shelf_base">
-      <MATERIAL id="wood2Material" />
+      <MATERIAL id="woodMaterial" />
       <TEXTURE id="woodTexture" />
 
       <SCALE sx="5" sy="0.5" sz="1"/>
@@ -689,6 +649,7 @@
       </DESCENDANTS>
     </NODE>
 
+	<!-- Bigger Pyramid Ornament -->
     <NODE id="pyramid1">
       <MATERIAL id="metalMaterial" />
       <TEXTURE id="null" />
@@ -701,6 +662,7 @@
       </DESCENDANTS>
     </NODE>
 
+	<!-- Smaller Pyramid Ornament -->
     <NODE id="pyramid2">
       <MATERIAL id="metalMaterial" />
       <TEXTURE id="null" />
@@ -730,7 +692,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- Television Main -->
+    <!-- Television main box -->
     <NODE id="tv_main">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -742,7 +704,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- Television Sec -->
+    <!-- Television second box -->
     <NODE id="tv_sec">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -755,7 +717,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- Television Third -->
+    <!-- Television third box -->
     <NODE id="tv_thrd">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -768,7 +730,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- Television Screen -->
+    <!-- Television screen -->
     <NODE id="tv_screen">
       <MATERIAL id="defaultMaterial" />
       <TEXTURE id="lionkingTexture" />
@@ -781,8 +743,8 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- speaker system-->
-    <NODE id="speakerSystem">
+    <!-- Speaker system-->
+    <NODE id="speaker_system">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
 
@@ -792,7 +754,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- speaker left-->
+    <!-- Speaker left-->
     <NODE id="speaker_left">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -805,7 +767,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- speaker right-->
+    <!-- Speaker right-->
     <NODE id="speaker_right">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -818,7 +780,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- speaker-->
+    <!-- Speaker-->
     <NODE id="speaker">
       <MATERIAL id="speakerMaterial" />
       <TEXTURE id="null" />
@@ -831,7 +793,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- speaker post-->
+    <!-- Speaker post-->
     <NODE id="speaker_post">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -840,11 +802,11 @@
       <SCALE sx="0.1" sy="0.1" sz="0.7" />
 
       <DESCENDANTS>
-        <LEAF type="cylinder" args="4 1 1 20 20" />
+        <LEAF type="cylinder" args="4 1 1 20 20 0 0" />
       </DESCENDANTS>
     </NODE>
 
-    <!-- speaker base-->
+    <!-- Speaker base-->
     <NODE id="speaker_base">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -853,11 +815,11 @@
       <SCALE sx="0.5" sy="0.5" sz="0.1" />
 
       <DESCENDANTS>
-        <LEAF type="cylinder" args="4 1 1 20 20" />
+        <LEAF type="cylinder" args="4 1 1 20 20 1 0" />
       </DESCENDANTS>
     </NODE>
 
-    <!-- speaker box-->
+    <!-- Speaker box-->
     <NODE id="speaker_box">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -870,7 +832,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- speaker box-->
+    <!-- Speaker box-->
     <NODE id="speaker_sound">
       <MATERIAL id="greyMaterial" />
       <TEXTURE id="speakerTexture" />
@@ -938,7 +900,7 @@
     <!-- Carpet -->
     <NODE id="carpet">
       <MATERIAL id="redWallMaterial" />
-      <TEXTURE id="carpet2Texture" />
+      <TEXTURE id="carpetTexture" />
 
       <TRANSLATION x="7" y="0.05" z="7.5" />
       <ROTATION axis="x" angle="-90" />
@@ -961,7 +923,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- FirePlace Strcuture -->
+    <!-- FirePlace structure -->
     <NODE id="fireplace_structure">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -972,7 +934,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- Fireplace Structure Vertical -->
+    <!-- Fireplace rock structure -->
     <NODE id="fireplace_structure_vert">
       <MATERIAL id="null" />
       <TEXTURE id="rockTexture" />
@@ -984,9 +946,9 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- Fireplace Structure Horizontal -->
+    <!-- Fireplace wood structure -->
     <NODE id="fireplace_structure_hor">
-      <MATERIAL id="wood2Material" />
+      <MATERIAL id="woodMaterial" />
       <TEXTURE id="woodTexture" />
 
       <TRANSLATION x="0" y="0" z="0.5" />
@@ -997,7 +959,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- Fireplace Fire -->
+    <!-- Fireplace fire -->
     <NODE id="fireplace_fire">
       <MATERIAL id="null" />
       <TEXTURE id="fireTexture" />
@@ -1009,9 +971,9 @@
       </DESCENDANTS>
     </NODE>
 
-    <!--Table Center-->
+    <!-- Table Center -->
     <NODE id="table_center">
-      <MATERIAL id="wood2Material" />
+      <MATERIAL id="woodMaterial" />
       <TEXTURE id="woodTexture" />
 
       <TRANSLATION x="7" y="0.5" z="7.5" />
@@ -1027,7 +989,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!--Table Center part left-->
+    <!-- Table Center part left -->
     <NODE id="tc_left">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -1040,7 +1002,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!--Table Center part right-->
+    <!-- Table Center part right -->
     <NODE id="tc_right">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -1053,7 +1015,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!--Table Center base-->
+    <!-- Table Center base -->
     <NODE id="tc_base">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -1066,7 +1028,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!--Table Center top-->
+    <!-- Table Center top -->
     <NODE id="tc_top">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -1079,7 +1041,7 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- center of table center-->
+    <!-- Center of table center-->
     <NODE id="center_tc">
       <MATERIAL id="glassMaterial" />
       <TEXTURE id="clear" />
