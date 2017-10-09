@@ -1,5 +1,5 @@
 <SCENE>
-
+  
   <!-- Initial values -->
   <INITIALS>
     <frustum near="0.1" far="500" />
@@ -71,7 +71,7 @@
     </TEXTURE>
 
     <!-- Wood Floor texture -->
-	<TEXTURE id="woodFloorTexture">
+    <TEXTURE id="woodFloorTexture">
       <file path="images_room/floor.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
@@ -83,7 +83,7 @@
     </TEXTURE>
 
     <!-- Carpet texture -->
-	<TEXTURE id="carpetTexture">
+    <TEXTURE id="carpetTexture">
       <file path="images_room/carpet.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
@@ -123,7 +123,7 @@
       <file path="images_room/lamp.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
- 
+
   </TEXTURES>
 
   <!-- Materials -->
@@ -146,8 +146,8 @@
       <ambient r="0.3" g="0.3" b="0.3" a="1" />
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
-	
-	<!-- Another Floor material -->
+
+    <!-- Another Floor material -->
     <MATERIAL id="floorMaterial">
       <shininess value="1" />
       <specular r="0" g="0" b="0" a="0" />
@@ -649,7 +649,7 @@
       </DESCENDANTS>
     </NODE>
 
-	<!-- Bigger Pyramid Ornament -->
+    <!-- Bigger Pyramid Ornament -->
     <NODE id="pyramid1">
       <MATERIAL id="metalMaterial" />
       <TEXTURE id="null" />
@@ -662,7 +662,7 @@
       </DESCENDANTS>
     </NODE>
 
-	<!-- Smaller Pyramid Ornament -->
+    <!-- Smaller Pyramid Ornament -->
     <NODE id="pyramid2">
       <MATERIAL id="metalMaterial" />
       <TEXTURE id="null" />
