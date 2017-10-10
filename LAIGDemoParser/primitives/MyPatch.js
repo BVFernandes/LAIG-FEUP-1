@@ -1,7 +1,7 @@
 function MyPatch(scene, degree1, degree2, controlVertexes) {
 	CGFobject.call(this,scene);
 
-  var knots1 = this.getKnotsVector(degree1);
+	var knots1 = this.getKnotsVector(degree1);
 	var knots2 = this.getKnotsVector(degree2);
 
 	var nurbsSurface = new CGFnurbsSurface(degree1, degree2, knots1, knots2, controlVertexes);

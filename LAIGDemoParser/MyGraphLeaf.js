@@ -49,7 +49,7 @@ MyGraphLeaf.prototype.createPatch=function() {
 	const degree1 = this.args[0]
 	const degree2 = this.args[1];
 	const controlVertexes = this.args[2];
-	
+
 	this.model = new MyPatch(this.graph.scene,degree1, degree2, controlVertexes);
 }
 

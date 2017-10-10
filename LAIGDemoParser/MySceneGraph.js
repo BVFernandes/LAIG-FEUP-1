@@ -1351,26 +1351,26 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 						else
 							this.warn("Error in leaf");
 
-				
+
 						// Talvez verificar se o id é repetido ??
 
 						/* Started programming here!*/
-					
+
 						var args=this.reader.getString(descendants[j],'args');
 
 						if(args == null)
 							this.warn("Error in leaf");
-						
+
 						var argsVal = this.parseArgsPrimitives(args,type);
-						
+
 						if(type == 'patch'){
 							argsVal =this.parsePatch(argsVal,descendants[j].children);
 							console.log(argsVal);
 						}
-						
+
 						console.log(argsVal);
 						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,type,argsVal));
-						
+
 						sizeChildren++;
 						/*Ends Here*/
 					}
@@ -1391,18 +1391,18 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
 
 MySceneGraph.prototype.parsePatch = function(args, descendants) {
-	
+
 	var controlVertexes=[];
-		
-	
-	
+
+
+
 	for (var i = 0; i < descendants.length; i++) {
 		if (descendants[i].nodeName == "CPLINE"){	
 			var children = descendants[i].children;
-				
+
 			var cplines = [];
 			for (var j = 0; j < children.length; j++){
-								
+
 				if (children[j].nodeName == "CPOINT"){
 					// Retrieves scale parameters.
 					var xx = this.reader.getFloat(children[j], 'xx');
@@ -1428,7 +1428,7 @@ MySceneGraph.prototype.parsePatch = function(args, descendants) {
 					}
 					else if (isNaN(zz))
 						return "non-numeric value for z component of scaling (node ID = " + nodeID + ")";
-					
+
 					var ww = this.reader.getFloat(children[j], 'ww');
 					if (ww == null ) {
 						this.onXMLMinorError("unable to parse z component of scaling; discarding transform");
@@ -1436,19 +1436,19 @@ MySceneGraph.prototype.parsePatch = function(args, descendants) {
 					}
 					else if (isNaN(ww))
 						return "non-numeric value for z component of scaling (node ID = " + nodeID + ")";
-					
-					
+
+
 					cplines.push(new Array(xx,yy,zz,ww));	
 				}
-				
+
 			}
-			
-		controlVertexes.push(cplines);
+
+			controlVertexes.push(cplines);
 		}
 	}
 	args.push(controlVertexes);
 	return args;
-	
+
 }
 /* Start here*/
 MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
@@ -1503,7 +1503,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 			vals.push(parseFloat(valuesS[1]));
 		}
 		break;
-		
+
 	default:
 		break;
 	}

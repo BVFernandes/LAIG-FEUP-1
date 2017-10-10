@@ -44,7 +44,7 @@ MyRectangle.prototype.initBuffers = function () {
 		0, 0, 1
 		];
 
-	
+
 	this.maxS=(this.rightBottom[0]-this.leftTop[0]); // delta x
 	this.maxT=(this.leftTop[1]-this.rightBottom[1]); // delta y
 

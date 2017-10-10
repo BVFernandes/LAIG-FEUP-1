@@ -59,12 +59,12 @@ MyTriangle.prototype.initBuffers = function() {
 			Math.pow((this.p3[1] - this.p2[1]), 2) +
 			Math.pow((this.p3[2] - this.p2[2]), 2));
 
-	
+
 	this.cos = ((this.p3[0]-this.p1[0])*(this.p2[0]-this.p1[0])+(this.p3[1]-this.p1[1])*(this.p2[1]-this.p1[2])+(this.p3[2]-this.p1[2])*(this.p2[2]-this.p1[2]))/(this.dp1p2*this.dp1p3);
-	
+
 	this.s_coord = this.cos*this.dp1p3;
 	this.t_coord = -Math.sqrt(Math.pow(this.dp1p3,2)-Math.pow(this.s_coord,2));
-	
+
 	this.texCoords = [
 		0, 0,
 		this.dp1p2, 0,
