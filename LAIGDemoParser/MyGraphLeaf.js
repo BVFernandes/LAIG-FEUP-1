@@ -45,6 +45,14 @@ MyGraphLeaf.prototype.createTriangle=function() {
 	this.model = new MyTriangle(this.graph.scene,true,p1,p2,p3);
 }
 
+MyGraphLeaf.prototype.createPatch=function() {
+	const degree1 = this.args[0]
+	const degree2 = this.args[1];
+	const controlVertexes = this.args[2];
+	
+	this.model = new MyPatch(this.graph.scene,degree1, degree2, controlVertexes);
+}
+
 MyGraphLeaf.prototype.create=function() {
 	console.log(this.xmlelem);
 	switch(this.xmlelem){
@@ -59,6 +67,9 @@ MyGraphLeaf.prototype.create=function() {
 		break;
 	case 'triangle':
 		this.createTriangle();
+		break;
+	case 'patch':
+		this.createPatch();
 		break;
 	}
 }

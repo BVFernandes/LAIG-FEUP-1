@@ -480,6 +480,7 @@ MySceneGraph.prototype.parseIllumination = function(illuminationNode) {
 	else
 		this.onXMLMinorError("global ambient illumination undefined; assuming Ia = (0, 0, 0, 1)");
 
+
 	// Retrieves the background clear color.
 	this.background = [0, 0, 0, 1];
 	var backgroundIndex = nodeNames.indexOf("background");
@@ -1343,27 +1344,33 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 				else
 					if (descendants[j].nodeName == "LEAF")
 					{
-						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
+						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle','patch']);
 
 						if (type != null)
 							this.log("   Leaf: "+ type);
 						else
 							this.warn("Error in leaf");
 
-
+				
 						// Talvez verificar se o id é repetido ??
 
 						/* Started programming here!*/
-
+					
 						var args=this.reader.getString(descendants[j],'args');
 
 						if(args == null)
 							this.warn("Error in leaf");
-
+						
 						var argsVal = this.parseArgsPrimitives(args,type);
-
+						
+						if(type == 'patch'){
+							argsVal =this.parsePatch(argsVal,descendants[j].children);
+							console.log(argsVal);
+						}
+						
+						console.log(argsVal);
 						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,type,argsVal));
-
+						
 						sizeChildren++;
 						/*Ends Here*/
 					}
@@ -1382,6 +1389,67 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 	return null ;
 }
 
+
+MySceneGraph.prototype.parsePatch = function(args, descendants) {
+	
+	var controlVertexes=[];
+		
+	
+	
+	for (var i = 0; i < descendants.length; i++) {
+		if (descendants[i].nodeName == "CPLINE"){	
+			var children = descendants[i].children;
+				
+			var cplines = [];
+			for (var j = 0; j < children.length; j++){
+								
+				if (children[j].nodeName == "CPOINT"){
+					// Retrieves scale parameters.
+					var xx = this.reader.getFloat(children[j], 'xx');
+					if (xx == null ) {
+						this.onXMLMinorError("unable to parse x component of scaling; discarding transform");
+						break;
+					}
+					else if (isNaN(xx))
+						return "non-numeric value for x component of scaling (node ID = " + nodeID + ")";
+
+					var yy = this.reader.getFloat(children[j], 'yy');
+					if (yy == null ) {
+						this.onXMLMinorError("unable to parse y component of scaling; discarding transform");
+						break;
+					}
+					else if (isNaN(yy))
+						return "non-numeric value for y component of scaling (node ID = " + nodeID + ")";
+
+					var zz = this.reader.getFloat(children[j], 'zz');
+					if (zz == null ) {
+						this.onXMLMinorError("unable to parse z component of scaling; discarding transform");
+						break;
+					}
+					else if (isNaN(zz))
+						return "non-numeric value for z component of scaling (node ID = " + nodeID + ")";
+					
+					var ww = this.reader.getFloat(children[j], 'ww');
+					if (ww == null ) {
+						this.onXMLMinorError("unable to parse z component of scaling; discarding transform");
+						break;
+					}
+					else if (isNaN(ww))
+						return "non-numeric value for z component of scaling (node ID = " + nodeID + ")";
+					
+					
+					cplines.push(new Array(xx,yy,zz,ww));	
+				}
+				
+			}
+			
+		controlVertexes.push(cplines);
+		}
+	}
+	args.push(controlVertexes);
+	return args;
+	
+}
 /* Start here*/
 MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 	var vals = [];
@@ -1428,7 +1496,14 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 		break;
 	}
 	case 'patch':
+		if(valuesS.length != 2)
+			this.onXMLError("Wrong number of arguments for leaf type: PATCH");
+		else{
+			vals.push(parseFloat(valuesS[0]));
+			vals.push(parseFloat(valuesS[1]));
+		}
 		break;
+		
 	default:
 		break;
 	}

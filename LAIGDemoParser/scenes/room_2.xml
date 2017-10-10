@@ -256,7 +256,7 @@
         <NODEREF id="carpet" />
         <NODEREF id="fireplace" />
         <NODEREF id="speaker_system" />
-
+<NODEREF id="pt"/>
       </DESCENDANTS>
 
     </NODE>
@@ -1097,6 +1097,140 @@
       </DESCENDANTS>
 
     </NODE>
+	
+	<NODE id="pt">
+      <MATERIAL id="null" />
+      <TEXTURE id="carpetTexture" />
+
+ 
+
+      <DESCENDANTS>
+        <NODEREF id="pt1" />
+        <NODEREF id="pt2" />
+        <NODEREF id="pt3" />
+        <NODEREF id="pt4" />
+      </DESCENDANTS>
+
+    </NODE>
+	
+		<NODE id="pt1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+<TRANSLATION x="20" y="0" z="3" />
+
+      <DESCENDANTS>
+        <LEAF  type="patch" args="1 1" >
+			<CPLINE> 
+				<CPOINT xx="-2" yy="-2" zz="0" ww="1" />
+				<CPOINT xx="-2" yy="2" zz="0" ww="1" />
+			</CPLINE>
+			
+			<CPLINE> 
+				<CPOINT xx="2" yy="-2" zz="0" ww="1" />
+				<CPOINT xx="2" yy="2" zz="0" ww="1" />
+			</CPLINE>
+		</LEAF>
+      </DESCENDANTS>
+
+    </NODE>
+	
+		<NODE id="pt2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+	  <TRANSLATION x="20" y="0" z="6" />
+ 
+
+      <DESCENDANTS>
+        <LEAF  type="patch" args="2 1" >
+			<CPLINE> 
+				<CPOINT xx="-1.5" yy="-1.5" zz="0" ww="1" />
+				<CPOINT xx="-1.5" yy="1.5" zz="0" ww="1" />
+			</CPLINE>
+			
+				<CPLINE> 
+				<CPOINT xx="0" yy="-1.5" zz="3" ww="1" />
+				<CPOINT xx="0" yy="1.5" zz="3" ww="1" />
+			</CPLINE>
+			
+				<CPLINE> 
+				<CPOINT xx="1.5" yy="-1.5" zz="0" ww="1" />
+				<CPOINT xx="1.5" yy="1.5" zz="0" ww="1" />
+			</CPLINE>
+		</LEAF>
+      </DESCENDANTS>
+
+    </NODE>
+	
+		<NODE id="pt3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+ <TRANSLATION x="20" y="0" z="9" />
+
+      <DESCENDANTS>
+        <LEAF  type="patch" args="2 3" >
+			<CPLINE> 
+				<CPOINT xx="-1.5" yy="-1.5" zz="0" ww="1" />
+				<CPOINT xx="-2" yy="-2" zz="2" ww="1" />
+				<CPOINT xx="-2" yy="2" zz="2" ww="1" />
+				<CPOINT xx="-1.5" yy="1.5" zz="0" ww="1" />
+			</CPLINE>
+			
+			<CPLINE> 
+				<CPOINT xx="0" yy="0" zz="3.0" ww="1" />
+				<CPOINT xx="0" yy="-2" zz="3" ww="1" />
+				<CPOINT xx="0" yy="2" zz="3" ww="1" />
+				<CPOINT xx="0" yy="0" zz="3" ww="1" />
+			</CPLINE>
+			
+			<CPLINE> 
+				<CPOINT xx="1.5" yy="-1.5" zz="0" ww="1" />
+				<CPOINT xx="2" yy="-2" zz="2" ww="1" />
+				<CPOINT xx="2" yy="2" zz="2" ww="1" />
+				<CPOINT xx="1.5" yy="1.5" zz="0" ww="1" />
+			</CPLINE>
+			
+		</LEAF>
+      </DESCENDANTS>
+
+    </NODE>
+	
+			<NODE id="pt4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+ <TRANSLATION x="20" y="0" z="15" />
+
+      <DESCENDANTS>
+        <LEAF  type="patch" args="2 3" >
+			<CPLINE> 
+				<CPOINT xx="-2" yy="-2" zz="1" ww="1" />
+				<CPOINT xx="-2" yy="-1" zz="-2" ww="1" />
+				<CPOINT xx="-2" yy="1" zz="5" ww="1" />
+				<CPOINT xx="-2" yy="2" zz="-1" ww="1" />
+			</CPLINE>
+			
+			<CPLINE> 
+				<CPOINT xx="0" yy="-2" zz="0" ww="1" />
+				<CPOINT xx="0" yy="-1" zz="-1" ww="1" />
+				<CPOINT xx="0" yy="1" zz="1.5" ww="1" />
+				<CPOINT xx="0" yy="2" zz="0" ww="1" />
+			</CPLINE>
+			
+			<CPLINE> 
+				<CPOINT xx="2" yy="-2" zz="-1" ww="1" />
+				<CPOINT xx="2" yy="-1" zz="2" ww="1" />
+				<CPOINT xx="2" yy="1" zz="-5" ww="1" />
+				<CPOINT xx="2" yy="2" zz="1" ww="1" />
+			</CPLINE>
+			
+		</LEAF>
+      </DESCENDANTS>
+
+    </NODE>
+
 
   </NODES>
 
