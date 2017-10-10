@@ -1,5 +1,5 @@
 /**
- * MyCylinder
+ * MyCylinderWrap
  * @constructor
  */
 function MyCylinderWrap(scene, height, bradius, tradius, slices, stacks, interior) {
@@ -19,22 +19,24 @@ MyCylinderWrap.prototype = Object.create(CGFobject.prototype);
 MyCylinderWrap.prototype.constructor = MyCylinderWrap;
 
 MyCylinderWrap.prototype.initBuffers = function() {
-	ang = 0;
-	angnorm = Math.PI/this.slices;
-	zdelta = this.height/this.stacks; // Stack Height
-	raddelta = (this.tradius-this.bradius)/this.stacks;
-	stepRad = this.bradius;
+	let ang = 0;
+	let angnorm = Math.PI/this.slices;
+	let zdelta = this.height/this.stacks; // Stack Height
+	let raddelta = (this.tradius-this.bradius)/this.stacks;
+	let stepRad = this.bradius;
 
 	this.vertices = [];
 	this.normals = [];
 	this.indices = [];
 	this.texCoords=[];
 
-	var stepS=0;
-	var stepT=0;
+	let stepS=0;
+	let stepT=0;
+	let x1=0;
+	let y1=0;
 
-	for(i = 0; i<this.stacks; i++){
-		ad_index = i*(this.slices+1);
+	for(let i = 0; i<this.stacks; i++){
+		let ad_index = i*(this.slices+1);
 
 		if(i == 0){
 			for(j = 0; j <= this.slices; j++){
@@ -54,7 +56,7 @@ MyCylinderWrap.prototype.initBuffers = function() {
 			stepRad+= raddelta;
 		}
 
-		for(h = 0; h <= this.slices; h++){
+		for(let h = 0; h <= this.slices; h++){
 			ang = h*2*Math.PI/this.slices;
 
 			x1 = stepRad*Math.cos(ang);
@@ -70,7 +72,7 @@ MyCylinderWrap.prototype.initBuffers = function() {
 		stepT+= 1/this.stacks;
 		stepRad+= raddelta;
 
-		for(k = 0; k < this.slices; k++){
+		for(let k = 0; k < this.slices; k++){
 			this.indices.push(k+ad_index, k+1+ad_index, k+(this.slices+1)+ad_index);
 			this.indices.push(k+1+ad_index, k+(this.slices+1)+1+ad_index, k+(this.slices+1)+ad_index);
 
@@ -84,7 +86,6 @@ MyCylinderWrap.prototype.initBuffers = function() {
 	this.primitiveType = this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
 };
-
 
 MyCylinderWrap.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
 	this.updateTexCoordsGLBuffers();

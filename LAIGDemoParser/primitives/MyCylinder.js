@@ -1,3 +1,8 @@
+/**
+ * MyCylinder
+ * @param gl {WebGLRenderingContext}
+ * @constructor
+ */
 function MyCylinder(scene, height, bradius, tradius, stacks, slices, tcap, bcap) {
 	CGFobject.call(this,scene);
 
@@ -37,6 +42,5 @@ MyCylinder.prototype.display = function() {
 }
 
 MyCylinder.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
-	//this.hSphere.updateTexCoords(amplif_factor_s,amplif_factor_t);
 	this.updateTexCoordsGLBuffers();
 }

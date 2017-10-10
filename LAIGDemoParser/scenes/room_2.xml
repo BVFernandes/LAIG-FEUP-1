@@ -1121,7 +1121,7 @@
       <TRANSLATION x="20" y="0" z="3" />
 
       <DESCENDANTS>
-        <LEAF  type="patch" args="1 1" >
+        <LEAF  type="patch" args="20 20" >
           <CPLINE>
             <CPOINT xx="-2" yy="-2" zz="0" ww="1" />
             <CPOINT xx="-2" yy="2" zz="0" ww="1" />
@@ -1144,7 +1144,7 @@
 
 
       <DESCENDANTS>
-        <LEAF  type="patch" args="2 1" >
+        <LEAF  type="patch" args="20 20" >
           <CPLINE>
             <CPOINT xx="-1.5" yy="-1.5" zz="0" ww="1" />
             <CPOINT xx="-1.5" yy="1.5" zz="0" ww="1" />
@@ -1171,7 +1171,7 @@
       <TRANSLATION x="20" y="0" z="9" />
 
       <DESCENDANTS>
-        <LEAF  type="patch" args="2 3" >
+        <LEAF  type="patch" args="20 20" >
           <CPLINE>
             <CPOINT xx="-1.5" yy="-1.5" zz="0" ww="1" />
             <CPOINT xx="-2" yy="-2" zz="2" ww="1" />
@@ -1205,7 +1205,7 @@
       <TRANSLATION x="20" y="0" z="15" />
 
       <DESCENDANTS>
-        <LEAF  type="patch" args="2 3" >
+        <LEAF  type="patch" args="20 20" >
           <CPLINE>
             <CPOINT xx="-2" yy="-2" zz="1" ww="1" />
             <CPOINT xx="-2" yy="-1" zz="-2" ww="1" />

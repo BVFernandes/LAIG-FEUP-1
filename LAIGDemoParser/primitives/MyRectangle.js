@@ -18,8 +18,8 @@ MyRectangle.prototype.initBuffers = function () {
 
 	/*
 	 *	3_____________4
-	 *	 |			 |
-	 *	 |			 |
+	 *	 |					 |
+	 *	 |					 |
 	 *	1|___________|2
 	 * */
 
@@ -60,8 +60,8 @@ MyRectangle.prototype.initBuffers = function () {
 
 
 MyRectangle.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor_t){
-	var UmaxS=this.maxS/amplif_factor_s; // delta x
-	var UmaxT=this.maxT/amplif_factor_t; // delta y
+	let UmaxS=this.maxS/amplif_factor_s; // delta x
+	let UmaxT=this.maxT/amplif_factor_t; // delta y
 
 	this.texCoords = [
 		0,0,

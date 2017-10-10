@@ -1394,16 +1394,19 @@ MySceneGraph.prototype.parsePatch = function(args, descendants) {
 
 	var controlVertexes=[];
 
-
+let uDegree=0;
+let vDegree=0;
 
 	for (var i = 0; i < descendants.length; i++) {
-		if (descendants[i].nodeName == "CPLINE"){	
+		if (descendants[i].nodeName == "CPLINE"){
+			uDegree=descendants.length;
 			var children = descendants[i].children;
 
 			var cplines = [];
 			for (var j = 0; j < children.length; j++){
 
 				if (children[j].nodeName == "CPOINT"){
+						vDegree=children.length;
 					// Retrieves scale parameters.
 					var xx = this.reader.getFloat(children[j], 'xx');
 					if (xx == null ) {
@@ -1438,7 +1441,7 @@ MySceneGraph.prototype.parsePatch = function(args, descendants) {
 						return "non-numeric value for z component of scaling (node ID = " + nodeID + ")";
 
 
-					cplines.push(new Array(xx,yy,zz,ww));	
+					cplines.push(new Array(xx,yy,zz,ww));
 				}
 
 			}
@@ -1446,6 +1449,8 @@ MySceneGraph.prototype.parsePatch = function(args, descendants) {
 			controlVertexes.push(cplines);
 		}
 	}
+	args.push(uDegree-1); //because Degree= Order-1, and order is equal a number of points
+	args.push(vDegree-1);
 	args.push(controlVertexes);
 	return args;
 
