@@ -3,18 +3,18 @@
   <!-- Initial values -->
   <INITIALS>
     <frustum near="0.1" far="500" />
-    <translation x="-1" y="1" z="0" />
+    <translation x="0" y="3" z="0" />
     <rotation axis="x" angle="0" />
     <rotation axis="y" angle="0" />
     <rotation axis="z" angle="0" />
-    <scale sx="0.25" sy="0.25" sz="0.25" />
+    <scale sx="0.45" sy="0.45" sz="0.45" />
     <reference length="5" />
   </INITIALS>
 
   <!-- Illumination and clear colour -->
   <ILLUMINATION>
     <ambient r="0.2" g="0.2" b="0.2" a="1" />
-    <background r="0" g="0" b="0.7" a="1" /> <!-- Blue color like deep ocean -->
+    <background r="0.1" g="0.1" b="0.1" a="1" /> <!-- Blue color like deep ocean -->
   </ILLUMINATION>
 
   <!-- Lights -->
