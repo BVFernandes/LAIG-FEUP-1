@@ -53,7 +53,7 @@ MyRectangle.prototype.initBuffers = function () {
 		this.maxS,0,
 		0,this.maxT,
 		this.maxS,this.maxT
-		];
+	];
 
 	this.initGLBuffers();
 };
@@ -64,11 +64,11 @@ MyRectangle.prototype.updateTexCoords = function (amplif_factor_s, amplif_factor
 	let UmaxT=this.maxT/amplif_factor_t; // delta y
 
 	this.texCoords = [
-		0,0,
-		UmaxS,0,
 		0,UmaxT,
-		UmaxS,UmaxT
-		];
+		UmaxS,UmaxT,
+		0,0,
+		UmaxS,0
+	];
 
 	this.updateTexCoordsGLBuffers();
 }
