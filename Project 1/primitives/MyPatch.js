@@ -7,7 +7,7 @@ function MyPatch(scene, uDivisions, vDivisions, degree1, degree2, controlVertexe
 
 	let knots1 = this.getKnotsVector(degree1);
 	let knots2 = this.getKnotsVector(degree2);
-	
+
 	let nurbsSurface = new CGFnurbsSurface(degree1, degree2, knots1, knots2, controlVertexes);
 	getSurfacePoint = function(u, v) {
 		return nurbsSurface.getPoint(u, v);

@@ -74,7 +74,7 @@ MyGraphLeaf.prototype.create=function() {
 	case 'patch':
 		this.createPatch();
 		break;
-		default:
+	default:
 		console.log("Inexistent leaf!")
 		break;
 	}
