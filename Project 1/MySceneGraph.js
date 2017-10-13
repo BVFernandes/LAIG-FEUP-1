@@ -22,8 +22,6 @@ function MySceneGraph(filename, scene) {
 	scene.graph = this;
 
 	this.nodes = [];
-	//this.texStack = [];
-	//this.matStack = [];
 
 	this.idRoot = null;                    // The id of the root element.
 
@@ -1478,7 +1476,6 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 			for(var z=5; z<7;z++){
 				let temp = parseInt(valuesS[z]);
 				this.checkArgsPrimitives(temp,type, z);
-				console.log(temp);
 				if(temp !=0 && temp!=1)
 					this.onXMLError("Wrong arguments in top cap ou bottom cap");
 				vals.push(temp);
@@ -1583,7 +1580,6 @@ MySceneGraph.prototype.generateDefaultMaterial = function() {
 }
 
 
-
 /**
  * Generates a random string of the specified length.
  */
@@ -1601,103 +1597,7 @@ MySceneGraph.generateRandomString = function(length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 
-/* Starts here*/
-
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
 	this.nodes[this.idRoot].display(null,null);
 }
-
-/*
-MySceneGraph.prototype.displaySceneAux = function(currNodeID, currTextureID, currMaterialID) {
-var node = this.nodes[currNodeID];
-
-this.scene.pushMatrix();
-this.scene.multMatrix(node.transformMatrix);
-
-var newTextureID = node.textureID;
-var newMaterialID = node.materialID;
-
-if(newMaterialID == "null")
-newMaterialID = currMaterialID;
-
-if(newTextureID == "null"){
-if(currTextureID != "null"){
-newTextureID = currTextureID;
-}
-}
-
-if(newMaterialID != null && newMaterialID != "null")
-this.materials[newMaterialID].apply();
-
-if(newTextureID != "clear" && newTextureID != null)
-this.textures[newTextureID][0].bind();
-
-for(var i=0;i < node.leaves.length;i++){
-if(newTextureID != "clear" && newTextureID != null){
-node.leaves[i].updateTexCoords(this.textures[newTextureID][1],this.textures[newTextureID][2]);
-}
-node.leaves[i].display();
-}
-
-for(var j=0;j < node.children.length; j++){
-this.displaySceneAux(node.children[j],newTextureID,newMaterialID);
-}
-
-this.scene.popMatrix();
-}
-
-MySceneGraph.prototype.displaySceneAux = function(currNodeID) {
-var node = this.nodes[currNodeID];
-
-this.scene.pushMatrix();
-this.scene.multMatrix(node.transformMatrix);
-
-var matPush = false;
-var texPush = false;
-
-if(node.materialID != "null"){
-this.matStack.push(node.materialID);
-matPush = true;
-}
-
-if(node.textureID != "null"){
-this.texStack.push(node.textureID);
-texPush = true;
-}
-
-for(var j=0;j < node.children.length; j++){
-this.displaySceneAux(node.children[j]);
-}
-
-var matStackSize = this.matStack.length;
-var materialID;
-if(matStackSize != 0){
-materialID = this.matStack[matStackSize-1];
-this.materials[materialID].apply();
-if(matPush)
-this.matStack.pop();
-}
-
-var texStackSize = this.texStack.length;
-var textureID = "null";
-if(texStackSize != 0){
-textureID = this.texStack[texStackSize-1];
-if(textureID != "clear")
-this.textures[textureID][0].bind();
-if(texPush)
-this.texStack.pop();
-}
-
-for(var i=0;i < node.leaves.length;i++){
-if(textureID != "clear" && texStackSize != 0){
-node.leaves[i].updateTexCoords(this.textures[textureID][1],this.textures[textureID][2]);
-}
-node.leaves[i].display();
-}
-
-
-this.scene.popMatrix();
-}
- */
-/* ends here */
