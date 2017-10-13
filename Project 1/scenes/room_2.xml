@@ -241,7 +241,7 @@
     <!-- The root node -->
     <NODE id="root">
       <MATERIAL id="defaultMaterial" />
-      <TEXTURE id="null" />
+      <TEXTURE id="lionkingTexture" />
 
       <DESCENDANTS>
         <NODEREF id="floor" />
@@ -257,6 +257,8 @@
         <NODEREF id="fireplace" />
         <NODEREF id="speaker_system" />
         <NODEREF id="pt"/>
+        <LEAF type="cylinder" args="5 10 1 20 20 1 1" />
+
       </DESCENDANTS>
 
     </NODE>

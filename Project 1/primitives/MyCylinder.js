@@ -8,7 +8,7 @@ function MyCylinder(scene, height, bradius, tradius, stacks, slices, tcap, bcap)
 
 	this.height = height;
 	this.bradius = bradius;
-	this.traduis = tradius;
+	this.tradius = tradius;
 	this.tcap = tcap;
 	this.bcap = bcap;
 	this.circle = new MyCircle(this.scene, slices);
@@ -33,7 +33,7 @@ MyCylinder.prototype.display = function() {
 	if(this.tcap){
 		this.scene.pushMatrix();
 		this.scene.translate(0,0,this.height);
-		this.scene.scale(this.bradius, this.bradius, 1);
+		this.scene.scale(this.tradius, this.tradius, 1);
 		this.circle.display();
 		this.scene.popMatrix();
 	}

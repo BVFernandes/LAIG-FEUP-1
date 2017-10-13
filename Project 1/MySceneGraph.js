@@ -1470,14 +1470,15 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 				this.checkArgsPrimitives(temp,type, i);
 				vals.push(temp);
 			}
-			for(var j=3;j<6;j++){
-				let temp = parseInt(valuesS[i]);
-				this.checkArgsPrimitives(temp,type, i);
+			for(var j=3;j<5;j++){
+				let temp = parseInt(valuesS[j]);
+				this.checkArgsPrimitives(temp,type, j);
 				vals.push(temp);
 			}
-			for(var z=6; z<7;z++){
-				let temp = parseInt(valuesS[i]);
-				this.checkArgsPrimitives(temp,type, i);
+			for(var z=5; z<7;z++){
+				let temp = parseInt(valuesS[z]);
+				this.checkArgsPrimitives(temp,type, z);
+				console.log(temp);
 				if(temp !=0 && temp!=1)
 					this.onXMLError("Wrong arguments in top cap ou bottom cap");
 				vals.push(temp);

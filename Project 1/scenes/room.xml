@@ -1,5 +1,5 @@
 <SCENE>
-  
+
   <!-- Initial values -->
   <INITIALS>
     <frustum near="0.1" far="500" />
