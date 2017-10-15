@@ -1377,7 +1377,6 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 	return null ;
 }
 
-
 MySceneGraph.prototype.parsePatch = function(args, descendants) {
 	var controlVertexes=[];
 
@@ -1445,6 +1444,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 			}
 
 		}
+		this.checkArgsRectangle(vals);
 		break;
 	}
 	case 'triangle':{
@@ -1458,6 +1458,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 			}
 		}
 		break;
+		this.checkArgsTriangle(vals);
 	}
 	case 'cylinder':{
 		if(valuesS.length != 7)
@@ -1476,11 +1477,10 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 			for(var z=5; z<7;z++){
 				let temp = parseInt(valuesS[z]);
 				this.checkArgsPrimitives(temp,type, z);
-				if(temp !=0 && temp!=1)
-					this.onXMLError("Wrong arguments in top cap ou bottom cap");
 				vals.push(temp);
 			}
 		}
+		this.checkArgsCylinder(vals);
 		break;
 	}
 	case 'sphere':{
@@ -1499,6 +1499,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 			this.checkArgsPrimitives(temp,type, 2);
 			vals.push(temp);
 		}
+		this.checkArgsSphere(vals);
 		break;
 	}
 	case 'patch':
@@ -1529,6 +1530,45 @@ MySceneGraph.prototype.checkArgsPrimitives = function(value, type, index){
 	}
 	else if (isNaN(value))
 		return "non-numeric value for" + index + " arg of" + type;
+			
+}
+
+MySceneGraph.prototype.checkArgsRectangle = function(args){
+	if(args[0] >= args[2] || args[1] <= args[3])
+		this.onXMLError("RECTANGLE: Invalid Arguments");	
+}
+
+MySceneGraph.prototype.checkArgsTriangle = function(args){
+	let p1 = [args[0], args[1], args[2]];
+	let p2 = [args[3], args[4], args[5]];
+	let p3 = [args[6], args[7], args[8]];
+	
+	if(p1.isEqual(p2) || p1.isEqual(p3) || p2.isEqual(p3))
+		this.onXMLError("TRIANGLE: Invalid Arguments");
+}
+
+MySceneGraph.prototype.checkArgsCylinder = function(args){
+	if(args[0] <= 0)
+		this.onXMLError("CYLINDER: Invalid Arguments");
+	if(args[1] <= 0)
+		this.onXMLError("CYLINDER: Invalid Arguments");
+	if(args[2] <= 0)
+		this.onXMLError("CYLINDER: Invalid Arguments");
+	if(args[3] <= 0)
+		this.onXMLError("CYLINDER: Invalid Arguments");
+	if(args[4] < 3)
+		this.onXMLError("CYLINDER: Invalid Arguments");
+	if((args[5] != true && args[5]) != false || (args[6] != true && args[6] != false))
+		this.onXMLError("CYLINDER: Invalid Arguments Bools");
+}
+
+MySceneGraph.prototype.checkArgsSphere = function(args){
+	if(args[0] <= 0)
+		this.onXMLError("SPHERE: Invalid Arguments");
+	if(args[1] < 3)
+		this.onXMLError("SPHERE: Invalid Arguments");
+	if(args[2] <= 0)
+		this.onXMLError("SPHERE: Invalid Arguments");
 }
 
 MySceneGraph.prototype.checkArgsPatches = function(value, coordinate){
