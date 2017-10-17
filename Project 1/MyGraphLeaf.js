@@ -57,7 +57,6 @@ MyGraphLeaf.prototype.createPatch=function() {
 }
 
 MyGraphLeaf.prototype.create=function() {
-	console.log(this.xmlelem);
 	switch(this.xmlelem){
 	case 'rectangle':
 		this.createRectangle();
@@ -75,7 +74,7 @@ MyGraphLeaf.prototype.create=function() {
 		this.createPatch();
 		break;
 	default:
-		console.log("Inexistent leaf!")
+		console.warn("Inexistent leaf!")
 		break;
 	}
 }

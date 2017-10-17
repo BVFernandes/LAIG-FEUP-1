@@ -21,7 +21,7 @@ function MySceneGraph(filename, scene) {
 	this.scene = scene;
 	scene.graph = this;
 
-	this.errorMsg = null;
+	this.errorMsg = null; //A variable that contains the error log of each function in the parse leafs
 	this.nodes = [];
 
 	this.idRoot = null;                    // The id of the root element.
@@ -1192,7 +1192,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			if (this.nodes[nodeID] != null )
 				return "node ID must be unique (conflict: ID = " + nodeID + ")";
 
-			this.log("Processing node "+nodeID);
+			console.log("Processing node "+nodeID);
 
 			// Creates node.
 			this.nodes[nodeID] = new MyGraphNode(this,nodeID);
@@ -1327,7 +1327,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 				if (descendants[j].nodeName == "NODEREF")
 				{
 					var curId = this.reader.getString(descendants[j], 'id');
-					this.log("   Descendant: "+curId);
+					console.log("   Descendant: "+curId);
 
 					if (curId == null )
 						this.onXMLMinorError("unable to parse descendant id");
@@ -1344,14 +1344,14 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle','patch']);
 
 						if (type != null)
-							this.log("Leaf: "+ type);
+							console.log("Leaf: "+ type);
 						else
-							this.warn("Error in leaf type");
+							this.onXMLMinorError("Error in leaf type");
 
 						var args=this.reader.getString(descendants[j],'args');
 
 						if(args == null)
-							this.warn("Error in leaf args");
+							this.onXMLMinorError("Error in leaf args");
 
 						var argsVal = this.parseArgsPrimitives(args,type);
 
@@ -1359,6 +1359,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							argsVal =this.parsePatch(argsVal,descendants[j].children);
 						}
 
+						//if a leaf gives an error in parsing args, this is returned here
 						if(this.errorMsg != null){
 							this.onXMLMinorError(this.errorMsg);
 							this.errorMsg = null;
@@ -1383,6 +1384,11 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 	return null ;
 }
 
+/**
+ * Parses the Patches.
+ * @param  {array} args with values of primitive info
+* @param  {array} descendants with cplines and cpoints of patch
+ */
 MySceneGraph.prototype.parsePatch = function(args, descendants) {
 	var controlVertexes=[];
 
@@ -1400,19 +1406,16 @@ MySceneGraph.prototype.parsePatch = function(args, descendants) {
 				if (children[j].nodeName == "CPOINT"){
 					vDegree=children.length;
 					// Retrieves coordinate parameters.
-					var xx = this.reader.getFloat(children[j], 'xx');
-					this.checkArgsPatches(xx,"x");
+					let coordinates = ['x','y','z','w'];
+					let temp_array = [];
+					for(let coor = 0; coor < coordinates.length; coor++){
+						let temp_coord = this.reader.getFloat(children[j], coordinates[coor]+coordinates[coor]);
+						if(this.errorMsg == null)
+							this.errorMsg = this.checkArgsPatches(temp_coord,coordinates[coor]);
+						temp_array.push(temp_coord);
+					}
 
-					var yy = this.reader.getFloat(children[j], 'yy');
-					this.checkArgsPatches(yy,"y");
-
-					var zz = this.reader.getFloat(children[j], 'zz');
-					this.checkArgsPatches(zz,"z");
-
-					var ww = this.reader.getFloat(children[j], 'ww');
-					this.checkArgsPatches(ww,"w");
-
-					cplines.push(new Array(xx,yy,zz,ww));
+					cplines.push(temp_array);
 				}
 				else{
 					this.onXMLMinorError("unknown tag name <" + children[j].nodeName + ">");
@@ -1434,7 +1437,12 @@ MySceneGraph.prototype.parsePatch = function(args, descendants) {
 	return args;
 }
 
-MySceneGraph.prototype.parseArgsPrimitives = function(values, type, errorMsg) {
+/**
+ * Parse the arguments of primitives and check if exists errors
+ * @param  {array} values with arguments of primitive
+* @param  {string} type with type of primitive
+ */
+MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 	var vals = [];
 	var valuesS = values.split(" ");
 
@@ -1475,7 +1483,6 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type, errorMsg) {
 			}
 			this.errorMsg = this.checkArgsCylinder(vals);
 		}
-
 		break;
 	}
 	case 'sphere':{
@@ -1487,7 +1494,6 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type, errorMsg) {
 			vals.push(parseInt(valuesS[2]));
 			this.errorMsg = this.checkArgsSphere(vals);
 		}
-
 		break;
 	}
 	case 'patch':
@@ -1496,8 +1502,8 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type, errorMsg) {
 		else{
 			for(var i=0;i<2;i++){
 				let temp = parseFloat(valuesS[i]);
-				this.checkArgsNotNullNan(temp, 'patch');
 				vals.push(temp);
+				this.errorMsg = this.checkArgsNotNullNan(temp, 'patch');
 			}
 		}
 		break;
@@ -1510,76 +1516,111 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type, errorMsg) {
 	return vals;
 }
 
+/**
+ * Check if a array of arguments contains null or non numeric values
+ * In case of error Returns a string with detailed error
+ * @param  {array} values with arguments of primitive
+* @param  {string} type with type of primitive
+ */
 MySceneGraph.prototype.checkArgsNotNullNan = function(args, type){
 	var index;
 	for(index = 0; index < args.length; index++){
 		if (args[index] == null ) {
-			this.onXMLMinorError("unable to parse" + index + " arg of" + type);
-			return 1;
+			return "unable to parse " + index + " arg of" + type;
 		}
 		else if (isNaN(args[index])){
-			this.onXMLMinorError("non-numeric value for" + index + " arg of" + type);
-			return 1;
+			return "non-numeric value for " + index + " arg of" + type;
 		}
 	}
 }
 
+/**
+ * Check arguments of rectangle primitive
+ * In case of error Returns a string with detailed error
+ * @param  {array} args with arguments of primitive
+ */
 MySceneGraph.prototype.checkArgsRectangle = function(args){
 	var errorMsg;
 	if(errorMsg = this.checkArgsNotNullNan(args, 'rectangle'))
 		return errorMsg;
+
 	if(args[0] >= args[2] || args[1] <= args[3])
-		return "RECTANGLE: Invalid Arguments";
+		return "RECTANGLE: Invalid Arguments - Left Top and Bottom right with incorrect cordinates";
 }
 
+/**
+ * Check arguments of triangle primitive
+ * In case of error Returns a string with detailed error
+ * @param  {array} args with arguments of primitive
+ */
 MySceneGraph.prototype.checkArgsTriangle = function(args){
 	var errorMsg
 	if(errorMsg = this.checkArgsNotNullNan(args, 'triangle'))
 		return errorMsg;
+
 	let p1 = [args[0], args[1], args[2]];
 	let p2 = [args[3], args[4], args[5]];
 	let p3 = [args[6], args[7], args[8]];
 
 	if(p1.toString() == p2.toString() || p1.toString() == p3.toString() || p2.toString() == p3.toString())
-		return "TRIANGLE: Invalid Arguments";
+		return "TRIANGLE: Invalid Arguments - one or more points are the same";
 }
 
+/**
+ * Check arguments of cylinder primitive
+ * In case of error Returns a string with detailed error
+ * @param  {array} args with arguments of primitive
+ */
 MySceneGraph.prototype.checkArgsCylinder = function(args){
 	var errorMsg;
 	if(errorMsg = this.checkArgsNotNullNan(args, 'cylinder'))
 		return errorMsg;
+
 	if(args[0] <= 0)
-		return "CYLINDER: Invalid Arguments";
+		return "CYLINDER: Invalid Arguments - height";
 	if(args[1] < 0)
-		return "CYLINDER: Invalid Arguments";
+		return "CYLINDER: Invalid Arguments - bottom radius";
 	if(args[2] < 0)
-		return "CYLINDER: Invalid Arguments";
-	if(args[3] <= 0)
-		return "CYLINDER: Invalid Arguments";
+		return "CYLINDER: Invalid Arguments - top radius";
+	if(args[3] < 1)
+		return "CYLINDER: Invalid Arguments - stacks";
 	if(args[4] < 3)
-		return "CYLINDER: Invalid Arguments";
-	if((args[5] != true && args[5]) != false || (args[6] != true && args[6] != false))
-		return "CYLINDER: Invalid Arguments";
+		return "CYLINDER: Invalid Arguments - slices";
+	if((args[5] != true && args[5] != false) || (args[6] != true && args[6] != false))
+		return "CYLINDER: Invalid Arguments - top cap or bottom cap";
 }
 
+/**
+ * Check arguments of sphere primitive
+ * In case of error Returns a string with detailed error
+ * @param  {array} args with arguments of primitive
+ */
 MySceneGraph.prototype.checkArgsSphere = function(args){
 	var errorMsg;
 	if(errorMsg = this.checkArgsNotNullNan(args,'sphere'))
 		return errorMsg;
+
 	if(args[0] <= 0)
-		return "SPHERE: Invalid Arguments";
-	if(args[1] < 3)
-		return "SPHERE: Invalid Arguments";
-	if(args[2] <= 0)
-		return "SPHERE: Invalid Arguments";
+		return "SPHERE: Invalid Arguments - radius";
+	if(args[1] < 1)
+		return "SPHERE: Invalid Arguments - stacks";
+	if(args[2] < 3)
+		return "SPHERE: Invalid Arguments - slices";
 }
 
+/**
+ * Check arguments of patches primitive
+ * In case of error Returns a string with detailed error
+ * @param  {array} value with a coordinate(x,y,z,w) of patch
+* @param  {string} coordinate with coordinate (x,y,z,w) of patch
+ */
 MySceneGraph.prototype.checkArgsPatches = function(value, coordinate){
 	if (value == null )
 		return "unable to parse" + coordinate + "of patch";
 
 	if (isNaN(value))
 		return "non-numeric value for " + coordinate + "of patch";
+
 	return null;
 }
 
@@ -1595,9 +1636,12 @@ MySceneGraph.prototype.onXMLError = function(message) {
  * Callback to be executed on any minor error, showing a warning on the console.
  */
 MySceneGraph.prototype.onXMLMinorError = function(message) {
-	console.error("Warning: " + message);
+	console.error("Warning: " + message); //change to warn again!!
 }
 
+/**
+ * Callback to be executed on any log, showing a message on the console.
+ */
 MySceneGraph.prototype.log = function(message) {
 	console.log("   " + message);
 }
