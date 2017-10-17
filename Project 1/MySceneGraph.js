@@ -1387,7 +1387,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 /**
  * Parses the Patches.
  * @param  {array} args with values of primitive info
-* @param  {array} descendants with cplines and cpoints of patch
+ * @param  {array} descendants with cplines and cpoints of patch
  */
 MySceneGraph.prototype.parsePatch = function(args, descendants) {
 	var controlVertexes=[];
@@ -1440,7 +1440,7 @@ MySceneGraph.prototype.parsePatch = function(args, descendants) {
 /**
  * Parse the arguments of primitives and check if exists errors
  * @param  {array} values with arguments of primitive
-* @param  {string} type with type of primitive
+ * @param  {string} type with type of primitive
  */
 MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 	var vals = [];
@@ -1503,7 +1503,8 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 			for(var i=0;i<2;i++){
 				let temp = parseFloat(valuesS[i]);
 				vals.push(temp);
-				this.errorMsg = this.checkArgsNotNullNan(temp, 'patch');
+				if(this.errorMsg == null)
+					this.errorMsg = this.checkArgsNotNullNan(temp, 'patch');
 			}
 		}
 		break;
@@ -1520,7 +1521,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
  * Check if a array of arguments contains null or non numeric values
  * In case of error Returns a string with detailed error
  * @param  {array} values with arguments of primitive
-* @param  {string} type with type of primitive
+ * @param  {string} type with type of primitive
  */
 MySceneGraph.prototype.checkArgsNotNullNan = function(args, type){
 	var index;
@@ -1612,7 +1613,7 @@ MySceneGraph.prototype.checkArgsSphere = function(args){
  * Check arguments of patches primitive
  * In case of error Returns a string with detailed error
  * @param  {array} value with a coordinate(x,y,z,w) of patch
-* @param  {string} coordinate with coordinate (x,y,z,w) of patch
+ * @param  {string} coordinate with coordinate (x,y,z,w) of patch
  */
 MySceneGraph.prototype.checkArgsPatches = function(value, coordinate){
 	if (value == null )
