@@ -2,6 +2,15 @@
 
 -> Continuar trabalho até 23 de outubro
 
+Dúvidas:
+- Se continua o processo de dar parse quando encontra um erro, ou se faz logo return e pronto. Ou apenas "merda" no construtor das primitivas
+
+- Na sphere e na Cylinder tinhas uma verificaçao manhosa nas stacks e slices de <3 que já corrigi, mas verificar
+
+- Nos patches tinha um problema que quando corre o ciclo for a guardar as mensagens de erro, ele so guardava se o erro fosse na
+ultima iteraçao. Alterei para verificar apenas os argumentos ate encontrar um erro, assim guarda o primeiro erro e nao verifica se as outras tem...
+
+
 ## To-Do List
 -> XML
 
@@ -21,7 +30,7 @@
 
 	-  Verificar se as texturas sao potencias de 2
 
-	- Patches
+	- [x] Patches
 
 	- Adicionar um aspirador?
 
@@ -63,7 +72,7 @@
 
 -> Outros
 
-	- Apagar console.logs desnecessários, visto que limita demasiado o desempenho da cena
+	- [x] Apagar console.logs desnecessários, visto que limita demasiado o desempenho da cena
 
 	- [x] Apagar comentários desnecessários como as primitivas das stacks e as funções que se encontram no SceneGraph
 
