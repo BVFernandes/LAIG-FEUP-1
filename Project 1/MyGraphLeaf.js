@@ -26,7 +26,7 @@ MyGraphLeaf.prototype.createCylinder=function() {
 	let slices = this.args[4];
 	let top_cap = this.args[5];
 	let bottom_cap = this.args[6];
-	
+
 	this.model = new MyCylinder(this.graph.scene, height, bottom_radius, top_radius, stacks, slices, top_cap, bottom_cap);
 }
 
