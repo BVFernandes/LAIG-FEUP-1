@@ -32,11 +32,12 @@ MySphere.prototype.initBuffers = function() {
 			let cosPhi = Math.cos(phi);
 
 			let x = sinPhi*sinTheta;
-			let z = cosPhi*sinTheta;
-			let y = cosTheta;
+			let y = cosPhi*sinTheta;
+			let z = -cosTheta;
 
-			let u = 1 - (longNumber / this.slices);
-			let v = 1 - (latNumber / this.stacks);
+			let u = (longNumber / this.slices);
+			let v = (latNumber / this.stacks);
+			
 
 			this.normals.push(x);
 			this.normals.push(y);
