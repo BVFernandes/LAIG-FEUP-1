@@ -36,7 +36,7 @@ MySphere.prototype.initBuffers = function() {
 			let z = -cosTheta;
 
 			let u = (longNumber / this.slices);
-			let v = (latNumber / this.stacks);
+			let v = 1 - (latNumber / this.stacks);
 			
 
 			this.normals.push(x);
