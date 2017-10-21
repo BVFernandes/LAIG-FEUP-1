@@ -33,7 +33,7 @@ ultima iteraçao. Alterei para verificar apenas os argumentos ate encontrar um e
 
 	- [x] Patches
 
-	- Adicionar um aspirador?
+	- [NOT NEEDED]Adicionar um aspirador?
 
 	- [x] Posição da camera
 
@@ -46,8 +46,8 @@ ultima iteraçao. Alterei para verificar apenas os argumentos ate encontrar um e
 		- [x] Verificar if's das texturas e materiais (alguns podem ser desnecessários e verificar se a herança está correta)
 
 	->MySceneGraph
-		-Refactor :D
-		- [I think it is done, but needed to check] Verificar os erros no parse das primitivas? (id's iguais e valores?)
+		- [x] Refactor :D
+		- [x] Verificar os erros no parse das primitivas? (id's iguais e valores?)
 		-Cada uma dessas entidades contém um identificador do tipo string . Cada identificador
 			deve ser único dentro de cada bloco (por exemplo, não podem existir duas fontes de luz com o mesmo
 		identificador).
@@ -79,11 +79,11 @@ ultima iteraçao. Alterei para verificar apenas os argumentos ate encontrar um e
 
 	- [x] Ver documentos que se encontram no moodle pode ser que as funções das bibliotecas utilizadas possam melhorar o desempenho
 
-	-Ler laig-cenas.txt by damas e verificar o que for necessário corrigir
+	- Ler laig-cenas.txt by damas e verificar o que for necessário corrigir
 
 	- [x]Mudar nome dos diretórios xD
 
-	-Onde se verifica se os valores default estão corretos? No XMLScene?
+	- Onde se verifica se os valores default estão corretos? No XMLScene?
 
 
 ## Critérios de avaliação:
