@@ -10,6 +10,7 @@ Dúvidas:
 - Nos patches tinha um problema que quando corre o ciclo for a guardar as mensagens de erro, ele so guardava se o erro fosse na
 ultima iteraçao. Alterei para verificar apenas os argumentos ate encontrar um erro, assim guarda o primeiro erro e nao verifica se as outras tem...
 
+- Porque é que as texturas antes de fazer bind apenas testamos com null e "clear", e nao testamos com "null" como nos materiais?
 
 ## To-Do List
 -> XML

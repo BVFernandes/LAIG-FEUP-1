@@ -15,6 +15,7 @@ function MyGraphLeaf(graph, xmlelem, args) {
 MyGraphLeaf.prototype.createRectangle=function() {
 	let leftTop = [this.args[0],this.args[1]];
 	let rightBottom = [this.args[2],this.args[3]];
+
 	this.model = new MyRectangle(this.graph.scene,leftTop,rightBottom);
 }
 

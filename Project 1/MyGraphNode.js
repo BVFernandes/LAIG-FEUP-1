@@ -22,7 +22,6 @@ function MyGraphNode(graph, nodeID) {
 
 	this.transformMatrix = mat4.create();
 	mat4.identity(this.transformMatrix);
-
 }
 
 MyGraphNode.prototype = Object.create(CGFobject.prototype);
@@ -43,16 +42,15 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 }
 
 /**
- * This function applies the transformation the respective component and all of its children.
+ * This function applies the transformation the respective node and all of its children.
  * Then inherit the father material and/or texture if that's the case.
  * After this the appearance with the right texutre and material is applied.
- * Then, each child primitve is displayed as well each child component.
- * By iterating each children components and starting with the root component, this function goes through
+ * Then, each child primitive is displayed as well each child node.
+ * By iterating each children nodes and starting with the root node, this function goes through
  * the scene graph and displays each object.
  * @param  {[Texture]} currTextureID father texture
  * @param  {[Material]} currMaterialID father material
  */
-
 MyGraphNode.prototype.display = function(currTextureID, currMaterialID) {
 
 	this.scene.pushMatrix();
