@@ -1637,7 +1637,7 @@ MySceneGraph.prototype.onXMLError = function(message) {
  * Callback to be executed on any minor error, showing a warning on the console.
  */
 MySceneGraph.prototype.onXMLMinorError = function(message) {
-	console.error("Warning: " + message); //change to warn again!!
+	console.warn("Warning: " + message);
 }
 
 /**
