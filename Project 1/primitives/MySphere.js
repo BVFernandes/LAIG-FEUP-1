@@ -37,7 +37,7 @@ MySphere.prototype.initBuffers = function() {
 
 			let u = (longNumber / this.slices);
 			let v = 1 - (latNumber / this.stacks);
-			
+
 
 			this.normals.push(x);
 			this.normals.push(y);

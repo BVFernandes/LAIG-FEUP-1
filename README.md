@@ -28,7 +28,7 @@ ultima iteraçao. Alterei para verificar apenas os argumentos ate encontrar um e
 
 	- [x] Procurar texturas e materiais interessantes para dar um bom design a cena
 
-	-  Verificar se as texturas sao potencias de 2
+	-  Verificar se as texturas sao potencias de 2 (falta a fireplace mas fica estranho)
 
 	- [x] Patches
 

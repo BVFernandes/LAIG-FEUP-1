@@ -124,7 +124,7 @@
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-	<!-- Glass bowl texture -->
+    <!-- Glass bowl texture -->
     <TEXTURE id="glassTexture">
       <file path="images_room/glass.jpg" />
       <amplif_factor s="1" t="1" />
@@ -345,9 +345,9 @@
       <MATERIAL id="glassMaterial" />
       <TEXTURE id="lampTexture" />
 
-      <TRANSLATION x="0" y="3" z="0" />		
-	  <ROTATION axis="y" angle="180" />
-	  <ROTATION axis="x" angle="90" />
+      <TRANSLATION x="0" y="3" z="0" />
+      <ROTATION axis="y" angle="180" />
+      <ROTATION axis="x" angle="90" />
 
       <DESCENDANTS>
         <LEAF type="sphere" args="0.8 20 20" />
