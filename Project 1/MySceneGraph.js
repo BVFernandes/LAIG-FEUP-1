@@ -1515,7 +1515,6 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 		break;
 	}
 
-	console.log(vals);
 	return vals;
 }
 
