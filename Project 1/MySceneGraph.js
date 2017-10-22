@@ -1363,6 +1363,8 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 						if(this.errorMsg != null){
 							this.onXMLMinorError(this.errorMsg);
 							this.errorMsg = null;
+							sizeChildren++;
+							continue;
 						}
 
 						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,type,argsVal));
@@ -1449,7 +1451,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 	switch(type){
 	case 'rectangle':{
 		if(valuesS.length != 4)
-			this.errorMsg = "Wrong number of arguments for leaf type: RECTANGLE";
+			this.errorMsg = "RECTANGLE: Wrong number of arguments for leaf type";
 		else{
 			for(var i=0;i<4;i++){
 				vals.push(parseFloat(valuesS[i]));
@@ -1461,7 +1463,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 	}
 	case 'triangle':{
 		if(valuesS.length != 9)
-			this.errorMsg = "Wrong number of arguments for leaf type: TRIANGLE";
+			this.errorMsg = "TRIANGLE: Wrong number of arguments for leaf type";
 		else{
 			for(var i=0;i<9;i++){
 				vals.push(parseFloat(valuesS[i]));
@@ -1473,7 +1475,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 	}
 	case 'cylinder':{
 		if(valuesS.length != 7)
-			this.errorMsg = "Wrong number of arguments for leaf type: CYLINDER";
+			this.errorMsg = " CYLINDER: Wrong number of arguments for leaf type";
 		else{
 			for(var i=0;i<3;i++){
 				vals.push(parseFloat(valuesS[i]));
@@ -1487,7 +1489,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 	}
 	case 'sphere':{
 		if(valuesS.length != 3)
-			this.errorMsg = "Wrong number of arguments for leaf type: SPHERE";
+			this.errorMsg = "SPHERE: Wrong number of arguments for leaf type";
 		else{
 			vals.push(parseFloat(valuesS[0]));
 			vals.push(parseInt(valuesS[1]));
@@ -1498,7 +1500,7 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 	}
 	case 'patch':
 		if(valuesS.length != 2)
-			this.errorMsg = "Wrong number of arguments for leaf type: PATCH";
+			this.errorMsg = "PATCH: Wrong number of arguments for leaf type";
 		else{
 			for(var i=0;i<2;i++){
 				let temp = parseFloat(valuesS[i]);
@@ -1603,7 +1605,7 @@ MySceneGraph.prototype.checkArgsSphere = function(args){
 
 	if(args[0] <= 0)
 		return "SPHERE: Invalid Arguments - radius";
-	if(args[1] < 1)
+	if(args[1] < 2)
 		return "SPHERE: Invalid Arguments - stacks";
 	if(args[2] < 3)
 		return "SPHERE: Invalid Arguments - slices";
