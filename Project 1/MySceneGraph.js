@@ -1528,10 +1528,10 @@ MySceneGraph.prototype.checkArgsNotNullNan = function(args, type){
 	var index;
 	for(index = 0; index < args.length; index++){
 		if (args[index] == null ) {
-			return "unable to parse " + index + " arg of" + type;
+			return type.toUpperCase() + ": Unable to parse arg nr " + index;
 		}
 		else if (isNaN(args[index])){
-			return "non-numeric value for " + index + " arg of" + type;
+			return type.toUpperCase() + ": Non-numeric value for arg nr " + index;
 		}
 	}
 }
