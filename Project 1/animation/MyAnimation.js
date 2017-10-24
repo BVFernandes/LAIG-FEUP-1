@@ -7,7 +7,6 @@ function MyAnimation(graph, velocity) {
   if (this.constructor === MyAnimation) {
        throw new Error("Can't instantiate abstract class!");
      }
-
 }
 
 MyAnimation.prototype.constructor = MyAnimation;
