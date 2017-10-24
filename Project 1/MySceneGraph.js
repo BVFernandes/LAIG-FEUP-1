@@ -1656,8 +1656,8 @@ MySceneGraph.prototype.generateDefaultMaterial = function() {
 	var materialDefault = new CGFappearance(this.scene);
 	materialDefault.setShininess(1);
 	materialDefault.setSpecular(0, 0, 0, 1);
-	materialDefault.setDiffuse(0.5, 0.5, 0.5, 1);
-	materialDefault.setAmbient(0, 0, 0, 1);
+	materialDefault.setDiffuse(0.4, 0.4, 0.4, 1);
+	materialDefault.setAmbient(0.4, 0.4, 0.4, 1);
 	materialDefault.setEmission(0, 0, 0, 1);
 
 	// Generates random material ID not currently in use.
@@ -1688,5 +1688,5 @@ MySceneGraph.generateRandomString = function(length) {
 
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
-	this.nodes[this.idRoot].display(null,null);
+	this.nodes[this.idRoot].display(null, this.defaultMaterialID);
 }

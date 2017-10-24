@@ -243,7 +243,7 @@
 
     <!-- The root node -->
     <NODE id="root">
-      <MATERIAL id="defaultMaterial" />
+      <MATERIAL id="null" />
       <TEXTURE id="null" />
 
       <DESCENDANTS>
