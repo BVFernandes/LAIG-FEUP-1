@@ -196,13 +196,18 @@
     </NODE>
 
     <!-- The floor -->
-    <NODE id="chao">
+    <NODE id="chao" selectable="true">
       <MATERIAL id="null" />
       <TEXTURE id="rocks" />
 
       <SCALE sx="6" sy="1" sz="5" />
       <TRANSLATION x="0" y="0" z="4" />
       <ROTATION axis="x" angle="-90" />
+
+	  <ANIMATIONREFS>
+		<ANIMATIONREF id="1"/>
+		<ANIMATIONREF id="2"/>
+	</ANIMATIONREFS>
 
       <DESCENDANTS>
         <LEAF  type="rectangle" args="0 4 5 0" />
@@ -211,7 +216,7 @@
     </NODE>
 
     <!-- The lights -->
-    <NODE id="luzes">
+    <NODE id="luzes" selectable="false">
       <MATERIAL id="lightMaterial" />
       <TEXTURE id="clear" />
 
@@ -293,6 +298,11 @@
 
       <TRANSLATION x="0" y="10" z="0" />
       <SCALE sx="-1" sy="1" sz="1" />
+	  
+	   <ANIMATIONREFS>
+		<ANIMATIONREF id="1"/>
+		<ANIMATIONREF id="2"/>
+	</ANIMATIONREFS>
 
       <DESCENDANTS>
         <LEAF id="sphere1" type="sphere" args="2 20 20" />

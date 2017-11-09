@@ -1392,10 +1392,20 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			// Creates node.
 			this.nodes[nodeID] = new MyGraphNode(this,nodeID);
 
+			let selectable = this.reader.getString(children[i], 'selectable',false);
+			if(selectable == null){ //probably not needed to test null if only test "true"
+				selectable = false;
+			} else if (selectable == "true"){
+				selectable = true;
+			} else {
+				selectable = false;
+			}
+			// console.log(selectable);
+
 			// Gathers child nodes.
 			var nodeSpecs = children[i].children;
 			var specsNames = [];
-			var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS"];
+			var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE","ANIMATIONREFS", "DESCENDANTS"];
 			for (var j = 0; j < nodeSpecs.length; j++) {
 				var name = nodeSpecs[j].nodeName;
 				specsNames.push(nodeSpecs[j].nodeName);
@@ -1510,13 +1520,31 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 				}
 			}
 
+			// Retrieves information about animations.
+			// <ANIMATIONS>
+			let animationIndex = specsNames.indexOf("ANIMATIONREFS");
+			if (animationIndex != -1) {
+				let animationRefBlock = (nodeSpecs[animationIndex]).getElementsByTagName('ANIMATIONREF');
+				if(animationRefBlock == null){
+					this.errorMsg= "No animation found at animationRefs animation block with id" + nodeID;
+					break;
+				} else {
+				let nrChild = animationRefBlock.length;
+				for(let animationRef of animationRefBlock) {
+					let animationRefID = this.reader.getString(animationRef, 'id');
+					// console.log(animationRefID);
+					this.nodes[nodeID].addAnimation(animationRefID);
+					}
+				}
+			}
+
+
 			// Retrieves information about children.
 			var descendantsIndex = specsNames.indexOf("DESCENDANTS");
 			if (descendantsIndex == -1)
 				return "an intermediate node must have descendants";
 
 			var descendants = nodeSpecs[descendantsIndex].children;
-
 			var sizeChildren = 0;
 			for (var j = 0; j < descendants.length; j++) {
 				if (descendants[j].nodeName == "NODEREF")
