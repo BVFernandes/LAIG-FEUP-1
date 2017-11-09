@@ -1,31 +1,25 @@
 /**
- * MyLinearAnimation
- * @constructor
- **/
-
+* MyLinearAnimation
+* @constructor
+**/
 function MyLinearAnimation(id, velocity, controlPoints) {
-      MyAnimation.call(this, id, velocity);
-      this.controlPoints = controlPoints;
+  MyAnimation.call(this, id, velocity);
+  this.controlPoints = controlPoints;
 
-      // [ [dx,dy,dz,total],....]
-      this.pointsInf = [];
-      this.totalDistance=0;
-
-      this.deltaTime=0;
-      this.time=0;
-
-      //this.fillPointsInf();
-
-      this.currDX = 0;
-      this.currDY = 0;
-      this.currDZ = 0;
-      this.currPhaseIndex = 0;
-      this.currPhaseInf = [0,0,0,0];
+  // [ [dx,dy,dz,total],....]
+  // this.pointsInf = [];
+  // this.totalDistance=0;
+  //
+  // //this.fillPointsInf();
+  //
+  // this.currDX = 0;
+  // this.currDY = 0;
+  // this.currDZ = 0;
+  // this.currPhaseIndex = 0;
+  // this.currPhaseInf = [0,0,0,0];
 }
 
-MyLinearAnimation.prototype = Object.create(MyAnimation.prototype);
 MyLinearAnimation.prototype.constructor = MyLinearAnimation;
-
 
 MyLinearAnimation.prototype.fillPointsInf = function() {
   for(var i = 0; i < controlPoints.length-1; i++){
@@ -36,7 +30,12 @@ MyLinearAnimation.prototype.fillPointsInf = function() {
 }
 
 MyLinearAnimation.prototype.getMatrix = function() {
-  return this.graph.scene.translate(this.currDX,this.currDY,this.currDZ);
+  let linearTransforms = mat4.create();
+  mat4.identity(linearTransforms);
+  mat4.translate(linearTransforms, linearTransforms, vec3.fromValues(5,5,5));
+  // console.log(linearTransforms);
+  // console.log("Aqui");
+  return linearTransforms;
 }
 
 
@@ -45,7 +44,7 @@ MyLinearAnimation.prototype.updatePos = function(dt) {
 
   for(var i = this.currPhaseIndex; i < this.pointsInf.length; i++){
     if((this.currPhaseInf[3]+this.pointsInf[i][3]) > currDist){
-        break;
+      break;
     }
     else {
       this.currPhaseInf[0] += this.pointsInf[i][0];
@@ -79,5 +78,10 @@ MyLinearAnimation.prototype.calculateDistanceBetweenPoints = function() {
 }
 
 MyLinearAnimation.prototype.addChild = function(nodeID) {
-	this.children.push(nodeID);
+  this.children.push(nodeID);
+}
+
+MyLinearAnimation.prototype.update = function(currTime) {
+  MyAnimation.prototype.update.call(this, currTime);
+  // console.log("update linear");
 }

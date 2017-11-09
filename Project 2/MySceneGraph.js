@@ -1209,7 +1209,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 					break;
 				}
 			}
-
+				// console.log(animationID);
 			 this.parseAnimation(children[i], animationID, speed, type);
 
 			 if(this.errorMsg != null){
@@ -1264,11 +1264,11 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 
 				 controlPoints.push(temp_array);
 			 }
-			 //console.log(animationID);
-			 //console.log(speed);
-			 //console.log(controlPoints);
+			 // console.log(animationID);
+			 // console.log(speed);
+			 // console.log(controlPoints);
 			 let linearAnimation = new MyLinearAnimation(animationID, speed, controlPoints);
-			 this.animations.push(linearAnimation);
+			 this.animations[animationID]=linearAnimation;
 			 break;
 		 }
 		 case 'circular':{
@@ -1297,7 +1297,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 			 // console.log(startAngle/DEGREE_TO_RAD);
 			 // console.log(rotAngle/DEGREE_TO_RAD);
 			 let circularAnimation = new MyCircularAnimation(animationID, speed, center, radius, startAngle, rotAngle);
-			 this.animations.push(circularAnimation);
+			 this.animations[animationID]=circularAnimation;
 			 break;
 		 }
 		 case 'bezier':{
@@ -1331,11 +1331,11 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 			 // console.log(speed);
 			 // console.log(controlPoints);
 			 let bezierAnimation = new MyBezierAnimation(animationID, speed, controlPoints);
-			 this.animations.push(bezierAnimation);
+			 this.animations[animationID]=bezierAnimation;
 			 break;
 		 }
 		 case 'combo':{
-			 let comboAnimation = new MyComboAnimation();
+			 let comboAnimation = new MyComboAnimation(animationID);
 
 			 let spanRefBlock = children.getElementsByTagName('SPANREF');
 			 if(spanRefBlock == null){
@@ -1349,6 +1349,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 				 // console.log(spanRefID);
 				 comboAnimation.addAnimation(spanRefID);
 			 }
+			 this.animations[animationID]=comboAnimation;
 		 }
 		 default:
 		 break;
@@ -1532,7 +1533,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 				let nrChild = animationRefBlock.length;
 				for(let animationRef of animationRefBlock) {
 					let animationRefID = this.reader.getString(animationRef, 'id');
-					// console.log(animationRefID);
+					 // console.log(animationRefID);
 					this.nodes[nodeID].addAnimation(animationRefID);
 					}
 				}

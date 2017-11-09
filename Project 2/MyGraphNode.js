@@ -20,7 +20,9 @@ function MyGraphNode(graph, nodeID) {
 	// The texture ID.
 	this.textureID = null ;
 
-	this.animations = [];
+	// IDs of animations
+	this.animationsID = [];
+	this.animationIndex = -1;
 
 	this.transformMatrix = mat4.create();
 	mat4.identity(this.transformMatrix);
@@ -47,7 +49,7 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
  * Adds the reference (ID) of another node to this node's children array.
  */
 MyGraphNode.prototype.addAnimation = function(animationID) {
-	this.animations.push(animationID);
+	this.animationsID.push(animationID);
 }
 
 /**
@@ -64,6 +66,16 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID) {
 
 	this.scene.pushMatrix();
 	this.scene.multMatrix(this.transformMatrix);
+
+	if(this.animationsID.length > 0){
+
+		if(this.animationIndex != 1){
+			console.log(this.graph.animations[this.animationsID[0]].getMatrix());
+		}
+		this.animationIndex =1;
+		let matrix = this.graph.animations[this.animationsID[0]].getMatrix();
+		this.scene.multMatrix(matrix);
+	}
 
 	var newTextureID = this.textureID;
 	var newMaterialID = this.materialID;

@@ -59,12 +59,12 @@ MyBezierAnimation.prototype.getMatrix = function() {
 
   this.circularTransforms = mat4.create();
   mat4.identity(this.circularTransforms);
-  mat4.translate(this.circularTransforms, this.circularTransforms, [centerx, centery, centerz]);
-  mat4.rotateY(this.circularTransforms, this.circularTransforms, DEGREE_TO_RAD * this.deltaAng);
-  mat4.translate(this.circularTransforms, this.circularTransforms, [this.radius, 0, 0]);
-  mat4.rotateY(this.circularTransforms, this.circularTransforms, DEGREE_TO_RAD * 90);
+  // mat4.translate(this.circularTransforms, this.circularTransforms, [centerx, centery, centerz]);
+  // mat4.rotateY(this.circularTransforms, this.circularTransforms, DEGREE_TO_RAD * this.deltaAng);
+  // mat4.translate(this.circularTransforms, this.circularTransforms, [this.radius, 0, 0]);
+  // mat4.rotateY(this.circularTransforms, this.circularTransforms, DEGREE_TO_RAD * 90);
 
-  return mat4;
+  return this.circularTransforms;
 }
 
 MyBezierAnimation.prototype.updatePos = function(dt) {
@@ -98,3 +98,8 @@ MyBezierAnimation.prototype.updatePos = function(dt) {
     this.hit = true;
   }
 };
+
+MyBezierAnimation.prototype.update = function(currTime) {
+  MyAnimation.prototype.update.call(this, currTime);
+	// console.log("update bezier");
+}

@@ -32,6 +32,9 @@ XMLscene.prototype.init = function(application) {
 	this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis = new CGFaxis(this);
+
+	this.updatePeriod = 1 / 60 * 1000;	// update period in ms (1/60 * 1000 ms = 60 Hz)
+	this.setUpdatePeriod(this.updatePeriod);
 }
 
 /**
@@ -96,16 +99,16 @@ XMLscene.prototype.initCameras = function() {
 	this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
 }
 
-/* Handler called when the graph is finally loaded. 
+/* Handler called when the graph is finally loaded.
  * As loading is asynchronous, this may be called already after the application has started the run loop
  */
-XMLscene.prototype.onGraphLoaded = function() 
+XMLscene.prototype.onGraphLoaded = function()
 {
 	this.camera.near = this.graph.near;
 	this.camera.far = this.graph.far;
 	this.axis = new CGFaxis(this,this.graph.referenceLength);
 
-	this.setGlobalAmbientLight(this.graph.ambientIllumination[0], this.graph.ambientIllumination[1], 
+	this.setGlobalAmbientLight(this.graph.ambientIllumination[0], this.graph.ambientIllumination[1],
 			this.graph.ambientIllumination[2], this.graph.ambientIllumination[3]);
 
 	this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
@@ -135,8 +138,8 @@ XMLscene.prototype.display = function() {
 
 	this.pushMatrix();
 
-	if (this.graph.loadedOk) 
-	{        
+	if (this.graph.loadedOk)
+	{
 		// Applies initial transformations.
 		this.multMatrix(this.graph.initialTransforms);
 
@@ -162,3 +165,9 @@ XMLscene.prototype.display = function() {
 	// ---- END Background, camera and axis setup
 
 }
+
+XMLscene.prototype.update = function(currTime) {
+	for(let i = 0; i < this.graph.animations.length; i++){
+		this.graph.animations[i].update();
+	}
+};

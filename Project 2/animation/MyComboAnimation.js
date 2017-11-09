@@ -3,7 +3,8 @@
 * @constructor
 **/
 
-function MyComboAnimation() {
+function MyComboAnimation(id) {
+  this.id = id;
   this.animations=[];
   this.currAnimation = 0;
 
@@ -30,4 +31,17 @@ MyComboAnimation.prototype.updateAnimation = function(animation) {
 
   }
 
+}
+
+MyComboAnimation.prototype.getMatrix = function() {
+
+  this.circularTransforms = mat4.create();
+  mat4.identity(this.circularTransforms);
+
+  return this.circularTransforms;
+}
+
+MyComboAnimation.prototype.update = function(currTime) {
+  MyAnimation.call(this,currTime);
+	// console.log("update combo");
 }
