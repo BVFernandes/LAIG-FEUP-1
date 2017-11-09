@@ -3,10 +3,10 @@
 * @constructor
 **/
 
-function MyBezierAnimation(graph, id, velocity, controlPoints) {
+function MyBezierAnimation(id, velocity, controlPoints) {
   MyAnimation.call(this,id,velocity);
 
-  this.controlPoints=controlPoints;
+  this.controlPoints = controlPoints;
   this.deltaAng = 0;
   this.curveDist = this.curveDistance();
   this.totalTime = this.curveDist/this.velocity;
@@ -33,24 +33,25 @@ MyBezierAnimation.prototype.meanPoint = function(point1, point2){
 }
 
 MyBezierAnimation.prototype.distanceBetweenPoints = function(point1, point2){
-  let vecTmp = vec3.fromValues([point2[0]-point1[0], point2[1]-point1[1], point2[2]-point1[2)]);
-  return vecTmp.dist();
+  let vec1 = vec3.fromValues(point2[0], point2[1], point2[2]);
+  let vec2 = vec3.fromValues(point1[0], point1[1], point1[2]);
+  return vec3.distance(vec1,vec2);
 }
 
 MyBezierAnimation.prototype.curveDistance = function() {
-  let p12 = this.meanPoint(controlPoints[0],controlPoints[1]);
-  let p23 = this.meanPoint(controlPoints[1],controlPoints[2]);
-  let p34 = this.meanPoint(controlPoints[2],controlPoints[3]);
+  let p12 = this.meanPoint(this.controlPoints[0],this.controlPoints[1]);
+  let p23 = this.meanPoint(this.controlPoints[1],this.controlPoints[2]);
+  let p34 = this.meanPoint(this.controlPoints[2],this.controlPoints[3]);
   let p123 = this.meanPoint(p12,p23);
   let p234 = this.meanPoint(p23,p34);
   let p1234 = this.meanPoint(p123,p234);
 
-  let distance = this.distanceBetweenPoints(p1,p12) +
+  let distance = this.distanceBetweenPoints(this.controlPoints[0],p12) +
   this.distanceBetweenPoints(p12,p123) +
   this.distanceBetweenPoints(p123,p1234) +
   this.distanceBetweenPoints(p1234,p234)+
   this.distanceBetweenPoints(p234, p34)+
-  this.distanceBetweenPoints(p34, p4);
+  this.distanceBetweenPoints(p34, this.controlPoints[3]);
   return distance;
 }
 
@@ -81,7 +82,7 @@ MyBezierAnimation.prototype.updatePos = function(dt) {
   let dist = this.derivateCurve();
   let ang = (dist-this.posY)/Math.abs(dist);
   this.deltaAng = Math.atan(ang);
-  
+
   this.t += 1/(this.framerate*this.aTime);
   this.angRot += this.rotS/this.framerate;
 

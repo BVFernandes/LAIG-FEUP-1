@@ -3,16 +3,16 @@
 * @constructor
 **/
 
-function MyCircularAnimation(graph, id, velocity, centerx, centery centerz, radius, startang, rotang) {
+function MyCircularAnimation(id, velocity, center, radius, startang, rotang) {
   MyAnimation.call(this,id,velocity);
 
-  this.centerx=centerx;
-  this.centery=centery;
-  this.centerz=centerz;
+  this.centerx=center['x'];
+  this.centery=center['y'];
+  this.centerz=center['z'];
   this.radius=radius;
   this.startang=startang;
   this.rotang=rotang;
-  ​
+  
   this.angVelocity = this.velocity/this.radius;
   this.deltaAng=0;
 

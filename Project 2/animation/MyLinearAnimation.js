@@ -3,8 +3,8 @@
  * @constructor
  **/
 
-function MyLinearAnimation(graph, id, controlPoints, velocity) {
-      Animation.call(this, id, velocity);
+function MyLinearAnimation(id, velocity, controlPoints) {
+      MyAnimation.call(this, id, velocity);
       this.controlPoints = controlPoints;
 
       // [ [dx,dy,dz,total],....]
@@ -14,7 +14,7 @@ function MyLinearAnimation(graph, id, controlPoints, velocity) {
       this.deltaTime=0;
       this.time=0;
 
-      this.fillPointsInf();
+      //this.fillPointsInf();
 
       this.currDX = 0;
       this.currDY = 0;

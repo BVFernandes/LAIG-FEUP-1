@@ -3,7 +3,7 @@
 * @constructor
 **/
 
-function MyComboAnimation(graph) {
+function MyComboAnimation() {
   this.animations=[];
   this.currAnimation = 0;
 

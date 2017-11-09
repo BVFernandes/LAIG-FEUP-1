@@ -6,7 +6,8 @@ var ILLUMINATION_INDEX = 1;
 var LIGHTS_INDEX = 2;
 var TEXTURES_INDEX = 3;
 var MATERIALS_INDEX = 4;
-var NODES_INDEX = 5;
+var ANIMATIONS_INDEX = 5;
+var NODES_INDEX = 6;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -22,6 +23,7 @@ function MySceneGraph(filename, scene) {
 	scene.graph = this;
 
 	this.errorMsg = null; //A variable that contains the error log of each function in the parse leafs
+	this.animations = [];
 	this.nodes = [];
 
 	this.idRoot = null;                    // The id of the root element.
@@ -138,6 +140,17 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
 			this.onXMLMinorError("tag <MATERIALS> out of order");
 
 		if ((error = this.parseMaterials(nodes[index])) != null )
+			return error;
+	}
+
+	// <ANIMATIONS>
+	if ((index = nodeNames.indexOf("ANIMATIONS")) == -1)
+		return "tag <ANIMATIONS> missing";
+	else {
+		if (index != ANIMATIONS_INDEX)
+			this.onXMLMinorError("tag <ANIMATIONS> out of order");
+
+		if ((error = this.parseAnimations(nodes[index])) != null )
 			return error;
 	}
 
@@ -1161,6 +1174,188 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 	console.log("Parsed materials");
 }
 
+/**
+ * Parses the <ANIMATIONS> block.
+ */
+ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
+
+	 // Traverses nodes.
+	 var children = animationsNode.children;
+
+	 for (let i = 0; i < children.length; i++) {
+		 var animationName;
+		 if ((animationName = children[i].nodeName) == "ANIMATION") {
+			 // Retrieves animation ID.
+			 var animationID = this.reader.getString(children[i], 'id');
+			 if (animationID == null )
+			 return "failed to retrieve animation ID";
+			 // Checks if ID is valid.
+			 if (this.animations[animationID] != null )
+			 return "animation ID must be unique (conflict: ID = " + animationID + ")";
+
+			 console.log("Processing animation "+animationID);
+
+			 var type = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo']);
+			 if (type != null)
+			 console.log("Animation: "+ type);
+			 else
+			 this.onXMLMinorError("Error in animation type");
+
+			 let speed = -1;
+			 if(type != 'combo'){
+				 speed = this.reader.getFloat(children[i], 'speed');
+				if (speed == null ) { // maybe assume a default value like 10
+					this.onXMLMinorError("Unable to parse speed of animation; discarding animation");
+					break;
+				}
+			}
+
+			 this.parseAnimation(children[i], animationID, speed, type);
+
+			 if(this.errorMsg != null){
+				 this.onXMLMinorError(this.errorMsg);
+				 this.errorMsg = null;
+			 }
+
+
+		 } else
+		 {this.onXMLMinorError("unknown tag name <" + nodeName);}
+
+ }//for
+ console.log("Parsed animations");
+ return null ;
+}//funcao
+
+/**
+ * Parses the Animation.
+ * @param  {array} children with rest of args to parse
+ * @param  {float} speed with speed of animation
+ * @param  {string} type with type of animation
+ */
+ MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, type) {
+
+	 // Creates animation.
+
+	 switch(type){
+		 case 'linear':{
+			 let controlPointBlock = children.getElementsByTagName('controlpoint');
+			 if(controlPointBlock == null){
+				 this.errorMsg= "No Control point found at animation block with id" + animationID;
+				 return;
+			 }
+			 let nrChild = controlPointBlock.length;
+			 let controlPoints = [];
+			 if(nrChild < 2) {
+				 this.errorMsg="Wrong Number of controlPoints";
+				 return;
+			 }
+
+			 for(let controlPoint of controlPointBlock) {
+				 // Retrieves coordinate parameters.
+				 let coordinates = ['x','y','z'];
+				 let temp_array = [];
+
+				 for(let coor = 0; coor < coordinates.length; coor++){
+					 let temp_coord = this.reader.getFloat(controlPoint, coordinates[coor]+coordinates[coor]);
+					 if(this.errorMsg == null)
+					 this.errorMsg = this.checkArgsPatches(temp_coord,coordinates[coor]);
+					 temp_array.push(temp_coord);
+				 }
+
+				 controlPoints.push(temp_array);
+			 }
+			 //console.log(animationID);
+			 //console.log(speed);
+			 //console.log(controlPoints);
+			 let linearAnimation = new MyLinearAnimation(animationID, speed, controlPoints);
+			 this.animations.push(linearAnimation);
+			 break;
+		 }
+		 case 'circular':{
+			 let center = [];
+			 center['x'] = this.reader.getFloat(children, 'centerx');
+			 center['y'] = this.reader.getFloat(children, 'centery');
+			 center['z'] = this.reader.getFloat(children, 'centerz');
+
+			 let radius = this.reader.getFloat(children, 'radius');
+			 this.errorMsg = this.checkArgsPatches(radius, 'Radius');
+
+			 let startAngle = this.reader.getFloat(children, 'startang');
+			 this.errorMsg = this.checkArgsPatches(startAngle, 'Start Angle');
+
+			 startAngle *= DEGREE_TO_RAD;
+
+			 var rotAngle = this.reader.getFloat(children, 'rotang');
+			 this.errorMsg = this.checkArgsPatches(rotAngle, 'Angle of Rotation');
+
+			 rotAngle *=DEGREE_TO_RAD;
+
+			 //console.log(animationID);
+			 // console.log(speed);
+			 // console.log(center);
+			 // console.log(radius);
+			 // console.log(startAngle/DEGREE_TO_RAD);
+			 // console.log(rotAngle/DEGREE_TO_RAD);
+			 let circularAnimation = new MyCircularAnimation(animationID, speed, center, radius, startAngle, rotAngle);
+			 this.animations.push(circularAnimation);
+			 break;
+		 }
+		 case 'bezier':{
+			 let controlPointBlock = children.getElementsByTagName('controlpoint');
+			 if(controlPointBlock == null){
+				 this.errorMsg= "No Control point found at animation block with id" + animationID;
+				 return;
+			 }
+			 let nrChild = controlPointBlock.length;
+			 let controlPoints = [];
+			 if(nrChild != 4) {
+				 this.errorMsg="Wrong Number of controlPoints";
+				 return;
+			 }
+			 for(let controlPoint of controlPointBlock) {
+				 // Retrieves coordinate parameters.
+				 let coordinates = ['x','y','z'];
+				 let temp_array = [];
+
+				 for(let coor = 0; coor < coordinates.length; coor++){
+					 let temp_coord = this.reader.getFloat(controlPoint, coordinates[coor]+coordinates[coor]);
+					 if(this.errorMsg == null)
+					 this.errorMsg = this.checkArgsPatches(temp_coord,coordinates[coor]);
+					 temp_array.push(temp_coord);
+				 }
+
+				 controlPoints.push(temp_array);
+			 }
+
+			 // console.log(animationID);
+			 // console.log(speed);
+			 // console.log(controlPoints);
+			 let bezierAnimation = new MyBezierAnimation(animationID, speed, controlPoints);
+			 this.animations.push(bezierAnimation);
+			 break;
+		 }
+		 case 'combo':{
+			 let comboAnimation = new MyComboAnimation();
+
+			 let spanRefBlock = children.getElementsByTagName('SPANREF');
+			 if(spanRefBlock == null){
+				 this.errorMsg= "No animation found at combo animation block with id" + animationID;
+				 return;
+			 }
+
+			 let nrChild = spanRefBlock.length;
+			 for(let spanRef of spanRefBlock) {
+				 let spanRefID = this.reader.getString(spanRef, 'id');
+				 // console.log(spanRefID);
+				 comboAnimation.addAnimation(spanRefID);
+			 }
+		 }
+		 default:
+		 break;
+	 }
+
+	 return;
+ }
 
 /**
  * Parses the <NODES> block.

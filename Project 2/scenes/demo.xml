@@ -149,9 +149,29 @@
   </MATERIALS>
 
 
-  <!-- The leaves -->
-  <LEAVES>
-  </LEAVES>
+  <!-- The animations -->
+  <ANIMATIONS>
+  
+  <ANIMATION id="1" speed="10" type="linear">
+	<controlpoint xx="0" yy="0" zz="0"/>
+	<controlpoint xx="4" yy="0" zz="0"/>
+</ANIMATION>
+
+<ANIMATION id="2" speed="15" type="circular" centerx="5" centery="5" centerz="5" radius="2" startang="25" rotang="5"/>
+
+<ANIMATION id="3" speed="10" type="bezier">
+	<controlpoint xx="0" yy="0" zz="0"/>
+	<controlpoint xx="4" yy="0" zz="0"/>
+	<controlpoint xx="8" yy="0" zz="0"/>
+	<controlpoint xx="12" yy="0" zz="0"/>
+</ANIMATION>
+
+<ANIMATION id="4" type="combo">
+	<SPANREF id="1"/>
+	<SPANREF id="2"/>
+</ANIMATION>
+
+  </ANIMATIONS>
 
 
   <!-- The nodes -->

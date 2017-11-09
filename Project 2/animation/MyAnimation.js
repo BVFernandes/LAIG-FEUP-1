@@ -3,7 +3,7 @@
  * @constructor
  **/
 
-function MyAnimation(graph, id, velocity) {
+function MyAnimation(id, velocity) {
   if (this.constructor === MyAnimation) {
        throw new Error("Can't instantiate abstract class!");
      }
