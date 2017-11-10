@@ -96,7 +96,7 @@ MyLinearAnimation.prototype.update = function(currTime) {
 
   let currDist = this.velocity*this.delta;
   
-  console.log(currDist);
+  //console.log(currDist);
 
   for(let i = this.currPhaseIndex; i < this.pointsInf.length-1; i++){
     if((this.currPhaseInf[3]+this.pointsInf[i][3]) > currDist){
