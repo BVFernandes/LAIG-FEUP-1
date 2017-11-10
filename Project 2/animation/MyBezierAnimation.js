@@ -13,6 +13,7 @@ function MyBezierAnimation(id, velocity, controlPoints) {
   this.t=0;
 }
 
+MyBezierAnimation.prototype = Object.create(MyAnimation.prototype);
 MyBezierAnimation.prototype.constructor = MyBezierAnimation;
 
 /**

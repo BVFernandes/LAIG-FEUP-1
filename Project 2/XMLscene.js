@@ -167,7 +167,6 @@ XMLscene.prototype.display = function() {
 }
 
 XMLscene.prototype.update = function(currTime) {
-	for(let i = 0; i < this.graph.animations.length; i++){
-		this.graph.animations[i].update();
-	}
+	for(let id in this.graph.animations)
+	 this.graph.animations[id].update(currTime);
 };

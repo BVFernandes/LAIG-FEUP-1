@@ -21,5 +21,4 @@ MyAnimation.prototype.constructor = MyAnimation;
 MyAnimation.prototype.update = function(currTime) {
   this.delta = currTime - this.lastCurrTime;
 	this.lastCurrTime = currTime;
-	// console.log("update");
 }

@@ -19,6 +19,7 @@ function MyLinearAnimation(id, velocity, controlPoints) {
   // this.currPhaseInf = [0,0,0,0];
 }
 
+MyLinearAnimation.prototype = Object.create(MyAnimation.prototype);
 MyLinearAnimation.prototype.constructor = MyLinearAnimation;
 
 MyLinearAnimation.prototype.fillPointsInf = function() {
