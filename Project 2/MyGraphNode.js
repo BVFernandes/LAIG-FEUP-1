@@ -69,11 +69,13 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID) {
 
 	if(this.animationsID.length > 0){
 
+		/*
 		if(this.animationIndex != 1){
 			console.log(this.graph.animations.length);
 			console.log(this.graph.animations[this.animationsID[0]]);
 			console.log(this.graph.animations[this.animationsID[0]].getMatrix());
 		}
+		*/
 		this.animationIndex =1;
 		let matrix = this.graph.animations[this.animationsID[0]].getMatrix();
 		this.scene.multMatrix(matrix);

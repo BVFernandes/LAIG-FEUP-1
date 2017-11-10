@@ -4,41 +4,48 @@
 **/
 function MyLinearAnimation(id, velocity, controlPoints) {
   MyAnimation.call(this, id, velocity);
+  this.end = false;
   this.controlPoints = controlPoints;
 
   // [ [dx,dy,dz,total],....]
-  // this.pointsInf = [];
-  // this.totalDistance=0;
-  //
-  // //this.fillPointsInf();
-  //
-  // this.currDX = 0;
-  // this.currDY = 0;
-  // this.currDZ = 0;
-  // this.currPhaseIndex = 0;
-  // this.currPhaseInf = [0,0,0,0];
+  this.pointsInf = [];
+  this.totalDistance=0;
+ 
+  for(let i = 0; i < controlPoints.length-1; i++){
+    let ptr1 = controlPoints[i];
+    let ptr2 = controlPoints[i+1];
+	let distance = this.calculateDistanceBetweenPoints(ptr1,ptr2);
+    this.pointsInf.push(new Array(ptr2[0]-ptr1[0], ptr2[1]-ptr1[1], ptr2[2]-ptr1[2], distance));
+	this.totalDistance += distance;
+  }
+ 
+  this.currDX = 0;
+  this.currDY = 0;
+  this.currDZ = 0;
+  this.currPhaseIndex = 0;
+  this.currPhaseInf = [0,0,0,0];
+  
+  this.flagForReset = false;
 }
 
 MyLinearAnimation.prototype = Object.create(MyAnimation.prototype);
 MyLinearAnimation.prototype.constructor = MyLinearAnimation;
 
 MyLinearAnimation.prototype.fillPointsInf = function() {
-  for(var i = 0; i < controlPoints.length-1; i++){
-    var ptr1 = controlPoints[i];
-    var ptr2 = controlPoints[i+1];
-    this.pointsInf.push(new Array(ptr2[0]-ptr1[0], ptr2[1]-ptr1[1], ptr2[2]-ptr1[2], this.calculateDistanceBetweenPoints(ptr1,ptr2)));
+  for(let i = 0; i < controlPoints.length-1; i++){
+    let ptr1 = controlPoints[i];
+    let ptr2 = controlPoints[i+1];
+	let distance = this.calculateDistanceBetweenPoints(ptr1,ptr2);
+    this.pointsInf.push(new Array(ptr2[0]-ptr1[0], ptr2[1]-ptr1[1], ptr2[2]-ptr1[2], distance));
   }
 }
 
 MyLinearAnimation.prototype.getMatrix = function() {
   let linearTransforms = mat4.create();
   mat4.identity(linearTransforms);
-  mat4.translate(linearTransforms, linearTransforms, vec3.fromValues(5,5,5));
-  // console.log(linearTransforms);
-  // console.log("Aqui");
+  mat4.translate(linearTransforms, linearTransforms, vec3.fromValues(this.currDX, this.currDY, this.currDZ));
   return linearTransforms;
 }
-
 
 MyLinearAnimation.prototype.updatePos = function(dt) {
   var currDist = this.velocity*dt;
@@ -70,19 +77,61 @@ MyLinearAnimation.prototype.updatePos = function(dt) {
   this.currDZ = this.currPhaseInf[2]+mod*this.pointsInf[this.pointsInfIndex][2];
 }
 
-MyLinearAnimation.prototype.addControlPoint = function() {
-
-}
-
-MyLinearAnimation.prototype.calculateDistanceBetweenPoints = function() {
-
-}
-
-MyLinearAnimation.prototype.addChild = function(nodeID) {
-  this.children.push(nodeID);
+MyLinearAnimation.prototype.calculateDistanceBetweenPoints = function(point1, point2) {
+	let vec1 = vec3.fromValues(point2[0], point2[1], point2[2]);
+	let vec2 = vec3.fromValues(point1[0], point1[1], point1[2]);
+	return vec3.distance(vec1,vec2);
 }
 
 MyLinearAnimation.prototype.update = function(currTime) {
   MyAnimation.prototype.update.call(this, currTime);
-  // console.log("update linear");
+  
+  if(this.end)
+	return;
+
+  if(this.flagForReset){
+	  this.resetValues();
+	  this.flagForReset = true;
+  }
+
+  let currDist = this.velocity*this.delta;
+  
+  console.log(currDist);
+
+  for(let i = this.currPhaseIndex; i < this.pointsInf.length-1; i++){
+    if((this.currPhaseInf[3]+this.pointsInf[i][3]) > currDist){
+      break;
+    }
+    else {
+      this.currPhaseInf[0] += this.pointsInf[i][0];
+      this.currPhaseInf[1] += this.pointsInf[i][1];
+      this.currPhaseInf[2] += this.pointsInf[i][2];
+      this.currPhaseInf[3] += this.pointsInf[i][3];
+      this.currPhaseIndex++;
+    }
+  }
+  
+  if(currDist > this.totalDistance){
+    this.end = true;
+    currDist = this.totalDistance;
+	if(this.loop)
+		this.flagForReset = true;
+  }
+
+  let deltaDist = currDist-this.currPhaseInf[3];
+
+  let mod = deltaDist / this.pointsInf[this.currPhaseIndex][3];
+  
+  this.currDX = this.currPhaseInf[0]+mod*this.pointsInf[this.currPhaseIndex][0];
+  this.currDY = this.currPhaseInf[1]+mod*this.pointsInf[this.currPhaseIndex][1];
+  this.currDZ = this.currPhaseInf[2]+mod*this.pointsInf[this.currPhaseIndex][2];  
+}
+
+
+MyLinearAnimation.prototype.resetValues = function() {
+	this.currDX = 0;
+	this.currDY = 0;
+    this.currDZ = 0;
+	this.currPhaseIndex = 0;
+	this.currPhaseInf = [0,0,0,0];
 }
