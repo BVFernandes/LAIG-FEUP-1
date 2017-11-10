@@ -25,12 +25,12 @@ MyCircularAnimation.prototype.getMatrix = function() {
 
   this.circularTransforms = mat4.create();
   mat4.identity(this.circularTransforms);
-  mat4.translate(this.circularTransforms, this.circularTransforms, [this.centerx, this.centery, this.centerz]);
+  mat4.translate(this.circularTransforms, this.circularTransforms, vec3.fromValues(this.centerx, this.centery, this.centerz) );
   mat4.rotateY(this.circularTransforms, this.circularTransforms, DEGREE_TO_RAD * this.deltaAng);
-  mat4.translate(this.circularTransforms, this.circularTransforms, [this.radius, 0, 0]);
+  mat4.translate(this.circularTransforms, this.circularTransforms, vec3.fromValues(this.radius, 0, 0) );
   mat4.rotateY(this.circularTransforms, this.circularTransforms, DEGREE_TO_RAD * 90);
 
-  return   this.circularTransforms;
+  return this.circularTransforms;
 }
 
 MyCircularAnimation.prototype.updatePos = function(dt) {

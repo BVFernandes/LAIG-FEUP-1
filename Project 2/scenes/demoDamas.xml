@@ -234,7 +234,7 @@
       <TEXTURE id="null" />
 
       <ANIMATIONREFS>
-          <ANIMATIONREF id="anim4"/>
+          <ANIMATIONREF id="anim2"/>
       </ANIMATIONREFS>
 
       <DESCENDANTS>
@@ -250,7 +250,7 @@
       <TRANSLATION x="0" y="0" z="20" />
 
       <ANIMATIONREFS>
-          <ANIMATIONREF id="anim4"/>
+          <ANIMATIONREF id="anim2"/>
       </ANIMATIONREFS>
 
       <DESCENDANTS>
