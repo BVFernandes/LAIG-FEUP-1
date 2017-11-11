@@ -1283,12 +1283,12 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 			 let startAngle = this.reader.getFloat(children, 'startang');
 			 this.errorMsg = this.checkArgsPatches(startAngle, 'Start Angle');
 
-			 startAngle *= DEGREE_TO_RAD;
+			 //startAngle *= DEGREE_TO_RAD;
 
 			 var rotAngle = this.reader.getFloat(children, 'rotang');
 			 this.errorMsg = this.checkArgsPatches(rotAngle, 'Angle of Rotation');
 
-			 rotAngle *=DEGREE_TO_RAD;
+			 //rotAngle *=DEGREE_TO_RAD;
 
 			 //console.log(animationID);
 			 // console.log(speed);

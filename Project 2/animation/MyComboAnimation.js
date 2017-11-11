@@ -21,6 +21,7 @@ MyComboAnimation.prototype.addAnimation = function(animation) {
 }
 
 MyComboAnimation.prototype.updateAnimation = function(animation) {
+	
   this.animations[this.currAnimation].update();
 
   if(this.animations[this.currAnimation].end()){
