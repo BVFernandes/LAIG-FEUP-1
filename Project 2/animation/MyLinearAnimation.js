@@ -23,7 +23,7 @@ function MyLinearAnimation(id, velocity, controlPoints) {
   this.currDY = 0;
   this.currDZ = 0;
   this.currPhaseIndex = 0;
-  this.currPhaseInf = [0,0,0,0];
+  this.currPhaseInf = [this.controlPoints[0][0],this.controlPoints[0][1],this.controlPoints[0][2],0];
   
   this.flagForReset = false;
 }
@@ -83,6 +83,51 @@ MyLinearAnimation.prototype.calculateDistanceBetweenPoints = function(point1, po
 	return vec3.distance(vec1,vec2);
 }
 
+MyLinearAnimation.prototype.getMatrixTime = function(delta) {
+  
+  let end  = false;
+  let currDist = this.velocity*delta;
+  
+  let currDX = 0;
+  let currDY = 0;
+  let currDZ = 0;
+  let currPhaseIndex = 0;
+  let currPhaseInf = [this.controlPoints[0][0],this.controlPoints[0][1],this.controlPoints[0][2],0];
+  
+
+  for(let i = 0; i < this.pointsInf.length-1; i++){
+    if((currPhaseInf[3]+this.pointsInf[i][3]) > currDist){
+      break;
+    }
+    else {
+      currPhaseInf[0] += this.pointsInf[i][0];
+      currPhaseInf[1] += this.pointsInf[i][1];
+      currPhaseInf[2] += this.pointsInf[i][2];
+      currPhaseInf[3] += this.pointsInf[i][3];
+      currPhaseIndex++;
+    }
+  }
+  
+  if(currDist > this.totalDistance){
+    end = true;
+    currDist = this.totalDistance;
+  }
+
+  let deltaDist = currDist-currPhaseInf[3];
+
+  let mod = deltaDist / this.pointsInf[currPhaseIndex][3];
+  
+  currDX = currPhaseInf[0]+mod*this.pointsInf[currPhaseIndex][0];
+  currDY = currPhaseInf[1]+mod*this.pointsInf[currPhaseIndex][1];
+  currDZ = currPhaseInf[2]+mod*this.pointsInf[currPhaseIndex][2];
+  
+  let linearTransforms = mat4.create();
+  mat4.identity(linearTransforms);
+  mat4.translate(linearTransforms, linearTransforms, vec3.fromValues(currDX, currDY, currDZ));
+  
+  return [end,linearTransforms];
+}
+
 MyLinearAnimation.prototype.update = function(currTime) {
   MyAnimation.prototype.update.call(this, currTime);
   
@@ -96,7 +141,6 @@ MyLinearAnimation.prototype.update = function(currTime) {
 
   let currDist = this.velocity*this.delta;
   
-  //console.log(currDist);
 
   for(let i = this.currPhaseIndex; i < this.pointsInf.length-1; i++){
     if((this.currPhaseInf[3]+this.pointsInf[i][3]) > currDist){
@@ -133,5 +177,5 @@ MyLinearAnimation.prototype.resetValues = function() {
 	this.currDY = 0;
     this.currDZ = 0;
 	this.currPhaseIndex = 0;
-	this.currPhaseInf = [0,0,0,0];
+	this.currPhaseInf = [this.controlPoints[0][0],this.controlPoints[0][1],this.controlPoints[0][2],0];
 }

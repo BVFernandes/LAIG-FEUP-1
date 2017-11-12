@@ -159,15 +159,29 @@
 		<controlpoint xx="0" yy="0" zz="0"/>
     </ANIMATION>
 	
+	<ANIMATION id="anim6" type="linear" speed="10">
+		<controlpoint xx="20" yy="0" zz="0"/>
+		<controlpoint xx="0" yy="10" zz="-10"/>
+    </ANIMATION>
+	
+	<ANIMATION id="anim7" type="linear" speed="10">
+		<controlpoint xx="0" yy="10" zz="10"/>
+		<controlpoint xx="0" yy="0" zz="0"/>
+    </ANIMATION>
+	
     <ANIMATION id="anim2" type="circular" speed="10" centerx="0" centery="10" centerz="0" radius="10" startang="90" rotang="180" />
 	
 	<ANIMATION id="anim3" type="circular" speed="10" centerx="0" centery="10" centerz="20" radius="10" startang="90" rotang="180" />
 	
+	<ANIMATION id="anim5" type="circular" speed="10" centerx="10" centery="0" centerz="0" radius="10" startang="180" rotang="-180" />
+	
 	 <ANIMATION id="anim4" type="combo">
         <!-- <SPANREF id="anim1" /> -->
-        <SPANREF id="anim2" />
-        <SPANREF id="anim3" />
-		
+        <SPANREF id="anim1" />
+        <SPANREF id="anim5" />
+		<SPANREF id="anim6" />
+		<SPANREF id="anim2" />
+		<SPANREF id="anim7" />
     </ANIMATION>
 	
 	<!--

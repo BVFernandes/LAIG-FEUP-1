@@ -28,11 +28,8 @@ MyComboAnimation.prototype.updateAnimation = function() {
 	
   let res = this.animations[this.currAnimation].getMatrixTime(this.delta);
   
-  //console.log(res);
   let end = res[0];
   this.currAnimationMatrix = res[1];
-  
-  console.log(end);
 
   if(end)
   {
