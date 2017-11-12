@@ -4,13 +4,17 @@
 **/
 
 function MyComboAnimation(id) {
-  this.id = id;
+  MyAnimation.call(this,id,null);
+  
   this.animations=[];
   this.currAnimation = 0;
+  
+  this.currAnimationMatrix = mat4.create();
+  mat4.identity(this.currAnimationMatrix);
 
 }
 
-MyComboAnimation.prototype = Object.create(CGFobject.prototype);
+MyComboAnimation.prototype = Object.create(MyAnimation.prototype);
 MyComboAnimation.prototype.constructor = MyComboAnimation;
 
 /**
@@ -20,29 +24,35 @@ MyComboAnimation.prototype.addAnimation = function(animation) {
   this.animations.push(animation);
 }
 
-MyComboAnimation.prototype.updateAnimation = function(animation) {
+MyComboAnimation.prototype.updateAnimation = function() {
 	
-  this.animations[this.currAnimation].update();
+  let res = this.animations[this.currAnimation].getMatrixTime(this.delta);
+  
+  //console.log(res);
+  let end = res[0];
+  this.currAnimationMatrix = res[1];
+  
+  console.log(end);
 
-  if(this.animations[this.currAnimation].end()){
-    if(this.currAnimation >= this.animations.length)
-      this.currAnimation=0;
-    else
-      this.currAnimation++;
-
+  if(end)
+  {
+    if(this.currAnimation >= this.animations.length-1){
+	  this.end = true;
+	  if(this.loop)
+		this.currAnimation=0;
+	}
+    else {
+		this.currAnimation++;
+		MyAnimation.prototype.resetInitTime.call(this);
+	}
   }
-
 }
 
 MyComboAnimation.prototype.getMatrix = function() {
-
-  this.circularTransforms = mat4.create();
-  mat4.identity(this.circularTransforms);
-
-  return this.circularTransforms;
+  return this.currAnimationMatrix;
 }
 
 MyComboAnimation.prototype.update = function(currTime) {
-  MyAnimation.call(this,currTime);
-	// console.log("update combo");
+	MyAnimation.prototype.update.call(this,currTime);
+	this.updateAnimation();
 }

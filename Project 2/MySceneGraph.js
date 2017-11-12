@@ -1347,7 +1347,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 			 for(let spanRef of spanRefBlock) {
 				 let spanRefID = this.reader.getString(spanRef, 'id');
 				 // console.log(spanRefID);
-				 comboAnimation.addAnimation(spanRefID);
+				 comboAnimation.addAnimation(this.animations[spanRefID]);
 			 }
 			 this.animations[animationID]=comboAnimation;
 		 }

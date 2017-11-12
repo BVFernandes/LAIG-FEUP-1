@@ -150,13 +150,7 @@
 
 <!-- The animations -->
 <ANIMATIONS>
-	<!--
-    <ANIMATION id="anim4" type="combo">
-        <SPANREF id="anim1" />
-        <SPANREF id="anim2" />
-        <SPANREF id="anim3" />
-    </ANIMATION>
-	-->
+ 
     <ANIMATION id="anim1" type="linear" speed="10">
         <controlpoint xx="0" yy="0" zz="0"/>
         <controlpoint xx="30" yy="7.5" zz="0"/>
@@ -165,7 +159,16 @@
 		<controlpoint xx="0" yy="0" zz="0"/>
     </ANIMATION>
 	
-    <ANIMATION id="anim2" type="circular" speed="10" centerx="0" centery="10" centerz="0" radius="10" startang="90" rotang="-180" />
+    <ANIMATION id="anim2" type="circular" speed="10" centerx="0" centery="10" centerz="0" radius="10" startang="90" rotang="180" />
+	
+	<ANIMATION id="anim3" type="circular" speed="10" centerx="0" centery="10" centerz="20" radius="10" startang="90" rotang="180" />
+	
+	 <ANIMATION id="anim4" type="combo">
+        <!-- <SPANREF id="anim1" /> -->
+        <SPANREF id="anim2" />
+        <SPANREF id="anim3" />
+		
+    </ANIMATION>
 	
 	<!--
     <ANIMATION id="anim3" type="bezier" speed="20">
@@ -241,7 +244,7 @@
 
       <ANIMATIONREFS>
           <!-- <ANIMATIONREF id="anim1"/> -->
-		  <ANIMATIONREF id="anim2"/>
+		  <ANIMATIONREF id="anim4"/>
       </ANIMATIONREFS>
 
       <DESCENDANTS>

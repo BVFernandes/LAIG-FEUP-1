@@ -58,6 +58,33 @@ MyCircularAnimation.prototype.updatePos = function() {
   }
 }
 
+MyCircularAnimation.prototype.getMatrixTime = function(delta){
+	let end = false;
+	let deltaAng = this.startAng + this.angVelocity*delta;
+
+	if(this.direction == 1){
+		if(deltaAng >= this.endAng){
+			end = true;
+			deltaAng = this.endAng;
+		}
+	}
+	else{
+		if(deltaAng <= this.endAng){
+			end = true;
+			this.deltaAng = this.endAng;
+		}
+	}
+	
+	let circularTransforms = mat4.create();
+	mat4.identity(circularTransforms);
+	mat4.translate(circularTransforms, circularTransforms, vec3.fromValues(this.centerx, this.centery, this.centerz) );
+	mat4.rotateY(circularTransforms, circularTransforms, deltaAng);
+	mat4.translate(circularTransforms, circularTransforms, vec3.fromValues(this.radius, 0, 0) );
+	mat4.rotateY(circularTransforms, circularTransforms, DEGREE_TO_RAD * 90);
+
+	return [end,circularTransforms];
+}
+
 MyCircularAnimation.prototype.update = function(currTime) {
   MyAnimation.prototype.update.call(this, currTime);
   this.updatePos();

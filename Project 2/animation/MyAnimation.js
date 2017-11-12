@@ -9,6 +9,7 @@ function MyAnimation(id, velocity) {
      }
 	 this.end = false;
 	 this.loop = true;
+	 this.resetInit = false;
      this.id=id;
      this.velocity = velocity;
      this.delta = 0;
@@ -21,8 +22,10 @@ MyAnimation.prototype.constructor = MyAnimation;
  * Adds the reference (ID) of another node to this node's children array.
  */
 MyAnimation.prototype.update = function(currTime) {
-	if(!this.initTime)
+	if(!this.initTime || this.resetInit){
 		this.initTime = currTime;
+		this.resetInit = false;
+	}
 	
 	if(this.end){
 		if(this.loop){
@@ -38,4 +41,9 @@ MyAnimation.prototype.update = function(currTime) {
 
 MyAnimation.prototype.end = function() {
 	return this.end;
+}
+
+MyAnimation.prototype.resetInitTime = function() {
+	console.log("resetInitTime called");
+	this.resetInit = true;
 }
