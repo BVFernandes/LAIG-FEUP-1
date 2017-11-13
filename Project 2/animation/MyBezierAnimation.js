@@ -7,9 +7,10 @@ function MyBezierAnimation(id, velocity, controlPoints) {
   MyAnimation.call(this,id,velocity);
 
   this.controlPoints = controlPoints;
-  console.log(this.controlPoints);
-  this.deltaAng = 0;
+  this.angXZ = 0;
+  this.angY = 0;
   this.curveDist = this.curveDistance();
+  console.log(this.curveDist);
   this.totalTime = this.curveDist/this.velocity;
   
   console.log(this.totalTime);
@@ -28,12 +29,17 @@ MyBezierAnimation.prototype.constructor = MyBezierAnimation;
 * Adds the reference (ID) of another node to this node's children array.
 */
 
-MyBezierAnimation.prototype.derivateCurve = function(){
+MyBezierAnimation.prototype.derivateCurve = function(t){
 
-  return 3*Math.pow(1-this.t,2)*this.controlPoints[0] +
-        (3*Math.pow(1-this.t,2)-6*this.t*(1-this.t))*this.controlPoints[2] +
-        (6*this.t*(1-this.t)-3*Math.pow(this.t,2))*this.controlPoints[3] +
-        3*Math.pow(this.t,2)*this.controlPoints[4];
+  dCurve = [];
+  for(let i = 0; i < 3; i++) {
+		dCurve[i] = 3*Math.pow(1-t,2)*this.controlPoints[0][i] +
+					(3*Math.pow(1-t,2)-6*t*(1-t))*this.controlPoints[1][i] +
+					(6*t*(1-t)-3*Math.pow(t,2))*this.controlPoints[2][i] +
+					3*Math.pow(t,2)*this.controlPoints[3][i];
+  }
+  
+  return dCurve;
 }
 
 
@@ -42,9 +48,8 @@ MyBezierAnimation.prototype.meanPoint = function(point1, point2){
 }
 
 MyBezierAnimation.prototype.distanceBetweenPoints = function(point1, point2){
-  let vec1 = vec3.fromValues(point2[0], point2[1], point2[2]);
-  let vec2 = vec3.fromValues(point1[0], point1[1], point1[2]);
-  return vec3.distance(vec1,vec2);
+  let vec1 = vec3.fromValues(point2[0]-point1[0], point2[1]-point1[1], point2[2]-point1[2]);
+  return vec3.length(vec1);
 }
 
 MyBezierAnimation.prototype.curveDistance = function() {
@@ -61,6 +66,8 @@ MyBezierAnimation.prototype.curveDistance = function() {
   this.distanceBetweenPoints(p1234,p234)+
   this.distanceBetweenPoints(p234, p34)+
   this.distanceBetweenPoints(p34, this.controlPoints[3]);
+  
+  console.log(distance);
   return distance;
 }
 
@@ -69,7 +76,8 @@ MyBezierAnimation.prototype.getMatrix = function() {
   let bezierTransforms = mat4.create();
   mat4.identity(bezierTransforms);
   mat4.translate(bezierTransforms, bezierTransforms, [this.posX, this.posY, this.posZ]);
-  mat4.rotateY(bezierTransforms, bezierTransforms, DEGREE_TO_RAD * this.deltaAng);
+  mat4.rotateY(bezierTransforms, bezierTransforms, this.angXZ);
+  mat4.rotateX(bezierTransforms, bezierTransforms, this.angY);
 
   return bezierTransforms;
 }
@@ -80,6 +88,11 @@ MyBezierAnimation.prototype.updatePos = function(dt) {
 	  return;
   
   this.t = this.delta/this.totalTime;
+  
+  if(this.t >= 1){
+    this.end = true;
+	this.t = 1;
+  }
 
   newPos = [];
   for(i = 0; i < 3; i++){
@@ -89,23 +102,45 @@ MyBezierAnimation.prototype.updatePos = function(dt) {
   this.posX = newPos[0];
   this.posY = newPos[1];
   this.posZ = newPos[2];
+  
+  let dCurve = this.derivateCurve(this.t);
+  this.angXZ = Math.atan(dCurve[0]/dCurve[2])+(dCurve[2] < 0 ? Math.PI : 0);
+  this.angY = -Math.atan(dCurve[1]/vec3.length(dCurve));
+}
 
-  /*
-  let dist = this.derivateCurve();
-  let ang = (dist-this.posY)/Math.abs(dist);
-  this.deltaAng = Math.atan(ang);
-  */
-
-  //this.angXZ= Math.atan(x/z)+ (z < 0 ? Math.PI : 0);
-  //this.angY=  Math.atan(y/Math.sqrt(x*x+y*y+z*z));
-
-  if(this.t >= 1){
-    this.end = true;
+MyBezierAnimation.prototype.getMatrixTime = function(delta){
+ 
+  let end = false; 
+  let t = delta/this.totalTime;
+  
+  if(t >= 1){
+    end = true;
+	t = 1;
   }
-};
+
+  newPos = [];
+  for(i = 0; i < 3; i++){
+    newPos[i] = Math.pow(1-t,3)*this.controlPoints[0][i] + 3*t*Math.pow(1-t,2)*this.controlPoints[1][i] + 3*Math.pow(t,2)*(1-t)*this.controlPoints[2][i] + Math.pow(t,3)*this.controlPoints[3][i];
+  }
+
+  let posX = newPos[0];
+  let posY = newPos[1];
+  let posZ = newPos[2];
+  
+  let dCurve = this.derivateCurve(t);
+  let angXZ = Math.atan(dCurve[0]/dCurve[2])+(dCurve[2] < 0 ? Math.PI : 0);
+  let angY = -Math.atan(dCurve[1]/vec3.length(dCurve));
+  
+  let bezierTransforms = mat4.create();
+  mat4.identity(bezierTransforms);
+  mat4.translate(bezierTransforms, bezierTransforms, [posX, posY, posZ]);
+  mat4.rotateY(bezierTransforms, bezierTransforms, angXZ);
+  mat4.rotateX(bezierTransforms, bezierTransforms, angY);
+
+  return [end,bezierTransforms];
+}
 
 MyBezierAnimation.prototype.update = function(currTime) {
   MyAnimation.prototype.update.call(this, currTime);
   this.updatePos();
-	// console.log("update bezier");
 }

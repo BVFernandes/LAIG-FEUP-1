@@ -175,20 +175,28 @@
 	
 	<ANIMATION id="anim5" type="circular" speed="10" centerx="10" centery="0" centerz="0" radius="10" startang="180" rotang="-180" />
 	
+	<ANIMATION id="anim8" type="bezier" speed="10">
+        <controlpoint xx="0" yy="0" zz="0"/>
+        <controlpoint xx="30" yy="10" zz="0"/>
+        <controlpoint xx="30" yy="-30" zz="20"/>
+        <controlpoint xx="0" yy="0" zz="0"/>
+    </ANIMATION>
+	
+	
+	<ANIMATION id="anim9" type="combo">
+		<SPANREF id="anim8" />
+		<SPANREF id="anim2" />
+    </ANIMATION>
+	
 	 <ANIMATION id="anim4" type="combo">
-        <!-- <SPANREF id="anim1" /> -->
         <SPANREF id="anim1" />
+		<SPANREF id="anim5" />
 		<SPANREF id="anim6" />
 		<SPANREF id="anim2" />
 		<SPANREF id="anim7" />
+		<SPANREF id="anim8" />
     </ANIMATION>
 	
-    <ANIMATION id="anim8" type="bezier" speed="10">
-        <controlpoint xx="0" yy="0" zz="0"/>
-        <controlpoint xx="30" yy="10" zz="0"/>
-        <controlpoint xx="30" yy="10" zz="20"/>
-        <controlpoint xx="0" yy="0" zz="20"/>
-    </ANIMATION>
 </ANIMATIONS>
 
 
@@ -204,8 +212,8 @@
 
         <DESCENDANTS>
             <NODEREF id="triangulo1" />
-            <NODEREF id="triangulo2" />
-            <!--<NODEREF id="luzes" />
+            <!--<NODEREF id="triangulo2" />
+            <NODEREF id="luzes" />
             <NODEREF id="piramide" />
             <NODEREF id="arvores" />
             <NODEREF id="chao" />
@@ -254,12 +262,11 @@
       <TEXTURE id="null" />
 
       <ANIMATIONREFS>
-          <!-- <ANIMATIONREF id="anim1"/> -->
 		  <ANIMATIONREF id="anim4"/>
       </ANIMATIONREFS>
 
       <DESCENDANTS>
-        <LEAF type="triangle" args="2.5 0 0 0 0 -2.5 0 0 2.5" />
+        <LEAF type="triangle" args="2.5 0 0 -2.5 0 0 0 0 2.5" />
       </DESCENDANTS>
 
     </NODE>
@@ -275,7 +282,7 @@
       </ANIMATIONREFS>
 
       <DESCENDANTS>
-        <LEAF type="triangle" args="2.5 0 0 0 0 -2.5 0 0 2.5" />
+        <LEAF type="triangle" args="2.5 0 0 -2.5 0 0 0 0 2.5" />
       </DESCENDANTS>
 
     </NODE>

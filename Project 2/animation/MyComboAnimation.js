@@ -30,6 +30,7 @@ MyComboAnimation.prototype.updateAnimation = function() {
   
   let end = res[0];
   this.currAnimationMatrix = res[1];
+  
 
   if(end)
   {
