@@ -204,9 +204,7 @@
       <TRANSLATION x="0" y="0" z="4" />
       <ROTATION axis="x" angle="-90" />
 
-	  <ANIMATIONREFS>
-		<ANIMATIONREF id="circular2"/>
-	</ANIMATIONREFS>
+
 
       <DESCENDANTS>
         <LEAF  type="rectangle" args="0 4 5 0" />
@@ -215,7 +213,7 @@
     </NODE>
 
     <!-- The lights -->
-    <NODE id="luzes" selectable="false">
+    <NODE id="luzes" selectable="true">
       <MATERIAL id="lightMaterial" />
       <TEXTURE id="clear" />
 
@@ -320,7 +318,7 @@
     </NODE>
 
     <!-- Street bench -->
-    <NODE id="bancos">
+    <NODE id="bancos" selectable="true">
       <MATERIAL id="lightMaterial" />
       <TEXTURE id="banco" />
 
@@ -332,7 +330,7 @@
     </NODE>
 
     <!-- One bench -->
-    <NODE id="banco2">
+    <NODE id="banco2" selectable="false">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
 

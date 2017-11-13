@@ -1394,13 +1394,23 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			this.nodes[nodeID] = new MyGraphNode(this,nodeID);
 
 			let selectable = this.reader.getString(children[i], 'selectable',false);
+
 			if(selectable == null){ //probably not needed to test null if only test "true"
-				selectable = false;
+				selectable = null;
 			} else if (selectable == "true"){
 				selectable = true;
 			} else {
 				selectable = false;
 			}
+
+			/*
+			if (selectable == "true"){
+				selectable = true;
+			} else {
+				selectable = false;
+			}
+			*/
+			this.nodes[nodeID].setSelectable(selectable);
 			// console.log(selectable);
 
 			// Gathers child nodes.
@@ -1912,5 +1922,5 @@ MySceneGraph.generateRandomString = function(length) {
 
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
-	this.nodes[this.idRoot].display(null, this.defaultMaterialID);
+	this.nodes[this.idRoot].display(null, this.defaultMaterialID,false);
 }

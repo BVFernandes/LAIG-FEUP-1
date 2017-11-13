@@ -24,6 +24,8 @@ function MyGraphNode(graph, nodeID) {
 	this.animationsID = [];
 	this.animationIndex = -1;
 
+	this.selectable = null;
+
 	this.transformMatrix = mat4.create();
 	mat4.identity(this.transformMatrix);
 }
@@ -53,6 +55,20 @@ MyGraphNode.prototype.addAnimation = function(animationID) {
 }
 
 /**
+ * Get the selectable value of node
+ */
+MyGraphNode.prototype.getSelectable = function() {
+	return this.selectable;
+}
+
+/**
+ * Set the selectable value to a value passed as arg
+ */
+MyGraphNode.prototype.setSelectable = function(selectable) {
+	this.selectable=selectable;
+}
+
+/**
  * This function applies the transformation the respective node and all of its children.
  * Then inherit the father material and/or texture if that's the case.
  * After this the appearance with the right texutre and material is applied.
@@ -62,9 +78,21 @@ MyGraphNode.prototype.addAnimation = function(animationID) {
  * @param  {[Texture]} currTextureID father texture
  * @param  {[Material]} currMaterialID father material
  */
-MyGraphNode.prototype.display = function(currTextureID, currMaterialID) {
+MyGraphNode.prototype.display = function(currTextureID, currMaterialID, selectableBool) {
 
 	this.scene.pushMatrix();
+
+ // Ask if can cancell selectable in the midle of descendance
+	if(this.selectable == false && selectableBool == true){
+ 	 selectableBool=false;
+  }
+
+	if(this.nodeID == this.scene.selectedSelectableNode){
+		selectableBool=true;
+	 }
+
+	this.scene.setShader(selectableBool);
+
 	this.scene.multMatrix(this.transformMatrix);
 
 	if(this.animationsID.length > 0){
@@ -96,7 +124,7 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID) {
 	this.displayLeaves(newTextureID,newMaterialID);
 
 	for(var j=0;j < this.children.length; j++){
-		this.graph.nodes[this.children[j]].display(newTextureID,newMaterialID);
+		this.graph.nodes[this.children[j]].display(newTextureID,newMaterialID,selectableBool);
 	}
 
 	this.scene.popMatrix();

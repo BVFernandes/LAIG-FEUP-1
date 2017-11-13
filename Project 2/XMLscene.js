@@ -10,6 +10,10 @@ function XMLscene(interface) {
 	this.interface = interface;
 
 	this.lightValues = {};
+	this.selectedSelectableNode=0;
+	this.selectedExampleShader=0;
+	this.animationLoop=false;
+	this.scaleFactor=50.0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -35,6 +39,37 @@ XMLscene.prototype.init = function(application) {
 
 	this.updatePeriod = 1 / 60 * 1000;	// update period in ms (1/60 * 1000 ms = 60 Hz)
 	this.setUpdatePeriod(this.updatePeriod);
+
+	this.testShaders=[
+		new CGFshader(this.gl, "shaders/flat.vert", "shaders/flat.frag"),
+		new CGFshader(this.gl, "shaders/uScale.vert", "shaders/uScale.frag"),
+		new CGFshader(this.gl, "shaders/varying.vert", "shaders/varying.frag"),
+		new CGFshader(this.gl, "shaders/texture1.vert", "shaders/texture1.frag"),
+		new CGFshader(this.gl, "shaders/texture2.vert", "shaders/texture2.frag"),
+		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
+		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/sepia.frag"),
+		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")
+	];
+
+	// texture will have to be bound to unit 1 later, when using the shader, with "this.texture2.bind(1);"
+	this.testShaders[4].setUniformsValues({uSampler2: 1});
+	this.testShaders[5].setUniformsValues({uSampler2: 1});
+
+	this.updateScaleFactor();
+}
+
+XMLscene.prototype.updateAnimationLoop=function(v) {
+	// if (v)
+	// 		this.teapot.setLineMode();
+	// 	else
+	// 		this.teapot.setFillMode();
+}
+
+XMLscene.prototype.updateScaleFactor=function(v)
+{
+	this.testShaders[1].setUniformsValues({normScale: this.scaleFactor});
+	this.testShaders[2].setUniformsValues({normScale: this.scaleFactor});
+	this.testShaders[5].setUniformsValues({normScale: this.scaleFactor});
 }
 
 /**
@@ -117,6 +152,8 @@ XMLscene.prototype.onGraphLoaded = function()
 
 	// Adds lights group.
 	this.interface.addLightsGroup(this.graph.lights);
+	this.interface.addSelectableNodesGroup();
+	this.interface.addShadersGroup();
 }
 
 /**
@@ -149,8 +186,10 @@ XMLscene.prototype.display = function() {
 		// Update Lights
 		this.updateLights();
 
+
 		// Displays the scene.
 		this.graph.displayScene();
+
 
 	}
 	else
@@ -167,10 +206,18 @@ XMLscene.prototype.display = function() {
 }
 
 XMLscene.prototype.update = function(currTime) {
-	
+
 	if(!this.graph.loadedOk)
 		return;
-	
-	for(let id in this.graph.animations)
-	 this.graph.animations[id].update(currTime);
+
+	// for(let id in this.graph.animations)
+	//  this.graph.animations[id].update(currTime);
 };
+
+XMLscene.prototype.setShader = function(shader){
+	if(shader){
+		this.setActiveShader(this.testShaders[this.selectedExampleShader]);
+	}else{
+		this.setActiveShader(this.defaultShader);
+	}
+}

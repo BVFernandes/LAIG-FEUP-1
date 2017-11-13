@@ -3,10 +3,9 @@
  * @constructor
  */
 function MyInterface() {
-	//call CGFinterface constructor 
+	//call CGFinterface constructor
 	CGFinterface.call(this);
-}
-;
+};
 
 MyInterface.prototype = Object.create(CGFinterface.prototype);
 MyInterface.prototype.constructor = MyInterface;
@@ -35,8 +34,8 @@ MyInterface.prototype.init = function(application) {
 MyInterface.prototype.addLightsGroup = function(lights) {
 
 	var group = this.gui.addFolder("Lights");
-	group.open();
-
+	//group.open();
+	group.close();
 	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 	// e.g. this.option1=true; this.option2=false;
 
@@ -46,5 +45,47 @@ MyInterface.prototype.addLightsGroup = function(lights) {
 			group.add(this.scene.lightValues, key);
 		}
 	}
+
+	obj=this;
+	this.gui.add(this.scene, 'animationLoop').onChange(function(v)
+		{ obj.scene.updateAnimationLoop(v)	});
 }
 
+MyInterface.prototype.addSelectableNodesGroup = function(){
+	let selectablesList = {};
+	let i=0;
+
+	for(let id in this.scene.graph.nodes){
+		if(this.scene.graph.nodes[id].getSelectable()){
+			selectablesList[id]=id;
+			i++;
+		}
+	}
+	selectablesList['none']=null;
+
+
+this.gui.add(this.scene, 'selectedSelectableNode', selectablesList).name('Selectable List');
+}
+
+MyInterface.prototype.addShadersGroup = function(){
+
+	this.gui.add(this.scene, 'selectedExampleShader', {
+			'Flat Shading': 0,
+			'Passing a scale as uniform': 1,
+			'Passing a varying parameter from VS -> FS': 2,
+			'Simple texturing': 3,
+			'Multiple textures in the FS': 4,
+			'Multiple textures in VS and FS': 5,
+			'Sepia': 6,
+			'Convolution': 7
+
+	}).name('Shader examples');
+
+
+
+	this.gui.add(this.scene, 'scaleFactor',-50,50).onChange(function(v)
+	{
+		this.scene.updateScaleFactor(v);
+	});
+
+}
