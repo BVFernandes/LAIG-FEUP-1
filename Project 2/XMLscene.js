@@ -12,7 +12,9 @@ function XMLscene(interface) {
 	this.lightValues = {};
 	this.selectedSelectableNode=0;
 	this.selectedExampleShader=0;
+	this.selectedColourShader=0;
 	this.animationLoop=false;
+	this.flagTFactor=false;
 	this.scaleFactor=50.0;
 }
 
@@ -55,7 +57,10 @@ XMLscene.prototype.init = function(application) {
 	this.testShaders[4].setUniformsValues({uSampler2: 1});
 	this.testShaders[5].setUniformsValues({uSampler2: 1});
 
+	this.coloursShaders=[vec3.fromValues(0,0,1),vec3.fromValues(1,0,0), vec3.fromValues(0,1,0), vec3.fromValues(1,1,0)];
+
 	this.updateScaleFactor();
+	this.tempTime=1;
 }
 
 XMLscene.prototype.updateAnimationLoop=function(v) {
@@ -70,6 +75,23 @@ XMLscene.prototype.updateScaleFactor=function(v)
 	this.testShaders[1].setUniformsValues({normScale: this.scaleFactor});
 	this.testShaders[2].setUniformsValues({normScale: this.scaleFactor});
 	this.testShaders[5].setUniformsValues({normScale: this.scaleFactor});
+}
+
+XMLscene.prototype.updateTimeFactor=function(currTime)
+{
+	let tFactor;
+	if(this.flagTFactor){
+		tFactor = Math.sin(currTime*Math.pow(10,-3));
+	}
+	else {
+		tFactor=1;
+	}
+
+	this.testShaders[1].setUniformsValues({timeFactor: tFactor});
+}
+
+XMLscene.prototype.updateColourShader=function(){
+	this.testShaders[1].setUniformsValues({colour: this.coloursShaders[this.selectedColourShader]});
 }
 
 /**
@@ -154,6 +176,7 @@ XMLscene.prototype.onGraphLoaded = function()
 	this.interface.addLightsGroup(this.graph.lights);
 	this.interface.addSelectableNodesGroup();
 	this.interface.addShadersGroup();
+	this.interface.addColoursGroup();
 }
 
 /**
@@ -212,6 +235,9 @@ XMLscene.prototype.update = function(currTime) {
 
 	// for(let id in this.graph.animations)
 	//  this.graph.animations[id].update(currTime);
+
+	this.updateTimeFactor(currTime);
+	this.updateColourShader();
 };
 
 XMLscene.prototype.setShader = function(shader){
