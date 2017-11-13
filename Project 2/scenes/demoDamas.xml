@@ -178,20 +178,17 @@
 	 <ANIMATION id="anim4" type="combo">
         <!-- <SPANREF id="anim1" /> -->
         <SPANREF id="anim1" />
-        <SPANREF id="anim5" />
 		<SPANREF id="anim6" />
 		<SPANREF id="anim2" />
 		<SPANREF id="anim7" />
     </ANIMATION>
 	
-	<!--
-    <ANIMATION id="anim3" type="bezier" speed="20">
+    <ANIMATION id="anim8" type="bezier" speed="10">
         <controlpoint xx="0" yy="0" zz="0"/>
         <controlpoint xx="30" yy="10" zz="0"/>
         <controlpoint xx="30" yy="10" zz="20"/>
         <controlpoint xx="0" yy="0" zz="20"/>
     </ANIMATION>
-	-->
 </ANIMATIONS>
 
 

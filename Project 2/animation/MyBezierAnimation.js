@@ -7,9 +7,17 @@ function MyBezierAnimation(id, velocity, controlPoints) {
   MyAnimation.call(this,id,velocity);
 
   this.controlPoints = controlPoints;
+  console.log(this.controlPoints);
   this.deltaAng = 0;
   this.curveDist = this.curveDistance();
   this.totalTime = this.curveDist/this.velocity;
+  
+  console.log(this.totalTime);
+  
+  this.posX = controlPoints[0][0];
+  this.posY = controlPoints[0][1];
+  this.posZ = controlPoints[0][2];
+  
   this.t=0;
 }
 
@@ -58,18 +66,20 @@ MyBezierAnimation.prototype.curveDistance = function() {
 
 MyBezierAnimation.prototype.getMatrix = function() {
 
-  this.circularTransforms = mat4.create();
-  mat4.identity(this.circularTransforms);
-  // mat4.translate(this.circularTransforms, this.circularTransforms, [centerx, centery, centerz]);
-  // mat4.rotateY(this.circularTransforms, this.circularTransforms, DEGREE_TO_RAD * this.deltaAng);
-  // mat4.translate(this.circularTransforms, this.circularTransforms, [this.radius, 0, 0]);
-  // mat4.rotateY(this.circularTransforms, this.circularTransforms, DEGREE_TO_RAD * 90);
+  let bezierTransforms = mat4.create();
+  mat4.identity(bezierTransforms);
+  mat4.translate(bezierTransforms, bezierTransforms, [this.posX, this.posY, this.posZ]);
+  mat4.rotateY(bezierTransforms, bezierTransforms, DEGREE_TO_RAD * this.deltaAng);
 
-  return this.circularTransforms;
+  return bezierTransforms;
 }
 
 MyBezierAnimation.prototype.updatePos = function(dt) {
-  this.t = dt/this.totalTime;
+	
+  if(this.end)
+	  return;
+  
+  this.t = this.delta/this.totalTime;
 
   newPos = [];
   for(i = 0; i < 3; i++){
@@ -80,27 +90,22 @@ MyBezierAnimation.prototype.updatePos = function(dt) {
   this.posY = newPos[1];
   this.posZ = newPos[2];
 
+  /*
   let dist = this.derivateCurve();
   let ang = (dist-this.posY)/Math.abs(dist);
   this.deltaAng = Math.atan(ang);
+  */
 
-  this.t += 1/(this.framerate*this.aTime);
-  this.angRot += this.rotS/this.framerate;
-
-  x= newVector[0];
-  y= newVector[1];
-  z= newVector[2];
-
-  this.angXZ= Math.atan(x/z)+ (z < 0 ? Math.PI : 0);
-  this.angY=  Math.atan(y/Math.sqrt(x*x+y*y+z*z));
+  //this.angXZ= Math.atan(x/z)+ (z < 0 ? Math.PI : 0);
+  //this.angY=  Math.atan(y/Math.sqrt(x*x+y*y+z*z));
 
   if(this.t >= 1){
-    this.start = false;
-    this.hit = true;
+    this.end = true;
   }
 };
 
 MyBezierAnimation.prototype.update = function(currTime) {
   MyAnimation.prototype.update.call(this, currTime);
+  this.updatePos();
 	// console.log("update bezier");
 }
