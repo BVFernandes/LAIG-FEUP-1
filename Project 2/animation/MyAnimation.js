@@ -26,7 +26,7 @@ MyAnimation.prototype.update = function(currTime) {
 		this.initTime = currTime;
 		this.resetInit = false;
 	}
-	
+
 	if(this.end){
 		if(this.loop){
 			this.end = false;
@@ -35,7 +35,7 @@ MyAnimation.prototype.update = function(currTime) {
 		else
 			return;
 	}
-	
+
 	this.delta = (currTime - this.initTime)/1000;
 }
 

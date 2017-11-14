@@ -81,7 +81,7 @@ XMLscene.prototype.updateTimeFactor=function(currTime)
 {
 	let tFactor;
 	if(this.flagTFactor){
-		tFactor = Math.sin(currTime*Math.pow(10,-3));
+		tFactor = Math.abs(Math.sin(currTime*Math.pow(10,-3)));
 	}
 	else {
 		tFactor=1;

@@ -5,10 +5,10 @@
 
 function MyComboAnimation(id) {
   MyAnimation.call(this,id,null);
-  
+
   this.animations=[];
   this.currAnimation = 0;
-  
+
   this.currAnimationMatrix = mat4.create();
   mat4.identity(this.currAnimationMatrix);
 
@@ -25,12 +25,12 @@ MyComboAnimation.prototype.addAnimation = function(animation) {
 }
 
 MyComboAnimation.prototype.updateAnimation = function() {
-	
+
   let res = this.animations[this.currAnimation].getMatrixTime(this.delta);
-  
+
   let end = res[0];
   this.currAnimationMatrix = res[1];
-  
+
 
   if(end)
   {

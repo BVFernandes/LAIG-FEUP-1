@@ -150,7 +150,7 @@
 
 <!-- The animations -->
 <ANIMATIONS>
- 
+
     <ANIMATION id="anim1" type="linear" speed="10">
         <controlpoint xx="0" yy="0" zz="0"/>
         <controlpoint xx="30" yy="7.5" zz="0"/>
@@ -158,36 +158,36 @@
         <controlpoint xx="0" yy="7.5" zz="20"/>
 		<controlpoint xx="0" yy="0" zz="0"/>
     </ANIMATION>
-	
+
 	<ANIMATION id="anim6" type="linear" speed="10">
 		<controlpoint xx="20" yy="0" zz="0"/>
 		<controlpoint xx="0" yy="10" zz="-10"/>
     </ANIMATION>
-	
+
 	<ANIMATION id="anim7" type="linear" speed="10">
 		<controlpoint xx="0" yy="10" zz="10"/>
 		<controlpoint xx="0" yy="0" zz="0"/>
     </ANIMATION>
-	
+
     <ANIMATION id="anim2" type="circular" speed="10" centerx="0" centery="10" centerz="0" radius="10" startang="90" rotang="180" />
-	
+
 	<ANIMATION id="anim3" type="circular" speed="10" centerx="0" centery="10" centerz="20" radius="10" startang="90" rotang="180" />
-	
+
 	<ANIMATION id="anim5" type="circular" speed="10" centerx="10" centery="0" centerz="0" radius="10" startang="180" rotang="-180" />
-	
+
 	<ANIMATION id="anim8" type="bezier" speed="10">
         <controlpoint xx="0" yy="0" zz="0"/>
         <controlpoint xx="30" yy="10" zz="0"/>
         <controlpoint xx="30" yy="-30" zz="20"/>
         <controlpoint xx="0" yy="0" zz="0"/>
     </ANIMATION>
-	
-	
+
+
 	<ANIMATION id="anim9" type="combo">
 		<SPANREF id="anim8" />
 		<SPANREF id="anim2" />
     </ANIMATION>
-	
+
 	 <ANIMATION id="anim4" type="combo">
         <SPANREF id="anim1" />
 		<SPANREF id="anim5" />
@@ -196,7 +196,7 @@
 		<SPANREF id="anim7" />
 		<SPANREF id="anim8" />
     </ANIMATION>
-	
+
 </ANIMATIONS>
 
 
@@ -212,7 +212,8 @@
 
         <DESCENDANTS>
             <NODEREF id="triangulo1" />
-            <!--<NODEREF id="triangulo2" />
+            <NODEREF id="triangulo2" />
+            <!--<
             <NODEREF id="luzes" />
             <NODEREF id="piramide" />
             <NODEREF id="arvores" />
