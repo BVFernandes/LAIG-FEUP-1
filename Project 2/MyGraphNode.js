@@ -82,14 +82,14 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID, selectab
 
 	this.scene.pushMatrix();
 
- // Ask if can cancell selectable in the midle of descendance
+	// Ask if can cancell selectable in the midle of descendance
 	if(this.selectable == false && selectableBool == true){
- 	 selectableBool=false;
-  }
+		selectableBool=false;
+	}
 
 	if(this.nodeID == this.scene.selectedSelectableNode){
 		selectableBool=true;
-	 }
+	}
 
 	this.scene.setShader(selectableBool);
 
@@ -103,7 +103,7 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID, selectab
 			console.log(this.graph.animations[this.animationsID[0]]);
 			console.log(this.graph.animations[this.animationsID[0]].getMatrix());
 		}
-		*/
+		 */
 		this.animationIndex =1;
 		let matrix = this.graph.comboAnimations[this.animationsID[0]].getMatrix();
 		this.scene.multMatrix(matrix);

@@ -4,16 +4,16 @@
  **/
 
 function MyAnimation(id, velocity) {
-  if (this.constructor === MyAnimation) {
-       throw new Error("Can't instantiate abstract class!");
-     }
-	 this.end = false;
-	 this.loop = true;
-	 this.resetInit = false;
-     this.id=id;
-     this.velocity = velocity;
-     this.delta = 0;
-	 this.initTime = null;
+	if (this.constructor === MyAnimation) {
+		throw new Error("Can't instantiate abstract class!");
+	}
+	this.end = false;
+	this.loop = true;
+	this.resetInit = false;
+	this.id=id;
+	this.velocity = velocity;
+	this.delta = 0;
+	this.initTime = null;
 }
 
 MyAnimation.prototype.constructor = MyAnimation;

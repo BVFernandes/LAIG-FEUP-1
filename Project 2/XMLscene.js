@@ -51,7 +51,7 @@ XMLscene.prototype.init = function(application) {
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/sepia.frag"),
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")
-	];
+		];
 
 	// texture will have to be bound to unit 1 later, when using the shader, with "this.texture2.bind(1);"
 	this.testShaders[4].setUniformsValues({uSampler2: 1});

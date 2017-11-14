@@ -1,16 +1,16 @@
 /**
-* MyComboAnimation
-* @constructor
-**/
+ * MyComboAnimation
+ * @constructor
+ **/
 
 function MyComboAnimation(id) {
-  MyAnimation.call(this,id,null);
+	MyAnimation.call(this,id,null);
 
-  this.animations=[];
-  this.currAnimation = 0;
+	this.animations=[];
+	this.currAnimation = 0;
 
-  this.currAnimationMatrix = mat4.create();
-  mat4.identity(this.currAnimationMatrix);
+	this.currAnimationMatrix = mat4.create();
+	mat4.identity(this.currAnimationMatrix);
 
 }
 
@@ -18,36 +18,36 @@ MyComboAnimation.prototype = Object.create(MyAnimation.prototype);
 MyComboAnimation.prototype.constructor = MyComboAnimation;
 
 /**
-* Adds the reference (ID) of another node to this node's children array.
-*/
+ * Adds the reference (ID) of another node to this node's children array.
+ */
 MyComboAnimation.prototype.addAnimation = function(animation) {
-  this.animations.push(animation);
+	this.animations.push(animation);
 }
 
 MyComboAnimation.prototype.updateAnimation = function() {
 
-  let res = this.animations[this.currAnimation].getMatrixTime(this.delta);
+	let res = this.animations[this.currAnimation].getMatrixTime(this.delta);
 
-  let end = res[0];
-  this.currAnimationMatrix = res[1];
+	let end = res[0];
+	this.currAnimationMatrix = res[1];
 
 
-  if(end)
-  {
-    if(this.currAnimation >= this.animations.length-1){
-	  this.end = true;
-	  if(this.loop)
-		this.currAnimation=0;
+	if(end)
+	{
+		if(this.currAnimation >= this.animations.length-1){
+			this.end = true;
+			if(this.loop)
+				this.currAnimation=0;
+		}
+		else {
+			this.currAnimation++;
+			MyAnimation.prototype.resetInitTime.call(this);
+		}
 	}
-    else {
-		this.currAnimation++;
-		MyAnimation.prototype.resetInitTime.call(this);
-	}
-  }
 }
 
 MyComboAnimation.prototype.getMatrix = function() {
-  return this.currAnimationMatrix;
+	return this.currAnimationMatrix;
 }
 
 MyComboAnimation.prototype.update = function(currTime) {

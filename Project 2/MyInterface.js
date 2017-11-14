@@ -48,9 +48,9 @@ MyInterface.prototype.addLightsGroup = function(lights) {
 
 	obj=this;
 	this.gui.add(this.scene, 'animationLoop').onChange(function(v)
-		{ obj.scene.updateAnimationLoop(v)	});
+			{ obj.scene.updateAnimationLoop(v)	});
 
-		this.gui.add(this.scene, 'flagTFactor');
+	this.gui.add(this.scene, 'flagTFactor');
 }
 
 MyInterface.prototype.addSelectableNodesGroup = function(){
@@ -66,37 +66,37 @@ MyInterface.prototype.addSelectableNodesGroup = function(){
 	selectablesList['none']=null;
 
 
-this.gui.add(this.scene, 'selectedSelectableNode', selectablesList).name('Selectable List');
+	this.gui.add(this.scene, 'selectedSelectableNode', selectablesList).name('Selectable List');
 }
 
 MyInterface.prototype.addShadersGroup = function(){
 
 	this.gui.add(this.scene, 'selectedExampleShader', {
-			'Flat Shading': 0,
-			'Passing a scale as uniform': 1,
-			'Passing a varying parameter from VS -> FS': 2,
-			'Sepia': 6,
-			'Convolution': 7
+		'Flat Shading': 0,
+		'Passing a scale as uniform': 1,
+		'Passing a varying parameter from VS -> FS': 2,
+		'Sepia': 6,
+		'Convolution': 7
 
 	}).name('Shader examples');
 
 
 	obj=this;
 	this.gui.add(this.scene, 'scaleFactor',-50,50).onChange(function(v)
-	{
+			{
 		obj.scene.updateScaleFactor(v);
-	});
+			});
 
 }
 
 MyInterface.prototype.addColoursGroup = function(){
-obj=this;
+	obj=this;
 
 	this.gui.add(this.scene, 'selectedColourShader', {
-			'Default(Blue)': 0,
-			'Red': 1,
-			'Green': 2,
-			'Yellow': 3,
+		'Default(Blue)': 0,
+		'Red': 1,
+		'Green': 2,
+		'Yellow': 3,
 	}).name('Colour Shader').onChange(function(v){ obj.scene.updateColourShader(v)});
 
 }
