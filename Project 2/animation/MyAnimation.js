@@ -2,24 +2,26 @@
  * MyAnimation
  * @constructor
  **/
-
 function MyAnimation(id, velocity) {
 	if (this.constructor === MyAnimation) {
 		throw new Error("Can't instantiate abstract class!");
 	}
+
 	this.end = false;
 	this.loop = true;
 	this.resetInit = false;
+
 	this.id=id;
 	this.velocity = velocity;
-	this.delta = 0;
+
 	this.initTime = null;
+	this.delta = 0;
 }
 
 MyAnimation.prototype.constructor = MyAnimation;
 
 /**
- * Adds the reference (ID) of another node to this node's children array.
+ * Update the time in each interruption
  */
 MyAnimation.prototype.update = function(currTime) {
 	if(!this.initTime || this.resetInit){
@@ -44,6 +46,5 @@ MyAnimation.prototype.end = function() {
 }
 
 MyAnimation.prototype.resetInitTime = function() {
-	console.log("resetInitTime called");
 	this.resetInit = true;
 }

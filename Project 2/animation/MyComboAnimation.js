@@ -2,7 +2,6 @@
  * MyComboAnimation
  * @constructor
  **/
-
 function MyComboAnimation(id) {
 	MyAnimation.call(this,id,null);
 
@@ -11,7 +10,6 @@ function MyComboAnimation(id) {
 
 	this.currAnimationMatrix = mat4.create();
 	mat4.identity(this.currAnimationMatrix);
-
 }
 
 MyComboAnimation.prototype = Object.create(MyAnimation.prototype);
@@ -25,15 +23,12 @@ MyComboAnimation.prototype.addAnimation = function(animation) {
 }
 
 MyComboAnimation.prototype.updateAnimation = function() {
+	let infoAnim = this.animations[this.currAnimation].getMatrixTime(this.delta);
 
-	let res = this.animations[this.currAnimation].getMatrixTime(this.delta);
+	let end = infoAnim[0];
+	this.currAnimationMatrix = infoAnim[1];
 
-	let end = res[0];
-	this.currAnimationMatrix = res[1];
-
-
-	if(end)
-	{
+	if(end) {
 		if(this.currAnimation >= this.animations.length-1){
 			this.end = true;
 			if(this.loop)
