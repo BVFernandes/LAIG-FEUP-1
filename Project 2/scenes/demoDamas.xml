@@ -263,7 +263,9 @@
       <TEXTURE id="null" />
 
       <ANIMATIONREFS>
+		  <ANIMATIONREF id="anim1"/>
 		  <ANIMATIONREF id="anim4"/>
+		  <ANIMATIONREF id="anim8"/>
       </ANIMATIONREFS>
 
       <DESCENDANTS>

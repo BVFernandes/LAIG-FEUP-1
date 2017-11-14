@@ -105,7 +105,7 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID, selectab
 		}
 		*/
 		this.animationIndex =1;
-		let matrix = this.graph.animations[this.animationsID[0]].getMatrix();
+		let matrix = this.graph.comboAnimations[this.animationsID[0]].getMatrix();
 		this.scene.multMatrix(matrix);
 	}
 

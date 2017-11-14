@@ -24,6 +24,11 @@ function MySceneGraph(filename, scene) {
 
 	this.errorMsg = null; //A variable that contains the error log of each function in the parse leafs
 	this.animations = [];
+
+	this.comboIDs = [];
+	this.comboAnimations = [];
+	this.animIdx = 0;
+
 	this.nodes = [];
 
 	this.idRoot = null;                    // The id of the root element.
@@ -1335,7 +1340,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 			 break;
 		 }
 		 case 'combo':{
-			 let comboAnimation = new MyComboAnimation(animationID);
+			 //let comboAnimation = new MyComboAnimation(animationID);
 
 			 let spanRefBlock = children.getElementsByTagName('SPANREF');
 			 if(spanRefBlock == null){
@@ -1344,12 +1349,15 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 			 }
 
 			 let nrChild = spanRefBlock.length;
+			 let animationBlockIDs = [];
 			 for(let spanRef of spanRefBlock) {
 				 let spanRefID = this.reader.getString(spanRef, 'id');
 				 // console.log(spanRefID);
-				 comboAnimation.addAnimation(this.animations[spanRefID]);
+				 //comboAnimation.addAnimation(this.animations[spanRefID]);
+				 animationBlockIDs.push(spanRefID);
 			 }
-			 this.animations[animationID]=comboAnimation;
+			  this.comboIDs[animationID] = animationBlockIDs;
+			 //this.animations[animationID]=comboAnimation;
 		 }
 		 default:
 		 break;
@@ -1539,13 +1547,30 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 				if(animationRefBlock == null){
 					this.errorMsg= "No animation found at animationRefs animation block with id" + nodeID;
 					break;
-				} else {
-				let nrChild = animationRefBlock.length;
-				for(let animationRef of animationRefBlock) {
-					let animationRefID = this.reader.getString(animationRef, 'id');
-					 // console.log(animationRefID);
-					this.nodes[nodeID].addAnimation(animationRefID);
+				}
+				else {
+					let comboAnimation = new MyComboAnimation(this.animIdx);
+
+					let nrChild = animationRefBlock.length;
+					let totalAnimationNodeIDs = [];
+					for(let animationRef of animationRefBlock) {
+						let animationRefID = this.reader.getString(animationRef, 'id');
+					 	// console.log(animationRefID);
+						//let comboTemp = new MyComboAnimation(""+nodeID);
+						if(this.comboIDs[animationRefID] != null)
+							totalAnimationNodeIDs.push.apply(totalAnimationNodeIDs,this.comboIDs[animationRefID]);
+						else
+							totalAnimationNodeIDs.push(animationRefID);
+							//this.nodes[nodeID].addAnimation(animationRefID);
 					}
+					console.log(totalAnimationNodeIDs);   //CONSOLE_LOG
+					for(let k = 0; k < totalAnimationNodeIDs.length; k++)
+						comboAnimation.addAnimation(this.animations[totalAnimationNodeIDs[k]]);
+					
+					this.comboAnimations[this.animIdx] = comboAnimation;
+
+					this.nodes[nodeID].addAnimation(this.animIdx);
+					this.animIdx++;
 				}
 			}
 
