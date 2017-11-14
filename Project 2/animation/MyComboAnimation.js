@@ -22,6 +22,10 @@ MyComboAnimation.prototype.addAnimation = function(animation) {
 	this.animations.push(animation);
 }
 
+MyComboAnimation.prototype.setLoopAnimation = function(loop) {
+	this.loop = loop;
+}
+
 MyComboAnimation.prototype.updateAnimation = function() {
 	let infoAnim = this.animations[this.currAnimation].getMatrixTime(this.delta);
 

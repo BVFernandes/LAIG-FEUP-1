@@ -45,48 +45,51 @@ MyInterface.prototype.addLightsGroup = function(lights) {
 			group.add(this.scene.lightValues, key);
 		}
 	}
+}
 
+MyInterface.prototype.addAnimationOption = function() {
 	obj=this;
 	this.gui.add(this.scene, 'animationLoop').onChange(function(v)
-			{ obj.scene.updateAnimationLoop(v)	});
+			{ obj.scene.updateAnimationLoop(v);	}).name('Animation Loop');
 
-	this.gui.add(this.scene, 'flagTFactor');
+
+}
+
+MyInterface.prototype.addShadersGroup = function(){
+	this.addSelectableNodesGroup();
+
+	this.addShadersList();
+
+	obj=this;
+	this.gui.add(this.scene, 'scaleFactor',-50,50).name('Shader Scale').onChange(function(v)
+			{ obj.scene.updateScaleFactor(v); });
+
+this.addColoursGroup();
+
+this.gui.add(this.scene, 'flagTFactor').name('Shader Time');
 }
 
 MyInterface.prototype.addSelectableNodesGroup = function(){
 	let selectablesList = {};
-	let i=0;
 
 	for(let id in this.scene.graph.nodes){
 		if(this.scene.graph.nodes[id].getSelectable()){
 			selectablesList[id]=id;
-			i++;
 		}
 	}
 	selectablesList['none']=null;
 
-
 	this.gui.add(this.scene, 'selectedSelectableNode', selectablesList).name('Selectable List');
 }
 
-MyInterface.prototype.addShadersGroup = function(){
+MyInterface.prototype.addShadersList = function(){
 
 	this.gui.add(this.scene, 'selectedExampleShader', {
 		'Flat Shading': 0,
-		'Passing a scale as uniform': 1,
-		'Passing a varying parameter from VS -> FS': 2,
-		'Sepia': 6,
-		'Convolution': 7
-
-	}).name('Shader examples');
-
-
-	obj=this;
-	this.gui.add(this.scene, 'scaleFactor',-50,50).onChange(function(v)
-			{
-		obj.scene.updateScaleFactor(v);
-			});
-
+		'My Shader': 1,
+		'Sepia': 2,
+		'Convolution': 3
+	}).name('Shader List');
 }
 
 MyInterface.prototype.addColoursGroup = function(){

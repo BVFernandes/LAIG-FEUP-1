@@ -20,10 +20,10 @@ function MyGraphNode(graph, nodeID) {
 	// The texture ID.
 	this.textureID = null ;
 
-	// IDs of animations
-	this.animationsID = [];
-	this.animationIndex = -1;
+	// ID of animation
+	this.animationID = null;
 
+	// Boolean that saves if a node is selectable to use a certain shader
 	this.selectable = null;
 
 	this.transformMatrix = mat4.create();
@@ -51,7 +51,7 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
  * Adds the reference (ID) of another node to this node's children array.
  */
 MyGraphNode.prototype.addAnimation = function(animationID) {
-	this.animationsID.push(animationID);
+	this.animationID = animationID;
 }
 
 /**
@@ -65,7 +65,7 @@ MyGraphNode.prototype.getSelectable = function() {
  * Set the selectable value to a value passed as arg
  */
 MyGraphNode.prototype.setSelectable = function(selectable) {
-	this.selectable=selectable;
+	this.selectable = selectable;
 }
 
 /**
@@ -82,31 +82,21 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID, selectab
 
 	this.scene.pushMatrix();
 
-	// Ask if can cancell selectable in the midle of descendance
 	if(this.selectable == false && selectableBool == true){
-		selectableBool=false;
+		selectableBool = false;
 	}
 
 	if(this.nodeID == this.scene.selectedSelectableNode){
-		selectableBool=true;
+		selectableBool = true;
 	}
 
 	this.scene.setShader(selectableBool);
 
 	this.scene.multMatrix(this.transformMatrix);
 
-	if(this.animationsID.length > 0){
-
-		/*
-		if(this.animationIndex != 1){
-			console.log(this.graph.animations.length);
-			console.log(this.graph.animations[this.animationsID[0]]);
-			console.log(this.graph.animations[this.animationsID[0]].getMatrix());
-		}
-		 */
-		this.animationIndex =1;
-		let matrix = this.graph.comboAnimations[this.animationsID[0]].getMatrix();
-		this.scene.multMatrix(matrix);
+	if(this.animationID != null) {
+		let matrixAnim = this.graph.comboAnimations[this.animationID].getMatrix();
+		this.scene.multMatrix(matrixAnim);
 	}
 
 	var newTextureID = this.textureID;

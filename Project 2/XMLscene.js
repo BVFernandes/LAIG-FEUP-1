@@ -10,12 +10,12 @@ function XMLscene(interface) {
 	this.interface = interface;
 
 	this.lightValues = {};
-	this.selectedSelectableNode=0;
-	this.selectedExampleShader=0;
-	this.selectedColourShader=0;
-	this.animationLoop=false;
-	this.flagTFactor=false;
-	this.scaleFactor=50.0;
+	this.selectedSelectableNode = 0;
+	this.selectedExampleShader = 0;
+	this.selectedColourShader = 0;
+	this.animationLoop = true;
+	this.flagTFactor = false;
+	this.scaleFactor = 10.0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -44,18 +44,10 @@ XMLscene.prototype.init = function(application) {
 
 	this.testShaders=[
 		new CGFshader(this.gl, "shaders/flat.vert", "shaders/flat.frag"),
-		new CGFshader(this.gl, "shaders/uScale.vert", "shaders/uScale.frag"),
-		new CGFshader(this.gl, "shaders/varying.vert", "shaders/varying.frag"),
-		new CGFshader(this.gl, "shaders/texture1.vert", "shaders/texture1.frag"),
-		new CGFshader(this.gl, "shaders/texture2.vert", "shaders/texture2.frag"),
-		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
+		new CGFshader(this.gl, "shaders/MyShader.vert", "shaders/MyShader.frag"),
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/sepia.frag"),
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")
 		];
-
-	// texture will have to be bound to unit 1 later, when using the shader, with "this.texture2.bind(1);"
-	this.testShaders[4].setUniformsValues({uSampler2: 1});
-	this.testShaders[5].setUniformsValues({uSampler2: 1});
 
 	this.coloursShaders=[vec3.fromValues(0,0,1),vec3.fromValues(1,0,0), vec3.fromValues(0,1,0), vec3.fromValues(1,1,0)];
 
@@ -64,21 +56,15 @@ XMLscene.prototype.init = function(application) {
 }
 
 XMLscene.prototype.updateAnimationLoop=function(v) {
-	// if (v)
-	// 		this.teapot.setLineMode();
-	// 	else
-	// 		this.teapot.setFillMode();
+	for(let id in this.graph.comboAnimations)
+		this.graph.comboAnimations[id].setLoopAnimation(v);
 }
 
-XMLscene.prototype.updateScaleFactor=function(v)
-{
+XMLscene.prototype.updateScaleFactor=function(v) {
 	this.testShaders[1].setUniformsValues({normScale: this.scaleFactor});
-	this.testShaders[2].setUniformsValues({normScale: this.scaleFactor});
-	this.testShaders[5].setUniformsValues({normScale: this.scaleFactor});
 }
 
-XMLscene.prototype.updateTimeFactor=function(currTime)
-{
+XMLscene.prototype.updateTimeFactor=function(currTime) {
 	let tFactor;
 	if(this.flagTFactor){
 		tFactor = Math.abs(Math.sin(currTime*Math.pow(10,-3)));
@@ -174,9 +160,9 @@ XMLscene.prototype.onGraphLoaded = function()
 
 	// Adds lights group.
 	this.interface.addLightsGroup(this.graph.lights);
-	this.interface.addSelectableNodesGroup();
+	this.interface.addAnimationOption();
 	this.interface.addShadersGroup();
-	this.interface.addColoursGroup();
+
 }
 
 /**
