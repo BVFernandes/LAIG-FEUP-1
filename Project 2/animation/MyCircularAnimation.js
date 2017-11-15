@@ -64,7 +64,7 @@ MyCircularAnimation.prototype.getMatrix = function(deltaAng) {
 	mat4.translate(circularTransforms, circularTransforms, vec3.fromValues(this.centerx, this.centery, this.centerz) );
 	mat4.rotateY(circularTransforms, circularTransforms, deltaAng);
 	mat4.translate(circularTransforms, circularTransforms, vec3.fromValues(this.radius, 0, 0) );
-	mat4.rotateY(circularTransforms, circularTransforms, DEGREE_TO_RAD * 90);
+	mat4.rotateY(circularTransforms, circularTransforms, DEGREE_TO_RAD * (90 + 90 * this.direction));
 
 	return circularTransforms;
 }
