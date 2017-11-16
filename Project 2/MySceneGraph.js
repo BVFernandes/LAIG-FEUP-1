@@ -23,10 +23,10 @@ function MySceneGraph(filename, scene) {
 	scene.graph = this;
 
 	this.errorMsg = null; //A variable that contains the error log of each function in the parse leafs
-	this.animations = [];
+	this.animations = []; //An array that contains all single animations
 
-	this.comboIDs = [];
-	this.comboAnimations = [];
+	this.comboIDs = []; //An array that contains all the id's of animations converted to combo
+	this.comboAnimations = []; //An array that contains all the animations converted to combo
 	this.animIdx = 0;
 
 	this.nodes = [];
@@ -1206,15 +1206,15 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 			else
 				this.onXMLMinorError("Error in animation type");
 
-			let speed = -1;
+			let speed = null;
 			if(type != 'combo'){
 				speed = this.reader.getFloat(children[i], 'speed');
-				if (speed == null ) { // maybe assume a default value like 10
+				if (speed == null ) {
 					this.onXMLMinorError("Unable to parse speed of animation; discarding animation");
 					break;
 				}
 			}
-			// console.log(animationID);
+
 			this.parseAnimation(children[i], animationID, speed, type);
 
 			if(this.errorMsg != null){
@@ -1222,14 +1222,22 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 				this.errorMsg = null;
 			}
 
-
 		} else
 		{this.onXMLMinorError("unknown tag name <" + nodeName);}
 
-	}//for
+	}
+	//Check if a combo animation contain a combo animation
+	for(let cID in this.comboIDs) {
+		for(let aID in this.comboIDs[cID]){
+			if(this.comboIDs[this.comboIDs[cID][aID]]!=null){
+				return ("A combo cannot contain another combo; Please correct this on combo ID: "+cID+ " with ID: "+ (this.comboIDs[cID][aID]));
+			}
+		}
+	}
+
 	console.log("Parsed animations");
 	return null ;
-}//funcao
+}
 
 /**
  * Parses the Animation.
@@ -1240,7 +1248,6 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, type) {
 
 	// Creates animation.
-
 	switch(type){
 	case 'linear':{
 		let controlPointBlock = children.getElementsByTagName('controlpoint');
@@ -1263,44 +1270,37 @@ MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, ty
 			for(let coor = 0; coor < coordinates.length; coor++){
 				let temp_coord = this.reader.getFloat(controlPoint, coordinates[coor]+coordinates[coor]);
 				if(this.errorMsg == null)
-					this.errorMsg = this.checkArgsPatches(temp_coord,coordinates[coor]);
+					this.errorMsg = this.checkValuesNullorNan(temp_coord,coordinates[coor]+"on Animation ID:"+ animationID);
 				temp_array.push(temp_coord);
 			}
 
 			controlPoints.push(temp_array);
 		}
-		// console.log(animationID);
-		// console.log(speed);
-		// console.log(controlPoints);
+
 		let linearAnimation = new MyLinearAnimation(animationID, speed, controlPoints);
 		this.animations[animationID]=linearAnimation;
 		break;
 	}
 	case 'circular':{
 		let center = [];
-		center['x'] = this.reader.getFloat(children, 'centerx');
-		center['y'] = this.reader.getFloat(children, 'centery');
-		center['z'] = this.reader.getFloat(children, 'centerz');
+		let coordinates = ['x','y','z'];
+
+		for(let coor = 0; coor < coordinates.length; coor++){
+			let temp_coord = this.reader.getFloat(children, 'center' + coordinates[coor]);
+			if(this.errorMsg == null)
+				this.errorMsg = this.checkValuesNullorNan(temp_coord,"Center"+coordinates[coor]+"on Animation ID:"+ animationID);
+			center[coordinates[coor]]=temp_coord;
+		}
 
 		let radius = this.reader.getFloat(children, 'radius');
-		this.errorMsg = this.checkArgsPatches(radius, 'Radius');
+		this.errorMsg = this.checkValuesNullorNan(radius, 'Radius' + "on Animation ID:"+ animationID);
 
 		let startAngle = this.reader.getFloat(children, 'startang');
-		this.errorMsg = this.checkArgsPatches(startAngle, 'Start Angle');
-
-		//startAngle *= DEGREE_TO_RAD;
+		this.errorMsg = this.checkValuesNullorNan(startAngle, 'Start Angle' +"on Animation ID:"+ animationID);
 
 		var rotAngle = this.reader.getFloat(children, 'rotang');
-		this.errorMsg = this.checkArgsPatches(rotAngle, 'Angle of Rotation');
+		this.errorMsg = this.checkValuesNullorNan(rotAngle, 'Angle of Rotation'+"on Animation ID:"+ animationID);
 
-		//rotAngle *=DEGREE_TO_RAD;
-
-		//console.log(animationID);
-		// console.log(speed);
-		// console.log(center);
-		// console.log(radius);
-		// console.log(startAngle/DEGREE_TO_RAD);
-		// console.log(rotAngle/DEGREE_TO_RAD);
 		let circularAnimation = new MyCircularAnimation(animationID, speed, center, radius, startAngle, rotAngle);
 		this.animations[animationID]=circularAnimation;
 		break;
@@ -1311,12 +1311,14 @@ MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, ty
 			this.errorMsg= "No Control point found at animation block with id" + animationID;
 			return;
 		}
+
 		let nrChild = controlPointBlock.length;
 		let controlPoints = [];
 		if(nrChild != 4) {
 			this.errorMsg="Wrong Number of controlPoints";
 			return;
 		}
+
 		for(let controlPoint of controlPointBlock) {
 			// Retrieves coordinate parameters.
 			let coordinates = ['x','y','z'];
@@ -1325,23 +1327,18 @@ MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, ty
 			for(let coor = 0; coor < coordinates.length; coor++){
 				let temp_coord = this.reader.getFloat(controlPoint, coordinates[coor]+coordinates[coor]);
 				if(this.errorMsg == null)
-					this.errorMsg = this.checkArgsPatches(temp_coord,coordinates[coor]);
+					this.errorMsg = this.checkValuesNullorNan(temp_coord,coordinates[coor]+"on Animation ID:"+ animationID);
 				temp_array.push(temp_coord);
 			}
 
 			controlPoints.push(temp_array);
 		}
 
-		// console.log(animationID);
-		// console.log(speed);
-		// console.log(controlPoints);
 		let bezierAnimation = new MyBezierAnimation(animationID, speed, controlPoints);
 		this.animations[animationID]=bezierAnimation;
 		break;
 	}
 	case 'combo':{
-		//let comboAnimation = new MyComboAnimation(animationID);
-
 		let spanRefBlock = children.getElementsByTagName('SPANREF');
 		if(spanRefBlock == null){
 			this.errorMsg= "No animation found at combo animation block with id" + animationID;
@@ -1352,12 +1349,13 @@ MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, ty
 		let animationBlockIDs = [];
 		for(let spanRef of spanRefBlock) {
 			let spanRefID = this.reader.getString(spanRef, 'id');
-			// console.log(spanRefID);
-			//comboAnimation.addAnimation(this.animations[spanRefID]);
+			// if(this.comboIDs[spanRefID] != null){
+			// 	this.errorMsg= "A combo animation cannot contain another combo animation; discarding combo";
+			// 	continue;
+			// }
 			animationBlockIDs.push(spanRefID);
 		}
 		this.comboIDs[animationID] = animationBlockIDs;
-		//this.animations[animationID]=comboAnimation;
 	}
 	default:
 		break;
@@ -1403,23 +1401,13 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
 			let selectable = this.reader.getString(children[i], 'selectable',false);
 
-			if(selectable == null){ //probably not needed to test null if only test "true"
-				selectable = null;
-			} else if (selectable == "true"){
+			 if (selectable == "true"){
 				selectable = true;
-			} else {
+			} else if(selectable=="false"){
 				selectable = false;
 			}
 
-			/*
-			if (selectable == "true"){
-				selectable = true;
-			} else {
-				selectable = false;
-			}
-			 */
 			this.nodes[nodeID].setSelectable(selectable);
-			// console.log(selectable);
 
 			// Gathers child nodes.
 			var nodeSpecs = children[i].children;
@@ -1555,15 +1543,14 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					let totalAnimationNodeIDs = [];
 					for(let animationRef of animationRefBlock) {
 						let animationRefID = this.reader.getString(animationRef, 'id');
-						// console.log(animationRefID);
-						//let comboTemp = new MyComboAnimation(""+nodeID);
+
 						if(this.comboIDs[animationRefID] != null)
 							totalAnimationNodeIDs.push.apply(totalAnimationNodeIDs,this.comboIDs[animationRefID]);
 						else
 							totalAnimationNodeIDs.push(animationRefID);
-						//this.nodes[nodeID].addAnimation(animationRefID);
+					
 					}
-					console.log(totalAnimationNodeIDs);   //CONSOLE_LOG
+
 					for(let k = 0; k < totalAnimationNodeIDs.length; k++)
 						comboAnimation.addAnimation(this.animations[totalAnimationNodeIDs[k]]);
 
@@ -1672,7 +1659,7 @@ MySceneGraph.prototype.parsePatch = function(args, descendants) {
 					for(let coor = 0; coor < coordinates.length; coor++){
 						let temp_coord = this.reader.getFloat(children[j], coordinates[coor]+coordinates[coor]);
 						if(this.errorMsg == null)
-							this.errorMsg = this.checkArgsPatches(temp_coord,coordinates[coor]);
+							this.errorMsg = this.checkValuesNullorNan(temp_coord,coordinates[coor]+"on patches");
 						temp_array.push(temp_coord);
 					}
 
@@ -1870,17 +1857,17 @@ MySceneGraph.prototype.checkArgsSphere = function(args){
 }
 
 /**
- * Check arguments of patches primitive
+ * Check values if are null or NaN
  * In case of error Returns a string with detailed error
- * @param  {array} value with a coordinate(x,y,z,w) of patch
- * @param  {string} coordinate with coordinate (x,y,z,w) of patch
+ * @param  {array} value with a float or integer value
+ * @param  {string} info with information about where value is tested
  */
-MySceneGraph.prototype.checkArgsPatches = function(value, coordinate){
+MySceneGraph.prototype.checkValuesNullorNan = function(value, info){
 	if (value == null )
-		return "unable to parse" + coordinate + "of patch";
+		return "unable to parse" + info;
 
 	if (isNaN(value))
-		return "non-numeric value for " + coordinate + "of patch";
+		return "non-numeric value for " + info;
 
 	return null;
 }
