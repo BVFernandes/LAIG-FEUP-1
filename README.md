@@ -8,12 +8,12 @@
 
 -> Criar uma função que permita escolher o nivel de precisao da distância dado pelo algoritmo Casteljau.
 
--> Uma comboAnimation não pode conter uma comboAnimation.
+-> [X]Uma comboAnimation não pode conter uma comboAnimation.(DONE!)
 
 -> [X]Change name of shader to MyShader (DONE!)
 
 -> Permitir qualquer tipo de cor saturada? ( saturação = compMax-compMin/compMax)
 
--> Verificar o parser e os valores e refactor
+-> [X]Verificar o parser e os valores e refactor(DONE!)
 
 -> [X]Refactor da MyInterface (DONE!)
