@@ -88,9 +88,10 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID, selectab
 
 	if(this.nodeID == this.scene.selectedSelectableNode){
 		selectableBool = true;
+		this.scene.setShader(selectableBool);
 	}
 
-	this.scene.setShader(selectableBool);
+	
 
 	this.scene.multMatrix(this.transformMatrix);
 
@@ -115,6 +116,11 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID, selectab
 
 	for(var j=0;j < this.children.length; j++){
 		this.graph.nodes[this.children[j]].display(newTextureID,newMaterialID,selectableBool);
+	}
+
+	if(this.nodeID == this.scene.selectedSelectableNode){
+		selectableBool = false;
+		this.scene.setShader(selectableBool);
 	}
 
 	this.scene.popMatrix();

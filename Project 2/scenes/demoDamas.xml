@@ -199,6 +199,13 @@
       <SPANREF id="anim7" />
       <SPANREF id="anim8" />
     </ANIMATION>
+	
+		<ANIMATION id="anim11" type="bezier" speed="5">
+      <controlpoint xx="0" yy="0" zz="0"/>
+	  <controlpoint xx="-20" yy="5" zz="-5"/>
+	  <controlpoint xx="-30" yy="-5" zz="10"/>
+      <controlpoint xx="0" yy="0" zz="0"/>
+    </ANIMATION>
 
   </ANIMATIONS>
 
@@ -266,9 +273,8 @@
     <TEXTURE id="null" />
 
     <ANIMATIONREFS>
-      <ANIMATIONREF id="anim1"/>
-      <ANIMATIONREF id="anim4"/>
       <ANIMATIONREF id="anim8"/>
+
     </ANIMATIONREFS>
 
     <DESCENDANTS>

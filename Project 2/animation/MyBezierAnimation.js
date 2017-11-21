@@ -40,6 +40,8 @@ MyBezierAnimation.prototype.updatePos = function(delta) {
 	let point = vec3.fromValues(newPos[0],newPos[1],newPos[2]);
 
 	let dCurve = this.derivateCurve(t);
+	
+	console.log(dCurve);
 	let angXZ = Math.atan(dCurve[0]/dCurve[2])+(dCurve[2] < 0 ? Math.PI : 0);
 	let angY = -Math.atan(dCurve[1]/vec3.length(dCurve));
 
@@ -61,11 +63,12 @@ MyBezierAnimation.prototype.derivateCurve = function(t){
 	let dCurve = [];
 
 	for(let i = 0; i < 3; i++) {
-		dCurve[i] = 3*Math.pow(1-t,2)*this.controlPoints[0][i] +
+		dCurve[i] = -3*Math.pow(1-t,2)*this.controlPoints[0][i] +
 		(3*Math.pow(1-t,2)-6*t*(1-t))*this.controlPoints[1][i] +
 		(6*t*(1-t)-3*Math.pow(t,2))*this.controlPoints[2][i] +
 		3*Math.pow(t,2)*this.controlPoints[3][i];
 	}
+	
 
 	return dCurve;
 }
