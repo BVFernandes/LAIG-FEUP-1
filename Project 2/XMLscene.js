@@ -13,6 +13,7 @@ function XMLscene(interface) {
 	this.selectedSelectableNode = 0;
 	this.selectedExampleShader = 0;
 	this.selectedColourShader = 0;
+	this.animationStop = false;
 	this.animationLoop = true;
 	this.flagTFactor = false;
 	this.scaleFactor = 10.0;
@@ -53,6 +54,11 @@ XMLscene.prototype.init = function(application) {
 
 	this.updateScaleFactor();
 	this.tempTime=1;
+}
+
+XMLscene.prototype.updateAnimationStop=function(v) {
+	for(let id in this.graph.comboAnimations)
+		this.graph.comboAnimations[id].updateAnimationStop(v);
 }
 
 XMLscene.prototype.updateAnimationLoop=function(v) {

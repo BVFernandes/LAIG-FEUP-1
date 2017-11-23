@@ -2,11 +2,11 @@
 
 ## To do
 
--> Criar uma cena que utilize os shaders e as animações, de acordo com o enunciado.
+-> [X]Criar uma cena que utilize os shaders e as animações, de acordo com o enunciado.
 
 -> [X]CheckBox to activate function of loop animation. (DONE!)
 
--> Criar uma função que permita escolher o nivel de precisao da distância dado pelo algoritmo Casteljau.
+-> [X]Criar uma função que permita escolher o nivel de precisao da distância dado pelo algoritmo Casteljau.
 
 -> [X]Uma comboAnimation não pode conter uma comboAnimation.(DONE!)
 

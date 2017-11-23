@@ -7,7 +7,7 @@ function MyBezierAnimation(id, velocity, controlPoints) {
 
 	this.controlPoints = controlPoints;
 
-	this.curveDist = this.curveDistance();
+	this.curveDist = this.curveDistanceRecursive(this.controlPoints,10);
 	this.totalTime = this.curveDist/this.velocity;
 }
 
@@ -41,7 +41,6 @@ MyBezierAnimation.prototype.updatePos = function(delta) {
 
 	let dCurve = this.derivateCurve(t);
 	
-	console.log(dCurve);
 	let angXZ = Math.atan(dCurve[0]/dCurve[2])+(dCurve[2] < 0 ? Math.PI : 0);
 	let angY = -Math.atan(dCurve[1]/vec3.length(dCurve));
 
@@ -82,22 +81,37 @@ MyBezierAnimation.prototype.distanceBetweenPoints = function(point1, point2){
 	return vec3.length(vec1);
 }
 
-MyBezierAnimation.prototype.curveDistance = function() {
-	let p12 = this.meanPoint(this.controlPoints[0],this.controlPoints[1]);
-	let p23 = this.meanPoint(this.controlPoints[1],this.controlPoints[2]);
-	let p34 = this.meanPoint(this.controlPoints[2],this.controlPoints[3]);
-	let p123 = this.meanPoint(p12,p23);
-	let p234 = this.meanPoint(p23,p34);
-	let p1234 = this.meanPoint(p123,p234);
-
-	let distance = this.distanceBetweenPoints(this.controlPoints[0],p12) +
-	this.distanceBetweenPoints(p12,p123) +
-	this.distanceBetweenPoints(p123,p1234) +
-	this.distanceBetweenPoints(p1234,p234)+
-	this.distanceBetweenPoints(p234, p34)+
-	this.distanceBetweenPoints(p34, this.controlPoints[3]);
-
-	return distance;
+MyBezierAnimation.prototype.curveDistanceRecursive = function(points, depth) {
+	depth--;
+	let left = [];
+	let right = [];
+	
+	//console.log(points.length);
+	while(points.length > 1){
+		left.push(points[0]);
+		right.unshift(points[points.length-1]);
+		
+		let pointsAux = [];
+		for(let i = 0; i < points.length-1; i++)
+			pointsAux.push(this.meanPoint(points[i],points[i+1]));
+		
+		points = pointsAux;
+	}
+	
+	points = left.concat(points);
+	points = points.concat(right);
+	
+	if(depth)
+		return this.curveDistanceRecursive(points,depth);
+	else {
+		let distance = 0;
+		
+		for(let i = 0; i < points.length-1; i++){
+			distance += this.distanceBetweenPoints(points[i],points[i+1]);
+		}
+		
+		return distance;
+	}
 }
 
 MyBezierAnimation.prototype.update = function(currTime) {

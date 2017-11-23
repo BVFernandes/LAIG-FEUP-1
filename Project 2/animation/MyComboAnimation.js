@@ -23,7 +23,16 @@ MyComboAnimation.prototype.addAnimation = function(animation) {
 }
 
 MyComboAnimation.prototype.setLoopAnimation = function(loop) {
+	if(this.end && loop)
+		this.currAnimation=0;
 	this.loop = loop;
+}
+
+MyComboAnimation.prototype.updateAnimationStop = function(stop) {
+	if(stop)
+		MyAnimation.prototype.stopAnimation.call(this);
+	else
+		MyAnimation.prototype.resumeAnimation.call(this);
 }
 
 MyComboAnimation.prototype.updateAnimation = function() {

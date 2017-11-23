@@ -184,6 +184,14 @@
       <controlpoint xx="30" yy="-30" zz="20"/>
       <controlpoint xx="0" yy="0" zz="0"/>
     </ANIMATION>
+	
+	
+	<ANIMATION id="anim14" type="bezier" speed="10">
+      <controlpoint xx="0" yy="0" zz="0"/>
+      <controlpoint xx="30" yy="10" zz="20"/>
+      <controlpoint xx="30" yy="-30" zz="-50"/>
+      <controlpoint xx="0" yy="0" zz="5"/>
+    </ANIMATION>
 
 
     <ANIMATION id="anim9" type="combo">
@@ -273,7 +281,7 @@
     <TEXTURE id="null" />
 
     <ANIMATIONREFS>
-      <ANIMATIONREF id="anim8"/>
+      <ANIMATIONREF id="anim14"/>
 
     </ANIMATIONREFS>
 
