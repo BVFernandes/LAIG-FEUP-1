@@ -91,7 +91,7 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID, selectab
 		this.scene.setShader(selectableBool);
 	}
 
-	
+
 
 	this.scene.multMatrix(this.transformMatrix);
 

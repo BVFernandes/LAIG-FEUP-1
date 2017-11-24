@@ -1401,7 +1401,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
 			let selectable = this.reader.getString(children[i], 'selectable',false);
 
-			 if (selectable == "true"){
+			if (selectable == "true"){
 				selectable = true;
 			} else if(selectable=="false"){
 				selectable = false;
@@ -1548,7 +1548,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							totalAnimationNodeIDs.push.apply(totalAnimationNodeIDs,this.comboIDs[animationRefID]);
 						else
 							totalAnimationNodeIDs.push(animationRefID);
-					
+
 					}
 
 					for(let k = 0; k < totalAnimationNodeIDs.length; k++)

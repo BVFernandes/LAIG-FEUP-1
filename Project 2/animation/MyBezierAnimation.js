@@ -40,7 +40,7 @@ MyBezierAnimation.prototype.updatePos = function(delta) {
 	let point = vec3.fromValues(newPos[0],newPos[1],newPos[2]);
 
 	let dCurve = this.derivateCurve(t);
-	
+
 	let angXZ = Math.atan(dCurve[0]/dCurve[2])+(dCurve[2] < 0 ? Math.PI : 0);
 	let angY = -Math.atan(dCurve[1]/vec3.length(dCurve));
 
@@ -67,7 +67,7 @@ MyBezierAnimation.prototype.derivateCurve = function(t){
 		(6*t*(1-t)-3*Math.pow(t,2))*this.controlPoints[2][i] +
 		3*Math.pow(t,2)*this.controlPoints[3][i];
 	}
-	
+
 
 	return dCurve;
 }
@@ -85,31 +85,31 @@ MyBezierAnimation.prototype.curveDistanceRecursive = function(points, depth) {
 	depth--;
 	let left = [];
 	let right = [];
-	
+
 	//console.log(points.length);
 	while(points.length > 1){
 		left.push(points[0]);
 		right.unshift(points[points.length-1]);
-		
+
 		let pointsAux = [];
 		for(let i = 0; i < points.length-1; i++)
 			pointsAux.push(this.meanPoint(points[i],points[i+1]));
-		
+
 		points = pointsAux;
 	}
-	
+
 	points = left.concat(points);
 	points = points.concat(right);
-	
+
 	if(depth)
 		return this.curveDistanceRecursive(points,depth);
 	else {
 		let distance = 0;
-		
+
 		for(let i = 0; i < points.length-1; i++){
 			distance += this.distanceBetweenPoints(points[i],points[i+1]);
 		}
-		
+
 		return distance;
 	}
 }

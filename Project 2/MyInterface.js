@@ -51,7 +51,7 @@ MyInterface.prototype.addAnimationOption = function() {
 	obj=this;
 	this.gui.add(this.scene, 'animationStop').onChange(function(v)
 			{ obj.scene.updateAnimationStop(v);	}).name('Stop Animation');
-	
+
 	this.gui.add(this.scene, 'animationLoop').onChange(function(v)
 			{ obj.scene.updateAnimationLoop(v);	}).name('Animation Loop');
 
@@ -67,9 +67,9 @@ MyInterface.prototype.addShadersGroup = function(){
 	this.gui.add(this.scene, 'scaleFactor',-50,50).name('Shader Scale').onChange(function(v)
 			{ obj.scene.updateScaleFactor(v); });
 
-this.addColoursGroup();
+	this.addColoursGroup();
 
-this.gui.add(this.scene, 'flagTFactor').name('Shader Time');
+	this.gui.add(this.scene, 'flagTFactor').name('Shader Time');
 }
 
 MyInterface.prototype.addSelectableNodesGroup = function(){

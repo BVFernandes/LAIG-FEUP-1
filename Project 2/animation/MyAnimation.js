@@ -26,7 +26,7 @@ MyAnimation.prototype.constructor = MyAnimation;
  */
 MyAnimation.prototype.update = function(currTime) {
 	this.lastCurrTime = currTime;
-	
+
 	if(!this.initTime){
 		this.initTime = currTime;
 	}
@@ -40,7 +40,7 @@ MyAnimation.prototype.update = function(currTime) {
 		else
 			return;
 	}
-	
+
 	if(this.stop)
 		return;
 
