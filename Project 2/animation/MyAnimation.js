@@ -9,9 +9,7 @@ function MyAnimation(id, velocity) {
 
 	this.end = false;
 	this.stop = false;
-	//this.resume = false;
 	this.loop = true;
-	this.resetInit = false;
 
 	this.id=id;
 	this.velocity = velocity;
@@ -29,9 +27,8 @@ MyAnimation.prototype.constructor = MyAnimation;
 MyAnimation.prototype.update = function(currTime) {
 	this.lastCurrTime = currTime;
 	
-	if(!this.initTime || this.resetInit){
+	if(!this.initTime){
 		this.initTime = currTime;
-		this.resetInit = false;
 	}
 
 	if(this.end){
@@ -55,7 +52,7 @@ MyAnimation.prototype.end = function() {
 }
 
 MyAnimation.prototype.resetInitTime = function() {
-	this.resetInit = true;
+	this.initTime = this.lastCurrTime;	
 }
 
 MyAnimation.prototype.stopAnimation = function() {
