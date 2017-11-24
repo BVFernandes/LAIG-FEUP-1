@@ -184,9 +184,9 @@
       <controlpoint xx="30" yy="-30" zz="20"/>
       <controlpoint xx="0" yy="0" zz="0"/>
     </ANIMATION>
-	
-	
-	<ANIMATION id="anim14" type="bezier" speed="10">
+
+
+    <ANIMATION id="anim14" type="bezier" speed="10">
       <controlpoint xx="0" yy="0" zz="0"/>
       <controlpoint xx="30" yy="10" zz="20"/>
       <controlpoint xx="30" yy="-30" zz="-50"/>
@@ -207,11 +207,11 @@
       <SPANREF id="anim7" />
       <SPANREF id="anim8" />
     </ANIMATION>
-	
-		<ANIMATION id="anim11" type="bezier" speed="5">
+
+    <ANIMATION id="anim11" type="bezier" speed="5">
       <controlpoint xx="0" yy="0" zz="0"/>
-	  <controlpoint xx="-20" yy="5" zz="-5"/>
-	  <controlpoint xx="-30" yy="-5" zz="10"/>
+      <controlpoint xx="-20" yy="5" zz="-5"/>
+      <controlpoint xx="-30" yy="-5" zz="10"/>
       <controlpoint xx="0" yy="0" zz="0"/>
     </ANIMATION>
 
