@@ -47,18 +47,30 @@ MyAnimation.prototype.update = function(currTime) {
 	this.delta = (currTime - this.initTime)/1000;
 }
 
+/**
+ * Return true if a animation was ended, false otherwise
+ */
 MyAnimation.prototype.end = function() {
 	return this.end;
 }
 
+/**
+ * Reset the Inital time of animation to allows loop animation
+ */
 MyAnimation.prototype.resetInitTime = function() {
-	this.initTime = this.lastCurrTime;	
+	this.initTime = this.lastCurrTime;
 }
 
+/**
+ * Stop the animation
+ */
 MyAnimation.prototype.stopAnimation = function() {
 	this.stop = true;
 }
 
+/**
+ * Resume the animation, so after stop the animation restarts at the last position
+ */
 MyAnimation.prototype.resumeAnimation = function() {
 	this.initTime = this.lastCurrTime-(this.delta*1000);
 	this.stop = false;

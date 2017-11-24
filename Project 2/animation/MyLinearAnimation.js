@@ -17,6 +17,9 @@ function MyLinearAnimation(id, velocity, controlPoints) {
 MyLinearAnimation.prototype = Object.create(MyAnimation.prototype);
 MyLinearAnimation.prototype.constructor = MyLinearAnimation;
 
+/**
+ * Returns transformation matrix according to a given delta time
+ */
 MyLinearAnimation.prototype.getMatrixTime = function(delta) {
 
 	let infoAnim = this.updatePos(delta);
@@ -27,6 +30,10 @@ MyLinearAnimation.prototype.getMatrixTime = function(delta) {
 	return [end,linearTransforms];
 }
 
+/**
+ * Given a delta time returns an array with a boolean to define if animation was ended,
+ * the new position and the angle to rotate in XZ
+ */
 MyLinearAnimation.prototype.updatePos = function(delta) {
 	let end  = false;
 	let currDist = this.velocity*delta;
@@ -66,6 +73,9 @@ MyLinearAnimation.prototype.updatePos = function(delta) {
 	return [end, point, angleY];
 }
 
+/**
+ * Create and return transformation matrix according to a given delta time
+ */
 MyLinearAnimation.prototype.getMatrix = function(point, angleY) {
 	let linearTransforms = mat4.create();
 
@@ -95,6 +105,9 @@ MyLinearAnimation.prototype.calculateDistanceBetweenPoints = function(point1, po
 	return vec3.length(vec1);
 }
 
+/**
+ * Function to handle the update of animations time
+ */
 MyLinearAnimation.prototype.update = function(currTime) {
 	MyAnimation.prototype.update.call(this, currTime);
 }

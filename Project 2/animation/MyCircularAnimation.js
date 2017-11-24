@@ -27,6 +27,9 @@ function MyCircularAnimation(id, velocity, center, radius, startang, rotang) {
 MyCircularAnimation.prototype = Object.create(MyAnimation.prototype);
 MyCircularAnimation.prototype.constructor = MyCircularAnimation;
 
+/**
+ * Returns transformation matrix according to a given delta time
+ */
 MyCircularAnimation.prototype.getMatrixTime = function(delta){
 	let infoAnim = this.updatePos(delta);
 	let end = infoAnim[0];
@@ -37,6 +40,10 @@ MyCircularAnimation.prototype.getMatrixTime = function(delta){
 	return [end,circularTransforms];
 }
 
+/**
+ * Given a delta time returns an array with a boolean to define if animation was ended,
+ * the new position and the angle to rotate in XZ
+ */
 MyCircularAnimation.prototype.updatePos = function(delta) {
 	let end = false;
 	let deltaAng = this.startAng + this.angVelocity*delta;
@@ -57,11 +64,14 @@ MyCircularAnimation.prototype.updatePos = function(delta) {
 	return [end,deltaAng];
 }
 
+/**
+ * Create and return transformation matrix according to a given delta time
+ */
 MyCircularAnimation.prototype.getMatrix = function(deltaAng) {
 	let circularTransforms = mat4.create();
 
 	mat4.identity(circularTransforms);
-	mat4.translate(circularTransforms, circularTransforms, vec3.fromValues(this.centerx, this.centery, this.centerz) );
+	mat4.translate(circularTransforms, circularTransforms, vec3.fromValues(this.centerx, this.centery, this.centerz));
 	mat4.rotateY(circularTransforms, circularTransforms, deltaAng);
 	mat4.translate(circularTransforms, circularTransforms, vec3.fromValues(this.radius, 0, 0) );
 	mat4.rotateY(circularTransforms, circularTransforms, DEGREE_TO_RAD * (90 + 90 * this.direction));
@@ -69,6 +79,9 @@ MyCircularAnimation.prototype.getMatrix = function(deltaAng) {
 	return circularTransforms;
 }
 
+/**
+ * Function to handle the update of animations time
+ */
 MyCircularAnimation.prototype.update = function(currTime) {
 	MyAnimation.prototype.update.call(this, currTime);
 }

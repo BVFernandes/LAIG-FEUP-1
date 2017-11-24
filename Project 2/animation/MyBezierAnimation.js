@@ -14,6 +14,9 @@ function MyBezierAnimation(id, velocity, controlPoints) {
 MyBezierAnimation.prototype = Object.create(MyAnimation.prototype);
 MyBezierAnimation.prototype.constructor = MyBezierAnimation;
 
+/**
+ * Returns transformation matrix according to a given delta time
+ */
 MyBezierAnimation.prototype.getMatrixTime = function(delta){
 	let infoAnim = this.updatePos(delta);
 
@@ -23,6 +26,10 @@ MyBezierAnimation.prototype.getMatrixTime = function(delta){
 	return [end,bezierTransforms];
 }
 
+/**
+ * Given a delta time returns an array with a boolean to define if animation was ended,
+ * the new position and the angle to rotate in XZ
+ */
 MyBezierAnimation.prototype.updatePos = function(delta) {
 	let end = false;
 	let t = delta/this.totalTime;
@@ -47,6 +54,9 @@ MyBezierAnimation.prototype.updatePos = function(delta) {
 	return [end, point, angXZ, angY];
 }
 
+/**
+ * Create and return transformation matrix according to a given delta time
+ */
 MyBezierAnimation.prototype.getMatrix = function(point, angXZ, angY) {
 	let bezierTransforms = mat4.create();
 
@@ -114,6 +124,9 @@ MyBezierAnimation.prototype.curveDistanceRecursive = function(points, depth) {
 	}
 }
 
+/**
+ * Function to handle the update of animations time
+ */
 MyBezierAnimation.prototype.update = function(currTime) {
 	MyAnimation.prototype.update.call(this, currTime);
 }
