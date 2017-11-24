@@ -129,6 +129,12 @@
       <file path="images_room/glass.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
+	
+	<!-- Vacuum cleaner texture -->
+    <TEXTURE id="vacCleanerTexture">
+      <file path="images_room/vaccumCleaner.jpg" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
 
   </TEXTURES>
 
@@ -1375,7 +1381,7 @@
 	
 	<!-- Robot Vacuum Cleaner -->
 	<NODE id="robot_vaccum_cleaner">
-      <MATERIAL id="plasticMaterial" />
+      <MATERIAL id="metalMaterial" />
       <TEXTURE id="null" />
 	
 	<ANIMATIONREFS>
@@ -1387,19 +1393,34 @@
     </ANIMATIONREFS>
 
      <DESCENDANTS>
-         <NODEREF id="robot_vaccum_cleaner_body" />
+		<NODEREF id="robot_vaccum_cleaner_top" />
+        <NODEREF id="robot_vaccum_cleaner_bottom" />
      </DESCENDANTS>
     </NODE>
 	
-	<!-- Robot Vacuum Cleaner Body -->
-	<NODE id="robot_vaccum_cleaner_body">
+	<!-- Robot Vacuum Cleaner Top -->
+	<NODE id="robot_vaccum_cleaner_top">
       <MATERIAL id="null" />
+      <TEXTURE id="vacCleanerTexture" />
+
+	  <TRANSLATION x="0" y="0.2" z="0" />
+	   <ROTATION axis="x" angle="180" />
+	  <SCALE sx="1" sy="0.2" sz="1" />
+
+      <DESCENDANTS>
+        <LEAF type="sphere" args="0.6 30 20" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Robot Vacuum Cleaner Bottom -->
+	<NODE id="robot_vaccum_cleaner_bottom">
+      <MATERIAL id="plasticMaterial" />
       <TEXTURE id="null" />
 
 	<ROTATION axis="x" angle="-90" />
 
      <DESCENDANTS>
-         <LEAF type="cylinder" args="0.2 0.6 0.6 20 20 1 0" />
+         <LEAF type="cylinder" args="0.2 0.6 0.6 30 20 0 0" />
      </DESCENDANTS>
     </NODE>
 	
