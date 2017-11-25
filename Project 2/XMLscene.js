@@ -53,23 +53,34 @@ XMLscene.prototype.init = function(application) {
 	this.coloursShaders=[vec3.fromValues(0,0,1),vec3.fromValues(1,0,0), vec3.fromValues(0,1,0), vec3.fromValues(1,1,0)];
 
 	this.updateScaleFactor();
-	this.tempTime=1;
 }
 
+/**
+ * Handle changes in checkbox of animationStop and diffuse to all animations
+ */
 XMLscene.prototype.updateAnimationStop=function(v) {
 	for(let id in this.graph.comboAnimations)
 		this.graph.comboAnimations[id].updateAnimationStop(v);
 }
 
+/**
+ * Handle changes in checkbox of animationLoop and diffuse to all animations
+ */
 XMLscene.prototype.updateAnimationLoop=function(v) {
 	for(let id in this.graph.comboAnimations)
 		this.graph.comboAnimations[id].setLoopAnimation(v);
 }
 
+/**
+ * Handle changes in scalefactor on Interface and send to shaders
+ */
 XMLscene.prototype.updateScaleFactor=function(v) {
 	this.testShaders[1].setUniformsValues({normScale: this.scaleFactor});
 }
 
+/**
+ * Handle timeFactor to change shader according to a trignometric function
+ */
 XMLscene.prototype.updateTimeFactor=function(currTime) {
 	let tFactor;
 	if(this.flagTFactor){
@@ -82,6 +93,9 @@ XMLscene.prototype.updateTimeFactor=function(currTime) {
 	this.testShaders[1].setUniformsValues({timeFactor: tFactor});
 }
 
+/**
+ * Handle colourShader to change shader according to a selected colour
+ */
 XMLscene.prototype.updateColourShader=function(){
 	this.testShaders[1].setUniformsValues({colour: this.coloursShaders[this.selectedColourShader]});
 }
@@ -220,6 +234,9 @@ XMLscene.prototype.display = function() {
 
 }
 
+/**
+ * Update the scene - animations and shaders.
+ */
 XMLscene.prototype.update = function(currTime) {
 
 	if(!this.graph.loadedOk)
@@ -232,6 +249,9 @@ XMLscene.prototype.update = function(currTime) {
 	this.updateColourShader();
 };
 
+/**
+ * Set between defaultShader and selectedShader.
+ */
 XMLscene.prototype.setShader = function(shader){
 	if(shader){
 		this.setActiveShader(this.testShaders[this.selectedExampleShader]);

@@ -48,7 +48,7 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 }
 
 /**
- * Adds the reference (ID) of another node to this node's children array.
+ * Adds the reference (ID) of animation to this animation.
  */
 MyGraphNode.prototype.addAnimation = function(animationID) {
 	this.animationID = animationID;
@@ -84,14 +84,13 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID, selectab
 
 	if(this.selectable == false && selectableBool == true){
 		selectableBool = false;
+		//this.scene.setShader(selectableBool); if you want to give selectable to false in some children of a node selectable true
 	}
 
 	if(this.nodeID == this.scene.selectedSelectableNode){
 		selectableBool = true;
 		this.scene.setShader(selectableBool);
 	}
-
-
 
 	this.scene.multMatrix(this.transformMatrix);
 
