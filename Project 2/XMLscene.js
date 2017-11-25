@@ -17,6 +17,10 @@ function XMLscene(interface) {
 	this.animationLoop = true;
 	this.flagTFactor = false;
 	this.scaleFactor = 10.0;
+
+	this.redSelector = 0.0;
+	this.greenSelector = 0.0;
+	this.blueSelector = 0.0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -50,9 +54,10 @@ XMLscene.prototype.init = function(application) {
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")
 		];
 
-	this.coloursShaders=[vec3.fromValues(0,0,1),vec3.fromValues(1,0,0), vec3.fromValues(0,1,0), vec3.fromValues(1,1,0)];
+	this.coloursShaders=[vec3.fromValues(0,0,1),vec3.fromValues(1,0,0), vec3.fromValues(0,1,0), vec3.fromValues(1,1,0), vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)];
 
 	this.updateScaleFactor();
+	this.updateColourShader();
 }
 
 /**
@@ -98,6 +103,25 @@ XMLscene.prototype.updateTimeFactor=function(currTime) {
  */
 XMLscene.prototype.updateColourShader=function(){
 	this.testShaders[1].setUniformsValues({colour: this.coloursShaders[this.selectedColourShader]});
+}
+
+XMLscene.prototype.updateRedSelector=function(v){
+	this.redSelector=v;
+	if(this.selectedColourShader == 4)
+		this.testShaders[1].setUniformsValues({colour: vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)});
+	
+}
+
+XMLscene.prototype.updateGreenSelector=function(v){
+	this.greenSelector=v;
+	if(this.selectedColourShader == 4)
+		this.testShaders[1].setUniformsValues({colour: vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)});
+}
+
+XMLscene.prototype.updateBlueSelector=function(v){
+	this.blueSelector=v;
+	if(this.selectedColourShader == 4)
+		this.testShaders[1].setUniformsValues({colour: vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)});
 }
 
 /**
@@ -246,7 +270,6 @@ XMLscene.prototype.update = function(currTime) {
 		this.graph.comboAnimations[id].update(currTime);
 
 	this.updateTimeFactor(currTime);
-	this.updateColourShader();
 };
 
 /**

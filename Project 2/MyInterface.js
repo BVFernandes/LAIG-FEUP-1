@@ -103,6 +103,18 @@ MyInterface.prototype.addColoursGroup = function(){
 		'Red': 1,
 		'Green': 2,
 		'Yellow': 3,
+		'Modified Colour' : 4,
 	}).name('Colour Shader').onChange(function(v){ obj.scene.updateColourShader(v)});
 
+	var colourGroup = this.gui.addFolder("Modified Colour");
+	colourGroup.close();
+
+	colourGroup.add(this.scene, 'redSelector',0,1).name('R').onChange(function(v)
+			{ obj.scene.updateRedSelector(v); });
+
+	colourGroup.add(this.scene, 'greenSelector',0,1).name('G').onChange(function(v)
+			{ obj.scene.updateGreenSelector(v); });
+
+	colourGroup.add(this.scene, 'blueSelector',0,1).name('B').onChange(function(v)
+			{ obj.scene.updateBlueSelector(v); });
 }
