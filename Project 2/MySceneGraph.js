@@ -1245,14 +1245,14 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
  * @param  {float} speed with speed of animation
  * @param  {string} type with type of animation
  */
-MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, type) {
+MySceneGraph.prototype.parseAnimation = function(children, animationID, speed, type) {
 
 	// Creates animation.
 	switch(type){
 	case 'linear':{
 		let controlPointBlock = children.getElementsByTagName('controlpoint');
 		if(controlPointBlock == null){
-			this.errorMsg= "No Control point found at animation block with id" + animationID;
+			this.errorMsg= "No Control point found at animation block with id " + animationID;
 			return;
 		}
 		let nrChild = controlPointBlock.length;
@@ -1270,7 +1270,7 @@ MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, ty
 			for(let coor = 0; coor < coordinates.length; coor++){
 				let temp_coord = this.reader.getFloat(controlPoint, coordinates[coor]+coordinates[coor]);
 				if(this.errorMsg == null)
-					this.errorMsg = this.checkValuesNullorNan(temp_coord,coordinates[coor]+"on Animation ID:"+ animationID);
+					this.errorMsg = this.checkValuesNullorNan(temp_coord,coordinates[coor]+" on Animation ID: "+ animationID);
 				temp_array.push(temp_coord);
 			}
 
@@ -1288,18 +1288,18 @@ MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, ty
 		for(let coor = 0; coor < coordinates.length; coor++){
 			let temp_coord = this.reader.getFloat(children, 'center' + coordinates[coor]);
 			if(this.errorMsg == null)
-				this.errorMsg = this.checkValuesNullorNan(temp_coord,"Center"+coordinates[coor]+"on Animation ID:"+ animationID);
+				this.errorMsg = this.checkValuesNullorNan(temp_coord,"Center"+coordinates[coor]+" on Animation ID: "+ animationID);
 			center[coordinates[coor]]=temp_coord;
 		}
 
 		let radius = this.reader.getFloat(children, 'radius');
-		this.errorMsg = this.checkValuesNullorNan(radius, 'Radius' + "on Animation ID:"+ animationID);
+		this.errorMsg = this.checkValuesNullorNan(radius, 'Radius' + " on Animation ID: "+ animationID);
 
 		let startAngle = this.reader.getFloat(children, 'startang');
-		this.errorMsg = this.checkValuesNullorNan(startAngle, 'Start Angle' +"on Animation ID:"+ animationID);
+		this.errorMsg = this.checkValuesNullorNan(startAngle, 'Start Angle' +" on Animation ID: "+ animationID);
 
 		var rotAngle = this.reader.getFloat(children, 'rotang');
-		this.errorMsg = this.checkValuesNullorNan(rotAngle, 'Angle of Rotation'+"on Animation ID:"+ animationID);
+		this.errorMsg = this.checkValuesNullorNan(rotAngle, 'Angle of Rotation'+" on Animation ID: "+ animationID);
 
 		let circularAnimation = new MyCircularAnimation(animationID, speed, center, radius, startAngle, rotAngle);
 		this.animations[animationID]=circularAnimation;
@@ -1308,7 +1308,7 @@ MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, ty
 	case 'bezier':{
 		let controlPointBlock = children.getElementsByTagName('controlpoint');
 		if(controlPointBlock == null){
-			this.errorMsg= "No Control point found at animation block with id" + animationID;
+			this.errorMsg= "No Control point found at animation block with id " + animationID;
 			return;
 		}
 
@@ -1327,7 +1327,7 @@ MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, ty
 			for(let coor = 0; coor < coordinates.length; coor++){
 				let temp_coord = this.reader.getFloat(controlPoint, coordinates[coor]+coordinates[coor]);
 				if(this.errorMsg == null)
-					this.errorMsg = this.checkValuesNullorNan(temp_coord,coordinates[coor]+"on Animation ID:"+ animationID);
+					this.errorMsg = this.checkValuesNullorNan(temp_coord,coordinates[coor]+" on Animation ID: "+ animationID);
 				temp_array.push(temp_coord);
 			}
 
@@ -1341,7 +1341,7 @@ MySceneGraph.prototype.parseAnimation = function(children,animationID, speed, ty
 	case 'combo':{
 		let spanRefBlock = children.getElementsByTagName('SPANREF');
 		if(spanRefBlock == null){
-			this.errorMsg= "No animation found at combo animation block with id" + animationID;
+			this.errorMsg= "No animation found at combo animation block with id " + animationID;
 			return;
 		}
 
@@ -1412,7 +1412,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			// Gathers child nodes.
 			var nodeSpecs = children[i].children;
 			var specsNames = [];
-			var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE","ANIMATIONREFS", "DESCENDANTS"];
+			var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "ANIMATIONREFS", "DESCENDANTS"];
 			for (var j = 0; j < nodeSpecs.length; j++) {
 				var name = nodeSpecs[j].nodeName;
 				specsNames.push(nodeSpecs[j].nodeName);
@@ -1533,7 +1533,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			if (animationIndex != -1) {
 				let animationRefBlock = (nodeSpecs[animationIndex]).getElementsByTagName('ANIMATIONREF');
 				if(animationRefBlock == null){
-					this.errorMsg= "No animation found at animationRefs animation block with id" + nodeID;
+					this.errorMsg= "No animation found at animationRefs animation block with id " + nodeID;
 					break;
 				}
 				else {
