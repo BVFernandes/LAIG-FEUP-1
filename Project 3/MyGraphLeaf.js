@@ -19,6 +19,12 @@ MyGraphLeaf.prototype.createRectangle=function() {
 	this.model = new MyRectangle(this.graph.scene,leftTop,rightBottom);
 }
 
+MyGraphLeaf.prototype.createCircle=function() {
+	let slices = this.args[0];
+	
+	this.model = new MyCircle(this.graph.scene,slices);
+}
+
 MyGraphLeaf.prototype.createCylinder=function() {
 	let height = this.args[0];
 	let bottom_radius = this.args[1];
@@ -61,6 +67,9 @@ MyGraphLeaf.prototype.create=function() {
 	switch(this.xmlelem){
 	case 'rectangle':
 		this.createRectangle();
+		break;
+	case 'circle':
+		this.createCircle();
 		break;
 	case 'cylinder':
 		this.createCylinder();

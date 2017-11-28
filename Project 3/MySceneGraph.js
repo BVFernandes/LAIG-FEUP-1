@@ -1399,15 +1399,29 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			// Creates node.
 			this.nodes[nodeID] = new MyGraphNode(this,nodeID);
 
-			let selectable = this.reader.getString(children[i], 'selectable',false);
+			//Read Selectable Property
+			let selectable = this.reader.getString(children[i], 'selectable', false);
 
 			if (selectable == "true"){
 				selectable = true;
 			} else if(selectable=="false"){
 				selectable = false;
 			}
-
+			
 			this.nodes[nodeID].setSelectable(selectable);
+			
+			//Read Visible Property
+			let visible = this.reader.getString(children[i], 'visible', false);
+			
+			console.log(visible);
+
+			if (visible == "true"){
+				visible = true;
+			} else if(visible=="false"){
+				visible = false;
+			}
+			
+			this.nodes[nodeID].setVisible(true);
 
 			// Gathers child nodes.
 			var nodeSpecs = children[i].children;
@@ -1587,7 +1601,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 				else
 					if (descendants[j].nodeName == "LEAF")
 					{
-						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle','patch']);
+						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'circle', 'cylinder', 'sphere', 'triangle', 'patch']);
 
 						if (type != null)
 							console.log("Leaf: "+ type);
@@ -1718,6 +1732,14 @@ MySceneGraph.prototype.parseArgsPrimitives = function(values, type) {
 		}
 		break;
 
+	}
+	case 'circle':{
+		if(valuesS.length != 1)
+			this.errorMsg = "CIRCLE: Wrong number of arguments for leaf type";
+		else{
+			vals.push(parseInt(valuesS[0]));
+		}
+		break;
 	}
 	case 'cylinder':{
 		if(valuesS.length != 7)

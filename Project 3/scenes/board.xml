@@ -53,6 +53,22 @@
       <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
       <specular r="0.6" g="0.6" b="0.6" a="1.0" />
     </LIGHT>
+	
+	<LIGHT id="light4">
+      <enable value ="1" />
+      <position  x="0" y="8" z="-25" w="1" />
+      <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light5">
+      <enable value ="1" />
+      <position x="0" y="8" z="25" w="1" />
+      <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
 
   </LIGHTS>
 
@@ -200,7 +216,7 @@
       <TEXTURE id="null" />
 
       <DESCENDANTS>
-        <NODEREF id="board" />
+        <NODEREF id="ghost_board" />
 		<NODEREF id="white_piece" />
 		<NODEREF id="black_piece" />
       </DESCENDANTS>
@@ -223,7 +239,7 @@
       <MATERIAL id="darkMaterial" />
       <TEXTURE id="null" />
 
-      <TRANSLATION x="0" y="0.5" z="0" />
+      <TRANSLATION x="0" y="0.5" z="22" />
 
       <DESCENDANTS>
          <NODEREF id="game_piece" />
@@ -240,7 +256,7 @@
 		 <NODEREF id="game_piece_bottom" />
       </DESCENDANTS>
     </NODE>
-	
+		
 	<!-- Game Piece Top -->
     <NODE id="game_piece_top">
       <MATERIAL id="null" />
@@ -265,8 +281,376 @@
          <LEAF type="cylinder" args="0.8 1.2 1.2 20 20 1 1" />
       </DESCENDANTS>
     </NODE>
+	
+	<!-- Ghost Circle 1-1 -->
+    <NODE id="ghost_circles">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
 
+      <DESCENDANTS>
+	  
+		 <!-- Row 1 -->
+         <NODEREF id="ghost_circle_1-1" />
+		 <NODEREF id="ghost_circle_1-2" />
+		 <NODEREF id="ghost_circle_1-3" />
+		 <NODEREF id="ghost_circle_1-4" />
+		 <NODEREF id="ghost_circle_1-5" />
+		 
+		 <!-- Row 2 -->
+		 <NODEREF id="ghost_circle_2-1" />
+		 <NODEREF id="ghost_circle_2-2" />
+		 <NODEREF id="ghost_circle_2-3" />
+		 <NODEREF id="ghost_circle_2-4" />
+		 <NODEREF id="ghost_circle_2-5" />
+		 
+		 <!-- Row 3 -->
+		 <NODEREF id="ghost_circle_3-1" />
+		 <NODEREF id="ghost_circle_3-2" />
+		 <NODEREF id="ghost_circle_3-3" />
+		 <NODEREF id="ghost_circle_3-4" />
+		 <NODEREF id="ghost_circle_3-5" />
+		 
+		 <!-- Row 4 -->
+		 <NODEREF id="ghost_circle_4-1" />
+		 <NODEREF id="ghost_circle_4-2" />
+		 <NODEREF id="ghost_circle_4-3" />
+		 <NODEREF id="ghost_circle_4-4" />
+		 <NODEREF id="ghost_circle_4-5" />
+		 
+		 <!-- Row 5 -->
+		 <NODEREF id="ghost_circle_5-1" />
+		 <NODEREF id="ghost_circle_5-2" />
+		 <NODEREF id="ghost_circle_5-3" />
+		 <NODEREF id="ghost_circle_5-4" />
+		 <NODEREF id="ghost_circle_5-5" />
+		 
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 1-1 -->
+    <NODE id="ghost_circle_1-1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
 
+      <TRANSLATION x="-7" y="0" z="-7" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 1-2 -->
+    <NODE id="ghost_circle_1-2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-3.5" y="0" z="-7" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 1-3 -->
+    <NODE id="ghost_circle_1-3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="0" y="0" z="-7" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 1-4 -->
+    <NODE id="ghost_circle_1-4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="3.5" y="0" z="-7" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 1-5 -->
+    <NODE id="ghost_circle_1-5">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="7" y="0" z="-7" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 2-1 -->
+    <NODE id="ghost_circle_2-1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-7" y="0" z="-3.5" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 2-2 -->
+    <NODE id="ghost_circle_2-2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-3.5" y="0" z="-3.5" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 1-3 -->
+    <NODE id="ghost_circle_2-3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="0" y="0" z="-3.5" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 2-4 -->
+    <NODE id="ghost_circle_2-4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="3.5" y="0" z="-3.5" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 2-5 -->
+    <NODE id="ghost_circle_2-5">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="7" y="0" z="-3.5" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 3-1 -->
+    <NODE id="ghost_circle_3-1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-7" y="0" z="0" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 3-2 -->
+    <NODE id="ghost_circle_3-2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-3.5" y="0" z="0" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 3-3 -->
+    <NODE id="ghost_circle_3-3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="0" y="0" z="0" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 3-4 -->
+    <NODE id="ghost_circle_3-4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="3.5" y="0" z="0" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 3-5 -->
+    <NODE id="ghost_circle_3-5">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="7" y="0" z="0" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 4-1 -->
+    <NODE id="ghost_circle_4-1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-7" y="0" z="3.5" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 4-2 -->
+    <NODE id="ghost_circle_4-2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-3.5" y="0" z="3.5" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 4-3 -->
+    <NODE id="ghost_circle_4-3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="0" y="0" z="3.5" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 4-4 -->
+    <NODE id="ghost_circle_4-4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="3.5" y="0" z="3.5" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 4-5 -->
+    <NODE id="ghost_circle_4-5">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="7" y="0" z="3.5" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 5-1 -->
+    <NODE id="ghost_circle_5-1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-7" y="0" z="7" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 5-2 -->
+    <NODE id="ghost_circle_5-2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-3.5" y="0" z="7" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 5-3 -->
+    <NODE id="ghost_circle_5-3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="0" y="0" z="7" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 5-4 -->
+    <NODE id="ghost_circle_5-4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="3.5" y="0" z="7" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle 5-5 -->
+    <NODE id="ghost_circle_5-5">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="7" y="0" z="7" />
+
+      <DESCENDANTS>
+         <NODEREF id="ghost_circle" />
+      </DESCENDANTS>
+    </NODE>
+	
+	<!-- Ghost Circle -->
+    <NODE id="ghost_circle">
+      <MATERIAL id="darkMaterial" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="0" y="0.6" z="0" />
+	  <ROTATION axis="x" angle="-90" />
+
+      <DESCENDANTS>
+        <LEAF type="circle" args="20" />
+      </DESCENDANTS>
+    </NODE>
+
+	<!-- Ghost Board -->
+    <NODE id="ghost_board">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <DESCENDANTS>
+         <NODEREF id="board" />
+		 <NODEREF id="ghost_circles" />
+      </DESCENDANTS>
+    </NODE>
+	
 	<!-- Board -->
     <NODE id="board">
       <MATERIAL id="metalMaterial" />
@@ -278,7 +662,6 @@
          <NODEREF id="cube" />
       </DESCENDANTS>
     </NODE>
-	
 	
 	<!-- Unitary Cube -->
     <NODE id="cube">
@@ -371,7 +754,6 @@
         <LEAF  type="rectangle" args="-0.5 0.5 0.5 -0.5" />
       </DESCENDANTS>
     </NODE>
-	
 	
   </NODES>
 </SCENE>

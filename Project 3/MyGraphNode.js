@@ -25,6 +25,9 @@ function MyGraphNode(graph, nodeID) {
 
 	// Boolean that saves if a node is selectable to use a certain shader
 	this.selectable = null;
+	
+	// Boolean that saves if a node is visible
+	this.visible = true;
 
 	this.transformMatrix = mat4.create();
 	mat4.identity(this.transformMatrix);
@@ -66,6 +69,10 @@ MyGraphNode.prototype.getSelectable = function() {
  */
 MyGraphNode.prototype.setSelectable = function(selectable) {
 	this.selectable = selectable;
+}
+
+MyGraphNode.prototype.setVisible = function(visible) {
+	this.visible = visible;
 }
 
 /**
@@ -111,10 +118,12 @@ MyGraphNode.prototype.display = function(currTextureID, currMaterialID, selectab
 		}
 	}
 
-	this.displayLeaves(newTextureID,newMaterialID);
+	if(this.visible) {
+		this.displayLeaves(newTextureID,newMaterialID);
 
-	for(var j=0;j < this.children.length; j++){
-		this.graph.nodes[this.children[j]].display(newTextureID,newMaterialID,selectableBool);
+		for(var j=0;j < this.children.length; j++){
+			this.graph.nodes[this.children[j]].display(newTextureID,newMaterialID,selectableBool);
+		}
 	}
 
 	if(this.nodeID == this.scene.selectedSelectableNode){
