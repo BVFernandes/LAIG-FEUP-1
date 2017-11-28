@@ -1413,15 +1413,17 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			//Read Visible Property
 			let visible = this.reader.getString(children[i], 'visible', false);
 			
-			console.log(visible);
-
-			if (visible == "true"){
-				visible = true;
-			} else if(visible=="false"){
-				visible = false;
+			if(visible){
+				console.log(visible);
+				if (visible == "true"){
+					visible = true;
+				} else if(visible=="false"){
+					visible = false;
+				}
+				
+				this.nodes[nodeID].setVisible(visible);
 			}
 			
-			this.nodes[nodeID].setVisible(true);
 
 			// Gathers child nodes.
 			var nodeSpecs = children[i].children;

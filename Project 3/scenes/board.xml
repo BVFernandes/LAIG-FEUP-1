@@ -283,7 +283,7 @@
     </NODE>
 	
 	<!-- Ghost Circle 1-1 -->
-    <NODE id="ghost_circles">
+    <NODE id="ghost_circles" visible="true" >
       <MATERIAL id="null" />
       <TEXTURE id="null" />
 
@@ -328,7 +328,7 @@
     </NODE>
 	
 	<!-- Ghost Circle 1-1 -->
-    <NODE id="ghost_circle_1-1">
+    <NODE id="ghost_circle_1-1" visible="false">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
 
@@ -756,4 +756,5 @@
     </NODE>
 	
   </NODES>
+  
 </SCENE>
