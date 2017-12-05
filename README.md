@@ -13,8 +13,8 @@
 - Falta a modelaço da peça ghost
 
 ### Movimento das peças de jogo
--Click no rato para selecionar + mostrar qual selecionada
--Click na posição final + movimento com animação
+- Click no rato para selecionar + mostrar qual selecionada
+- Click na posição final + movimento com animação
 
 
 ## 3. Visualização
@@ -26,7 +26,7 @@
 - Permitir a troca entre os diferentes temas de jogo
 
 ## 4. Funcionalidades genéricas do jogo
-Interface GUI + Objetos Selecionáveis
+- Interface GUI + Objetos Selecionáveis
 
 ### Nivel de dificuldade
 ### Tipo de jogo(H/M, H/H, M/M)
@@ -49,26 +49,26 @@ Interface GUI + Objetos Selecionáveis
 
 ## Critérios de Avaliação
 
-    Criação da cena de jogo (4.5 valores)
+   - Criação da cena de jogo (4.5 valores)
         Tabuleiro
         Aspeto geral
         Jogabilidade, interação, criatividade
-    Peças (4.5 valores)
+   - Peças (4.5 valores)
         Modelação
         Movimento e animação por imagens chave.
-    Visualização (3 valores)
+   - Visualização (3 valores)
         Iluminação
         Ambientes de jogo
-    Funcionalidades genéricas do jogo (2.5 valores)
+   - Funcionalidades genéricas do jogo (2.5 valores)
         Nível de dificuldade
         Tipo de jogo
         Undo
         Rotação da câmara entre pontos de vista pré-definidos
-    Outras Funcionalidades (1.5 valores)
+   - Outras Funcionalidades (1.5 valores)
         Marcador
         Filme do jogo
         Medição do tempo de jogo
-    Software (4 valores)
+   - Software (4 valores)
         Estrutura e parametrização
         Interligação com Programação em Lógica
 
