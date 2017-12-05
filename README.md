@@ -46,29 +46,44 @@
 ### 5.3 Medição do tempo de jogo
 - Acrescente a facilidade de definir e controlar o tempo máximo para efetuar uma jogada. Esse tempo deve ser visível para os jogadores, e quando terminar o jogador deve perder a vez ou perder o jogo (dependendo do tipo de jogo). 
 
+## 6 Outras Implementações
+
+
+
+
 
 ## Critérios de Avaliação
-
-   - Criação da cena de jogo (4.5 valores)
-        Tabuleiro
-        Aspeto geral
+   ### Criação da cena de jogo (4.5 valores)
+   
+        Tabuleiro  
+        Aspeto geral        
         Jogabilidade, interação, criatividade
-   - Peças (4.5 valores)
-        Modelação
+        
+   ### Peças (4.5 valores)
+   
+        Modelação        
         Movimento e animação por imagens chave.
-   - Visualização (3 valores)
-        Iluminação
+        
+   ### Visualização (3 valores)
+   
+        Iluminação        
         Ambientes de jogo
-   - Funcionalidades genéricas do jogo (2.5 valores)
-        Nível de dificuldade
-        Tipo de jogo
-        Undo
+        
+   ### Funcionalidades genéricas do jogo (2.5 valores)
+   
+        Nível de dificuldade        
+        Tipo de jogo        
+        Undo        
         Rotação da câmara entre pontos de vista pré-definidos
-   - Outras Funcionalidades (1.5 valores)
-        Marcador
-        Filme do jogo
-        Medição do tempo de jogo
-   - Software (4 valores)
-        Estrutura e parametrização
-        Interligação com Programação em Lógica
+ 
+   ### Outras Funcionalidades (1.5 valores)
+      
+      Marcador      
+      Filme do jogo       
+      Medição do tempo de jogo
+
+  ### Software (4 valores)
+        
+       Estrutura e parametrização       
+       Interligação com Programação em Lógica
 
