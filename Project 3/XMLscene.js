@@ -54,8 +54,11 @@ XMLscene.prototype.init = function(application) {
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")
 		];
 
+	this.game = new MyGoRoGo(this);
+
 	this.coloursShaders=[vec3.fromValues(0,0,1),vec3.fromValues(1,0,0), vec3.fromValues(0,1,0), vec3.fromValues(1,1,0), vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)];
 
+	this.setPickEnabled(true);
 	this.updateScaleFactor();
 	this.updateColourShader();
 }
@@ -109,7 +112,7 @@ XMLscene.prototype.updateRedSelector=function(v){
 	this.redSelector=v;
 	if(this.selectedColourShader == 4)
 		this.testShaders[1].setUniformsValues({colour: vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)});
-	
+
 }
 
 XMLscene.prototype.updateGreenSelector=function(v){
@@ -242,7 +245,7 @@ XMLscene.prototype.display = function() {
 
 		// Displays the scene.
 		this.graph.displayScene();
-
+		this.game.display();
 
 	}
 	else
