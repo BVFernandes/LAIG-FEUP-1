@@ -429,7 +429,7 @@
     </NODE>
 	
 	<!-- Ghost Circle 1-1 -->
-    <NODE id="ghost_circles" visible="false" >
+    <NODE id="ghost_circles" visible="true" >
       <MATERIAL id="null" />
       <TEXTURE id="null" />
 
