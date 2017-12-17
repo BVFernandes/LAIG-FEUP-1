@@ -127,6 +127,34 @@ XMLscene.prototype.updateBlueSelector=function(v){
 		this.testShaders[1].setUniformsValues({colour: vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)});
 }
 
+XMLscene.prototype.updateCamera=function(currTime){
+
+	if(!this.moveCam)
+		return;
+
+	let direction = 1;
+	let deltaZ1 = this.camera.position[2]-this.cameraPos[this.cameraIdx][2];
+	let deltaX = Math.abs(this.camera.position[0]-this.cameraPos[this.cameraIdx][0]);
+	let deltaZ = Math.abs(this.camera.position[2]-this.cameraPos[this.cameraIdx][2]);
+
+	if(deltaZ + deltaX > 1) {
+		if(deltaZ1 < 0)
+			direction = -1;
+
+		this.camera.orbit("y", direction*10*DEGREE_TO_RAD);
+	} else {
+		this.moveCam = false;
+
+		if(this.cameraIdx >= 3){
+			this.cameraIdx=0;
+		}else {
+			this.cameraIdx++;
+		}
+
+	}
+
+}
+
 /**
  * Initializes the scene lights with the values read from the LSX file.
  */
@@ -186,7 +214,14 @@ XMLscene.prototype.updateLights = function () {
  * Initializes the scene cameras.
  */
 XMLscene.prototype.initCameras = function() {
-	this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
+	this.camera = new CGFcamera(0.3,0.5,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
+
+	console.log(this.camera.position[0]);
+	this.camera.orbit('y', 45*DEGREE_TO_RAD);
+	console.log(this.camera.position[0]);
+
+	this.cameraPos = [[21,15,0], [0,15,-21], [21,15,0], [0,15,21]];
+	this.cameraIdx = 1;
 }
 
 /* Handler called when the graph is finally loaded.
@@ -273,6 +308,7 @@ XMLscene.prototype.update = function(currTime) {
 		this.graph.comboAnimations[id].update(currTime);
 
 	this.updateTimeFactor(currTime);
+	this.updateCamera(currTime);
 };
 
 /**

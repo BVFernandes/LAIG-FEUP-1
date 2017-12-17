@@ -118,3 +118,79 @@ MyInterface.prototype.addColoursGroup = function(){
 	colourGroup.add(this.scene, 'blueSelector',0,1).name('B').onChange(function(v)
 			{ obj.scene.updateBlueSelector(v); });
 }
+
+/**
+ * processKeyboard
+ * @param event {Event}
+ */
+MyInterface.prototype.processKeyboard = function(event) {
+	// call CGFinterface default code (omit if you want to override)
+	//CGFinterface.prototype.processKeyboard.call(this,event);
+
+	// Check key codes e.g. here: http://www.asciitable.com/
+	// or use String.fromCharCode(event.keyCode) to compare chars
+
+	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
+	var test = event.keycode | event.which;
+
+	switch (test)	{
+
+	case (86):
+	case (118):
+		console.log("Key 'V' pressed");
+		this.scene.moveCam = true;
+	break;
+
+	case (65):
+	case (97):
+		console.log("Key 'A' pressed");
+	break;
+
+	case (68):
+	case (100):
+		console.log("Key 'D' pressed");
+	break;
+
+	case (83):
+	case (115):
+		console.log("Key 'S' pressed");
+	break;
+
+	case (87):
+	case (119):
+		console.log("Key 'W' pressed");
+	break;
+
+	case (113):
+	case (81):
+		console.log("Key 'Q' pressed");
+	break;
+
+	case (69):
+	case (101):
+		console.log("Key 'E' pressed");
+	break;
+
+	case (80):
+	case (112):
+		console.log("Key 'P' pressed");
+	break;
+
+	case (76):
+	case (108):
+		console.log("Key 'L' pressed");
+	break;
+
+	case (70):
+	case (102):
+		console.log("Key 'F' pressed");
+	break;
+
+	case(82):
+	case(114):
+		console.log("Key 'R' pressed");
+	break;
+
+
+	};
+};
