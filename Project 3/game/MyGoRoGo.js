@@ -10,6 +10,8 @@ function MyGoRoGo(scene) {
     this.tiles = [];
 
     this.initializeBoard();
+    this.marker = new MyInfoMarker(scene);
+
     //this.highlightedTiles = [];
 
     // this.cellAppearance = new CGFappearance(this.scene);
@@ -24,6 +26,9 @@ function MyGoRoGo(scene) {
     // });
     //
     // this.selectedShader = new CGFshader(this.scene.gl, "shaders/selected.vert", "shaders/selected.frag");
+    this.initTime = null;
+  	this.lastCurrTime = null;
+  	this.delta = 0;
 }
 
 MyGoRoGo.prototype = Object.create(CGFobject.prototype);
@@ -175,6 +180,7 @@ MyGoRoGo.prototype.display= function(){
             this.scene.registerForPick(j+1, this.pieces[j]);
         }
 
+        this.marker.display();
         this.scene.popMatrix();
     }
 
@@ -186,19 +192,23 @@ MyGoRoGo.prototype.display= function(){
  * @param player2
  */
 MyGoRoGo.prototype.update = function(currTime) {
-    if (this.initialTime == 0) {
-        this.initialTime = currTime;
-    }
-    this.elapsedTime = (currTime - this.initialTime)/1000;
+  this.lastCurrTime = currTime;
 
-        var diff = this.elapsedTime - this.currentMove.getInitialTime();
-        if(diff > this.currentMove.getAnimation().getSpan()) {
-            this.currentMove.getPiece().setAnimation(null);
-            this.currentMove.movePiece();
-            this.nextMove();
-        } else {
-            this.currentMove.display(diff);
-        }
+	if(!this.initTime){
+		this.initTime = currTime;
+	}
+
+  this.delta = (currTime - this.initTime)/1000;
+        // var diff = this.elapsedTime - this.currentMove.getInitialTime();
+        // if(diff > this.currentMove.getAnimation().getSpan()) {
+        //     this.currentMove.getPiece().setAnimation(null);
+        //     this.currentMove.movePiece();
+        //     this.nextMove();
+        // } else {
+        //     this.currentMove.display(diff);
+        // }
+
+    this.marker.updateTime(this.delta);
     }
 
 

@@ -216,9 +216,7 @@ XMLscene.prototype.updateLights = function () {
 XMLscene.prototype.initCameras = function() {
 	this.camera = new CGFcamera(0.3,0.5,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
 
-	console.log(this.camera.position[0]);
 	this.camera.orbit('y', 45*DEGREE_TO_RAD);
-	console.log(this.camera.position[0]);
 
 	this.cameraPos = [[21,15,0], [0,15,-21], [21,15,0], [0,15,21]];
 	this.cameraIdx = 1;
@@ -309,6 +307,7 @@ XMLscene.prototype.update = function(currTime) {
 
 	this.updateTimeFactor(currTime);
 	this.updateCamera(currTime);
+	this.game.update(currTime);
 };
 
 /**
