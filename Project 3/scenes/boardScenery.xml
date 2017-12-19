@@ -292,6 +292,7 @@
   <!-- The animations -->
   <ANIMATIONS>
 
+	<!--
 	 <ANIMATION id="robot_linear_anim1" type="linear" speed="3">
       <controlpoint xx="1.5" yy="0" zz="12"/>
       <controlpoint xx="1.5" yy="0" zz="2"/>
@@ -346,7 +347,7 @@
       <SPANREF id="robot_circular_anim2"/>
       <SPANREF id="robot_linear_anim3"/>
     </ANIMATION>
-
+	-->
   </ANIMATIONS>
 
 
@@ -362,9 +363,9 @@
 
       <DESCENDANTS>
         <NODEREF id="ghost_board" />
-		      <!--<NODEREF id="white_piece" />
-		        <NODEREF id="black_piece" /> -->
-		          <NODEREF id="room" />
+		<!-- <NODEREF id="white_piece" />
+		<NODEREF id="black_piece" /> -->
+		<NODEREF id="room" /> 
       </DESCENDANTS>
     </NODE>
 
@@ -1968,6 +1969,7 @@
       <MATERIAL id="metalMaterial" />
       <TEXTURE id="null" />
 
+	<!--
       <ANIMATIONREFS>
         <ANIMATIONREF id="robot_linear_anim1"/>
         <ANIMATIONREF id="robot_circular_anim1"/>
@@ -1975,6 +1977,7 @@
         <ANIMATIONREF id="robot_circular_anim3"/>
         <ANIMATIONREF id="robot_linear_anim4"/>
       </ANIMATIONREFS>
+	 -->
 
       <DESCENDANTS>
         <NODEREF id="robot_vaccum_cleaner_top" />
@@ -2013,11 +2016,13 @@
       <MATERIAL id="null" />
       <TEXTURE id="null" />
 
+	<!--
       <ANIMATIONREFS>
         <ANIMATIONREF id="plane_bezier_anim1"/>
         <ANIMATIONREF id="plane_circular_anim1"/>
         <ANIMATIONREF id="plane_bezier_anim2"/>
       </ANIMATIONREFS>
+	-->
 
       <DESCENDANTS>
         <NODEREF id="paper_plane_bottom" />

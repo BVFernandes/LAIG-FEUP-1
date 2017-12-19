@@ -9,7 +9,7 @@ function MyAnimation(id, velocity) {
 
 	this.end = false;
 	this.stop = false;
-	this.loop = true;
+	this.loop = false;
 
 	this.id=id;
 	this.velocity = velocity;

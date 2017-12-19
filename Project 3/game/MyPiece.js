@@ -1,3 +1,5 @@
+var ANIMATION_SPEED = 2;
+
 /**
  * MyPiece
  * @constructor
@@ -8,8 +10,16 @@ function MyPiece(scene, x, z) {
 
     this.x = x;
     this.z = z;
+	
+	this.destCoords = null;
 
     this.object = new MyRegularPiece(this.scene);
+	
+	this.animation = null;
+	
+	this.animationReady = 0;
+	
+	this.animate = false;
 
     this.isSelected = false;
 }
@@ -22,7 +32,15 @@ MyPiece.prototype.constructor = MyPiece;
  */
 MyPiece.prototype.display = function () {
     this.scene.pushMatrix();
-    this.scene.translate(this.x, 0.5, this.z);
+	
+    
+	
+	if(this.animate){
+		this.scene.multMatrix(this.animation.getMatrix());
+	}
+	else
+		this.scene.translate(this.x, 0.5, this.z);
+	
     // if(this.isSelected)
     //     this.scene.setActiveShader(this.scene.nodes.selectedShader);
     // if(this.animation != null){
@@ -40,6 +58,32 @@ MyPiece.prototype.display = function () {
  */
 MyPiece.prototype.setTile = function (tile) {
     this.tile = tile;
+}
+
+MyPiece.prototype.update = function (currTime) {
+	if(this.animation == null)
+		return;
+	
+    this.animation.update(currTime);
+	
+	if(this.animationReady < 2){
+		this.animationReady++;
+		return;
+	}
+	
+	if(this.animation != null && !this.animate){
+		console.log("animate");
+		this.animate = true;
+	}
+	
+	if(this.animation.end){
+		console.log("End");
+		this.x = this.destCoords[0];
+		this.z = this.destCoords[1];
+		this.animate = false;
+		this.animation = null;
+		this.destCoords = null;
+	}
 }
 
 /**
@@ -81,12 +125,46 @@ MyPiece.prototype.setSelected = function (value) {
     this.isSelected=value;
 }
 
+MyPiece.prototype.meanPoint = function(point1, point2){
+	return [(point2[0]+point1[0])/2.0, (point2[1]+point1[1])/2.0, (point2[2]+point1[2])/2.0];
+}
+
+MyPiece.prototype.createAnimation = function(coords) {
+	
+	let startPoint = [this.x, 0.5, this.z];
+	let endPoint = [coords[0], 0.5, coords[1]];
+	let meanPoint = this.meanPoint(startPoint, endPoint);
+	let controlPoints = [startPoint, [meanPoint[0], 2, meanPoint[2]], endPoint]; 
+	let animation = new MyLinearAnimation(0,ANIMATION_SPEED,controlPoints);
+	
+	/*
+	controlPoints = [[this.x, 0.5, this.z],
+					 [this.x, 1, this.z],
+					 [coords[0], 1, coords[1]],
+					 [coords[0], 0.5, coords[1]]];
+					 
+	let animation = new MyBezierAnimation(0, ANIMATION_SPEED, controlPoints);
+	*/
+    let comboAnimation = new MyComboAnimation();
+	comboAnimation.addAnimation(animation);
+	return comboAnimation;
+}
+
 /**
  * Sets MyPiece animation
  * @param animation
  */
-MyPiece.prototype.setAnimation = function(animation) {
-    this.animation = animation;
-    if (animation==null)
-        this.timer=null;
+MyPiece.prototype.setAnimation = function(coords) {
+    this.destCoords = coords;
+	this.animation = this.createAnimation(coords);
+	this.animationReady = 0;
+}
+
+
+MyPiece.prototype.getAnimate = function() {
+	return this.animate;
+}
+
+MyPiece.prototype.setAnimate = function(value) {
+	this.animate = value;
 }

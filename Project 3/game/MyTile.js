@@ -69,6 +69,10 @@ MyTile.prototype.getCol = function () {
     return this.col;
 }
 
+MyTile.prototype.getCoords = function () {
+    return [this.x, this.z];
+}
+
 /**
  * Returns coordinates as string in format: Row-Col
  * @returns {string}

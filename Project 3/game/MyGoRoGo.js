@@ -10,6 +10,8 @@ function MyGoRoGo(scene) {
     this.tiles = [];
 
     this.initializeBoard();
+	
+	this.selectedPiece = null;
     //this.highlightedTiles = [];
 
     // this.cellAppearance = new CGFappearance(this.scene);
@@ -149,6 +151,23 @@ MyGoRoGo.prototype.logPicking = function ()
 				if (obj)
 				{
 					var customId = this.scene.pickResults[i][1];
+					if(obj instanceof MyTile){
+						console.log("instanceof MyTile");
+						if(this.selectedPiece != null){
+							console.log("Selected Dest Tile");
+							this.selectedPiece.setAnimation(obj.getCoords());
+						}
+					}
+					
+					if(obj instanceof MyPiece){
+						console.log("instanceof MyPiece");
+						if(this.selectedPiece == null){
+							console.log("Selected Piece");
+							this.selectedPiece = obj;
+							console.log(this.selectedPiece);
+						}
+							
+					}
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
 			}
@@ -166,13 +185,15 @@ MyGoRoGo.prototype.display= function(){
         this.scene.clearPickRegistration();
         this.scene.pushMatrix();
 
-        for(let i = 0; i < this.tiles.length; i++){
+		let i = 0;
+        for(i = 0; i < this.tiles.length; i++){
+			this.scene.registerForPick(i+1, this.tiles[i]);
             this.tiles[i].display();
         }
 
         for(let j = 0; j < this.pieces.length; j++){
+			this.scene.registerForPick(j+i+1, this.pieces[j]);
             this.pieces[j].display();
-            this.scene.registerForPick(j+1, this.pieces[j]);
         }
 
         this.scene.popMatrix();
@@ -185,7 +206,13 @@ MyGoRoGo.prototype.display= function(){
  * @param player1
  * @param player2
  */
+ 
 MyGoRoGo.prototype.update = function(currTime) {
+	
+	if(this.selectedPiece){
+		this.selectedPiece.update(currTime);
+	}
+	/*
     if (this.initialTime == 0) {
         this.initialTime = currTime;
     }
@@ -199,7 +226,9 @@ MyGoRoGo.prototype.update = function(currTime) {
         } else {
             this.currentMove.display(diff);
         }
-    }
+		*/
+}
+	
 
 
 /****************************************** Getters and setters  ******************************************************/
