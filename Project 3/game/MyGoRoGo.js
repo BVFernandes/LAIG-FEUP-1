@@ -12,6 +12,9 @@ function MyGoRoGo(scene) {
     this.initializeBoard();
 	
 	this.selectedPiece = null;
+	
+    this.marker = new MyInfoMarker(scene);
+
     //this.highlightedTiles = [];
 
     // this.cellAppearance = new CGFappearance(this.scene);
@@ -26,6 +29,9 @@ function MyGoRoGo(scene) {
     // });
     //
     // this.selectedShader = new CGFshader(this.scene.gl, "shaders/selected.vert", "shaders/selected.frag");
+    this.initTime = null;
+  	this.lastCurrTime = null;
+  	this.delta = 0;
 }
 
 MyGoRoGo.prototype = Object.create(CGFobject.prototype);
@@ -196,6 +202,7 @@ MyGoRoGo.prototype.display= function(){
             this.pieces[j].display();
         }
 
+        this.marker.display();
         this.scene.popMatrix();
     }
 
@@ -208,10 +215,19 @@ MyGoRoGo.prototype.display= function(){
  */
  
 MyGoRoGo.prototype.update = function(currTime) {
+	this.lastCurrTime = currTime;
+
+	if(!this.initTime){
+		this.initTime = currTime;
+	}
+
+	this.delta = (currTime - this.initTime)/1000;
 	
 	if(this.selectedPiece){
 		this.selectedPiece.update(currTime);
 	}
+	
+	
 	/*
     if (this.initialTime == 0) {
         this.initialTime = currTime;
@@ -223,14 +239,16 @@ MyGoRoGo.prototype.update = function(currTime) {
             this.currentMove.getPiece().setAnimation(null);
             this.currentMove.movePiece();
             this.nextMove();
-        } else {
+		} else {
             this.currentMove.display(diff);
-        }
-		*/
+    }
+	*/
+		
+	this.marker.updateTime(this.delta);
+		
+	
 }
 	
-
-
 /****************************************** Getters and setters  ******************************************************/
 
 /**
