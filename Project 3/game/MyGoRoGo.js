@@ -5,16 +5,16 @@
 function MyGoRoGo(scene) {
     CGFobject.call(this, scene);
     this.scene = scene;
-    //this.client= new Client(8081);
+    this.client= new Client(8081);
     this.pieces = [];
     this.tiles = [];
 
     this.initializeBoard();
-	
-	this.selectedPiece = null;
-	
-    this.marker = new MyInfoMarker(scene);
 
+	this.selectedPiece = null;
+
+    this.marker = new MyInfoMarker(scene);
+    this.board = new MyBoard(scene, []);
     //this.highlightedTiles = [];
 
     // this.cellAppearance = new CGFappearance(this.scene);
@@ -61,7 +61,24 @@ MyGoRoGo.prototype.constructor = MyGoRoGo;
      }
    }
 
+   this.initializeGame();
  }
+
+ /**
+ * Initializes the game accordingly to the user input and sets up a new board given by prolog via server request
+ * @param mode
+ * @param difficulty
+ */
+MyGoRoGo.prototype.initializeGame = function (mode, difficulty) {
+    let gorogo = this;
+    this.client.makeRequest("initGame", function(data){
+            console.log(data.target.response);
+          //   console.log(JSON.parse(data.target.response));
+          //  gorogo.board.setBoard(data.target.responseText);
+          //  console.log(gorogo.board.getBoard());
+        });
+}
+
 
 /**
  * Accordingly to the picking, selects a piece
@@ -164,7 +181,7 @@ MyGoRoGo.prototype.logPicking = function ()
 							this.selectedPiece.setAnimation(obj.getCoords());
 						}
 					}
-					
+
 					if(obj instanceof MyPiece){
 						console.log("instanceof MyPiece");
 						if(this.selectedPiece == null){
@@ -172,7 +189,7 @@ MyGoRoGo.prototype.logPicking = function ()
 							this.selectedPiece = obj;
 							console.log(this.selectedPiece);
 						}
-							
+
 					}
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
@@ -213,7 +230,7 @@ MyGoRoGo.prototype.display= function(){
  * @param player1
  * @param player2
  */
- 
+
 MyGoRoGo.prototype.update = function(currTime) {
 	this.lastCurrTime = currTime;
 
@@ -222,12 +239,12 @@ MyGoRoGo.prototype.update = function(currTime) {
 	}
 
 	this.delta = (currTime - this.initTime)/1000;
-	
+
 	if(this.selectedPiece){
 		this.selectedPiece.update(currTime);
 	}
-	
-	
+
+
 	/*
     if (this.initialTime == 0) {
         this.initialTime = currTime;
@@ -243,12 +260,12 @@ MyGoRoGo.prototype.update = function(currTime) {
             this.currentMove.display(diff);
     }
 	*/
-		
+
 	this.marker.updateTime(this.delta);
-		
-	
+
+
 }
-	
+
 /****************************************** Getters and setters  ******************************************************/
 
 /**

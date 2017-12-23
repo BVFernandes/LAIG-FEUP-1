@@ -214,7 +214,7 @@ XMLscene.prototype.updateLights = function () {
  * Initializes the scene cameras.
  */
 XMLscene.prototype.initCameras = function() {
-	this.camera = new CGFcamera(0.3,0.5,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
+	this.camera = new CGFcamera(0.6,0.5,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
 
 	this.camera.orbit('y', 45*DEGREE_TO_RAD);
 
