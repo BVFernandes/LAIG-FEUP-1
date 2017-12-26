@@ -303,7 +303,7 @@ XMLscene.prototype.update = function(currTime) {
 		return;
 
 	this.game.update(currTime);
-	
+
 	for(let id in this.graph.comboAnimations)
 		this.graph.comboAnimations[id].update(currTime);
 

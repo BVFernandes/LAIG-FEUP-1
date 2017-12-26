@@ -11,6 +11,9 @@ function MyGoRoGo(scene) {
 
     this.marker = new MyInfoMarker(scene);
     this.board = new MyBoard();
+    this.togglePlayerObj = new MyTogglePlayer(scene);
+    this.startMovieObj = new MyStartMovie(scene);
+    this.startGameObj = new MyStartGame(scene);
 
     // this.cellAppearance = new CGFappearance(this.scene);
     // this.cellAppearance.loadTexture('../res/transparent.png');
@@ -18,15 +21,15 @@ function MyGoRoGo(scene) {
     // this.highlightAppearance = new CGFappearance(this.scene);
     // this.highlightAppearance.loadTexture('../res/ice.jpg');
     //
-	
+
 	/*
     this.myShader = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
-	
+
 	this.myShader2 = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
 	*/
-   
+
     // this.selectedShader = new CGFshader(this.scene.gl, "shaders/selected.vert", "shaders/selected.frag");
-	
+
 	this.whitePlayer = new MyPlayer("whitePlayer");
 	this.whitePlayer.toggleType();
 	this.blackPlayer = new MyPlayer("blackPlayer");
@@ -36,11 +39,11 @@ function MyGoRoGo(scene) {
   	this.lastCurrTime = null;
   	this.delta = 0;
 	this.requestStatus = null;
-	
+
 	this.moves = [];
-	
+
 	this.initializeBoard();
-	
+
 	this.state = null;
 }
 
@@ -54,7 +57,7 @@ MyGoRoGo.prototype.constructor = MyGoRoGo;
  MyGoRoGo.prototype.initializeBoard = function () {
 	this.pieces = [];
 	this.tiles = [];
-	
+
 	for (let i = -7; i <= 7; i+=3.5) {
 		for(let j = -7; j <= 7; j+=3.5){
 			this.tiles.push(new MyTile(this.scene, j, i));
@@ -67,8 +70,8 @@ MyGoRoGo.prototype.constructor = MyGoRoGo;
 			this.pieces.push(new MyPiece(this.scene, "n", i, j, "blackPlayer"));
 		}
 	}
-   
-	
+
+
 	for(let i = -1.75; i <= 1.75; i+=2.5)
 		this.pieces.push(new MyPiece(this.scene, "h", i, -18.5, "blackPlayer"));
 
@@ -78,21 +81,21 @@ MyGoRoGo.prototype.constructor = MyGoRoGo;
 			this.pieces.push(new MyPiece(this.scene, "n", i, j, "whitePlayer"));
 		}
 	}
-   
+
 	for(let i = -2.5; i <= 2.5; i+= 2.5)
 		this.pieces.push(new MyPiece(this.scene, "h", i, 18.5, "whitePlayer"));
-  
+
 
 	this.initializeGame();
  }
- 
+
  /**
  * Initializes the game accordingly to the user input and sets up a new board given by prolog via server request
  * @param mode
  * @param difficulty
  */
 MyGoRoGo.prototype.initializeGame = function () {
-	
+
 	let gorogo = this;
 	let scene = this.scene;
     this.client.makeRequest("initGame", function(data){
@@ -200,9 +203,13 @@ MyGoRoGo.prototype.resetHighlights = function () {
 MyGoRoGo.prototype.display = function(){
 	if(this.state != null)
 		this.state.display();
-	
-	this.scene.pushMatrix();	
+
+	this.scene.pushMatrix();
 	this.marker.display();
+  this.scene.translate(0,0,20);
+  this.togglePlayerObj.display();
+  this.startMovieObj.display();
+  this.startGameObj.display();
 	this.scene.popMatrix();
 }
 
@@ -227,7 +234,7 @@ MyGoRoGo.prototype.update = function(currTime) {
 		this.state.update(currTime);
 
 	this.marker.updateTime(this.delta);
-	
+
 	/*
     if (this.initialTime == 0) {
         this.initialTime = currTime;
@@ -322,7 +329,7 @@ MyGoRoGo.prototype.clearSurroundedPieces = function (points) {
 		piece.setClearAnimation();
 		pieces.push(piece);
 	}
-	
+
 	return pieces;
 }
 
@@ -347,28 +354,28 @@ MyGoRoGo.prototype.setState = function (state) {
 
 MyGoRoGo.prototype.parseGame = function (encondedGame) {
 	let encodedBoard = encondedGame.slice(2,61);
-	
+
 	let start = 64;
 	let i = start;
 	while(encondedGame[i] != ']')
 		i++;
-	
+
 	let encodedWhite = encondedGame.slice(start,i);
-	
+
 	i += 3;
 	start = i;
 	while(encondedGame[i] != ']')
 		i++;
-	
+
 	let encodedBlack = encondedGame.slice(start,i);
-	
+
 	i += 2;
 	start = i;
 	while(encondedGame[i] != ']')
 		i++;
-	
+
 	let curr = encondedGame.slice(start,i);
-	
+
 	return [encodedBoard,encodedWhite,encodedBlack,curr];
 }
 
@@ -397,11 +404,11 @@ MyGoRoGo.prototype.setNextPlayer = function () {
 }
 
 
-MyGoRoGo.prototype.toPlString = function () {	
+MyGoRoGo.prototype.toPlString = function () {
 	return "[" + this.board.toPlString() + "," + this.whitePlayer.toPlString() + "," + this.blackPlayer.toPlString() + "," + this.getCurrentPlayerStr()+ "]";
 }
 
-MyGoRoGo.prototype.setGame = function (encodedGame) {	
+MyGoRoGo.prototype.setGame = function (encodedGame) {
 	let res = this.parseGame(encodedGame);
 	this.board.setBoard(res[0]);
 	this.whitePlayer.setPlayer(res[1]);
