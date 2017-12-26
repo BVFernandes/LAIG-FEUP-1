@@ -241,6 +241,12 @@ updateGame(Game,GameRes):-
 	findall(Point, isSurroundedOpponent(Game,Point,t), Points),
 	clearBoard(Game,Points,GameRes).
 	
+updateGameWithPoints(Game,GameRes):-
+	findall(Point, isSurroundedOpponent(Game,Point,t), Points),
+	clearBoard(Game,Points,GameTmp),
+	append(GameTmp,['!'],GameTmp2),
+	append(GameTmp2,Points,GameRes).
+	
 	
 waitForBot(Game):-
 	getCurrentPlayer(Game,Player),

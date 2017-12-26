@@ -8,7 +8,6 @@ getRandomPlay(Plays,ResPlay):-
 	
 getEasyBotPlay(Game,ResPlay,Turn):-
 	findall(Play,validPlay(Game,Play,Turn),Plays),
-	%write(Plays), nl,
 	getRandomPlay(Plays,ResPlay).
 
 

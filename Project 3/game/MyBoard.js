@@ -1,57 +1,35 @@
+MyBoard.toSymbol = {
+	"clear":		0,
+    "whitePlayer": 	1,
+    "blackPlayer":  2,
+}
+
 /**
  * MyBoard
  * @constructor
  */
 
-function MyBoard(scene, encoded_board) {
-    CGFobject.call(this,scene);
-    this.scene = scene;
+function MyBoard() {
     this.board = [];
-
-    this.parseBoard(encoded_board);
-    this.length = this.board.length;
+    this.length = 5;
 }
 
 MyBoard.prototype = Object.create(CGFobject.prototype);
 MyBoard.prototype.constructor = MyBoard;
 
 /**
- * Parse pl board to js
- * @param board_encoded
- */
-MyBoard.prototype.parseBoard = function (board_encoded) {
-    let startIndex=2;
-    this.board=[];
-
-    while(board_encoded.length > 1) {
-        let finalIndex= board_encoded.indexOf("]");
-        let lineStr = board_encoded.substring(startIndex,finalIndex);
-        let lineArray = lineStr.split(",");
-        this.board.push(lineArray);
-        board_encoded = board_encoded.substring(finalIndex+1);
-    }
-};
-
-/**
  * Puts a js board in a pl struct
  * @returns {void|XML}
  */
-MyBoard.prototype.boardToProlog = function () {
-    let string = JSON.stringify(this.board);
-    let boardPL = string.replace(/['"]+/g, '');
-    return boardPL;
-}
-
-/**
- * Check if the given coordinates are valid
- * @param Row
- * @param Col
- * @returns {boolean}
- */
-MyBoard.prototype.checkValidPosition = function (Row, Col) {
-    if(Row < 0 || Col <  0 || Col >= this.length || Row >= this.length)
-        return false;
-    return true;
+MyBoard.prototype.toPlString = function () {
+	let encodedBoard = "[";
+    for(let i = 0; i < this.length; i++){
+		encodedBoard += "["+this.board[i].toString()+"]";
+		if(i != this.length-1)
+			encodedBoard += ",";
+	}
+	encodedBoard += "]";
+	return encodedBoard;
 }
 
 /**
@@ -76,11 +54,21 @@ MyBoard.prototype.getBoard = function () {
 
 /**
  * Sets the board matrix
- * @param encoded_board
+ * @param encodedBoard
  */
-MyBoard.prototype.setBoard = function (encoded_board) {
-    this.parseBoard(encoded_board);
-    this.length = this.board.length;
+MyBoard.prototype.setBoard = function (encodedBoard) {
+	this.board = [];
+	
+	encodedRows = encodedBoard.split(']');
+	
+	for(let i = 0; i < this.length; i++){
+		let row = [];
+		for(let j = 0; j < encodedRows[i].length; j++){
+			if(encodedRows[i][j] != ',' && encodedRows[i][j] != '[')
+				row.push(parseInt(encodedRows[i][j]));
+		}
+		this.board.push(row);
+	}
 }
 
 /**
@@ -110,8 +98,11 @@ MyBoard.prototype.getElementAt = function (Row, Col) {
  * @param element
  * @returns {string}
  */
-MyBoard.prototype.setElementAt = function (Row, Col, element) {
-    if(!this.checkValidPosition(Row, Col))
-        return "Invalid Position";
-    this.board[Row][Col] = element;
+MyBoard.prototype.setElementAt = function (pos, player, type) {
+	let symbol;
+	if(type == "h")
+		symbol = 3;
+	else
+		symbol = MyBoard.toSymbol[player];
+    this.board[pos[0]-1][pos[1]-1] = symbol;
 }

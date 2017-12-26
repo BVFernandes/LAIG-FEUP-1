@@ -794,7 +794,7 @@
 
       <DESCENDANTS>
          <NODEREF id="board" />
-		 <NODEREF id="ghost_circles" />
+		 <!-- <NODEREF id="ghost_circles" /> -->
       </DESCENDANTS>
     </NODE>
 

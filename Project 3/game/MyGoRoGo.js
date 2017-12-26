@@ -9,13 +9,8 @@ function MyGoRoGo(scene) {
     this.pieces = [];
     this.tiles = [];
 
-    this.initializeBoard();
-
-	this.selectedPiece = null;
-
     this.marker = new MyInfoMarker(scene);
-    this.board = new MyBoard(scene, []);
-    //this.highlightedTiles = [];
+    this.board = new MyBoard();
 
     // this.cellAppearance = new CGFappearance(this.scene);
     // this.cellAppearance.loadTexture('../res/transparent.png');
@@ -29,9 +24,23 @@ function MyGoRoGo(scene) {
     // });
     //
     // this.selectedShader = new CGFshader(this.scene.gl, "shaders/selected.vert", "shaders/selected.frag");
+	
+	this.whitePlayer = new MyPlayer("whitePlayer");
+	this.whitePlayer.toggleType();
+	this.blackPlayer = new MyPlayer("blackPlayer");
+	this.currentPlayer = this.whitePlayer;
+	this.turn;
     this.initTime = null;
   	this.lastCurrTime = null;
   	this.delta = 0;
+	this.requestStatus = null;
+	
+	this.moves = [];
+	
+	this.initializeBoard();
+	
+	//this.state = new MySelectState(this,this.scene);
+	this.state = null;
 }
 
 MyGoRoGo.prototype = Object.create(CGFobject.prototype);
@@ -42,41 +51,72 @@ MyGoRoGo.prototype.constructor = MyGoRoGo;
  * @param data
  */
  MyGoRoGo.prototype.initializeBoard = function () {
-   for (let i = -7; i <= 7; i+=3.5) {
-     for(let j = -7; j <= 7; j+=3.5){
-       this.tiles.push(new MyTile(this.scene, i, j));
-     }
-   }
+	this.pieces = [];
+	this.tiles = [];
+	
+	for (let i = -7; i <= 7; i+=3.5) {
+		for(let j = -7; j <= 7; j+=3.5){
+			this.tiles.push(new MyTile(this.scene, j, i));
+		}
+	}
 
 
    for (let i = -6; i <= 6; i+=2.6) {
      for(let j = -16; j <= -13; j+=2.6){
-       this.pieces.push(new MyPiece(this.scene, i, j));
+       this.pieces.push(new MyPiece(this.scene, "n", i, j, "blackPlayer"));
      }
    }
+   
+	
+	for(let i = -1.75; i <= 1.75; i+=2.5)
+		this.pieces.push(new MyPiece(this.scene, "h", i, -18.5, "blackPlayer"));
+
 
    for (let i = -6; i <= 6; i+=2.6) {
      for(let j = 16; j >= 13; j-=2.6){
-       this.pieces.push(new MyPiece(this.scene, i, j));
+       this.pieces.push(new MyPiece(this.scene, "n", i, j, "whitePlayer"));
      }
    }
+   
+	for(let i = -2.5; i <= 2.5; i+= 2.5)
+		this.pieces.push(new MyPiece(this.scene, "h", i, 18.5, "whitePlayer"));
+  
 
    this.initializeGame();
+   
  }
-
+ 
  /**
  * Initializes the game accordingly to the user input and sets up a new board given by prolog via server request
  * @param mode
  * @param difficulty
  */
-MyGoRoGo.prototype.initializeGame = function (mode, difficulty) {
-    let gorogo = this;
+MyGoRoGo.prototype.initializeGame = function () {
+	
+	let gorogo = this;
+	let scene = this.scene;
     this.client.makeRequest("initGame", function(data){
-            console.log(data.target.response);
-          //   console.log(JSON.parse(data.target.response));
-          //  gorogo.board.setBoard(data.target.responseText);
-          //  console.log(gorogo.board.getBoard());
-        });
+        console.log(data.target.response);
+		let res = gorogo.parseGame(data.target.response);
+		gorogo.board.setBoard(res[0]);
+		gorogo.whitePlayer.setPlayer(res[1]);
+		gorogo.blackPlayer.setPlayer(res[2]);
+		gorogo.setCurrentPlayer(res[3]);
+		gorogo.setTurn(1);
+		console.log(gorogo.toPlString());
+		gorogo.state = new MySelectState(gorogo,scene);
+    });
+}
+
+
+MyGoRoGo.prototype.endOfGame = function () {
+	let encodedGame = this.toPlString();
+	let request = "endOfGame("+encodedGame+")";
+	
+	let gorogo = this;
+    this.client.makeRequest(request, function(data){
+        console.log(data.target.response);
+    });
 }
 
 
@@ -165,63 +205,18 @@ MyGoRoGo.prototype.resetHighlights = function () {
     this.highlightedTiles = [];
 }
 
-MyGoRoGo.prototype.logPicking = function ()
-{
-	if (this.scene.pickMode == false) {
-		if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-			for (var i=0; i< this.scene.pickResults.length; i++) {
-				var obj = this.scene.pickResults[i][0];
-				if (obj)
-				{
-					var customId = this.scene.pickResults[i][1];
-					if(obj instanceof MyTile){
-						console.log("instanceof MyTile");
-						if(this.selectedPiece != null){
-							console.log("Selected Dest Tile");
-							this.selectedPiece.setAnimation(obj.getCoords());
-						}
-					}
-
-					if(obj instanceof MyPiece){
-						console.log("instanceof MyPiece");
-						if(this.selectedPiece == null){
-							console.log("Selected Piece");
-							this.selectedPiece = obj;
-							console.log(this.selectedPiece);
-						}
-
-					}
-					console.log("Picked object: " + obj + ", with pick id " + customId);
-				}
-			}
-			this.scene.pickResults.splice(0,this.scene.pickResults.length);
-		}
-	}
-}
-
 
 /**
  * Displays nodes and all its elements
  */
-MyGoRoGo.prototype.display= function(){
-        this.logPicking();
-        this.scene.clearPickRegistration();
-        this.scene.pushMatrix();
-
-		let i = 0;
-        for(i = 0; i < this.tiles.length; i++){
-			this.scene.registerForPick(i+1, this.tiles[i]);
-            this.tiles[i].display();
-        }
-
-        for(let j = 0; j < this.pieces.length; j++){
-			this.scene.registerForPick(j+i+1, this.pieces[j]);
-            this.pieces[j].display();
-        }
-
-        this.marker.display();
-        this.scene.popMatrix();
-    }
+MyGoRoGo.prototype.display = function(){
+	if(this.state != null)
+		this.state.display();
+	
+	this.scene.pushMatrix();	
+	this.marker.display();
+	this.scene.popMatrix();
+}
 
 
 /**
@@ -240,11 +235,11 @@ MyGoRoGo.prototype.update = function(currTime) {
 
 	this.delta = (currTime - this.initTime)/1000;
 
-	if(this.selectedPiece){
-		this.selectedPiece.update(currTime);
-	}
+	if(this.state)
+		this.state.update(currTime);
 
-
+	this.marker.updateTime(this.delta);
+	
 	/*
     if (this.initialTime == 0) {
         this.initialTime = currTime;
@@ -261,9 +256,6 @@ MyGoRoGo.prototype.update = function(currTime) {
     }
 	*/
 
-	this.marker.updateTime(this.delta);
-
-
 }
 
 /****************************************** Getters and setters  ******************************************************/
@@ -277,6 +269,31 @@ MyGoRoGo.prototype.getBoard = function(){
 }
 
 /**
+ * Returns the current board in use
+ * @returns {Board}
+ */
+MyGoRoGo.prototype.getTiles = function(){
+    return this.tiles;
+}
+
+MyGoRoGo.prototype.getPieces = function(){
+    return this.pieces;
+}
+
+
+MyGoRoGo.prototype.getTurn = function(){
+    return this.turn;
+}
+
+MyGoRoGo.prototype.setTurn = function(turn){
+    this.turn = turn;
+}
+
+MyGoRoGo.prototype.setNextTurn = function(){
+    this.turn++;
+}
+
+/**
  * Given a string Row-Col, returns the tile in that position
  * @param coords
  * @returns {*}
@@ -287,6 +304,121 @@ MyGoRoGo.prototype.getTileFromCoords = function (coords) {
             return this.tiles[i];
     }
     return false;
+}
+
+
+/**
+ * Given a string Row-Col, returns the tile in that position
+ * @param coords
+ * @returns {*}
+ */
+MyGoRoGo.prototype.addMove = function (move) {
+    this.moves.push(move);
+}
+
+MyGoRoGo.prototype.getPieceOfType = function (type) {
+    for(let i = 0; i < this.pieces.length; i++){
+		if(!this.pieces[i].getPlaced() && this.pieces[i].getPlayer() == this.getCurrentPlayerStr() && this.pieces[i].getType() == type){
+			this.getCurrentPlayer().decreasePieces(type);
+			return this.pieces[i];
+		}
+	}
+	return null;
+}
+
+MyGoRoGo.prototype.clearSurroundedPieces = function (points) {
+
+	let pieces = [];
+    for(let i = 0; i < points.length; i++){
+		let piece = this.getTileAt(points[i]).getPiece();
+		piece.setClearAnimation();
+		pieces.push(piece);
+	}
+	
+	return pieces;
+}
+
+MyGoRoGo.prototype.getTileAt = function (pos) {
+    let idx = (pos[1]-1)*this.board.getBoardLength()+pos[0]-1;
+	return this.tiles[idx];
+}
+
+MyGoRoGo.prototype.getLatestMove = function () {
+    movesNo = this.moves.length;
+	if(movesNo)
+		return this.moves[movesNo-1];
+	else
+		return null;
+}
+
+MyGoRoGo.prototype.setState = function (state) {
+	//console.log("during setState");
+    this.state = state;
+}
+
+
+MyGoRoGo.prototype.parseGame = function (encondedGame) {
+	let encodedBoard = encondedGame.slice(2,61);
+	
+	let start = 64;
+	let i = start;
+	while(encondedGame[i] != ']')
+		i++;
+	
+	let encodedWhite = encondedGame.slice(start,i);
+	
+	i += 3;
+	start = i;
+	while(encondedGame[i] != ']')
+		i++;
+	
+	let encodedBlack = encondedGame.slice(start,i);
+	
+	i += 2;
+	start = i;
+	while(encondedGame[i] != ']')
+		i++;
+	
+	let curr = encondedGame.slice(start,i);
+	
+	return [encodedBoard,encodedWhite,encodedBlack,curr];
+}
+
+MyGoRoGo.prototype.getCurrentPlayer = function () {
+    return this.currentPlayer;
+}
+
+MyGoRoGo.prototype.getCurrentPlayerStr = function () {
+    return this.currentPlayer.getName();
+}
+
+
+MyGoRoGo.prototype.setCurrentPlayer = function (player) {
+	if(player == "whitePlayer")
+		this.currentPlayer = this.whitePlayer;
+	else
+		this.currentPlayer = this.blackPlayer;
+}
+
+
+MyGoRoGo.prototype.setNextPlayer = function () {
+	if(this.currentPlayer == this.whitePlayer)
+		this.currentPlayer = this.blackPlayer;
+	else
+		this.currentPlayer = this.whitePlayer;
+}
+
+
+MyGoRoGo.prototype.toPlString = function () {	
+	return "[" + this.board.toPlString() + "," + this.whitePlayer.toPlString() + "," + this.blackPlayer.toPlString() + "," + this.getCurrentPlayerStr()+ "]";
+}
+
+MyGoRoGo.prototype.setGame = function (encodedGame) {	
+	let res = this.parseGame(encodedGame);
+	this.board.setBoard(res[0]);
+	this.whitePlayer.setPlayer(res[1]);
+	this.blackPlayer.setPlayer(res[2]);
+	this.setCurrentPlayer(res[3]);
 }
 
 /**

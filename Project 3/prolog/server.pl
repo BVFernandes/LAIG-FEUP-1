@@ -114,7 +114,9 @@ parse_input(getPlay(Game,Turn), Play) :- getPlay(Game,Play,Turn).
 
 parse_input(applyPlay(Game,Play), GameRes) :- applyPlay(Game,Play,GameRes).
 
-parse_input(updateGameCycle(Game), GameRes) :- updateGameCycle(Game,GameRes).
+parse_input(updateGame(Game), GameRes) :- updateGame(Game,GameRes).
+
+parse_input(updateGameWithPoints(Game), GameRes) :- updateGameWithPoints(Game,GameRes).
 
 parse_input(endOfGame(Game), Winner) :- endOfGame(Game,Winner).
 

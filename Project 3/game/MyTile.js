@@ -1,3 +1,11 @@
+MyTile.toBoardPos = {
+    "-7": 	1,
+    "-3.5": 2,
+    "0": 	3,
+    "3.5": 	4,
+	"7": 	5,
+}
+
 /**
  * MyTile
  * @constructor
@@ -5,7 +13,7 @@
 function MyTile(scene, x, z) {
     CGFobject.call(this,scene);
     this.scene = scene;
-    this.piece = null; // reference to a piece or null
+    this.piece = null;   // reference to a piece or null
 
     this.x = x;
     this.z = z;
@@ -69,8 +77,12 @@ MyTile.prototype.getCol = function () {
     return this.col;
 }
 
-MyTile.prototype.getCoords = function () {
+MyTile.prototype.getPos = function () {
     return [this.x, this.z];
+}
+
+MyTile.prototype.getBoardPos = function () {
+	return [MyTile.toBoardPos[this.z.toString()], MyTile.toBoardPos[this.x.toString()]];
 }
 
 /**
