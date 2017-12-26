@@ -25,7 +25,7 @@ function MyGraphNode(graph, nodeID) {
 
 	// Boolean that saves if a node is selectable to use a certain shader
 	this.selectable = null;
-	
+
 	// Boolean that saves if a node is visible
 	this.visible = true;
 

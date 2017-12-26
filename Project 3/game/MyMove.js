@@ -4,12 +4,12 @@
  */
 
 function MyMove(piece,src,dst) {
-    this.piece = piece;
-    this.srcPos = src;
-    this.dstTile = dst;
+	this.piece = piece;
+	this.srcPos = src;
+	this.dstTile = dst;
 	this.surroundedPieces = [];
-    this.timer = 0;
-    this.gameOver=false;
+	this.timer = 0;
+	this.gameOver=false;
 }
 
 MyMove.prototype = Object.create(CGFobject.prototype);
@@ -39,7 +39,7 @@ MyMove.prototype.makeMove = function (board, player, client, nodes) {
             console.log("Move.js says: Move failed!");
             return false;
         }
-        
+
         var gameOver = response.slice(-2,-1);
         var plBoard = response.slice(1,-3);
         if(gameOver=="t"){
@@ -56,7 +56,7 @@ MyMove.prototype.makeMove = function (board, player, client, nodes) {
 MyMove.prototype.chooseAnimation = function(){
     var xDif = this.dstTile.row - this.srcTile.row; //offset to move in X
     var zDif = this.dstTile.col - this.srcTile.col; //offset to move in Z
-    
+
     var type;
     if(Math.abs(xDif)+Math.abs(zDif) == 2)
         type="jump";
@@ -85,7 +85,7 @@ MyMove.prototype.chooseAnimation = function(){
 /**
  * displays the move animation
  * @param currTime
- 
+
 MyMove.prototype.display = function (currTime) {
     this.scene.pushMatrix();
     this.piece.timer=currTime;
@@ -121,7 +121,7 @@ MyMove.prototype.switchTiles = function () {
  * @returns {boolean}
  */
 MyMove.prototype.isGameOver = function() {
-    return this.gameOver;
+	return this.gameOver;
 }
 
 /**
@@ -129,8 +129,8 @@ MyMove.prototype.isGameOver = function() {
  * @param piece
  */
 MyMove.prototype.setPiece = function (piece) {
-    this.piece = piece;
-    this.srcTile = piece.getTile();
+	this.piece = piece;
+	this.srcTile = piece.getTile();
 }
 
 /**
@@ -138,7 +138,7 @@ MyMove.prototype.setPiece = function (piece) {
  * @returns {*|*|null}
  */
 MyMove.prototype.getPiece = function () {
-    return this.piece;
+	return this.piece;
 }
 
 /**
@@ -146,7 +146,7 @@ MyMove.prototype.getPiece = function () {
  * @param srcTile
  */
 MyMove.prototype.setSrcPos = function (srcPos) {
-    this.srcPos = srcPos;
+	this.srcPos = srcPos;
 }
 
 /**
@@ -154,7 +154,7 @@ MyMove.prototype.setSrcPos = function (srcPos) {
  * @returns {*|null|null|*}
  */
 MyMove.prototype.getSrcPos = function () {
-    return this.srcPos;
+	return this.srcPos;
 }
 
 /**
@@ -162,7 +162,7 @@ MyMove.prototype.getSrcPos = function () {
  * @param dest
  */
 MyMove.prototype.setDstTile = function (dstTile) {
-    this.dstTile = dstTile;
+	this.dstTile = dstTile;
 }
 
 /**
@@ -170,7 +170,7 @@ MyMove.prototype.setDstTile = function (dstTile) {
  * @returns {*|null}
  */
 MyMove.prototype.getDstTile = function () {
-    return this.dstTile;
+	return this.dstTile;
 }
 
 /**
@@ -178,7 +178,7 @@ MyMove.prototype.getDstTile = function () {
  * @returns {*|null}
  */
 MyMove.prototype.getDstPos = function () {
-    return this.dstTile.getPos();
+	return this.dstTile.getPos();
 }
 
 /**
@@ -186,10 +186,10 @@ MyMove.prototype.getDstPos = function () {
  * @param nodes
  */
 MyMove.prototype.setMoveAnimation = function (nodes) {
-    this.chooseAnimation();
-    this.piece.setAnimation(this.animation);
-    nodes.playState = Nodes.playState.MOVE_ANIMATION;
-    this.timer = nodes.elapsedTime;
+	this.chooseAnimation();
+	this.piece.setAnimation(this.animation);
+	nodes.playState = Nodes.playState.MOVE_ANIMATION;
+	this.timer = nodes.elapsedTime;
 }
 
 /**

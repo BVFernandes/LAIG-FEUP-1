@@ -1,9 +1,9 @@
 MyAnimateClearState.state = {
-	INIT: 					0,
-	CLEAR_BOARD_SELF:		1,
-	CHANGE_PLAYER:			2,
-	CLEAR_BOARD_OPPONENT:	3,
-	CHECK_GAME_OVER:		4,
+		INIT: 					0,
+		CLEAR_BOARD_SELF:		1,
+		CHANGE_PLAYER:			2,
+		CLEAR_BOARD_OPPONENT:	3,
+		CHECK_GAME_OVER:		4,
 }
 
 /**
@@ -15,9 +15,9 @@ function MyAnimateClearState(game,scene) {
 	this.game = game;
 	this.scene = scene;
 	this.state = MyAnimateClearState.state.INIT;
-	
+
 	this.surroundedPieces = [];
-	
+
 	this.updateGame();
 }
 
@@ -27,21 +27,21 @@ MyAnimateClearState.prototype.constructor = MyAnimateClearState;
 
 
 MyAnimateClearState.prototype.display = function (){
-	
-    this.scene.pushMatrix();
-	
+
+	this.scene.pushMatrix();
+
 	let pieces = this.game.getPieces();
 
-    for(let j = 0; j < pieces.length; j++){
+	for(let j = 0; j < pieces.length; j++){
 		pieces[j].display();
-    }
-    
-    this.scene.popMatrix();
+	}
+
+	this.scene.popMatrix();
 }
 
 
 MyAnimateClearState.prototype.update = function (currTime){
-	
+
 	for(let i = 0; i < this.surroundedPieces.length; i++){
 		this.surroundedPieces[i].update(currTime);
 		if(this.surroundedPieces[i].getCleared()){
@@ -56,7 +56,7 @@ MyAnimateClearState.prototype.update = function (currTime){
 			this.game.setNextPlayer();
 			this.updateState();
 			this.updateGame();
-			
+
 		}
 		else if(this.state == MyAnimateClearState.state.CLEAR_BOARD_OPPONENT){
 			//console.log("Update");
@@ -74,36 +74,36 @@ MyAnimateClearState.prototype.setSurroundedPieces = function (pieces){
 
 MyAnimateClearState.prototype.updateState = function (){
 	switch(this.state){
-		case MyAnimateClearState.state.INIT:
-			this.state = MyAnimateClearState.state.CLEAR_BOARD_SELF;
-			break;
-			
-			
-		case MyAnimateClearState.state.CLEAR_BOARD_SELF:
-			this.state = MyAnimateClearState.state.CHANGE_PLAYER;
-			break;
-			
-		
-		case MyAnimateClearState.state.CHANGE_PLAYER:
-			this.state = MyAnimateClearState.state.CLEAR_BOARD_OPPONENT;
-			break;
-			
-		case MyAnimateClearState.state.CLEAR_BOARD_OPPONENT:
-			this.state = MyAnimateClearState.state.CHECK_GAME_OVER;
-			break;
+	case MyAnimateClearState.state.INIT:
+		this.state = MyAnimateClearState.state.CLEAR_BOARD_SELF;
+		break;
+
+
+	case MyAnimateClearState.state.CLEAR_BOARD_SELF:
+		this.state = MyAnimateClearState.state.CHANGE_PLAYER;
+		break;
+
+
+	case MyAnimateClearState.state.CHANGE_PLAYER:
+		this.state = MyAnimateClearState.state.CLEAR_BOARD_OPPONENT;
+		break;
+
+	case MyAnimateClearState.state.CLEAR_BOARD_OPPONENT:
+		this.state = MyAnimateClearState.state.CHECK_GAME_OVER;
+		break;
 	}
 }
 
 MyAnimateClearState.prototype.endOfGame = function () {
 	let state = this;
 	let gorogo = this.game;
-	
+
 	let encodedGame = gorogo.toPlString();
-	
+
 	let request = "endOfGame("+encodedGame+")";
-	
-    gorogo.client.makeRequest(request, function(data){
-        console.log(data.target.response);
+
+	gorogo.client.makeRequest(request, function(data){
+		console.log(data.target.response);
 		let winner = data.target.response;
 		if(winner != "none"){
 			//TRATAR AQUI DO FINAL DE JOGO
@@ -113,28 +113,28 @@ MyAnimateClearState.prototype.endOfGame = function () {
 			gorogo.setNextTurn();
 			state.setNextState();
 		}
-    });
+	});
 }
 
 
 MyAnimateClearState.prototype.updateGame = function () {
 	let state = this;
 	let gorogo = this.game;
-	
+
 	let encodedGame = gorogo.toPlString();
 	//console.log(encodedGame);
-	
+
 	let request = "updateGameWithPoints("+encodedGame+")";
-	
-    gorogo.client.makeRequest(request, function(data){
-        console.log(data.target.response);
+
+	gorogo.client.makeRequest(request, function(data){
+		console.log(data.target.response);
 		let res = state.parseUpdate(data.target.response);
 		gorogo.setGame(res[0]);
 		let pieces = gorogo.clearSurroundedPieces(res[1]);
 		//console.log(pieces);
 		state.setSurroundedPieces(pieces);
 		state.updateState();
-    });
+	});
 }
 
 
@@ -142,7 +142,7 @@ MyAnimateClearState.prototype.parseUpdate = function (encodedUpdate) {
 	let res = encodedUpdate.split('!');
 	let encodedGame = res[0].slice(0,-1);
 	encodedGame += "]";
-	
+
 	let encodedPoints = (res[1].slice(0,-1)).split(']');
 	//console.log(encodedPoints);
 	let pointsLength = encodedPoints.length-1;
@@ -150,11 +150,11 @@ MyAnimateClearState.prototype.parseUpdate = function (encodedUpdate) {
 	for(let i = 0; i < pointsLength; i++){
 		points.push([parseInt(encodedPoints[i][2]), parseInt(encodedPoints[i][4])]);
 	}
-	
+
 	//console.log(points);
 	return [encodedGame,points];
 }
 
 MyAnimateClearState.prototype.setNextState = function () {
-    this.game.setState(new MySelectState(this.game,this.scene));
+	this.game.setState(new MySelectState(this.game,this.scene));
 }

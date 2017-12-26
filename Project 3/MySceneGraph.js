@@ -1407,12 +1407,12 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			} else if(selectable=="false"){
 				selectable = false;
 			}
-			
+
 			this.nodes[nodeID].setSelectable(selectable);
-			
+
 			//Read Visible Property
 			let visible = this.reader.getString(children[i], 'visible', false);
-			
+
 			if(visible){
 				console.log(visible);
 				if (visible == "true"){
@@ -1420,10 +1420,10 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 				} else if(visible=="false"){
 					visible = false;
 				}
-				
+
 				this.nodes[nodeID].setVisible(visible);
 			}
-			
+
 
 			// Gathers child nodes.
 			var nodeSpecs = children[i].children;

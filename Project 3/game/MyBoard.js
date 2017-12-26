@@ -1,7 +1,7 @@
 MyBoard.toSymbol = {
-	"clear":		0,
-    "blackPlayer": 	1,
-    "whitePlayer":  2,
+		"clear":		0,
+		"blackPlayer": 	1,
+		"whitePlayer":  2,
 }
 
 /**
@@ -10,8 +10,8 @@ MyBoard.toSymbol = {
  */
 
 function MyBoard() {
-    this.board = [];
-    this.length = 5;
+	this.board = [];
+	this.length = 5;
 }
 
 MyBoard.prototype = Object.create(CGFobject.prototype);
@@ -23,7 +23,7 @@ MyBoard.prototype.constructor = MyBoard;
  */
 MyBoard.prototype.toPlString = function () {
 	let encodedBoard = "[";
-    for(let i = 0; i < this.length; i++){
+	for(let i = 0; i < this.length; i++){
 		encodedBoard += "["+this.board[i].toString()+"]";
 		if(i != this.length-1)
 			encodedBoard += ",";
@@ -41,7 +41,7 @@ MyBoard.prototype.toPlString = function () {
  * @param element
  */
 MyBoard.prototype.updatePiecePosition = function (dstRow, dstCol, element) {
-    this.setElementAt(dstRow, dstCol, element);
+	this.setElementAt(dstRow, dstCol, element);
 }
 
 /**
@@ -49,7 +49,7 @@ MyBoard.prototype.updatePiecePosition = function (dstRow, dstCol, element) {
  * @returns {Array}
  */
 MyBoard.prototype.getBoard = function () {
-    return this.board;
+	return this.board;
 }
 
 /**
@@ -58,9 +58,9 @@ MyBoard.prototype.getBoard = function () {
  */
 MyBoard.prototype.setBoard = function (encodedBoard) {
 	this.board = [];
-	
+
 	encodedRows = encodedBoard.split(']');
-	
+
 	for(let i = 0; i < this.length; i++){
 		let row = [];
 		for(let j = 0; j < encodedRows[i].length; j++){
@@ -76,7 +76,7 @@ MyBoard.prototype.setBoard = function (encodedBoard) {
  * @returns {Number|*}
  */
 MyBoard.prototype.getBoardLength = function () {
-    return this.length;
+	return this.length;
 }
 
 /**
@@ -86,9 +86,9 @@ MyBoard.prototype.getBoardLength = function () {
  * @returns {*}
  */
 MyBoard.prototype.getElementAt = function (Row, Col) {
-    if(!this.checkValidPosition(Row, Col))
-        return "Invalid Position";
-    return this.board[Row][Col];
+	if(!this.checkValidPosition(Row, Col))
+		return "Invalid Position";
+	return this.board[Row][Col];
 }
 
 /**
@@ -104,5 +104,5 @@ MyBoard.prototype.setElementAt = function (pos, player, type) {
 		symbol = 3;
 	else
 		symbol = MyBoard.toSymbol[player];
-    this.board[pos[0]-1][pos[1]-1] = symbol;
+	this.board[pos[0]-1][pos[1]-1] = symbol;
 }

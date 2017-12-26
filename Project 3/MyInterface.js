@@ -138,7 +138,7 @@ MyInterface.prototype.processKeyboard = function(event) {
 	case (86):
 	case (118):
 		console.log("Key 'V' pressed");
-		this.scene.moveCam = true;
+	this.scene.moveCam = true;
 	break;
 
 	case (65):

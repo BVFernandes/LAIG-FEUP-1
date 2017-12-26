@@ -21,7 +21,7 @@ MyGraphLeaf.prototype.createRectangle=function() {
 
 MyGraphLeaf.prototype.createCircle=function() {
 	let slices = this.args[0];
-	
+
 	this.model = new MyCircle(this.graph.scene,slices);
 }
 
