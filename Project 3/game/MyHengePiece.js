@@ -9,13 +9,13 @@ function MyHengePiece(scene) {
 	this.sphere = new MySphere(this.scene, 1.2,20,20);
 	this.cylinder = new MyCylinder(this.scene, 0.8,1.2,1.2,20,20,1,1);
 	
-	this.whiteMaterial = new CGFappearance(this.scene); //Floor
+	this.whiteMaterial = new CGFappearance(this.scene);
 	this.whiteMaterial.setAmbient(0.3,0.3,0.3,1);
 	this.whiteMaterial.setDiffuse(0.5,0.5,0.5,1);
 	this.whiteMaterial.setSpecular(0.5,0.5,0.5,0.5);
 	this.whiteMaterial.setShininess(255);
 	
-	this.blackMaterial = new CGFappearance(this.scene); //Floor
+	this.blackMaterial = new CGFappearance(this.scene);
 	this.blackMaterial.setAmbient(0,0,0,1);
 	this.blackMaterial.setDiffuse(0,0,0,1);
 	this.blackMaterial.setSpecular(1,1,1,1);

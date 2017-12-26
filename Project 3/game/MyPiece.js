@@ -16,7 +16,7 @@ function MyPiece(scene, type, x, z, player) {
 	this.destCoords = null;
 
 	if(this.type == "n")
-		this.object = new MyRegularPiece(this.scene);
+		this.object = new MyRegularPiece(this.scene, this.player);
 	else
 		this.object = new MyHengePiece(this.scene);
 	

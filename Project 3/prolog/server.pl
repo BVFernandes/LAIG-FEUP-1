@@ -112,6 +112,8 @@ parse_input(initGame, Game) :- initGamePvP(Game).
 
 parse_input(getPlay(Game,Turn), Play) :- getPlay(Game,Play,Turn).
 
+parse_input(getValidPlays(Game,Type,Turn), Plays) :- getValidPlays(Game,Type,Turn,Plays).
+
 parse_input(applyPlay(Game,Play), GameRes) :- applyPlay(Game,Play,GameRes).
 
 parse_input(updateGame(Game), GameRes) :- updateGame(Game,GameRes).

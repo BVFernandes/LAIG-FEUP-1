@@ -3,6 +3,7 @@ MyAnimateClearState.state = {
 	CLEAR_BOARD_SELF:		1,
 	CHANGE_PLAYER:			2,
 	CLEAR_BOARD_OPPONENT:	3,
+	CHECK_GAME_OVER:		4,
 }
 
 /**
@@ -59,8 +60,10 @@ MyAnimateClearState.prototype.update = function (currTime){
 		}
 		else if(this.state == MyAnimateClearState.state.CLEAR_BOARD_OPPONENT){
 			//console.log("Update");
-			this.game.setNextTurn();
-			this.setNextState();
+			//this.game.setNextTurn();
+			//this.setNextState();
+			this.updateState();
+			this.endOfGame();
 		}
 	}
 }
@@ -72,22 +75,45 @@ MyAnimateClearState.prototype.setSurroundedPieces = function (pieces){
 MyAnimateClearState.prototype.updateState = function (){
 	switch(this.state){
 		case MyAnimateClearState.state.INIT:
-			//console.log("update CLEAR_BOARD_SELF");
 			this.state = MyAnimateClearState.state.CLEAR_BOARD_SELF;
 			break;
 			
 			
 		case MyAnimateClearState.state.CLEAR_BOARD_SELF:
-			//console.log("update CHANGE_PLAYER");
 			this.state = MyAnimateClearState.state.CHANGE_PLAYER;
 			break;
 			
 		
 		case MyAnimateClearState.state.CHANGE_PLAYER:
-			//console.log("update CLEAR_BOARD_OPPONENT");
 			this.state = MyAnimateClearState.state.CLEAR_BOARD_OPPONENT;
 			break;
+			
+		case MyAnimateClearState.state.CLEAR_BOARD_OPPONENT:
+			this.state = MyAnimateClearState.state.CHECK_GAME_OVER;
+			break;
 	}
+}
+
+MyAnimateClearState.prototype.endOfGame = function () {
+	let state = this;
+	let gorogo = this.game;
+	
+	let encodedGame = gorogo.toPlString();
+	
+	let request = "endOfGame("+encodedGame+")";
+	
+    gorogo.client.makeRequest(request, function(data){
+        console.log(data.target.response);
+		let winner = data.target.response;
+		if(winner != "none"){
+			//TRATAR AQUI DO FINAL DE JOGO
+			alert("Winner is "+winner+"!");
+		}
+		else{
+			gorogo.setNextTurn();
+			state.setNextState();
+		}
+    });
 }
 
 

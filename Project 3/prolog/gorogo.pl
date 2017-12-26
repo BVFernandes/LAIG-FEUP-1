@@ -152,6 +152,9 @@ validPlay(Game,Play,Turn):-
 	checkInBoard(Play),
 	checkValidPos(Game,Play).
 
+getValidPlays(Game,Type,Turn,Plays):-
+	createPlay(_A,_B,Type,Play),
+	findall(Play, validPlay(Game,Play,Turn),Plays).
 	
 	
 %--------------PLAYS----------------

@@ -1,7 +1,7 @@
 MyBoard.toSymbol = {
 	"clear":		0,
-    "whitePlayer": 	1,
-    "blackPlayer":  2,
+    "blackPlayer": 	1,
+    "whitePlayer":  2,
 }
 
 /**

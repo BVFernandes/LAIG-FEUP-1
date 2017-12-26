@@ -18,11 +18,13 @@ function MyGoRoGo(scene) {
     // this.highlightAppearance = new CGFappearance(this.scene);
     // this.highlightAppearance.loadTexture('../res/ice.jpg');
     //
-    // this.cellShader = new CGFshader(this.scene.gl, "shaders/transparent.vert", "shaders/transparent.frag");
-    // this.cellShader.setUniformsValues({
-    //     uSampler2: 1,
-    // });
-    //
+	
+	/*
+    this.myShader = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
+	
+	this.myShader2 = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
+	*/
+   
     // this.selectedShader = new CGFshader(this.scene.gl, "shaders/selected.vert", "shaders/selected.frag");
 	
 	this.whitePlayer = new MyPlayer("whitePlayer");
@@ -39,7 +41,6 @@ function MyGoRoGo(scene) {
 	
 	this.initializeBoard();
 	
-	//this.state = new MySelectState(this,this.scene);
 	this.state = null;
 }
 
@@ -61,29 +62,28 @@ MyGoRoGo.prototype.constructor = MyGoRoGo;
 	}
 
 
-   for (let i = -6; i <= 6; i+=2.6) {
-     for(let j = -16; j <= -13; j+=2.6){
-       this.pieces.push(new MyPiece(this.scene, "n", i, j, "blackPlayer"));
-     }
-   }
+    for (let i = -6; i <= 6; i+=2.6) {
+		for(let j = -16; j <= -13; j+=2.6){
+			this.pieces.push(new MyPiece(this.scene, "n", i, j, "blackPlayer"));
+		}
+	}
    
 	
 	for(let i = -1.75; i <= 1.75; i+=2.5)
 		this.pieces.push(new MyPiece(this.scene, "h", i, -18.5, "blackPlayer"));
 
 
-   for (let i = -6; i <= 6; i+=2.6) {
-     for(let j = 16; j >= 13; j-=2.6){
-       this.pieces.push(new MyPiece(this.scene, "n", i, j, "whitePlayer"));
-     }
-   }
+	for (let i = -6; i <= 6; i+=2.6) {
+		for(let j = 16; j >= 13; j-=2.6){
+			this.pieces.push(new MyPiece(this.scene, "n", i, j, "whitePlayer"));
+		}
+	}
    
 	for(let i = -2.5; i <= 2.5; i+= 2.5)
 		this.pieces.push(new MyPiece(this.scene, "h", i, 18.5, "whitePlayer"));
   
 
-   this.initializeGame();
-   
+	this.initializeGame();
  }
  
  /**
@@ -107,18 +107,6 @@ MyGoRoGo.prototype.initializeGame = function () {
 		gorogo.state = new MySelectState(gorogo,scene);
     });
 }
-
-
-MyGoRoGo.prototype.endOfGame = function () {
-	let encodedGame = this.toPlString();
-	let request = "endOfGame("+encodedGame+")";
-	
-	let gorogo = this;
-    this.client.makeRequest(request, function(data){
-        console.log(data.target.response);
-    });
-}
-
 
 /**
  * Accordingly to the picking, selects a piece
