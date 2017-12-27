@@ -67,7 +67,7 @@ MyPlayer.prototype.setType = function (type) {
 
 MyPlayer.prototype.toggleType = function () {
 	this.typeIdx++;
-	if(this.typeIdx > MyPlayer.types.length)
+	if(this.typeIdx >= MyPlayer.types.length)
 		this.typeIdx = 0;
 	this.type = MyPlayer.types[this.typeIdx];
 }
