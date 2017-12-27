@@ -30,7 +30,7 @@ function XMLscene(interface) {
 	this.selectedDifficultyGame = 0;
 	this.selectedGameMode = 0;
 	this.selectedScene = 0;
-	this.selectedPerspective = 0;
+	// this.selectedPerspective = 0;
 
 }
 
@@ -78,8 +78,12 @@ XMLscene.prototype.updateTurnTimeout=function(v) {
 	this.turnTimeout = v;
 }
 
-XMLscene.prototype.updateZoomCamera=function(v) {
-	this.zoomCamera = v;
+XMLscene.prototype.zoomIn=function() {
+	this.camera.zoom(1);
+}
+
+XMLscene.prototype.zoomOut=function() {
+	this.camera.zoom(-1);
 }
 
 
@@ -239,7 +243,7 @@ XMLscene.prototype.initCameras = function() {
 	this.camera.orbit('y', 45*DEGREE_TO_RAD);
 
 	this.cameraPos = [[21,15,0], [0,15,-21], [21,15,0], [0,15,21]];
-	this.cameraIdx = 1;
+	this.cameraIdx = 0;
 }
 
 /* Handler called when the graph is finally loaded.

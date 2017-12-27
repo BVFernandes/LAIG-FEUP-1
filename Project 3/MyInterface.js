@@ -33,16 +33,16 @@ MyInterface.prototype.init = function(application) {
  */
 MyInterface.prototype.addLightsGroup = function(lights, group) {
 
-	group = this.gui.addFolder("Lights");
+	let lightsGroup = group.addFolder("Lights");
 	//group.open();
-	group.close();
+	lightsGroup.close();
 	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 	// e.g. this.option1=true; this.option2=false;
 
 	for (var key in lights) {
 		if (lights.hasOwnProperty(key)) {
 			this.scene.lightValues[key] = lights[key][0];
-			group.add(this.scene.lightValues, key);
+			lightsGroup.add(this.scene.lightValues, key);
 		}
 	}
 }
@@ -68,9 +68,9 @@ MyInterface.prototype.addVisualSettingsGroup = function(lights){
 
 	this.addPerspectiveList(group);
 
-	obj=this;
-	group.add(this.scene, 'zoomCamera',0,1).name('Zoom Camera').onChange(function(v)
-			{ obj.scene.updateZoomCamera(v); });
+	group.add(this.scene, 'zoomIn').name('Zoom In');
+
+	group.add(this.scene, 'zoomOut').name('Zoom out');
 
 	this.addLightsGroup(this.scene.graph.lights, group);
 }
@@ -105,11 +105,12 @@ MyInterface.prototype.addScenesList = function(group){
 
 MyInterface.prototype.addPerspectiveList = function(group){
 
-	group.add(this.scene, 'selectedPerspective', {
+	group.add(this.scene, 'cameraIdx', {
 		'Center': 0,
-		'Left': 1,
-		'Right': 2,
-	}).name('Perspective');
+		'Left': 3,
+		'Right': 1,
+	}).name('Perspective').onChange(function()
+			{ obj.scene.moveCam = true; });
 }
 
 /**
@@ -182,6 +183,16 @@ MyInterface.prototype.processKeyboard = function(event) {
 	case(82):
 	case(114):
 		console.log("Key 'R' pressed");
+	break;
+
+	case (43):
+		console.log("Key '+' pressed");
+		this.scene.zoomIn();
+	break;
+
+	case (45):
+		console.log("Key '-' pressed");
+		this.scene.zoomOut();
 	break;
 
 
