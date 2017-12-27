@@ -1,4 +1,4 @@
-function MyInfoMarker(scene){
+function MyInfoMarker(scene,game){
 	CGFobject.call(this,scene);
 
 	this.rect = new MyRectangle(scene,[-3,3],[3,-3]);
@@ -18,6 +18,7 @@ function MyInfoMarker(scene){
 		this.numbersTextures.push(number);
 	}
 
+	this.game=game;
 	this.initTime = null;
 	this.lastCurrTime = null;
 	this.delta = 0;
@@ -39,12 +40,12 @@ MyInfoMarker.prototype.display = function () {
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix(); //p1 score
-	this.displayScore();
+	this.displayScore(this.game.blackPlayer);
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix(); //p2 score
 	this.scene.translate(0,-6,0);
-	this.displayScore();
+	this.displayScore(this.game.whitePlayer);
 	this.scene.popMatrix();
 
 
@@ -88,7 +89,7 @@ MyInfoMarker.prototype.displayClock = function() {
 	}
 }
 
-MyInfoMarker.prototype.displayScore = function(){
+MyInfoMarker.prototype.displayScore = function(player){
 	// ------------------ "player score" (on z+) ------------------
 	this.scene.pushMatrix();
 	this.scene.scale(5,1,1);
@@ -98,17 +99,21 @@ MyInfoMarker.prototype.displayScore = function(){
 	this.rect.display();
 	this.scene.popMatrix();
 
+	let number=1;
 	// ------------------ player number (on z+) ------------------
 	this.scene.pushMatrix();
 	this.scene.scale(.5,.5,1);
-	this.scene.translate(-6,0,3.01);
+	this.scene.translate(-6.0,0,3.01);
 	this.scene.rotate(Math.PI,0,1,0);
-	this.numbersTextures[1].apply();
+	if(player.getName() == 'whitePlayer')
+		number = 0;
+
+	this.numbersTextures[number].apply();
 	this.rect.display();
 	this.scene.popMatrix();
 
 	// ------------------ score (on z+) ------------------
-	let score=0;
+	let score=player.getScore();
 
 	this.scene.pushMatrix();
 	this.scene.scale(.5,.5,1);

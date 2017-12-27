@@ -23,12 +23,14 @@ function XMLscene(interface) {
 	this.greenSelector = 0.0;
 	this.blueSelector = 0.0;
 
+	this.game = null;
 	this.turnTimeout = 0;
 	this.zoomCamera = 0.3;
 	this.doUndoMove = function() { return;};
+	this.doStartGame = function() {this.game = new MyGoRoGo(this);};
 
-	this.selectedDifficultyGame = 0;
-	this.selectedGameMode = 0;
+	this.selectedPlayer1Type = 0;
+	this.selectedPlayer2Type = 0;
 	this.selectedScene = 0;
 	// this.selectedPerspective = 0;
 
@@ -65,7 +67,6 @@ XMLscene.prototype.init = function(application) {
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")
 		];
 
-	this.game = new MyGoRoGo(this);
 
 	this.coloursShaders=[vec3.fromValues(0,0,1),vec3.fromValues(1,0,0), vec3.fromValues(0,1,0), vec3.fromValues(1,1,0), vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)];
 
@@ -264,6 +265,7 @@ XMLscene.prototype.onGraphLoaded = function()
 	// Adds lights group.
 	this.interface.addGameSettingsGroup();
 	this.interface.addVisualSettingsGroup();
+	this.interface.addStartGameOption();
 	this.interface.addUndoOption();
 
 }
@@ -301,7 +303,8 @@ XMLscene.prototype.display = function() {
 
 		// Displays the scene.
 		this.graph.displayScene();
-		this.game.display();
+		if(this.game != null)
+			this.game.display();
 
 	}
 	else
@@ -325,14 +328,13 @@ XMLscene.prototype.update = function(currTime) {
 	if(!this.graph.loadedOk)
 		return;
 
-	this.game.update(currTime);
-
 	for(let id in this.graph.comboAnimations)
 		this.graph.comboAnimations[id].update(currTime);
 
 	this.updateTimeFactor(currTime);
 	this.updateCamera(currTime);
-	this.game.update(currTime);
+	if(this.game!= null)
+		this.game.update(currTime);
 };
 
 /**

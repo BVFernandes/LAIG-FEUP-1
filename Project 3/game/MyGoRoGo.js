@@ -9,7 +9,7 @@ function MyGoRoGo(scene) {
 	this.pieces = [];
 	this.tiles = [];
 
-	this.marker = new MyInfoMarker(scene);
+	this.marker = new MyInfoMarker(scene, this);
 	this.board = new MyBoard();
 	this.togglePlayerObj = new MyTogglePlayer(scene);
 	this.startMovieObj = new MyStartMovie(scene);
@@ -29,11 +29,6 @@ function MyGoRoGo(scene) {
 	 */
 
 	// this.selectedShader = new CGFshader(this.scene.gl, "shaders/selected.vert", "shaders/selected.frag");
-
-	this.whitePlayer = new MyPlayer("whitePlayer");
-	this.whitePlayer.toggleType();
-	this.blackPlayer = new MyPlayer("blackPlayer");
-	this.currentPlayer = this.whitePlayer;
 	this.turn;
 	this.initTime = null;
 	this.lastCurrTime = null;
@@ -42,7 +37,9 @@ function MyGoRoGo(scene) {
 
 	this.moves = [];
 
+	this.initializePlayers();
 	this.initializeBoard();
+	this.initializeGame();
 
 	this.state = null;
 }
@@ -85,8 +82,6 @@ MyGoRoGo.prototype.initializeBoard = function () {
 	for(let i = -2.5; i <= 2.5; i+= 2.5)
 		this.pieces.push(new MyPiece(this.scene, "h", i, 18.5, "whitePlayer"));
 
-
-	this.initializeGame();
 }
 
 /**
@@ -109,6 +104,16 @@ MyGoRoGo.prototype.initializeGame = function () {
 		console.log(gorogo.toPlString());
 		gorogo.state = new MySelectState(gorogo,scene);
 	});
+}
+
+MyGoRoGo.prototype.initializePlayers = function () {
+	this.whitePlayer = new MyPlayer("whitePlayer");
+	this.blackPlayer = new MyPlayer("blackPlayer");
+	this.currentPlayer = this.whitePlayer;
+
+	this.whitePlayer.setTypePlayer(this.scene.selectedPlayer1Type);
+	this.blackPlayer.setTypePlayer(this.scene.selectedPlayer2Type);
+
 }
 
 /**

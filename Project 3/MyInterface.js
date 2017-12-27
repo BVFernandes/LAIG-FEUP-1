@@ -53,8 +53,6 @@ MyInterface.prototype.addGameSettingsGroup = function(){
 
 	this.addGameModeList(group);
 
-	this.addDifficultyList(group);
-
 	obj=this;
 	group.add(this.scene, 'turnTimeout',0,60).name('Turn Timeout').onChange(function(v)
 			{ obj.scene.updateTurnTimeout(v); });
@@ -75,25 +73,27 @@ MyInterface.prototype.addVisualSettingsGroup = function(lights){
 	this.addLightsGroup(this.scene.graph.lights, group);
 }
 
+MyInterface.prototype.addStartGameOption = function(){
+	this.gui.add(this.scene, 'doStartGame').name('Start Game');
+}
+
 MyInterface.prototype.addUndoOption = function(){
 	this.gui.add(this.scene, 'doUndoMove').name('Undo Move');
 }
 
-MyInterface.prototype.addDifficultyList = function(group){
-
-	group.add(this.scene, 'selectedDifficultyGame', {
-		'Easy': 0,
-		'Hard': 1,
-	}).name('Difficulty');
-}
-
 MyInterface.prototype.addGameModeList = function(group){
 
-	group.add(this.scene, 'selectedGameMode', {
-		'CPU vs CPU': 0,
-		'CPU vs Human': 1,
-		'Human vs Human': 2,
-	}).name('Game Mode');
+	group.add(this.scene, 'selectedPlayer1Type', {
+		'Human': 0,
+		'Easy CPU': 1,
+		'Hard CPU': 2,
+	}).name('Player 1');
+
+	group.add(this.scene, 'selectedPlayer2Type', {
+		'Human': 0,
+		'Easy CPU': 1,
+		'Hard CPU': 2,
+	}).name('Player 2');
 }
 
 MyInterface.prototype.addScenesList = function(group){
