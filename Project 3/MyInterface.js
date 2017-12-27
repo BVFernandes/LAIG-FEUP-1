@@ -22,7 +22,10 @@ MyInterface.prototype.init = function(application) {
 	//  http://workshop.chromeexperiments.com/examples/gui
 
 	this.gui = new dat.GUI();
-
+	this.visualSettingsGroup;
+	this.lightFolder;
+	this.firstTime = 0;
+	this.changeScene = false;
 	// add a group of controls (and open/expand by defult)
 
 	return true;
@@ -31,18 +34,21 @@ MyInterface.prototype.init = function(application) {
 /**
  * Adds a folder containing the IDs of the lights passed as parameter.
  */
-MyInterface.prototype.addLightsGroup = function(lights, group) {
+MyInterface.prototype.addLightsGroup = function() {
+	if(this.changeScene || this.firstTime != 0){
+	 	this.visualSettingsGroup.removeFolder("Lights");
+	}
 
-	let lightsGroup = group.addFolder("Lights");
+	this.lightFolder = this.visualSettingsGroup.addFolder("Lights");
 	//group.open();
-	lightsGroup.close();
+	this.lightFolder.close();
 	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 	// e.g. this.option1=true; this.option2=false;
 
+	let lights = this.scene.graphs[this.scene.graphIdx].lights;
 	for (var key in lights) {
 		if (lights.hasOwnProperty(key)) {
-			this.scene.lightValues[key] = lights[key][0];
-			lightsGroup.add(this.scene.lightValues, key);
+			this.lightFolder.add(this.scene.lightValues, key);
 		}
 	}
 }
@@ -58,7 +64,7 @@ MyInterface.prototype.addGameSettingsGroup = function(){
 			{ obj.scene.updateTurnTimeout(v); });
 }
 
-MyInterface.prototype.addVisualSettingsGroup = function(lights){
+MyInterface.prototype.addVisualSettingsGroup = function(){
 	let group = this.gui.addFolder("Visual Settings");
 	group.open();
 
@@ -70,7 +76,8 @@ MyInterface.prototype.addVisualSettingsGroup = function(lights){
 
 	group.add(this.scene, 'zoomOut').name('Zoom out');
 
-	this.addLightsGroup(this.scene.graph.lights, group);
+	this.visualSettingsGroup = group;
+	this.addLightsGroup();
 }
 
 MyInterface.prototype.addStartGameOption = function(){
@@ -97,10 +104,13 @@ MyInterface.prototype.addGameModeList = function(group){
 }
 
 MyInterface.prototype.addScenesList = function(group){
-
-	group.add(this.scene, 'selectedScene', {
+	let obj = this;
+	group.add(this.scene, 'graphIdx', {
 		'Default': 0,
-	}).name('Scene');
+		'Demo' : 1 ,
+	}).name('Scene').onChange(function(){
+		obj.changeScene = true;
+		obj.scene.onGraphLoaded();});
 }
 
 MyInterface.prototype.addPerspectiveList = function(group){
@@ -198,3 +208,14 @@ MyInterface.prototype.processKeyboard = function(event) {
 
 	};
 };
+
+dat.GUI.prototype.removeFolder = function(name) {
+  var folder = this.__folders[name];
+  if (!folder) {
+    return;
+  }
+  folder.close();
+  this.__ul.removeChild(folder.domElement.parentNode);
+  delete this.__folders[name];
+  this.onResize();
+}

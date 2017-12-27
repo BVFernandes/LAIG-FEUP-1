@@ -31,7 +31,9 @@ function XMLscene(interface) {
 
 	this.selectedPlayer1Type = 0;
 	this.selectedPlayer2Type = 0;
-	this.selectedScene = 0;
+	// this.selectedScene = 0;
+	this.graphs = [];
+	this.graphIdx = 0;
 	// this.selectedPerspective = 0;
 
 }
@@ -92,16 +94,16 @@ XMLscene.prototype.zoomOut=function() {
  * Handle changes in checkbox of animationStop and diffuse to all animations
  */
 XMLscene.prototype.updateAnimationStop=function(v) {
-	for(let id in this.graph.comboAnimations)
-		this.graph.comboAnimations[id].updateAnimationStop(v);
+	for(let id in this.graphs[this.graphIdx].comboAnimations)
+		this.graphs[this.graphIdx].comboAnimations[id].updateAnimationStop(v);
 }
 
 /**
  * Handle changes in checkbox of animationLoop and diffuse to all animations
  */
 XMLscene.prototype.updateAnimationLoop=function(v) {
-	for(let id in this.graph.comboAnimations)
-		this.graph.comboAnimations[id].setLoopAnimation(v);
+	for(let id in this.graphs[this.graphIdx].comboAnimations)
+		this.graphs[this.graphIdx].comboAnimations[id].setLoopAnimation(v);
 }
 
 /**
@@ -185,13 +187,21 @@ XMLscene.prototype.initLights = function() {
 	var i = 0;
 	// Lights index.
 
+	this.lightValues = {};
+  let lights = this.graphs[this.graphIdx].lights;
+	for (let key in lights) {
+		if (lights.hasOwnProperty(key)) {
+			this.lightValues[key] = lights[key][0];
+		}
+	}
+
 	// Reads the lights from the scene graph.
-	for (var key in this.graph.lights) {
+	for (var key in this.graphs[this.graphIdx].lights) {
 		if (i >= 8)
 			break;              // Only eight lights allowed by WebGL.
 
-		if (this.graph.lights.hasOwnProperty(key)) {
-			var light = this.graph.lights[key];
+		if (this.graphs[this.graphIdx].lights.hasOwnProperty(key)) {
+			var light = this.graphs[this.graphIdx].lights[key];
 
 			this.lights[i].setPosition(light[1][0], light[1][1], light[1][2], light[1][3]);
 			this.lights[i].setAmbient(light[2][0], light[2][1], light[2][2], light[2][3]);
@@ -209,7 +219,6 @@ XMLscene.prototype.initLights = function() {
 			i++;
 		}
 	}
-
 }
 
 /**
@@ -251,23 +260,31 @@ XMLscene.prototype.initCameras = function() {
  */
 XMLscene.prototype.onGraphLoaded = function()
 {
-	this.camera.near = this.graph.near;
-	this.camera.far = this.graph.far;
-	this.axis = new CGFaxis(this,this.graph.referenceLength);
+	if(!this.interface.changeScene && this.interface.firstTime != 0)
+		return;
 
-	this.setGlobalAmbientLight(this.graph.ambientIllumination[0], this.graph.ambientIllumination[1],
-			this.graph.ambientIllumination[2], this.graph.ambientIllumination[3]);
+	this.camera.near = this.graphs[this.graphIdx].near;
+	this.camera.far = this.graphs[this.graphIdx].far;
+	this.axis = new CGFaxis(this,this.graphs[this.graphIdx].referenceLength);
 
-	this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
+	this.setGlobalAmbientLight(this.graphs[this.graphIdx].ambientIllumination[0], this.graphs[this.graphIdx].ambientIllumination[1],
+			this.graphs[this.graphIdx].ambientIllumination[2], this.graphs[this.graphIdx].ambientIllumination[3]);
+
+	this.gl.clearColor(this.graphs[this.graphIdx].background[0], this.graphs[this.graphIdx].background[1], this.graphs[this.graphIdx].background[2], this.graphs[this.graphIdx].background[3]);
 
 	this.initLights();
 
 	// Adds lights group.
+	if(this.interface.changeScene){
+		this.interface.addLightsGroup();
+		this.interface.changeScene = false;
+		return;
+	}
 	this.interface.addGameSettingsGroup();
 	this.interface.addVisualSettingsGroup();
 	this.interface.addStartGameOption();
 	this.interface.addUndoOption();
-
+	this.interface.firstTime++;
 }
 
 /**
@@ -289,20 +306,21 @@ XMLscene.prototype.display = function() {
 
 	this.pushMatrix();
 
-	if (this.graph.loadedOk)
+	if (this.graphs[this.graphIdx].loadedOk)
 	{
 		// Applies initial transformations.
-		this.multMatrix(this.graph.initialTransforms);
+		this.multMatrix(this.graphs[this.graphIdx].initialTransforms);
 
 		// Draw axis
 		this.axis.display();
 
 		// Update Lights
-		this.updateLights();
+		if(!this.interface.changeScene)
+			this.updateLights();
 
 
 		// Displays the scene.
-		this.graph.displayScene();
+		this.graphs[this.graphIdx].displayScene();
 		if(this.game != null)
 			this.game.display();
 
@@ -325,11 +343,11 @@ XMLscene.prototype.display = function() {
  */
 XMLscene.prototype.update = function(currTime) {
 
-	if(!this.graph.loadedOk)
+	if(!this.graphs[this.graphIdx].loadedOk)
 		return;
 
-	for(let id in this.graph.comboAnimations)
-		this.graph.comboAnimations[id].update(currTime);
+	for(let id in this.graphs[this.graphIdx].comboAnimations)
+		this.graphs[this.graphIdx].comboAnimations[id].update(currTime);
 
 	this.updateTimeFactor(currTime);
 	this.updateCamera(currTime);
