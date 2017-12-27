@@ -34,9 +34,9 @@ MySelectState.prototype.logPicking = function ()
 						if(this.selectedPiece != null){
 							console.log("Selected Dest Tile");
 							obj.setPiece(this.selectedPiece);
+							let move = new MyMove(this.game.toPlString(),this.selectedPiece, this.selectedPiece.getPos(), obj);
 							this.game.getBoard().setElementAt(obj.getBoardPos(),this.game.getCurrentPlayerStr(), this.selectedPiece.getType());
 							this.game.getCurrentPlayer().decreasePieces(this.selectedPiece.getType());
-							let move = new MyMove(this.selectedPiece, this.selectedPiece.getPos(), obj);
 							this.setNextState(move);
 						}
 					}
@@ -134,13 +134,13 @@ MySelectState.prototype.getBotPlay = function () {
 	let request = "getPlay("+encodedGame+","+this.game.getTurn()+")";
 
 	gorogo.client.makeRequest(request, function(data){
-		console.log(data.target.response);	
+		console.log(data.target.response);
 		let play = state.parsePlay(data.target.response);
 		let piece = gorogo.getPieceOfType(play[1]);
 		let dstTile = gorogo.getTileAt(play[0]);
 		dstTile.setPiece(piece);
 		gorogo.getBoard().setElementAt(dstTile.getBoardPos(),gorogo.getCurrentPlayerStr(), play[1]);
-		let move = new MyMove(piece, piece.getPos(), dstTile);
+		let move = new MyMove(encodedGame, piece, piece.getPos(), dstTile);
 		state.setNextState(move);
 	});
 }

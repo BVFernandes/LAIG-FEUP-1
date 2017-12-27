@@ -26,7 +26,7 @@ function XMLscene(interface) {
 	this.game = null;
 	this.turnTimeout = 0;
 	this.zoomCamera = 0.3;
-	this.doUndoMove = function() { return;};
+	this.doUndoMove = function() { if(this.game) this.game.undoMove()};
 	this.doStartGame = function() {this.game = new MyGoRoGo(this);};
 
 	this.selectedPlayer1Type = 0;

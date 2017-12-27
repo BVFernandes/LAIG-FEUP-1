@@ -3,7 +3,8 @@
  * @constructor
  */
 
-function MyMove(piece,src,dst) {
+function MyMove(game,piece,src,dst) {
+	this.game = game;
 	this.piece = piece;
 	this.srcPos = src;
 	this.dstTile = dst;
@@ -113,6 +114,16 @@ MyMove.prototype.switchTiles = function () {
     this.piece.setSelected(true);
 }
  */
+ 
+ MyMove.prototype.resetPieces = function() {
+	this.piece.resetPos();
+	for(let i = 0; i < this.surroundedPieces.length; i++)
+		this.surroundedPieces[i].setCleared(false);
+}
+ 
+ MyMove.prototype.addSurroundedPieces = function(pieces) {
+	this.surroundedPieces = this.surroundedPieces.concat(pieces);
+}
 
 /***************** Getters and Setters ***********************/
 
@@ -123,6 +134,16 @@ MyMove.prototype.switchTiles = function () {
 MyMove.prototype.isGameOver = function() {
 	return this.gameOver;
 }
+
+
+/**
+ * Returns the piece to be moved
+ * @returns {*|*|null}
+ */
+MyMove.prototype.getGame = function () {
+	return this.game;
+}
+
 
 /**
  * Sets the piece to be moved

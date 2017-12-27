@@ -293,6 +293,10 @@ MyGoRoGo.prototype.setNextTurn = function(){
 	this.turn++;
 }
 
+MyGoRoGo.prototype.setPreviousTurn = function(){
+	this.turn--;
+}
+
 /**
  * Given a string Row-Col, returns the tile in that position
  * @param coords
@@ -341,6 +345,26 @@ MyGoRoGo.prototype.clearSurroundedPieces = function (points) {
 MyGoRoGo.prototype.getTileAt = function (pos) {
 	let idx = (pos[1]-1)*this.board.getBoardLength()+pos[0]-1;
 	return this.tiles[idx];
+}
+
+MyGoRoGo.prototype.undoMove = function () {
+
+	if(this.state instanceof MySelectState && !this.getCurrentPlayer().isBot()){
+		let move = this.getLatestMove();
+		if(move){
+			//console.log(move);
+			//console.log(move.getGame());
+			this.setGame(move.getGame());
+			this.setPreviousTurn();
+			move.resetPieces();
+			this.moves.splice(this.moves.length-1,1);
+			this.state = new MySelectState(this,this.scene);
+		}
+	}
+}
+
+MyGoRoGo.prototype.getMoves = function () {
+	return this.moves;
 }
 
 MyGoRoGo.prototype.getLatestMove = function () {

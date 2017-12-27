@@ -12,7 +12,7 @@ function MyPiece(scene, type, x, z, player) {
 	this.x = x;
 	this.z = z;
 	this.player = player;
-
+	this.initCoords = [x,z];
 	this.destCoords = null;
 
 	if(this.type == "n")
@@ -215,6 +215,13 @@ MyPiece.prototype.getPos = function () {
 	return [this.x, this.z];
 }
 
+MyPiece.prototype.resetPos = function () {
+	this.x = this.initCoords[0];
+	this.z = this.initCoords[1];
+	this.placed = false;
+	this.cleared = false;
+}
+
 MyPiece.prototype.getAnimate = function() {
 	return this.animate;
 }
@@ -229,4 +236,8 @@ MyPiece.prototype.getPlaced = function () {
 
 MyPiece.prototype.getCleared = function () {
 	return this.cleared;
+}
+
+MyPiece.prototype.setCleared = function (cleared) {
+	this.cleared = cleared;
 }
