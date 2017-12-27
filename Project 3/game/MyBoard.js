@@ -59,16 +59,9 @@ MyBoard.prototype.getBoard = function () {
 MyBoard.prototype.setBoard = function (encodedBoard) {
 	this.board = [];
 
-	encodedRows = encodedBoard.split(']');
+	let tempBoard = '[' + encodedBoard + ']';
 
-	for(let i = 0; i < this.length; i++){
-		let row = [];
-		for(let j = 0; j < encodedRows[i].length; j++){
-			if(encodedRows[i][j] != ',' && encodedRows[i][j] != '[')
-				row.push(parseInt(encodedRows[i][j]));
-		}
-		this.board.push(row);
-	}
+	this.board = JSON.parse(tempBoard);
 }
 
 /**

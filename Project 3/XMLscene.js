@@ -10,6 +10,7 @@ function XMLscene(interface) {
 	this.interface = interface;
 
 	this.lightValues = {};
+
 	this.selectedSelectableNode = 0;
 	this.selectedExampleShader = 0;
 	this.selectedColourShader = 0;
@@ -21,6 +22,16 @@ function XMLscene(interface) {
 	this.redSelector = 0.0;
 	this.greenSelector = 0.0;
 	this.blueSelector = 0.0;
+
+	this.turnTimeout = 0;
+	this.zoomCamera = 0.3;
+	this.doUndoMove = function() { return;};
+
+	this.selectedDifficultyGame = 0;
+	this.selectedGameMode = 0;
+	this.selectedScene = 0;
+	this.selectedPerspective = 0;
+
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -62,6 +73,15 @@ XMLscene.prototype.init = function(application) {
 	this.updateScaleFactor();
 	this.updateColourShader();
 }
+
+XMLscene.prototype.updateTurnTimeout=function(v) {
+	this.turnTimeout = v;
+}
+
+XMLscene.prototype.updateZoomCamera=function(v) {
+	this.zoomCamera = v;
+}
+
 
 /**
  * Handle changes in checkbox of animationStop and diffuse to all animations
@@ -239,9 +259,9 @@ XMLscene.prototype.onGraphLoaded = function()
 	this.initLights();
 
 	// Adds lights group.
-	this.interface.addLightsGroup(this.graph.lights);
-	this.interface.addAnimationOption();
-	this.interface.addShadersGroup();
+	this.interface.addGameSettingsGroup();
+	this.interface.addVisualSettingsGroup();
+	this.interface.addUndoOption();
 
 }
 

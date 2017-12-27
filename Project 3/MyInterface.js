@@ -31,9 +31,9 @@ MyInterface.prototype.init = function(application) {
 /**
  * Adds a folder containing the IDs of the lights passed as parameter.
  */
-MyInterface.prototype.addLightsGroup = function(lights) {
+MyInterface.prototype.addLightsGroup = function(lights, group) {
 
-	var group = this.gui.addFolder("Lights");
+	group = this.gui.addFolder("Lights");
 	//group.open();
 	group.close();
 	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
@@ -47,76 +47,69 @@ MyInterface.prototype.addLightsGroup = function(lights) {
 	}
 }
 
-MyInterface.prototype.addAnimationOption = function() {
-	obj=this;
-	this.gui.add(this.scene, 'animationStop').onChange(function(v)
-			{ obj.scene.updateAnimationStop(v);	}).name('Stop Animation');
+MyInterface.prototype.addGameSettingsGroup = function(){
+	let group = this.gui.addFolder("Game Settings");
+	group.open();
 
-	this.gui.add(this.scene, 'animationLoop').onChange(function(v)
-			{ obj.scene.updateAnimationLoop(v);	}).name('Animation Loop');
+	this.addGameModeList(group);
 
-
-}
-
-MyInterface.prototype.addShadersGroup = function(){
-	this.addSelectableNodesGroup();
-
-	this.addShadersList();
+	this.addDifficultyList(group);
 
 	obj=this;
-	this.gui.add(this.scene, 'scaleFactor',-50,50).name('Shader Scale').onChange(function(v)
-			{ obj.scene.updateScaleFactor(v); });
-
-	this.addColoursGroup();
-
-	this.gui.add(this.scene, 'flagTFactor').name('Shader Time');
+	group.add(this.scene, 'turnTimeout',0,60).name('Turn Timeout').onChange(function(v)
+			{ obj.scene.updateTurnTimeout(v); });
 }
 
-MyInterface.prototype.addSelectableNodesGroup = function(){
-	let selectablesList = {};
+MyInterface.prototype.addVisualSettingsGroup = function(lights){
+	let group = this.gui.addFolder("Visual Settings");
+	group.open();
 
-	for(let id in this.scene.graph.nodes){
-		if(this.scene.graph.nodes[id].getSelectable()){
-			selectablesList[id]=id;
-		}
-	}
-	selectablesList['none']=null;
+	this.addScenesList(group);
 
-	this.gui.add(this.scene, 'selectedSelectableNode', selectablesList).name('Selectable List');
-}
+	this.addPerspectiveList(group);
 
-MyInterface.prototype.addShadersList = function(){
-
-	this.gui.add(this.scene, 'selectedExampleShader', {
-		'Flat Shading': 0,
-		'My Shader': 1,
-		'Sepia': 2,
-		'Convolution': 3
-	}).name('Shader List');
-}
-
-MyInterface.prototype.addColoursGroup = function(){
 	obj=this;
+	group.add(this.scene, 'zoomCamera',0,1).name('Zoom Camera').onChange(function(v)
+			{ obj.scene.updateZoomCamera(v); });
 
-	this.gui.add(this.scene, 'selectedColourShader', {
-		'Default(Blue)': 0,
-		'Red': 1,
-		'Green': 2,
-		'Yellow': 3,
-		'Modified Colour' : 4,
-	}).name('Colour Shader').onChange(function(v){ obj.scene.updateColourShader(v)});
+	this.addLightsGroup(this.scene.graph.lights, group);
+}
 
-	var colourGroup = this.gui.addFolder("Modified Colour");
-	colourGroup.close();
+MyInterface.prototype.addUndoOption = function(){
+	this.gui.add(this.scene, 'doUndoMove').name('Undo Move');
+}
 
-	colourGroup.add(this.scene, 'redSelector',0,1).name('R').onChange(function(v)
-			{ obj.scene.updateRedSelector(v); });
+MyInterface.prototype.addDifficultyList = function(group){
 
-	colourGroup.add(this.scene, 'greenSelector',0,1).name('G').onChange(function(v)
-			{ obj.scene.updateGreenSelector(v); });
+	group.add(this.scene, 'selectedDifficultyGame', {
+		'Easy': 0,
+		'Hard': 1,
+	}).name('Difficulty');
+}
 
-	colourGroup.add(this.scene, 'blueSelector',0,1).name('B').onChange(function(v)
-			{ obj.scene.updateBlueSelector(v); });
+MyInterface.prototype.addGameModeList = function(group){
+
+	group.add(this.scene, 'selectedGameMode', {
+		'CPU vs CPU': 0,
+		'CPU vs Human': 1,
+		'Human vs Human': 2,
+	}).name('Game Mode');
+}
+
+MyInterface.prototype.addScenesList = function(group){
+
+	group.add(this.scene, 'selectedScene', {
+		'Default': 0,
+	}).name('Scene');
+}
+
+MyInterface.prototype.addPerspectiveList = function(group){
+
+	group.add(this.scene, 'selectedPerspective', {
+		'Center': 0,
+		'Left': 1,
+		'Right': 2,
+	}).name('Perspective');
 }
 
 /**
