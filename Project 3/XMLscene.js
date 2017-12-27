@@ -156,15 +156,13 @@ XMLscene.prototype.updateCamera=function(currTime){
 	if(!this.moveCam)
 		return;
 
+	let delta = this.cameraPos[this.cameraIdx] - this.deltaCam;
 	let direction = 1;
-	let deltaZ1 = this.camera.position[2]-this.cameraPos[this.cameraIdx][2];
-	let deltaX = Math.abs(this.camera.position[0]-this.cameraPos[this.cameraIdx][0]);
-	let deltaZ = Math.abs(this.camera.position[2]-this.cameraPos[this.cameraIdx][2]);
 
-	if(deltaZ + deltaX > 1) {
-		if(deltaZ1 < 0)
-			direction = -1;
-
+	if(Math.abs(delta) > 1) {
+			if(delta < 0)
+		 		direction = -1;
+		this.deltaCam += direction*10;
 		this.camera.orbit("y", direction*10*DEGREE_TO_RAD);
 	} else {
 		this.moveCam = false;
@@ -242,8 +240,9 @@ XMLscene.prototype.initCameras = function() {
 
 	this.camera.orbit('y', 45*DEGREE_TO_RAD);
 
-	this.cameraPos = [[21,15,0], [0,15,-21], [21,15,0], [0,15,21]];
+	this.cameraPos = [0,90,0,-90];
 	this.cameraIdx = 0;
+	this.deltaCam = 0;
 }
 
 /* Handler called when the graph is finally loaded.
