@@ -52,16 +52,12 @@ MyAnimateClearState.prototype.update = function (currTime){
 
 	if(this.surroundedPieces.length == 0){
 		if(this.state == MyAnimateClearState.state.CLEAR_BOARD_SELF){
-			//console.log("Change Player");
 			this.game.setNextPlayer();
 			this.updateState();
 			this.updateGame();
 
 		}
 		else if(this.state == MyAnimateClearState.state.CLEAR_BOARD_OPPONENT){
-			//console.log("Update");
-			//this.game.setNextTurn();
-			//this.setNextState();
 			this.updateState();
 			this.endOfGame();
 		}
@@ -103,7 +99,7 @@ MyAnimateClearState.prototype.endOfGame = function () {
 	let request = "endOfGame("+encodedGame+")";
 
 	gorogo.client.makeRequest(request, function(data){
-		console.log(data.target.response);
+		//console.log(data.target.response);
 		let winner = data.target.response;
 		if(winner != "none"){
 			//TRATAR AQUI DO FINAL DE JOGO
@@ -131,6 +127,7 @@ MyAnimateClearState.prototype.updateGame = function () {
 		let res = state.parseUpdate(data.target.response);
 		gorogo.setGame(res[0]);
 		let pieces = gorogo.clearSurroundedPieces(res[1]);
+		gorogo.getLatestMove().addSurroundedPieces(pieces);
 		//console.log(pieces);
 		state.setSurroundedPieces(pieces);
 		state.updateState();

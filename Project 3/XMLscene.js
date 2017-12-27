@@ -25,7 +25,7 @@ function XMLscene(interface) {
 
 	this.turnTimeout = 0;
 	this.zoomCamera = 0.3;
-	this.doUndoMove = function() { return;};
+	this.doUndoMove = function() { if(this.game) this.game.undoMove()};
 
 	this.selectedDifficultyGame = 0;
 	this.selectedGameMode = 0;
