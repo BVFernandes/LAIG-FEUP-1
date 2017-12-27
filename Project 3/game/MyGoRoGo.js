@@ -9,7 +9,7 @@ function MyGoRoGo(scene) {
 	this.pieces = [];
 	this.tiles = [];
 
-	/*this.marker = new MyInfoMarker(scene, this);*/
+	this.marker = new MyInfoMarker(scene, this);
 	this.board = new MyBoard();
 	this.togglePlayerObj = new MyTogglePlayer(scene);
 	this.startMovieObj = new MyStartMovie(scene);
@@ -208,7 +208,7 @@ MyGoRoGo.prototype.display = function(){
 		this.state.display();
 
 	this.scene.pushMatrix();
-	//this.marker.display();
+	this.marker.display();
 	this.scene.translate(0,0,20);
 	this.togglePlayerObj.display();
 	this.startMovieObj.display();
@@ -236,7 +236,7 @@ MyGoRoGo.prototype.update = function(currTime) {
 	if(this.state)
 		this.state.update(currTime);
 
-	//this.marker.updateTime(this.delta);
+	this.marker.updateTime(this.delta);
 
 }
 
