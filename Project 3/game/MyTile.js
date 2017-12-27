@@ -19,6 +19,13 @@ function MyTile(scene, x, z) {
 	this.z = z;
 
 	this.highlight = false;
+	
+	
+	this.material = new CGFappearance(this.scene);
+	this.material.setAmbient(0,1,0,1);
+	this.material.setDiffuse(0,0.9,0,1);
+	this.material.setSpecular(0.5,0.5,0.5,0.5);
+	this.material.setShininess(50);
 
 	this.object = new MyCircle(this.scene, 20);
 }
@@ -37,7 +44,7 @@ MyTile.prototype.display = function (currentMove, pickingMode) {
 
 	this.scene.translate(this.x, 0.6, this.z);
 	this.scene.rotate(-90*DEGREE_TO_RAD, 1, 0, 0);
-
+	this.material.apply();
 	this.object.display();
 
 	this.scene.popMatrix();

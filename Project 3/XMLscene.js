@@ -23,11 +23,12 @@ function XMLscene(interface) {
 	this.greenSelector = 0.0;
 	this.blueSelector = 0.0;
 
-	this.game = null;
+	this.game;
 	this.turnTimeout = 0;
 	this.zoomCamera = 0.3;
-	this.doUndoMove = function() { if(this.game) this.game.undoMove()};
-	this.doStartGame = function() {this.game = new MyGoRoGo(this);};
+	this.doUndoMove = function() { if(this.game) this.game.undoMove();};
+	this.doStartGame = function() { if(this.game) this.game.startGame();};
+	this.doReplayGame = function() { if(this.game) this.game.replayGame();};
 
 	this.selectedPlayer1Type = 0;
 	this.selectedPlayer2Type = 0;
@@ -67,6 +68,7 @@ XMLscene.prototype.init = function(application) {
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")
 		];
 
+	this.game = new MyGoRoGo(this);
 
 	this.coloursShaders=[vec3.fromValues(0,0,1),vec3.fromValues(1,0,0), vec3.fromValues(0,1,0), vec3.fromValues(1,1,0), vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)];
 
@@ -173,7 +175,6 @@ XMLscene.prototype.updateCamera=function(currTime){
 		}else {
 			this.cameraIdx++;
 		}
-
 	}
 
 }
@@ -266,6 +267,7 @@ XMLscene.prototype.onGraphLoaded = function()
 	this.interface.addGameSettingsGroup();
 	this.interface.addVisualSettingsGroup();
 	this.interface.addStartGameOption();
+	this.interface.addReplayGameOption();
 	this.interface.addUndoOption();
 
 }
@@ -303,7 +305,7 @@ XMLscene.prototype.display = function() {
 
 		// Displays the scene.
 		this.graph.displayScene();
-		if(this.game != null)
+		if(this.game)
 			this.game.display();
 
 	}
@@ -333,7 +335,7 @@ XMLscene.prototype.update = function(currTime) {
 
 	this.updateTimeFactor(currTime);
 	this.updateCamera(currTime);
-	if(this.game!= null)
+	if(this.game)
 		this.game.update(currTime);
 };
 

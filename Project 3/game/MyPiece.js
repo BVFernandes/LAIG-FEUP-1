@@ -1,13 +1,14 @@
-var MOVE_ANIMATION_SPEED = 10;
+var MOVE_ANIMATION_SPEED = 20;
 var CLEAR_ANIMATION_SPEED = 2;
 
 /**
  * MyPiece
  * @constructor
  */
-function MyPiece(scene, type, x, z, player) {
+function MyPiece(scene, shader, type, x, z, player) {
 	CGFobject.call(this,scene);
 	this.scene = scene;
+	this.shader = shader;
 	this.type = type;
 	this.x = x;
 	this.z = z;
@@ -58,8 +59,11 @@ MyPiece.prototype.display = function () {
 	// if(this.animation != null){
 	//     this.scene.multMatrix(this.animation.getMatrix(this.timer));
 	// }
-	if(!this.cleared)
+	if(!this.cleared){
+		//this.scene.setActiveShader(this.shader);
 		this.object.display();
+		//this.scene.setActiveShader(this.scene.defaultShader);
+	}
 	// if(this.isSelected)
 	//     this.scene.setActiveShader(this.scene.defaultShader);
 	this.scene.popMatrix();

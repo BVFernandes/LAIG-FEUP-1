@@ -77,12 +77,15 @@ MyInterface.prototype.addStartGameOption = function(){
 	this.gui.add(this.scene, 'doStartGame').name('Start Game');
 }
 
+MyInterface.prototype.addReplayGameOption = function(){
+	this.gui.add(this.scene, 'doReplayGame').name('Replay Game');
+}
+
 MyInterface.prototype.addUndoOption = function(){
 	this.gui.add(this.scene, 'doUndoMove').name('Undo Move');
 }
 
 MyInterface.prototype.addGameModeList = function(group){
-
 	group.add(this.scene, 'selectedPlayer1Type', {
 		'Human': 0,
 		'Easy CPU': 1,

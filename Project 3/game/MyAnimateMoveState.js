@@ -3,13 +3,16 @@
  * @constructor
  */
 
-function MyAnimateMoveState(game,scene,move) {
+function MyAnimateMoveState(game,scene,move,replay) {
 	this.game = game;
 	this.scene = scene;
 	this.move = move;
 	this.selectedPiece = move.getPiece();
+	
+	this.replay = replay || false;
 
-	this.game.addMove(move);
+	if(!this.replay)
+		this.game.addMove(move);
 
 	this.selectedPiece.setMoveAnimation(this.move.getDstTile().getPos());
 }
@@ -48,5 +51,8 @@ MyAnimateMoveState.prototype.update = function (currTime){
 }
 
 MyAnimateMoveState.prototype.setNextState = function () {
-	this.game.setState(new MyAnimateClearState(this.game,this.scene));
+	if(this.replay)
+		this.game.setState(new MyReplayClearState(this.game,this.scene));
+	else
+		this.game.setState(new MyAnimateClearState(this.game,this.scene));
 }
