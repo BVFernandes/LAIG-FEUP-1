@@ -15,31 +15,25 @@ function MyGoRoGo(scene) {
 	this.startMovieObj = new MyStartMovie(scene);
 	this.startGameObj = new MyStartGame(scene);
 
-	// this.cellAppearance = new CGFappearance(this.scene);
-	// this.cellAppearance.loadTexture('../res/transparent.png');
-	//
-	// this.highlightAppearance = new CGFappearance(this.scene);
-	// this.highlightAppearance.loadTexture('../res/ice.jpg');
-	//
-
-	/*
-    this.myShader = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
+    this.selectedPieceShader = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
+	this.selectedPieceShader.setUniformsValues({normScale: 1});
+	this.selectedPieceShader.setUniformsValues({timeFactor: 0});
 
 	this.myShader2 = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
-	 */
-
 	// this.selectedShader = new CGFshader(this.scene.gl, "shaders/selected.vert", "shaders/selected.frag");
+	
 	this.turn;
+	this.gameOver = false;
 	this.initTime = null;
 	this.lastCurrTime = null;
 	this.delta = 0;
 	this.requestStatus = null;
 
 	this.moves = [];
+	this.currMove = 0;
 
 	this.initializePlayers();
 	this.initializeBoard();
-	this.initializeGame();
 
 	this.state = null;
 }
@@ -64,23 +58,23 @@ MyGoRoGo.prototype.initializeBoard = function () {
 
 	for (let i = -6; i <= 6; i+=2.6) {
 		for(let j = -16; j <= -13; j+=2.6){
-			this.pieces.push(new MyPiece(this.scene, "n", i, j, "blackPlayer"));
+			this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "n", i, j, "blackPlayer"));
 		}
 	}
 
 
 	for(let i = -1.75; i <= 1.75; i+=2.5)
-		this.pieces.push(new MyPiece(this.scene, "h", i, -18.5, "blackPlayer"));
+		this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "h", i, -18.5, "blackPlayer"));
 
 
 	for (let i = -6; i <= 6; i+=2.6) {
 		for(let j = 16; j >= 13; j-=2.6){
-			this.pieces.push(new MyPiece(this.scene, "n", i, j, "whitePlayer"));
+			this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "n", i, j, "whitePlayer"));
 		}
 	}
 
 	for(let i = -2.5; i <= 2.5; i+= 2.5)
-		this.pieces.push(new MyPiece(this.scene, "h", i, 18.5, "whitePlayer"));
+		this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "h", i, 18.5, "whitePlayer"));
 
 }
 
@@ -89,8 +83,18 @@ MyGoRoGo.prototype.initializeBoard = function () {
  * @param mode
  * @param difficulty
  */
-MyGoRoGo.prototype.initializeGame = function () {
-
+MyGoRoGo.prototype.startGame = function () {
+	/*
+	if(!this.gameOver)
+		return;
+	*/
+	
+	this.resetPieces();
+	this.moves = [];
+	this.gameOver = false;
+	this.whitePlayer.setTypePlayer(this.scene.selectedPlayer1Type);
+	this.blackPlayer.setTypePlayer(this.scene.selectedPlayer2Type);
+	
 	let gorogo = this;
 	let scene = this.scene;
 	this.client.makeRequest("initGame", function(data){
@@ -110,10 +114,6 @@ MyGoRoGo.prototype.initializePlayers = function () {
 	this.whitePlayer = new MyPlayer("whitePlayer");
 	this.blackPlayer = new MyPlayer("blackPlayer");
 	this.currentPlayer = this.whitePlayer;
-
-	this.whitePlayer.setTypePlayer(this.scene.selectedPlayer1Type);
-	this.blackPlayer.setTypePlayer(this.scene.selectedPlayer2Type);
-
 }
 
 /**
@@ -168,11 +168,9 @@ MyGoRoGo.prototype.nextMove = function () {
 /**
  * Resets variables used in a nodes game
  */
-MyGoRoGo.prototype.resetGame = function () {
-	this.pieces = [];
-	this.tiles = [];
-	this.resetHighlights();
-
+MyGoRoGo.prototype.resetPieces = function () {
+	for(let i = 0; i < this.pieces.length; i++)
+		this.pieces[i].resetPos();
 }
 
 /**
@@ -206,7 +204,7 @@ MyGoRoGo.prototype.resetHighlights = function () {
  * Displays nodes and all its elements
  */
 MyGoRoGo.prototype.display = function(){
-	if(this.state != null)
+	if(this.state)
 		this.state.display();
 
 	this.scene.pushMatrix();
@@ -239,22 +237,6 @@ MyGoRoGo.prototype.update = function(currTime) {
 		this.state.update(currTime);
 
 	this.marker.updateTime(this.delta);
-
-	/*
-    if (this.initialTime == 0) {
-        this.initialTime = currTime;
-    }
-    this.elapsedTime = (currTime - this.initialTime)/1000;
-
-        var diff = this.elapsedTime - this.currentMove.getInitialTime();
-        if(diff > this.currentMove.getAnimation().getSpan()) {
-            this.currentMove.getPiece().setAnimation(null);
-            this.currentMove.movePiece();
-            this.nextMove();
-		} else {
-            this.currentMove.display(diff);
-    }
-	 */
 
 }
 
@@ -363,8 +345,28 @@ MyGoRoGo.prototype.undoMove = function () {
 	}
 }
 
+MyGoRoGo.prototype.replayGame = function () {
+	if(this.gameOver){
+		console.log("Replay Game");
+		this.currMove = 0;
+		this.resetPieces();
+		let move = this.getCurrentMove();
+		this.setGame(move.getGame());
+		this.state = new MyAnimateMoveState(this, this.scene, move, true);
+	}
+}
+
 MyGoRoGo.prototype.getMoves = function () {
 	return this.moves;
+}
+
+MyGoRoGo.prototype.getCurrentMove = function () {
+	return this.moves[this.currMove];
+}
+
+MyGoRoGo.prototype.getNextMove = function () {
+	this.currMove++;
+	return this.moves[this.currMove];
 }
 
 MyGoRoGo.prototype.getLatestMove = function () {
@@ -376,7 +378,6 @@ MyGoRoGo.prototype.getLatestMove = function () {
 }
 
 MyGoRoGo.prototype.setState = function (state) {
-	//console.log("during setState");
 	this.state = state;
 }
 
@@ -408,6 +409,10 @@ MyGoRoGo.prototype.parseGame = function (encondedGame) {
 	return [encodedBoard,encodedWhite,encodedBlack,curr];
 }
 
+MyGoRoGo.prototype.getSelectedPieceShader = function () {
+	return this.selectedPieceShader;
+}
+
 MyGoRoGo.prototype.getCurrentPlayer = function () {
 	return this.currentPlayer;
 }
@@ -432,6 +437,13 @@ MyGoRoGo.prototype.setNextPlayer = function () {
 		this.currentPlayer = this.whitePlayer;
 }
 
+MyGoRoGo.prototype.toggleWhitePlayerType = function () {
+	this.whitePlayer.toggleType();
+}
+
+MyGoRoGo.prototype.toggleBlackPlayerType = function () {
+	this.blacktoggleType();
+}
 
 MyGoRoGo.prototype.toPlString = function () {
 	return "[" + this.board.toPlString() + "," + this.whitePlayer.toPlString() + "," + this.blackPlayer.toPlString() + "," + this.getCurrentPlayerStr()+ "]";
@@ -443,6 +455,10 @@ MyGoRoGo.prototype.setGame = function (encodedGame) {
 	this.whitePlayer.setPlayer(res[1]);
 	this.blackPlayer.setPlayer(res[2]);
 	this.setCurrentPlayer(res[3]);
+}
+
+MyGoRoGo.prototype.setGameOver = function (state) {
+	this.gameOver = state;
 }
 
 /**

@@ -84,12 +84,15 @@ MyInterface.prototype.addStartGameOption = function(){
 	this.gui.add(this.scene, 'doStartGame').name('Start Game');
 }
 
+MyInterface.prototype.addReplayGameOption = function(){
+	this.gui.add(this.scene, 'doReplayGame').name('Replay Game');
+}
+
 MyInterface.prototype.addUndoOption = function(){
 	this.gui.add(this.scene, 'doUndoMove').name('Undo Move');
 }
 
 MyInterface.prototype.addGameModeList = function(group){
-
 	group.add(this.scene, 'selectedPlayer1Type', {
 		'Human': 0,
 		'Easy CPU': 1,
@@ -107,7 +110,8 @@ MyInterface.prototype.addScenesList = function(group){
 	let obj = this;
 	group.add(this.scene, 'graphIdx', {
 		'Default': 0,
-		'Demo' : 1 ,
+		'Test': 1,
+		'Piroxenas' : 2 ,
 	}).name('Scene').onChange(function(){
 		obj.changeScene = true;
 		obj.scene.onGraphLoaded();});

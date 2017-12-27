@@ -7,7 +7,7 @@ MyAnimateClearState.state = {
 }
 
 /**
- * MyPlayer
+ * MyAnimateClearState
  * @constructor
  */
 
@@ -99,11 +99,12 @@ MyAnimateClearState.prototype.endOfGame = function () {
 	let request = "endOfGame("+encodedGame+")";
 
 	gorogo.client.makeRequest(request, function(data){
-		//console.log(data.target.response);
 		let winner = data.target.response;
 		if(winner != "none"){
 			//TRATAR AQUI DO FINAL DE JOGO
 			alert("Winner is "+winner+"!");
+			gorogo.addMove(new MyMove(encodedGame,null,null,null));
+			gorogo.setGameOver(true);
 		}
 		else{
 			gorogo.setNextTurn();

@@ -10,7 +10,7 @@ function MyMove(game,piece,src,dst) {
 	this.dstTile = dst;
 	this.surroundedPieces = [];
 	this.timer = 0;
-	this.gameOver=false;
+	this.gameOver = false;
 }
 
 MyMove.prototype = Object.create(CGFobject.prototype);
@@ -122,7 +122,9 @@ MyMove.prototype.switchTiles = function () {
 }
  
  MyMove.prototype.addSurroundedPieces = function(pieces) {
-	this.surroundedPieces = this.surroundedPieces.concat(pieces);
+	/*this.surroundedPieces = this.surroundedPieces.concat(pieces);*/
+	for(let i = 0; i < pieces.length; i++)
+		this.surroundedPieces.push(pieces[i]);
 }
 
 /***************** Getters and Setters ***********************/
@@ -160,6 +162,11 @@ MyMove.prototype.setPiece = function (piece) {
  */
 MyMove.prototype.getPiece = function () {
 	return this.piece;
+}
+
+
+ MyMove.prototype.getSurroundedPieces = function() {
+	return this.surroundedPieces;
 }
 
 /**

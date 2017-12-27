@@ -74,25 +74,7 @@
 
   <!-- Textures -->
   <TEXTURES>
-   <!-- Leather texture -->
-    <TEXTURE id="leatherTexture">
-      <file path="images_room/leather.jpg" />
-      <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <!-- Painting 1 texture -->
-    <TEXTURE id="painting1Texture">
-      <file path="images_room/painting1.jpg" />
-      <amplif_factor s="1.6" t="2.1" />
-    </TEXTURE>
-
-    <!-- Painting 2 texture -->
-    <TEXTURE id="painting2Texture">
-      <file path="images_room/painting2.jpg" />
-      <amplif_factor s="1.6" t="2.1" />
-    </TEXTURE>
-
-    <!-- Wood Floor texture -->
+       <!-- Wood Floor texture -->
     <TEXTURE id="woodFloorTexture">
       <file path="images_room/floor.jpg" />
       <amplif_factor s="1" t="1" />
@@ -110,51 +92,15 @@
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Fireplace Rock texture-->
-    <TEXTURE id="rockTexture">
-      <file path="images_room/fireplace.jpg" />
-      <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <!-- Fire texture -->
-    <TEXTURE id="fireTexture">
-      <file path="images_room/fire.jpg" />
-      <amplif_factor s="3" t="2.4" />
-    </TEXTURE>
-
     <!-- Wall texture -->
     <TEXTURE id="wallTexture">
       <file path="images_room/wall.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Television screen texture -->
-    <TEXTURE id="lionkingTexture">
-      <file path="images_room/reileao1.jpg" />
-      <amplif_factor s="1.8" t="0.8" />
-    </TEXTURE>
-
     <!-- Speaker texture -->
     <TEXTURE id="speakerTexture">
       <file path="images_room/speaker.jpg" />
-      <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <!-- Lamp bulb texture -->
-    <TEXTURE id="lampTexture">
-      <file path="images_room/lamp.jpg" />
-      <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <!-- Glass bowl texture -->
-    <TEXTURE id="glassTexture">
-      <file path="images_room/glass.jpg" />
-      <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <!-- Vacuum cleaner texture -->
-    <TEXTURE id="vacCleanerTexture">
-      <file path="images_room/vaccumCleaner.jpg" />
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
@@ -184,6 +130,12 @@
       <amplif_factor s="1" t="1.1" />
   </TEXTURE>
 
+  <!-- Leather texture -->
+   <TEXTURE id="leatherTexture">
+     <file path="images_room/leather.jpg" />
+     <amplif_factor s="1" t="1" />
+   </TEXTURE>
+   
   </TEXTURES>
 
 
@@ -195,24 +147,6 @@
       <specular r="1" g="1" b="1" a="0.5" />
       <diffuse r="0.6" g="0.6" b="0.6" a="1" />
       <ambient r="0.3" g="0.3" b="0.3" a="1" />
-      <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-	 <!-- Dark material -->
-    <MATERIAL id="darkMaterial">
-      <shininess value="255" />
-      <specular r="1" g="1" b="1" a="1" />
-      <diffuse r="0" g="0" b="0" a="1" />
-      <ambient r="0" g="0" b="0" a="1" />
-      <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-    <!-- Pyramid material -->
-    <MATERIAL id="piramideMaterial">
-      <shininess value="1" />
-      <specular r="0" g="0" b="0" a="1" />
-      <diffuse r="1.0" g="0.68" b="0.4" a="1" />
-      <ambient r="0.2" g="0.2" b="0.2" a="1" />
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
@@ -252,29 +186,11 @@
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-    <!-- A black material -->
-    <MATERIAL id="blackMaterial">
-      <shininess value="1" />
-      <specular r="0" g="0" b="0" a="1" />
-      <diffuse r="0" g="0" b="0" a="1" />
-      <ambient r="0.05" g="0.05" b="0.05" a="1" />
-      <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
     <!-- A grey material -->
     <MATERIAL id="greyMaterial">
       <shininess value="0.1" />
       <specular r="0.0" g="0.0" b="0.0" a="1" />
       <diffuse r="0.5" g="0.5" b="0.5" a="1" />
-      <ambient r="0.2" g="0.2" b="0.2" a="1" />
-      <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-    <!-- A speaker material -->
-    <MATERIAL id="speakerMaterial">
-      <shininess value="1" />
-      <specular r="0.1" g="0.1" b="0.1" a="1" />
-      <diffuse r="0.3" g="0.3" b="0.3" a="1" />
       <ambient r="0.2" g="0.2" b="0.2" a="1" />
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
@@ -778,19 +694,6 @@
       </DESCENDANTS>
     </NODE>
 
-    <!-- Center of table center-->
-    <NODE id="center_tc">
-      <MATERIAL id="glassMaterial" />
-      <TEXTURE id="clear" />
-
-      <ROTATION axis="x" angle="90" />
-      <TRANSLATION x="0" y="0" z="1.3" />
-      <SCALE sx="0.3" sy="0.3" sz="0.3" />
-
-      <DESCENDANTS>
-        <LEAF type="sphere" args="2 20 20" />
-      </DESCENDANTS>
-    </NODE>
 
     <!-- A pyramid -->
     <NODE id="pyramid" selectable="true">
@@ -882,77 +785,6 @@
 
       <DESCENDANTS>
         <LEAF id="triangle1" type="triangle" args="2 0 12 12 0 2 0 0 0" />
-      </DESCENDANTS>
-    </NODE>
-
-    <!-- Robot Vacuum Cleaner -->
-    <NODE id="robot_vaccum_cleaner">
-      <MATERIAL id="metalMaterial" />
-      <TEXTURE id="null" />
-
-
-
-      <DESCENDANTS>
-        <NODEREF id="robot_vaccum_cleaner_top" />
-        <NODEREF id="robot_vaccum_cleaner_bottom" />
-      </DESCENDANTS>
-    </NODE>
-
-    <!-- Robot Vacuum Cleaner Top -->
-    <NODE id="robot_vaccum_cleaner_top">
-      <MATERIAL id="null" />
-      <TEXTURE id="vacCleanerTexture" />
-
-      <TRANSLATION x="0" y="0.2" z="0" />
-      <ROTATION axis="x" angle="180" />
-      <SCALE sx="1" sy="0.2" sz="1" />
-
-      <DESCENDANTS>
-        <LEAF type="sphere" args="0.6 30 20" />
-      </DESCENDANTS>
-    </NODE>
-
-    <!-- Robot Vacuum Cleaner Bottom -->
-    <NODE id="robot_vaccum_cleaner_bottom">
-      <MATERIAL id="plasticMaterial" />
-      <TEXTURE id="null" />
-
-      <ROTATION axis="x" angle="-90" />
-
-      <DESCENDANTS>
-        <LEAF type="cylinder" args="0.2 0.6 0.6 30 20 0 0" />
-      </DESCENDANTS>
-    </NODE>
-
-    <!-- Paper Plane -->
-    <NODE id="paper_plane" selectable="true">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-
-      <DESCENDANTS>
-        <NODEREF id="paper_plane_bottom" />
-        <NODEREF id="paper_plane_top" />
-      </DESCENDANTS>
-    </NODE>
-
-    <!-- Paper Plane Bottom -->
-    <NODE id="paper_plane_bottom">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <DESCENDANTS>
-        <LEAF type="triangle" args="0.5 0 0 -0.5 0 0 0 0 0.5" />
-      </DESCENDANTS>
-    </NODE>
-
-    <!-- Paper Plane Top -->
-    <NODE id="paper_plane_top">
-      <MATERIAL id="null" />
-      <TEXTURE id="null" />
-
-      <DESCENDANTS>
-        <LEAF type="triangle" args="0 0 0 0 0.25 0 0 0 0.5" />
       </DESCENDANTS>
     </NODE>
 

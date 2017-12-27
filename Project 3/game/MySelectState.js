@@ -94,7 +94,12 @@ MySelectState.prototype.display = function (){
 
 
 MySelectState.prototype.update = function (currTime){
-
+	/*
+	if(this.validTiles.length == 0){
+		let tFactor = Math.abs(Math.sin(currTime*Math.pow(10,-3)));
+		this.game.getSelectedPieceShader().setUniformsValues({timeFactor: tFactor});
+	}
+	*/
 }
 
 MySelectState.prototype.updateGame = function () {
