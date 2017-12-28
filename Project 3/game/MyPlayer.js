@@ -9,11 +9,13 @@ MyPlayer.types = [
  * @constructor
  */
 
-function MyPlayer(name) {
+function MyPlayer(name, x, z) {
 	this.name = name;
 	this.regularPieces = 10;
 	this.hengePieces = 2;
 	this.score = 0;
+	this.stackPos = [x,z];
+	this.stackHeight = 0;
 	this.typeIdx = 0;
 	this.type = MyPlayer.types[this.typeIdx];
 }
@@ -84,6 +86,16 @@ MyPlayer.prototype.toggleType = function () {
 	if(this.typeIdx >= MyPlayer.types.length)
 		this.typeIdx = 0;
 	this.type = MyPlayer.types[this.typeIdx];
+}
+
+MyPlayer.prototype.getStackPos = function () {
+	let pos = [this.stackPos[0], this.stackPos[1], this.stackHeight]; 
+	this.stackHeight += 1;
+	return pos;
+}
+
+MyPlayer.prototype.resetStack = function () {
+	this.stackHeight = 0;
 }
 
 MyPlayer.prototype.toPlString = function () {

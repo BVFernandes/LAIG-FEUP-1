@@ -11,13 +11,14 @@ function MyPiece(scene, shader, type, x, z, player) {
 	this.shader = shader;
 	this.type = type;
 	this.x = x;
+	this.y = 0.5;
 	this.z = z;
 	this.player = player;
-	this.initCoords = [x,z];
+	this.initCoords = [x,this.y,z];
 	this.destCoords = null;
 
 	if(this.type == "n")
-		this.object = new MyRegularPiece(this.scene, this.player);
+		this.object = new MyRegularPiece(this.scene, this.player.getName());
 	else
 		this.object = new MyHengePiece(this.scene);
 
@@ -52,20 +53,18 @@ MyPiece.prototype.display = function () {
 		this.scene.multMatrix(this.animation.getMatrix());
 	}
 	else
-		this.scene.translate(this.x, 0.5, this.z);
+		this.scene.translate(this.x, this.y, this.z);
 
 	// if(this.isSelected)
 	//     this.scene.setActiveShader(this.scene.nodes.selectedShader);
 	// if(this.animation != null){
 	//     this.scene.multMatrix(this.animation.getMatrix(this.timer));
 	// }
-	if(!this.cleared){
-		if(this.isSelected)
-			this.scene.setActiveShader(this.shader);
-		this.object.display();
-		if(this.isSelected)
-			this.scene.setActiveShader(this.scene.defaultShader);
-	}
+	if(this.isSelected)
+		this.scene.setActiveShader(this.shader);
+	this.object.display();
+	if(this.isSelected)
+		this.scene.setActiveShader(this.scene.defaultShader);
 	// if(this.isSelected)
 	//     this.scene.setActiveShader(this.scene.defaultShader);
 	this.scene.popMatrix();
@@ -100,6 +99,9 @@ MyPiece.prototype.update = function (currTime) {
 		}
 		else if(!this.cleared){
 			console.log("End");
+			this.x = this.destCoords[0];
+			this.z = this.destCoords[1];
+			this.y = this.destCoords[2];
 			this.animate = false;
 			this.animation = null;
 			this.cleared = true;
@@ -190,11 +192,31 @@ MyPiece.prototype.createMoveAnimation = function(coords) {
 }
 
 MyPiece.prototype.createClearAnimation = function() {
+	/*
 	let startPoint = [this.x, 0.5, this.z];
 	let endPoint = [this.x, 10, this.z];
 	let controlPoints = [startPoint, endPoint];
 	console.log(controlPoints);
 	let animation = new MyLinearAnimation(0,CLEAR_ANIMATION_SPEED,controlPoints);
+	let comboAnimation = new MyComboAnimation();
+	comboAnimation.addAnimation(animation);
+	return comboAnimation;
+	*/
+	this.destCoords = this.player.getStackPos();
+	let startPoint = [this.x, 0.5, this.z];
+	let endPoint = [this.destCoords[0], this.destCoords[2], this.destCoords[1]];
+	let meanPoint = this.meanPoint(startPoint, endPoint);
+	let controlPoints = [startPoint, [meanPoint[0], 2, meanPoint[2]], endPoint];
+	let animation = new MyLinearAnimation(0,MOVE_ANIMATION_SPEED,controlPoints);
+
+	/*
+	controlPoints = [[this.x, 0.5, this.z],
+					 [this.x, 1, this.z],
+					 [coords[0], 1, coords[1]],
+					 [coords[0], 0.5, coords[1]]];
+
+	let animation = new MyBezierAnimation(0, ANIMATION_SPEED, controlPoints);
+	 */
 	let comboAnimation = new MyComboAnimation();
 	comboAnimation.addAnimation(animation);
 	return comboAnimation;
@@ -212,8 +234,8 @@ MyPiece.prototype.setMoveAnimation = function(coords) {
 
 MyPiece.prototype.setClearAnimation = function() {
 	let coords = [0,0];
-	this.animation = this.createMoveAnimation(coords);
-	//this.animation = this.createClearAnimation();
+	//this.animation = this.createMoveAnimation(coords);
+	this.animation = this.createClearAnimation();
 	this.animationReady = 0;
 }
 
@@ -223,7 +245,8 @@ MyPiece.prototype.getPos = function () {
 
 MyPiece.prototype.resetPos = function () {
 	this.x = this.initCoords[0];
-	this.z = this.initCoords[1];
+	this.y = this.initCoords[1];
+	this.z = this.initCoords[2];
 	this.placed = false;
 	this.cleared = false;
 }

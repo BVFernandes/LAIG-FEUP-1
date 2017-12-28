@@ -185,10 +185,10 @@ MySelectState.prototype.isPieceSelectable = function (piece){
 
 	if(this.picking){
 		if(this.game.getTurn() == 1){
-			return (piece.getType() == "h" && piece.getPlayer() == currentPlayer)
+			return (piece.getType() == "h" && piece.getPlayer().getName() == currentPlayer)
 		}
 		else {
-			return (piece.getPlayer() == currentPlayer && !piece.getPlaced())
+			return (piece.getPlayer().getName() == currentPlayer && !piece.getPlaced())
 		}
 	}
 

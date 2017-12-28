@@ -60,23 +60,23 @@ MyGoRoGo.prototype.initializeBoard = function () {
 
 	for (let i = -6; i <= 6; i+=2.6) {
 		for(let j = -16; j <= -13; j+=2.6){
-			this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "n", i, j, "blackPlayer"));
+			this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "n", i, j, this.blackPlayer));
 		}
 	}
 
 
 	for(let i = -1.75; i <= 1.75; i+=2.5)
-		this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "h", i, -18.5, "blackPlayer"));
+		this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "h", i, -18.5, this.blackPlayer));
 
 
 	for (let i = -6; i <= 6; i+=2.6) {
 		for(let j = 16; j >= 13; j-=2.6){
-			this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "n", i, j, "whitePlayer"));
+			this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "n", i, j, this.whitePlayer));
 		}
 	}
 
 	for(let i = -2.5; i <= 2.5; i+= 2.5)
-		this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "h", i, 18.5, "whitePlayer"));
+		this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "h", i, 18.5, this.whitePlayer));
 
 }
 
@@ -114,8 +114,8 @@ MyGoRoGo.prototype.startGame = function () {
 }
 
 MyGoRoGo.prototype.initializePlayers = function () {
-	this.whitePlayer = new MyPlayer("whitePlayer");
-	this.blackPlayer = new MyPlayer("blackPlayer");
+	this.whitePlayer = new MyPlayer("whitePlayer", -11, -12);
+	this.blackPlayer = new MyPlayer("blackPlayer", 11, 12);
 	this.currentPlayer = this.whitePlayer;
 }
 
@@ -172,6 +172,8 @@ MyGoRoGo.prototype.nextMove = function () {
  * Resets variables used in a nodes game
  */
 MyGoRoGo.prototype.resetPieces = function () {
+	this.whitePlayer.resetStack();
+	this.blackPlayer.resetStack();
 	for(let i = 0; i < this.pieces.length; i++)
 		this.pieces[i].resetPos();
 }
@@ -311,7 +313,7 @@ MyGoRoGo.prototype.addMove = function (move) {
 
 MyGoRoGo.prototype.getPieceOfType = function (type) {
 	for(let i = 0; i < this.pieces.length; i++){
-		if(!this.pieces[i].getPlaced() && this.pieces[i].getPlayer() == this.getCurrentPlayerStr() && this.pieces[i].getType() == type){
+		if(!this.pieces[i].getPlaced() && this.pieces[i].getPlayer().getName() == this.getCurrentPlayerStr() && this.pieces[i].getType() == type){
 			this.getCurrentPlayer().decreasePieces(type);
 			return this.pieces[i];
 		}
