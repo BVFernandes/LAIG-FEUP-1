@@ -20,7 +20,13 @@ function MyAnimateMoveState(game,scene,move,replay) {
 MyAnimateMoveState.prototype = Object.create(CGFobject.prototype);
 MyAnimateMoveState.prototype.constructor = MyAnimateMoveState;
 
+MyAnimateMoveState.prototype.logPicking = function (){
+	
+}
 
+MyAnimateMoveState.prototype.getPickingIdx = function (){
+	return 1;
+}
 
 MyAnimateMoveState.prototype.display = function (){
 

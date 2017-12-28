@@ -25,6 +25,13 @@ MyAnimateClearState.prototype = Object.create(CGFobject.prototype);
 MyAnimateClearState.prototype.constructor = MyAnimateClearState;
 
 
+MyAnimateClearState.prototype.logPicking = function (){
+	
+}
+
+MyAnimateClearState.prototype.getPickingIdx = function (){
+	return 1;
+}
 
 MyAnimateClearState.prototype.display = function (){
 

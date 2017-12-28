@@ -27,6 +27,13 @@ MyReplayClearState.prototype = Object.create(CGFobject.prototype);
 MyReplayClearState.prototype.constructor = MyReplayClearState;
 
 
+MyReplayClearState.prototype.logPicking = function (){
+	
+}
+
+MyReplayClearState.prototype.getPickingIdx = function (){
+	return 1;
+}
 
 MyReplayClearState.prototype.display = function (){
 

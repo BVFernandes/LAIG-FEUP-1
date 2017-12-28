@@ -204,20 +204,75 @@ MyGoRoGo.prototype.resetHighlights = function () {
 	this.highlightedTiles = [];
 }
 
+MyGoRoGo.prototype.logPicking = function(){
+	
+	if(this.state)
+		this.state.logPicking();
+	
+	if (this.scene.pickMode == false) {
+		if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
+			for (let i=0; i< this.scene.pickResults.length; i++) {
+				let obj = this.scene.pickResults[i][0];
+				if (obj)
+				{
+					let customId = this.scene.pickResults[i][1];
+					if(obj instanceof MyTogglePlayer){
+						console.log("MyTogglePlayer");
+					}
+					
+					if(obj instanceof MyStartMovie){
+						console.log("MyStartMovie");
+						this.replayGame();
+					}
+					
+					if(obj instanceof MyStartGame){
+						console.log("MyStartGame");
+						this.startGame();
+					}
+					
+					console.log("Picked object: " + obj + ", with pick id " + customId);
+				}
+			}
+			this.scene.pickResults.splice(0,this.scene.pickResults.length);
+		}
+	}
+}
+
 
 /**
  * Displays nodes and all its elements
  */
 MyGoRoGo.prototype.display = function(){
-	if(this.state)
+	this.logPicking();
+	this.scene.clearPickRegistration();
+	
+	
+	let pickingIdx = 1;
+	
+	if(this.state){
 		this.state.display();
-
+		pickingIdx = this.state.getPickingIdx();
+	}
+	
 	this.scene.pushMatrix();
+	
 	this.marker.display();
+	
 	this.scene.translate(0,0,20);
+	
+	this.scene.registerForPick(pickingIdx, this.togglePlayerObj);
 	this.togglePlayerObj.display();
+	pickingIdx++;
+	
+	this.scene.registerForPick(pickingIdx, this.startMovieObj);
 	this.startMovieObj.display();
+	pickingIdx++;
+	
+	this.scene.registerForPick(pickingIdx, this.startGameObj);
 	this.startGameObj.display();
+	
+	this.scene.clearPickRegistration();
+	
 	this.scene.popMatrix();
 }
 

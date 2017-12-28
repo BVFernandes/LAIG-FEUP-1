@@ -8,6 +8,7 @@ function MySelectState(game,scene) {
 	this.scene = scene;
 	this.selectedPiece = null;
 	this.validTiles = [];
+	this.pickingIdx = 0;
 	this.picking = true;
 	this.timeout = false;
 
@@ -22,6 +23,10 @@ function MySelectState(game,scene) {
 MySelectState.prototype = Object.create(CGFobject.prototype);
 MySelectState.prototype.constructor = MySelectState;
 
+
+MySelectState.prototype.getPickingIdx = function (){
+	return this.pickingIdx;
+}
 
 MySelectState.prototype.logPicking = function ()
 {
@@ -63,14 +68,14 @@ MySelectState.prototype.logPicking = function ()
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
 			}
-			this.scene.pickResults.splice(0,this.scene.pickResults.length);
+			//this.scene.pickResults.splice(0,this.scene.pickResults.length);
 		}
 	}
 }
 
 MySelectState.prototype.display = function (){
 	this.logPicking();
-	this.scene.clearPickRegistration();
+	//this.scene.clearPickRegistration();
 
 	this.scene.pushMatrix();
 
@@ -94,8 +99,9 @@ MySelectState.prototype.display = function (){
 		this.scene.clearPickRegistration();
 	}
 
-
 	this.scene.popMatrix();
+	
+	this.pickingIdx = pickingIdx;
 }
 
 
