@@ -18,6 +18,7 @@ function MySelectState(game,scene) {
 		this.picking = false;
 		this.getBotPlay();
 	}
+
 }
 
 MySelectState.prototype = Object.create(CGFobject.prototype);
@@ -94,8 +95,12 @@ MySelectState.prototype.display = function (){
 		if(this.isPieceSelectable(pieces[j])){
 			this.scene.registerForPick(pickingIdx, pieces[j]);
 			pickingIdx++;
+			this.scene.setActiveShader(this.scene.selectedPieceShader);
 		}
 		pieces[j].display();
+		if(this.isPieceSelectable(pieces[j])){
+		this.scene.setActiveShader(this.scene.defaultShader);
+	}
 		this.scene.clearPickRegistration();
 	}
 

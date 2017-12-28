@@ -70,6 +70,8 @@ XMLscene.prototype.init = function(application) {
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")
 		];
 
+	this.selectedPieceShader = new CGFshader(this.gl, "shaders/MyShader2.vert", "shaders/MyShader2.frag");
+
 	this.game = new MyGoRoGo(this);
 
 	this.coloursShaders=[vec3.fromValues(0,0,1),vec3.fromValues(1,0,0), vec3.fromValues(0,1,0), vec3.fromValues(1,1,0), vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)];
