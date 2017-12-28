@@ -19,13 +19,14 @@ function MyGoRoGo(scene) {
 	this.selectedPieceShader.setUniformsValues({normScale: 1});
 	this.selectedPieceShader.setUniformsValues({timeFactor: 0});
 	this.selectedPieceShader.setUniformsValues({colour: vec3.fromValues(1,0,0)});
-	
+
 	this.myShader2 = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
 	// this.selectedShader = new CGFshader(this.scene.gl, "shaders/selected.vert", "shaders/selected.frag");
 
 	this.turn;
 	this.gameOver = false;
 	this.turnTimeout = 0;
+	this.timeout = 0;
 	this.initTime = null;
 	this.lastCurrTime = null;
 	this.delta = 0;
@@ -205,10 +206,10 @@ MyGoRoGo.prototype.resetHighlights = function () {
 }
 
 MyGoRoGo.prototype.logPicking = function(){
-	
+
 	if(this.state)
 		this.state.logPicking();
-	
+
 	if (this.scene.pickMode == false) {
 		if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
 			for (let i=0; i< this.scene.pickResults.length; i++) {
@@ -219,17 +220,17 @@ MyGoRoGo.prototype.logPicking = function(){
 					if(obj instanceof MyTogglePlayer){
 						console.log("MyTogglePlayer");
 					}
-					
+
 					if(obj instanceof MyStartMovie){
 						console.log("MyStartMovie");
 						this.replayGame();
 					}
-					
+
 					if(obj instanceof MyStartGame){
 						console.log("MyStartGame");
 						this.startGame();
 					}
-					
+
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
 			}
@@ -245,34 +246,34 @@ MyGoRoGo.prototype.logPicking = function(){
 MyGoRoGo.prototype.display = function(){
 	this.logPicking();
 	this.scene.clearPickRegistration();
-	
-	
+
+
 	let pickingIdx = 1;
-	
+
 	if(this.state){
 		this.state.display();
 		pickingIdx = this.state.getPickingIdx();
 	}
-	
+
 	this.scene.pushMatrix();
-	
+
 	this.marker.display();
-	
+
 	this.scene.translate(0,0,20);
-	
+
 	this.scene.registerForPick(pickingIdx, this.togglePlayerObj);
 	this.togglePlayerObj.display();
 	pickingIdx++;
-	
+
 	this.scene.registerForPick(pickingIdx, this.startMovieObj);
 	this.startMovieObj.display();
 	pickingIdx++;
-	
+
 	this.scene.registerForPick(pickingIdx, this.startGameObj);
 	this.startGameObj.display();
-	
+
 	this.scene.clearPickRegistration();
-	
+
 	this.scene.popMatrix();
 }
 
@@ -341,6 +342,14 @@ MyGoRoGo.prototype.setPreviousTurn = function(){
 
 MyGoRoGo.prototype.getTurnTimeout = function(){
 	return this.turnTimeout;
+}
+
+MyGoRoGo.prototype.setTimeout = function(time){
+	this.timeout = time;
+}
+
+MyGoRoGo.prototype.getTimeout = function(){
+	return this.timeout;
 }
 
 /**
@@ -507,13 +516,13 @@ MyGoRoGo.prototype.toPlString = function () {
 
 MyGoRoGo.prototype.toPlStringTypeOvl = function (newType) {
 	let previousType = this.currentPlayer.getType();
-	
+
 	this.currentPlayer.setType(newType);
-	
+
 	let encodedGame = "[" + this.board.toPlString() + "," + this.whitePlayer.toPlString() + "," + this.blackPlayer.toPlString() + "," + this.getCurrentPlayerStr()+ "]";
-	
+
 	this.currentPlayer.setType(previousType);
-	
+
 	return encodedGame;
 }
 

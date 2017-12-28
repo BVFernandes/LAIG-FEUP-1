@@ -100,7 +100,7 @@ MySelectState.prototype.display = function (){
 	}
 
 	this.scene.popMatrix();
-	
+
 	this.pickingIdx = pickingIdx;
 }
 
@@ -115,7 +115,8 @@ MySelectState.prototype.update = function (currTime){
 	if(!this.initTime)
 		this.initTime =currTime;
 
-	if((currTime-this.initTime)/1000 > this.game.getTurnTimeout()){
+	this.game.setTimeout(this.game.getTurnTimeout() - (currTime-this.initTime)/1000);
+	if(this.game.getTimeout() < 0){
 		console.log("Time's up");
 		this.picking = false;
 		this.timeout = true;
