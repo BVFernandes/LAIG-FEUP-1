@@ -38,6 +38,7 @@ MySelectState.prototype.logPicking = function ()
 							this.game.getBoard().setElementAt(obj.getBoardPos(),this.game.getCurrentPlayerStr(), this.selectedPiece.getType());
 							this.game.getCurrentPlayer().decreasePieces(this.selectedPiece.getType());
 							this.setNextState(move);
+							this.selectedPiece.setSelected(false);
 						}
 					}
 
@@ -46,9 +47,11 @@ MySelectState.prototype.logPicking = function ()
 						if(this.selectedPiece == null){
 							console.log("Selected Piece");
 							this.selectedPiece = obj;
+							this.selectedPiece.setSelected(true);
 							this.getValidTiles();
 						}
 						else if(this.selectedPiece == obj){
+							this.selectedPiece.setSelected(false);
 							this.selectedPiece = null;
 							this.validTiles = [];
 						}
@@ -94,12 +97,10 @@ MySelectState.prototype.display = function (){
 
 
 MySelectState.prototype.update = function (currTime){
-	/*
-	if(this.validTiles.length == 0){
+
 		let tFactor = Math.abs(Math.sin(currTime*Math.pow(10,-3)));
 		this.game.getSelectedPieceShader().setUniformsValues({timeFactor: tFactor});
-	}
-	*/
+
 }
 
 MySelectState.prototype.updateGame = function () {
@@ -124,7 +125,7 @@ MySelectState.prototype.getValidTiles = function () {
 	let request = "getValidPlays("+encodedGame+","+this.selectedPiece.getType()+","+this.game.getTurn()+")";
 
 	gorogo.client.makeRequest(request, function(data){
-		console.log(data.target.response);	
+		console.log(data.target.response);
 		state.setValidTiles(state.parsePlays(data.target.response));
 	});
 }

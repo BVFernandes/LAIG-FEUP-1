@@ -17,7 +17,7 @@ uniform vec3 colour;
 void main() {
 	// Branching should be reduced to a minimal.
 	// When based on a non-changing uniform, it is usually optimized.
-	/*
+
 	if (uUseTexture)
 	{
 		vec4 textureColor = texture2D(uSampler, vTextureCoord);
@@ -25,7 +25,7 @@ void main() {
 	}
 	else
 		gl_FragColor = mix(vFinalColor,vec4(colour, 1.0),timeFactor);
-	*/
-	
-	gl_FragColor = vFinalColor;
+
+
+	//gl_FragColor = vFinalColor;
 }

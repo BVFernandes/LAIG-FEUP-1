@@ -15,13 +15,14 @@ function MyGoRoGo(scene) {
 	this.startMovieObj = new MyStartMovie(scene);
 	this.startGameObj = new MyStartGame(scene);
 
-    this.selectedPieceShader = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
+  this.selectedPieceShader = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
 	this.selectedPieceShader.setUniformsValues({normScale: 1});
 	this.selectedPieceShader.setUniformsValues({timeFactor: 0});
-
+	this.selectedPieceShader.setUniformsValues({colour: vec3.fromValues(1,0,0)});
+	
 	this.myShader2 = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
 	// this.selectedShader = new CGFshader(this.scene.gl, "shaders/selected.vert", "shaders/selected.frag");
-	
+
 	this.turn;
 	this.gameOver = false;
 	this.initTime = null;
@@ -88,13 +89,13 @@ MyGoRoGo.prototype.startGame = function () {
 	if(!this.gameOver)
 		return;
 	*/
-	
+
 	this.resetPieces();
 	this.moves = [];
 	this.gameOver = false;
 	this.whitePlayer.setTypePlayer(this.scene.selectedPlayer1Type);
 	this.blackPlayer.setTypePlayer(this.scene.selectedPlayer2Type);
-	
+
 	let gorogo = this;
 	let scene = this.scene;
 	this.client.makeRequest("initGame", function(data){

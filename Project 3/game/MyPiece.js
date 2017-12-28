@@ -60,9 +60,11 @@ MyPiece.prototype.display = function () {
 	//     this.scene.multMatrix(this.animation.getMatrix(this.timer));
 	// }
 	if(!this.cleared){
-		//this.scene.setActiveShader(this.shader);
+		if(this.isSelected)
+			this.scene.setActiveShader(this.shader);
 		this.object.display();
-		//this.scene.setActiveShader(this.scene.defaultShader);
+		if(this.isSelected)
+			this.scene.setActiveShader(this.scene.defaultShader);
 	}
 	// if(this.isSelected)
 	//     this.scene.setActiveShader(this.scene.defaultShader);
@@ -171,7 +173,7 @@ MyPiece.prototype.createMoveAnimation = function(coords) {
 	let startPoint = [this.x, 0.5, this.z];
 	let endPoint = [coords[0], 0.5, coords[1]];
 	let meanPoint = this.meanPoint(startPoint, endPoint);
-	let controlPoints = [startPoint, [meanPoint[0], 2, meanPoint[2]], endPoint]; 
+	let controlPoints = [startPoint, [meanPoint[0], 2, meanPoint[2]], endPoint];
 	let animation = new MyLinearAnimation(0,MOVE_ANIMATION_SPEED,controlPoints);
 
 	/*
