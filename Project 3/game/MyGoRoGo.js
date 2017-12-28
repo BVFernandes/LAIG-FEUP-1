@@ -24,6 +24,7 @@ function MyGoRoGo(scene) {
 	
 	this.turn;
 	this.gameOver = false;
+	this.turnTimeout = 0;
 	this.initTime = null;
 	this.lastCurrTime = null;
 	this.delta = 0;
@@ -92,6 +93,7 @@ MyGoRoGo.prototype.startGame = function () {
 	this.resetPieces();
 	this.moves = [];
 	this.gameOver = false;
+	this.turnTimeout = this.scene.getTurnTimeout();
 	this.whitePlayer.setTypePlayer(this.scene.selectedPlayer1Type);
 	this.blackPlayer.setTypePlayer(this.scene.selectedPlayer2Type);
 	
@@ -279,6 +281,10 @@ MyGoRoGo.prototype.setPreviousTurn = function(){
 	this.turn--;
 }
 
+MyGoRoGo.prototype.getTurnTimeout = function(){
+	return this.turnTimeout;
+}
+
 /**
  * Given a string Row-Col, returns the tile in that position
  * @param coords
@@ -437,16 +443,20 @@ MyGoRoGo.prototype.setNextPlayer = function () {
 		this.currentPlayer = this.whitePlayer;
 }
 
-MyGoRoGo.prototype.toggleWhitePlayerType = function () {
-	this.whitePlayer.toggleType();
-}
-
-MyGoRoGo.prototype.toggleBlackPlayerType = function () {
-	this.blacktoggleType();
-}
-
 MyGoRoGo.prototype.toPlString = function () {
 	return "[" + this.board.toPlString() + "," + this.whitePlayer.toPlString() + "," + this.blackPlayer.toPlString() + "," + this.getCurrentPlayerStr()+ "]";
+}
+
+MyGoRoGo.prototype.toPlStringTypeOvl = function (newType) {
+	let previousType = this.currentPlayer.getType();
+	
+	this.currentPlayer.setType(newType);
+	
+	let encodedGame = "[" + this.board.toPlString() + "," + this.whitePlayer.toPlString() + "," + this.blackPlayer.toPlString() + "," + this.getCurrentPlayerStr()+ "]";
+	
+	this.currentPlayer.setType(previousType);
+	
+	return encodedGame;
 }
 
 MyGoRoGo.prototype.setGame = function (encodedGame) {
