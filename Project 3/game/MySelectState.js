@@ -113,9 +113,11 @@ MySelectState.prototype.update = function (currTime){
 		console.log("Time's up");
 		this.picking = false;
 		this.timeout = true;
+		if(this.selectedPiece != null)
+			this.selectedPiece.setSelected(false);
 		this.getBotPlay();
 	}
-	
+
 }
 
 MySelectState.prototype.getValidTiles = function () {
