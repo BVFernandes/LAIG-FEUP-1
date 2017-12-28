@@ -83,6 +83,10 @@ XMLscene.prototype.updateTurnTimeout=function(v) {
 	this.turnTimeout = v;
 }
 
+XMLscene.prototype.getTurnTimeout=function(v) {
+	return this.turnTimeout;
+}
+
 XMLscene.prototype.zoomIn=function() {
 	this.camera.zoom(1);
 }

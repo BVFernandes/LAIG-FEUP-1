@@ -9,6 +9,9 @@ function MySelectState(game,scene) {
 	this.selectedPiece = null;
 	this.validTiles = [];
 	this.picking = true;
+	this.timeout = false;
+
+	this.initTime = null;
 
 	if(this.game.getCurrentPlayer().isBot()){
 		this.picking = false;
@@ -97,23 +100,22 @@ MySelectState.prototype.display = function (){
 
 
 MySelectState.prototype.update = function (currTime){
+	let tFactor = Math.abs(Math.sin(currTime*Math.pow(10,-3)));
+	this.game.getSelectedPieceShader().setUniformsValues({timeFactor: tFactor});
 
-		let tFactor = Math.abs(Math.sin(currTime*Math.pow(10,-3)));
-		this.game.getSelectedPieceShader().setUniformsValues({timeFactor: tFactor});
+	if(this.game.getTurnTimeout() == 0 || this.timeout)
+		return;
 
-}
+	if(!this.initTime)
+		this.initTime =currTime;
 
-MySelectState.prototype.updateGame = function () {
-
-	let gorogo = this.game;
-
-	let encodedGame = gorogo.toPlString();
-	let request = "updateGame("+encodedGame+")";
-
-
-	gorogo.client.makeRequest(request, function(data){
-		console.log(data.target.response);
-	});
+	if((currTime-this.initTime)/1000 > this.game.getTurnTimeout()){
+		console.log("Time's up");
+		this.picking = false;
+		this.timeout = true;
+		this.getBotPlay();
+	}
+	
 }
 
 MySelectState.prototype.getValidTiles = function () {
@@ -135,7 +137,11 @@ MySelectState.prototype.getBotPlay = function () {
 	let state = this;
 	let gorogo = this.game;
 
-	let encodedGame = gorogo.toPlString();
+	let encodedGame;
+	if(this.timeout)
+		encodedGame = gorogo.toPlStringTypeOvl("easyBot");				//Same as a random play
+	else
+		encodedGame = gorogo.toPlString();
 
 	let request = "getPlay("+encodedGame+","+this.game.getTurn()+")";
 

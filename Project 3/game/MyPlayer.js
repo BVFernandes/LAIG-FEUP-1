@@ -57,6 +57,15 @@ MyPlayer.prototype.isBot = function () {
 	return (this.type == "easyBot" || this.type == "hardBot");
 }
 
+
+/**
+ * Gets type value
+ * @param type
+ */
+MyPlayer.prototype.getType = function () {
+	return this.type;
+}
+
 /**
  * Sets type value
  * @param type
