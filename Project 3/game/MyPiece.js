@@ -1,4 +1,4 @@
-var MOVE_ANIMATION_SPEED = 20;
+var MOVE_ANIMATION_SPEED = 10;
 var CLEAR_ANIMATION_SPEED = 2;
 
 /**
@@ -138,11 +138,20 @@ MyPiece.prototype.meanPoint = function(point1, point2){
 }
 
 MyPiece.prototype.createMoveAnimation = function(coords) {
+	
+	controlPoints = [[this.x, 0.5, this.z],
+					 [this.x, 4, this.z],
+					 [coords[0], 2, coords[1]],
+					 [coords[0], 0.5, coords[1]]];
+
+	let animation = new MyBezierSelfRotAnimation(0, MOVE_ANIMATION_SPEED, controlPoints, 360);
+	/*
 	let startPoint = [this.x, 0.5, this.z];
 	let endPoint = [coords[0], 0.5, coords[1]];
 	let meanPoint = this.meanPoint(startPoint, endPoint);
 	let controlPoints = [startPoint, [meanPoint[0], 2, meanPoint[2]], endPoint];
 	let animation = new MyLinearAnimation(0,MOVE_ANIMATION_SPEED,controlPoints);
+	*/
 
 	let comboAnimation = new MyComboAnimation();
 	comboAnimation.addAnimation(animation);
