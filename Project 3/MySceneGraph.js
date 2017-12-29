@@ -1202,8 +1202,8 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
 			var type = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo']);
 
-				if (type == null)
-					this.onXMLMinorError("Error in animation type");
+			if (type == null)
+				this.onXMLMinorError("Error in animation type");
 
 			let speed = null;
 			if(type != 'combo'){

@@ -15,13 +15,13 @@ function MyMove(game,piece,src,dst) {
 MyMove.prototype = Object.create(CGFobject.prototype);
 MyMove.prototype.constructor = MyMove;
 
- MyMove.prototype.resetPieces = function() {
+MyMove.prototype.resetPieces = function() {
 	this.piece.resetPos();
 	for(let i = 0; i < this.surroundedPieces.length; i++)
 		this.surroundedPieces[i].setCleared(false);
 }
 
- MyMove.prototype.addSurroundedPieces = function(pieces) {
+MyMove.prototype.addSurroundedPieces = function(pieces) {
 	for(let i = 0; i < pieces.length; i++)
 		this.surroundedPieces.push(pieces[i]);
 }
@@ -53,7 +53,7 @@ MyMove.prototype.getPiece = function () {
 	return this.piece;
 }
 
- MyMove.prototype.getSurroundedPieces = function() {
+MyMove.prototype.getSurroundedPieces = function() {
 	return this.surroundedPieces;
 }
 

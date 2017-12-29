@@ -90,7 +90,7 @@ MyGoRoGo.prototype.startGame = function () {
 	/*
 	if(!this.gameOver)
 		return;
-	*/
+	 */
 
 	this.resetPieces();
 	this.moves = [];
@@ -143,12 +143,12 @@ MyGoRoGo.prototype.logPicking = function(){
 					if(obj instanceof MyTogglePlayer){
 						console.log("MyTogglePlayer");
 						if(obj.player == this.whitePlayer){
-								this.whitePlayer.toggleType();
-								this.scene.selectedPlayer1Type = this.whitePlayer.getTypeIdx();
-							} else {
-								this.blackPlayer.toggleType();
-								this.scene.selectedPlayer2Type = this.blackPlayer.getTypeIdx();
-							}
+							this.whitePlayer.toggleType();
+							this.scene.selectedPlayer1Type = this.whitePlayer.getTypeIdx();
+						} else {
+							this.blackPlayer.toggleType();
+							this.scene.selectedPlayer2Type = this.blackPlayer.getTypeIdx();
+						}
 					}
 
 					if(obj instanceof MyStartMovie){

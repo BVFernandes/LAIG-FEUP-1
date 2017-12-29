@@ -19,11 +19,11 @@ setBoardCell(Game, X, Y, BoardCell, GameRes):-
 	replacePiece(Board,X, Y, BoardCell, BoardRes),
 	setBoard(Game, BoardRes, GameRes).
 
-	
+
 %GET_SET_PLAYERS
 getNextPlayer(Current, Next):-
 	ite(Current == whitePlayer, Next = blackPlayer, Next = whitePlayer).
-	
+
 getOpponent(Game,Opponent):-
 	getCurrentPlayer(Game,Player),
 	getNextPlayer(Player,Opponent).
@@ -33,13 +33,13 @@ getCurrentPlayer(Game,CurPlayer):-
 
 setCurrentPlayer(Game, CurPlayer, GameRes):-
 	replaceAtIndex(Game, 4, CurPlayer, GameRes).
-	
+
 setNextPlayer(Game, GameRes):-
 	getCurrentPlayer(Game,Current),
 	getNextPlayer(Current,Next),
 	setCurrentPlayer(Game,Next,GameRes).
-	
-	
+
+
 %GET_SET_WHITE_INFO
 getWhiteInfo(Game, WhiteInfo):-
 	selectAtIndex(Game, 2, WhiteInfo).
@@ -47,7 +47,7 @@ getWhiteInfo(Game, WhiteInfo):-
 setWhiteInfo(Game, WhiteInfo, GameRes):-
 	replaceAtIndex(Game, 2, WhiteInfo, GameRes).
 
-	
+
 %GET_SET_BLACK_INFO
 getBlackInfo(Game, BlackInfo):-
 	selectAtIndex(Game, 3, BlackInfo).
@@ -62,25 +62,25 @@ getRegPieces(Info, RegPieces):-
 
 getHengePieces(Info, HengePieces):-
 	selectAtIndex(Info, 2, HengePieces).
-	
+
 getScore(Info, Score):-
 	selectAtIndex(Info, 3, Score).
-	
+
 getPlayerType(Info, PlayerType):-
 	selectAtIndex(Info, 4, PlayerType).
-	
+
 setRegPieces(Info, NewPieces, NewInfo):-
 	replaceAtIndex(Info, 1, NewPieces, NewInfo).
 
 setHengePieces(Info, NewPieces, NewInfo):-
 	replaceAtIndex(Info, 2, NewPieces, NewInfo).
-	
+
 setScore(Info, NewScore, NewInfo):-
 	replaceAtIndex(Info, 3, NewScore, NewInfo).
-	
+
 setPlayerType(Info, NewPlayerType, NewInfo):-
 	replaceAtIndex(Info, 4, NewPlayerType, NewInfo).
-	
+
 
 %DECREASE_INCREASE_PIECES	
 decRegPieces(Info, NewInfo):-
@@ -97,7 +97,7 @@ incScore(Info, NewInfo):-
 	getScore(Info, Old),
 	New is Old+1,
 	setScore(Info, New, NewInfo).
-	
+
 
 %SET_GAME_PLAYER_TYPE
 setGamePlayerType(Game,Player,NewPlayerType,GameRes):-
@@ -107,10 +107,10 @@ setGamePlayerType(Game,Player,NewPlayerType,GameRes):-
 
 getPlayerInfo(Game,Player,Info):-
 	ite(Player == whitePlayer, getWhiteInfo(Game,Info), getBlackInfo(Game,Info)).
-	
+
 setPlayerInfo(Game,Player,Info,GameRes):-
 	ite(Player == whitePlayer, setWhiteInfo(Game,Info,GameRes), setBlackInfo(Game,Info,GameRes)).
-	
+
 
 %WHITE_INTERFACE
 decWhiteRegPieces(Game, GameRes):-
@@ -122,15 +122,15 @@ decWhiteHengePieces(Game, GameRes):-
 	getWhiteInfo(Game,Info),
 	decHengePieces(Info, NewInfo),
 	setWhiteInfo(Game, NewInfo, GameRes).
-	
-	
+
+
 
 %BLACK_INTERFACE	
 decBlackRegPieces(Game, GameRes):-
 	getBlackInfo(Game,Info),
 	decRegPieces(Info, NewInfo),
 	setBlackInfo(Game, NewInfo, GameRes).
-	
+
 
 decBlackHengePieces(Game, GameRes):-
 	getBlackInfo(Game,Info),

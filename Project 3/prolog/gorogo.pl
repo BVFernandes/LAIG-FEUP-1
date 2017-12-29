@@ -15,7 +15,7 @@ player(hardBot).
 
 playType(n).
 playType(h).
- 	
+
 playerPiece(blackPlayer,1).
 playerPiece(whitePlayer,2).
 
@@ -33,11 +33,11 @@ surrounded(State,X,Y,_,Opponent,Henge):-
 	selectPos(State,X,Y,Elem),
 	playerPiece(Opponent,OpponentPiece),
 	compPiece(Elem,OpponentPiece,Henge).
-	
+
 surrounded(State,X,Y,_,_,_):-
 	selectPos(State,X,Y,Elem),
 	Elem == 0, !, fail.
-	
+
 surrounded(State,X,Y,Player,Opponent,Henge):-
 	replacePiece(State,X,Y,-1,TmpState),
 	LeftX is X-1,
@@ -48,7 +48,7 @@ surrounded(State,X,Y,Player,Opponent,Henge):-
 	surrounded(TmpState,RightX,Y,Player,Opponent,Henge), !,
 	surrounded(TmpState,X,DownY,Player,Opponent,Henge), !,
 	surrounded(TmpState,X,UpY,Player,Opponent,Henge), !.
-	
+
 isSurroundedOpponent(Game,Point,Henge):-
 	getBoard(Game,Board),
 	getCurrentPlayer(Game,Player),
@@ -59,7 +59,7 @@ isSurroundedOpponent(Game,Point,Henge):-
 	playerPiece(Opponent,OpponentPiece),
 	Elem == OpponentPiece,
 	surrounded(Board,X,Y,Opponent,Player,Henge).
-	
+
 isSurroundedPlayer(Game,Point,Henge):-
 	getBoard(Game,Board),
 	getCurrentPlayer(Game,Player),
@@ -70,7 +70,7 @@ isSurroundedPlayer(Game,Point,Henge):-
 	playerPiece(Player,PlayerPiece),
 	Elem == PlayerPiece,
 	surrounded(Board,X,Y,Player,Opponent,Henge).
-	
+
 
 %----------------VALID_PLAY---------------
 
@@ -79,7 +79,7 @@ checkInBoard(Play):-
 	getPlayYCoord(Play,Y),
 	X > 0, X < 6,
 	Y > 0, Y < 6.
-	
+
 checkEmptyCell(Game,Play):-
 	getPlayXCoord(Play,X),
 	getPlayYCoord(Play,Y),
@@ -91,26 +91,26 @@ checkRegPieceStock(Game):-
 	getPlayerInfo(Game,Player,Info),
 	getRegPieces(Info,Pieces),
 	Pieces > 0.
-	
+
 checkHengePieceStock(Game):-
 	getCurrentPlayer(Game,Player),
 	getPlayerInfo(Game,Player,Info),
 	getHengePieces(Info,Pieces),
 	Pieces > 0.
-	
+
 checkPieceStock(Game,Play):-
 	getPlayType(Play,Type),
 	ite(Type == 'h',
-		checkHengePieceStock(Game),
-		
-		checkRegPieceStock(Game)
-	
-	).
+	    checkHengePieceStock(Game),
+
+	    checkRegPieceStock(Game)
+
+	   ).
 
 checkPosSurroundedWithoutHenges(Game,Play):-
 	getPlayPoint(Play,Point),
 	isSurroundedPlayer(Game,Point,f).
-	
+
 checkSameScoreAfterPlay(Game):-
 	getCurrentPlayer(Game,Player),
 	getPlayerInfo(Game,Player,PreviousInfo),
@@ -119,7 +119,7 @@ checkSameScoreAfterPlay(Game):-
 	getPlayerInfo(GameRes,Player,FutureInfo),
 	getScore(FutureInfo,FutureScore),
 	PreviousScore == FutureScore.
-	
+
 checkInvalidPosRequirements(Game,Play):-
 	checkPosSurroundedWithoutHenges(Game,Play),
 	checkSameScoreAfterPlay(Game).
@@ -127,20 +127,20 @@ checkInvalidPosRequirements(Game,Play):-
 checkValidPos(Game,Play):-
 	getPlayType(Play,Type),
 	ite(Type == 'h',	
-		true,
-		
-		(	
-			applyPlay(Game,Play,GameRes),
-			ite(checkInvalidPosRequirements(GameRes,Play),fail,true)
-		)
-	).
-	
-	
+	    true,
+
+	    (	
+	       applyPlay(Game,Play,GameRes),
+	       ite(checkInvalidPosRequirements(GameRes,Play),fail,true)
+	    )
+	   ).
+
+
 checkValidType(Play,Turn):-
 	getPlayType(Play,Type),
 	Turn > 1,
 	Type = 'n'.
-	
+
 checkValidType(Play,_):-
 	getPlayType(Play,Type),
 	Type = 'h'.
@@ -155,16 +155,16 @@ validPlay(Game,Play,Turn):-
 getValidPlays(Game,Type,Turn,Plays):-
 	createPlay(_A,_B,Type,Play),
 	findall(Play, validPlay(Game,Play,Turn),Plays).
-	
-	
+
+
 %--------------PLAYS----------------
 
 getUserPlay(Game,Play,Turn):-
 	repeat,
-		readPlay(Play),
-		validPlay(Game,Play,Turn).
+	readPlay(Play),
+	validPlay(Game,Play,Turn).
 
-	
+
 
 getPlay(Game,Play,Turn):-
 	getCurrentPlayer(Game,Player),
@@ -173,16 +173,16 @@ getPlay(Game,Play,Turn):-
 	ite(PlayerType == human, getUserPlay(Game,Play,Turn), true),
 	ite(PlayerType == easyBot, getEasyBotPlay(Game,Play,Turn), true),
 	ite(PlayerType == hardBot, getHardBotPlay(Game,Play,Turn), true).
-	
+
 applyPlay(Game,Play,GameRes):-
 	getPlayXCoord(Play,X),
 	getPlayYCoord(Play,Y),
 	getPlayPiece(Game,Play,Piece,GameTmp),
 	setBoardCell(GameTmp,X,Y,Piece,GameRes).
-	
-	
-	
-	
+
+
+
+
 %-------------END_OF_GAME--------------
 
 checkInvalidMovesLeft(Game,Winner):-
@@ -191,11 +191,11 @@ checkInvalidMovesLeft(Game,Winner):-
 	getRegPieces(Info,RegPieces),
 	getHengePieces(Info,HengePieces),
 	ite((RegPieces == 0,HengePieces > 0),
-		getNextPlayer(Player,Winner),
-		
-		fail
-	).
-	
+	    getNextPlayer(Player,Winner),
+
+	    fail
+	   ).
+
 
 checkPiecesLeft(Game,Winner):-
 	getPlayerInfo(Game,whitePlayer,WhiteInfo),
@@ -207,18 +207,18 @@ checkPiecesLeft(Game,Winner):-
 	getHengePieces(WhiteInfo,WHengePieces),
 	getScore(WhiteInfo,WScore),
 	ite(
-		(BRegPieces == 0, BHengePieces == 0, WRegPieces == 0, WHengePieces == 0),
-		
-			ite(WScore >= BScore, Winner = whitePlayer, Winner = blackPlayer),
-			
-			fail
-	).
-	
+	      (BRegPieces == 0, BHengePieces == 0, WRegPieces == 0, WHengePieces == 0),
+
+	      ite(WScore >= BScore, Winner = whitePlayer, Winner = blackPlayer),
+
+	      fail
+	   ).
+
 
 endOfGame(Game,Winner):-
 	checkInvalidMovesLeft(Game,Winner).
 
-	
+
 endOfGame(Game,Winner):-
 	checkPiecesLeft(Game,Winner).
 
@@ -238,30 +238,30 @@ clearBoard(Game, [Point|T], GameRes):-
 	incScore(Info,InfoRes),
 	setPlayerInfo(GameTmp1,Player,InfoRes,GameTmp2),
 	clearBoard(GameTmp2,T,GameRes).
-	
-	
+
+
 updateGame(Game,GameRes):-
 	findall(Point, isSurroundedOpponent(Game,Point,t), Points),
 	clearBoard(Game,Points,GameRes).
-	
+
 updateGameWithPoints(Game,GameRes):-
 	findall(Point, isSurroundedOpponent(Game,Point,t), Points),
 	clearBoard(Game,Points,GameTmp),
 	append(GameTmp,['!'],GameTmp2),
 	append(GameTmp2,Points,GameRes).
-	
-	
+
+
 waitForBot(Game):-
 	getCurrentPlayer(Game,Player),
 	getPlayerInfo(Game,Player,Info),
 	getPlayerType(Info,PlayerType),
 	ite((PlayerType == easyBot ; PlayerType == hardBot),(write('  Press Enter to continue'),nl,waitForEnter),true).
-	
+
 updateGameCycle(Game,GameRes):-
 	updateGame(Game,GameTmp1),
 	setNextPlayer(GameTmp1,GameTmp2),
 	updateGame(GameTmp2,GameRes).
-	
+
 play(Game):-
 	playCycle(Game,Winner,1),
 	printWinner(Winner), !,
@@ -271,7 +271,7 @@ play(Game):-
 playCycle(Game,Winner,_):-
 	endOfGame(Game,Winner),
 	printGame(Game).
-	
+
 playCycle(Game,Winner,Turn):-
 	printGame(Game),
 	waitForBot(Game),

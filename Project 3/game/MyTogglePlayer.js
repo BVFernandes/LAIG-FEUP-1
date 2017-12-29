@@ -37,16 +37,16 @@ MyTogglePlayer.prototype.display = function () {
 
 	this.scene.pushMatrix();
 	switch (this.player.getTypeIdx()) {
-		case 0:
+	case 0:
 		this.blackMaterial.apply();
 		break;
-		case 1:
+	case 1:
 		this.greenMaterial.apply();
 		break;
-		case 2:
+	case 2:
 		this.redMaterial.apply();
 		break;
-		default:
+	default:
 		break;
 	}
 	this.scene.translate(0,5,0);

@@ -98,8 +98,8 @@ MySelectState.prototype.display = function (){
 		}
 		pieces[j].display();
 		if(this.isPieceSelectable(pieces[j])){
-		this.scene.setActiveShader(this.scene.defaultShader);
-	}
+			this.scene.setActiveShader(this.scene.defaultShader);
+		}
 		this.scene.clearPickRegistration();
 	}
 

@@ -140,14 +140,14 @@ MyInfoMarker.prototype.updateTime = function(time) {
 	this.times[0].hours=(timeM - this.times[0].minutes)/60;
 
 	if(this.game.getTimeout() > 0){
-	timeS = Math.trunc(this.game.getTimeout());
-	this.times[1].seconds = timeS % 60;
+		timeS = Math.trunc(this.game.getTimeout());
+		this.times[1].seconds = timeS % 60;
 
-	timeM = (timeS - this.times[1].seconds)/60;
-	this.times[1].minutes = timeM % 60;
+		timeM = (timeS - this.times[1].seconds)/60;
+		this.times[1].minutes = timeM % 60;
 
-	this.times[1].hours=(timeM - this.times[1].minutes)/60;
-}
+		this.times[1].hours=(timeM - this.times[1].minutes)/60;
+	}
 }
 
 MyInfoMarker.prototype.applyNumber = function(n,timeIdx){

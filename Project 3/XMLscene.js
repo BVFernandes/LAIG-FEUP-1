@@ -107,8 +107,8 @@ XMLscene.prototype.updateCamera=function(currTime){
 	let direction = 1;
 
 	if(Math.abs(delta) > 1) {
-			if(delta < 0)
-		 		direction = -1;
+		if(delta < 0)
+			direction = -1;
 		this.deltaCam += direction*10;
 		this.camera.orbit("y", direction*10*DEGREE_TO_RAD);
 	} else {
@@ -130,7 +130,7 @@ XMLscene.prototype.initLights = function() {
 	// Lights index.
 
 	this.lightValues = {};
-  let lights = this.graphs[this.graphIdx].lights;
+	let lights = this.graphs[this.graphIdx].lights;
 	for (let key in lights) {
 		if (lights.hasOwnProperty(key)) {
 			this.lightValues[key] = lights[key][0];
@@ -294,7 +294,7 @@ XMLscene.prototype.update = function(currTime) {
 
 	this.updateTimeFactor(currTime);
 	this.updateCamera(currTime);
-	
+
 	if(this.game)
 		this.game.update(currTime);
 };

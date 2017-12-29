@@ -72,6 +72,6 @@ MyBoard.prototype.setElementAt = function (pos, player, type) {
 		symbol = 3;
 	else
 		symbol = MyBoard.toSymbol[player];
-		
+
 	this.board[pos[0]-1][pos[1]-1] = symbol;
 }

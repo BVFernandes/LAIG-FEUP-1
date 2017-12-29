@@ -36,7 +36,7 @@ MyInterface.prototype.init = function(application) {
  */
 MyInterface.prototype.addLightsGroup = function() {
 	if(this.changeScene && this.firstTime != 0){
-	 	this.visualSettingsGroup.removeFolder("Lights");
+		this.visualSettingsGroup.removeFolder("Lights");
 	}
 
 	this.lightFolder = this.visualSettingsGroup.addFolder("Lights");
@@ -201,12 +201,12 @@ MyInterface.prototype.processKeyboard = function(event) {
 
 	case (43):
 		console.log("Key '+' pressed");
-		this.scene.zoomIn();
+	this.scene.zoomIn();
 	break;
 
 	case (45):
 		console.log("Key '-' pressed");
-		this.scene.zoomOut();
+	this.scene.zoomOut();
 	break;
 
 
@@ -214,12 +214,12 @@ MyInterface.prototype.processKeyboard = function(event) {
 };
 
 dat.GUI.prototype.removeFolder = function(name) {
-  var folder = this.__folders[name];
-  if (!folder) {
-    return;
-  }
-  folder.close();
-  this.__ul.removeChild(folder.domElement.parentNode);
-  delete this.__folders[name];
-  this.onResize();
+	var folder = this.__folders[name];
+	if (!folder) {
+		return;
+	}
+	folder.close();
+	this.__ul.removeChild(folder.domElement.parentNode);
+	delete this.__folders[name];
+	this.onResize();
 }

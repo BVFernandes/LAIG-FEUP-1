@@ -26,7 +26,7 @@ mainMenu:-
 	write(Option),nl,
 	integer(Option), Option >= 0, Option < 4, !,
 	processOption(Option).
-	
+
 mainMenu:-
 	clearScreen,
 	write('Error: invalid input.'), nl,
@@ -39,7 +39,7 @@ processOption(Option):-
 	ite(Option == 3, aboutMenu, true), !, nl,
 	waitForEnter.
 
-		
+
 playMenu(Game):-
 	clearScreen,
 	write('********************************'),nl,
@@ -68,14 +68,14 @@ playMenu(Game):-
 	ite(Option == 2, playerConfigMenu(Game,whitePlayer), true), !,
 	ite(Option == 3, playerConfigMenu(Game, blackPlayer), true), !,
 	ite(Option == 0, gorogo, true), !.
-	
-	
+
+
 playMenu(Game):-
 	clearScreen,
 	write('Error: invalid input.'), nl,
 	playMenu(Game).
-	
-	
+
+
 playerConfigMenu(Game,Player):-
 	nl,nl,
 	write(' Select new player type: '),nl,
@@ -84,12 +84,12 @@ playerConfigMenu(Game,Player):-
 	write('    3- Hard Bot'),nl,
 	write(' Option:            '),nl,
 	repeat,
-		readOption(Option),
-		integer(Option), Option > 0, Option < 4, !,
-		ite(Option == 1, (setGamePlayerType(Game,Player,human,GameRes), playMenu(GameRes)), true), !,
-		ite(Option == 2, (setGamePlayerType(Game,Player,easyBot,GameRes), playMenu(GameRes)), true), !,
-		ite(Option == 3, (setGamePlayerType(Game,Player,hardBot,GameRes), playMenu(GameRes)), true), !.
-	
+	readOption(Option),
+	integer(Option), Option > 0, Option < 4, !,
+	ite(Option == 1, (setGamePlayerType(Game,Player,human,GameRes), playMenu(GameRes)), true), !,
+	ite(Option == 2, (setGamePlayerType(Game,Player,easyBot,GameRes), playMenu(GameRes)), true), !,
+	ite(Option == 3, (setGamePlayerType(Game,Player,hardBot,GameRes), playMenu(GameRes)), true), !.
+
 
 playMenu:-
 	clearScreen,

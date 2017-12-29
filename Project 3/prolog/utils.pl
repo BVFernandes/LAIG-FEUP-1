@@ -24,20 +24,20 @@ selectPos(State,X,Y,Elem):-
 
 %REPLACE_AT_INDEX
 replaceAtIndex(Src, Index, NewVal, Res) :-
-   replaceAtIndex0(Src, 1, Index, NewVal, Res).
+   	replaceAtIndex0(Src, 1, Index, NewVal, Res).
 
 replaceAtIndex0([_|Es], I , I, X, [X|Es]).
 replaceAtIndex0([E|Es], I0, I, X, [E|Xs]) :-
-   I1 is I0+1,
-   replaceAtIndex0(Es, I1,I, X, Xs).
-   
+   	I1 is I0+1,
+   	replaceAtIndex0(Es, I1,I, X, Xs).
+
 %REPLACE_PIECE ON BOARD
 replacePiece(State,X,Y,NewElem,Res):-
 	replacePiece_index_column(State,X,1,Y,NewElem,Res).
-	
+
 replacePiece_index_column([H|Es],X,Y,Y,NewElem,[NewRow|Es]):- 
 	replaceAtIndex(H, X, NewElem, NewRow).
-	
+
 replacePiece_index_column([E|Es], X, Y0, Y, NewElem, [E|Xs]):-
 	Y1 is Y0+1,
 	replacePiece_index_column(Es,X,Y1,Y,NewElem, Xs).
@@ -66,16 +66,16 @@ readPlayCoords(X,Y):-
 	selectAtIndex(String,3,YCode),
 	codeToNumber(XCode,X),
 	codeToNumber(YCode,Y).
-	
+
 readPlayCoords(_,_):-
 	write('Invalid input'), nl, nl, fail.
-	
+
 %READ_PLAY_PIECE_TYPE
 readPlayPieceType(Type):-
 	readString(String),
 	selectAtIndex(String,1,TypeCode),
 	char_code(Type,TypeCode).
-	
+
 %READ_MENU_OPTION
 readOption(Option):-
 	readString(String),
@@ -85,17 +85,17 @@ readOption(Option):-
 %READ_PLAY	
 readInput(X,Y,Type):- 
 	repeat,
-		write('Coords (X-Y): '), 
-		readPlayCoords(X,Y),
-		write('Type (n or h): '),
-		readPlayPieceType(Type).
-		
+	write('Coords (X-Y): '), 
+	readPlayCoords(X,Y),
+	write('Type (n or h): '),
+	readPlayPieceType(Type).
+
 
 readPlay(Play):-
 	repeat,
-		readInput(X,Y,Type),
-		createPlay(X,Y,Type,Play).
-		
+	readInput(X,Y,Type),
+	createPlay(X,Y,Type,Play).
+
 
 %PRINT_BOARD
 p_u:- write('  ___ ___ ___ ___ ___ '), nl.
@@ -127,33 +127,33 @@ printPlayersInfo(Game):-
 	getBlackInfo(Game,BlackInfo),
 	getCurrentPlayer(Game,Player),
 	ite(Player == whitePlayer, 
-		(CurrWhite = 'true', CurrBlack = 'false'), 
-		( CurrWhite = 'false', CurrBlack = 'true')),
+	    (CurrWhite = 'true', CurrBlack = 'false'), 
+	    ( CurrWhite = 'false', CurrBlack = 'true')),
 	printPlayerInfo("WHITE",WhiteInfo,CurrWhite), nl,
 	printPlayerInfo("BLACK",BlackInfo,CurrBlack), nl.
-	
-	
+
+
 %PRINT_WINNER
 printWinner(Player):-
 	ite(Player == whitePlayer, Winner = "WHITE", Winner = "BLACK"),
 	format('CONGRATULATIONS: ~s WON',[Winner]).
-	
+
 %PRINT_GAME
 printGame(Game):-
 	getBoard(Game,Board),
 	clearScreen,
 	printBoard(Board), nl,
 	printPlayersInfo(Game), nl.
-	
+
 %WAIT_FOR_ENTER	
 waitForEnter:-
 	readString(_).
-	
+
 %PRINT_PLAYER_TYPE
 printPlayerType(human):- write(' HUMAN  ').
 printPlayerType(easyBot):- write('BOT EASY').
 printPlayerType(hardBot):- write('BOT HARD').
-	
+
 printPlayersType(Game):-
 	getPlayerInfo(Game,whitePlayer,WhiteInfo),
 	getPlayerType(WhiteInfo,WhitePlayer),
