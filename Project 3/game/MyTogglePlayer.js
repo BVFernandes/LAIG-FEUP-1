@@ -1,3 +1,7 @@
+/**
+ * MyTogglePlayer
+ * @constructor
+ */
 function MyTogglePlayer(scene, player){
 	CGFobject.call(this,scene);
 
@@ -7,21 +11,20 @@ function MyTogglePlayer(scene, player){
 	this.redMaterial = new CGFappearance(this.scene);
 	this.redMaterial.setAmbient(1,0,0,1);
 	this.redMaterial.setDiffuse(1,0,0,1);
-	this.redMaterial.setSpecular(1,0,0,0.5);
+	this.redMaterial.setSpecular(0.5,0,0,0.5);
 	this.redMaterial.setShininess(255);
 
 	this.greenMaterial = new CGFappearance(this.scene);
 	this.greenMaterial.setAmbient(0,1,0,1);
 	this.greenMaterial.setDiffuse(0,1,0,1);
-	this.greenMaterial.setSpecular(0,1,0,1);
+	this.greenMaterial.setSpecular(0,0.5,0,1);
 	this.greenMaterial.setShininess(255);
 
 	this.blackMaterial = new CGFappearance(this.scene);
 	this.blackMaterial.setAmbient(0,0,0,1);
 	this.blackMaterial.setDiffuse(0,0,0,1);
-	this.blackMaterial.setSpecular(1,1,1,1);
+	this.blackMaterial.setSpecular(0.5,0.5,0.5,1);
 	this.blackMaterial.setShininess(255);
-
 
 	this.rect = new MyRectangle(scene,[-0.5,0.5], [0.5,-0.5]);
 	this.sphere = new MySphere(scene, 1, 20, 20);

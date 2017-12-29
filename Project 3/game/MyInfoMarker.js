@@ -27,7 +27,7 @@ function MyInfoMarker(scene,game){
 }
 
 MyInfoMarker.prototype = Object.create(CGFobject.prototype);
-MyInfoMarker.prototype.constructor=MyInfoMarker;
+MyInfoMarker.prototype.constructor = MyInfoMarker;
 
 MyInfoMarker.prototype.display = function () {
 
@@ -36,7 +36,7 @@ MyInfoMarker.prototype.display = function () {
 	this.scene.rotate(Math.PI,-1,0,0);
 	this.scene.rotate(Math.PI/2,0,-1,0);
 
-	this.scene.pushMatrix(); //time
+	this.scene.pushMatrix(); //timeout
 	this.scene.translate(0,12,0);
 	this.displayClock(1);
 	this.scene.popMatrix();
@@ -46,15 +46,14 @@ MyInfoMarker.prototype.display = function () {
 	this.displayClock(0);
 	this.scene.popMatrix();
 
-	this.scene.pushMatrix(); //p1 score
+	this.scene.pushMatrix(); //p2 score
 	this.displayScore(this.game.blackPlayer);
 	this.scene.popMatrix();
 
-	this.scene.pushMatrix(); //p2 score
+	this.scene.pushMatrix(); //p1 score
 	this.scene.translate(0,-6,0);
 	this.displayScore(this.game.whitePlayer);
 	this.scene.popMatrix();
-
 
 	this.scene.popMatrix();
 }
@@ -110,7 +109,7 @@ MyInfoMarker.prototype.displayScore = function(player){
 	// ------------------ player number (on z+) ------------------
 	this.scene.pushMatrix();
 	this.scene.scale(.5,.5,1);
-	this.scene.translate(-6.0,0,3.01);
+	this.scene.translate(-5.5,0,2.8);
 	this.scene.rotate(Math.PI,0,1,0);
 	if(player.getName() == 'whitePlayer')
 		number = 0;
@@ -158,23 +157,18 @@ MyInfoMarker.prototype.applyNumber = function(n,timeIdx){
 	case 0:
 		number = Math.trunc(this.times[timeIdx].hours / 10);
 		break;
-
 	case 1:
 		number = this.times[timeIdx].hours % 10;
 		break;
-
 	case 2:
 		number = Math.trunc(this.times[timeIdx].minutes / 10);
 		break;
-
 	case 3:
 		number = this.times[timeIdx].minutes % 10;
 		break;
-
 	case 4:
 		number = Math.trunc(this.times[timeIdx].seconds / 10);
 		break;
-
 	case 5:
 		number = this.times[timeIdx].seconds % 10;
 		break;

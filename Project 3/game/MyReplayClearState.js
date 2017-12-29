@@ -1,23 +1,21 @@
-
 /**
  * MyReplayClearState
  * @constructor
  */
-
 function MyReplayClearState(game,scene) {
-	
+
 	this.game = game;
 	this.scene = scene;
 	this.replayEnded = false;
 
 	let previousMove = this.game.getCurrentMove();
-	
+
 	this.nextMove = this.game.getNextMove();
-	
+
 	this.game.setGame(this.nextMove.getGame());
-	
+
 	this.surroundedPieces = previousMove.getSurroundedPieces();
-	
+
 	for(let i = 0; i < this.surroundedPieces.length; i++){
 		this.surroundedPieces[i].setClearAnimation();
 	}
@@ -26,17 +24,7 @@ function MyReplayClearState(game,scene) {
 MyReplayClearState.prototype = Object.create(CGFobject.prototype);
 MyReplayClearState.prototype.constructor = MyReplayClearState;
 
-
-MyReplayClearState.prototype.logPicking = function (){
-	
-}
-
-MyReplayClearState.prototype.getPickingIdx = function (){
-	return 1;
-}
-
 MyReplayClearState.prototype.display = function (){
-
 	this.scene.pushMatrix();
 
 	let pieces = this.game.getPieces();
@@ -50,12 +38,11 @@ MyReplayClearState.prototype.display = function (){
 
 
 MyReplayClearState.prototype.update = function (currTime){
-	
 	if(this.replayEnded)
 		return;
-	
+
 	let cleared = 0;
-	
+
 	for(let i = 0; i < this.surroundedPieces.length; i++){
 		this.surroundedPieces[i].update(currTime);
 		if(this.surroundedPieces[i].getCleared()){
@@ -66,7 +53,7 @@ MyReplayClearState.prototype.update = function (currTime){
 	if(this.surroundedPieces.length == cleared){
 		this.setNextState();
 	}
-	
+
 }
 
 MyReplayClearState.prototype.setNextState = function () {
@@ -76,4 +63,12 @@ MyReplayClearState.prototype.setNextState = function () {
 	}
 	else
 		this.game.setState(new MyAnimateMoveState(this.game,this.scene,this.nextMove, true));
+}
+
+MyReplayClearState.prototype.logPicking = function (){
+
+}
+
+MyReplayClearState.prototype.getPickingIdx = function (){
+	return 1;
 }

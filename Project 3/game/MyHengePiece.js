@@ -1,5 +1,5 @@
 /**
- * MyRegularPiece
+ * MyHengePiece
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
@@ -23,7 +23,7 @@ function MyHengePiece(scene) {
 }
 
 MyHengePiece.prototype = Object.create(CGFobject.prototype);
-MyHengePiece.prototype.constructor =MyHengePiece;
+MyHengePiece.prototype.constructor = MyHengePiece;
 
 MyHengePiece.prototype.display = function() {
 

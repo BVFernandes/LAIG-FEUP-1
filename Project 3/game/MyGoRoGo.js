@@ -9,17 +9,12 @@ function MyGoRoGo(scene) {
 	this.pieces = [];
 	this.tiles = [];
 
+	this.initVisualComponents();
+
 	this.marker = new MyInfoMarker(scene, this);
 	this.board = new MyBoard();
 	this.startMovieObj = new MyStartMovie(scene);
 	this.startGameObj = new MyStartGame(scene);
-
-  this.selectedPieceShader = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
-	this.selectedPieceShader.setUniformsValues({normScale: 1});
-	this.selectedPieceShader.setUniformsValues({timeFactor: 0});
-	this.selectedPieceShader.setUniformsValues({colour: vec3.fromValues(1,0,0)});
-
-	this.selectablePieceShader = new CGFshader(this.scene.gl, "shaders/MyShader2.vert", "shaders/MyShader2.frag");
 
 	this.turn;
 	this.gameOver = false;
@@ -79,6 +74,15 @@ MyGoRoGo.prototype.initializeBoard = function () {
 
 }
 
+MyGoRoGo.prototype.initVisualComponents = function() {
+	this.selectedPieceShader = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
+	this.selectedPieceShader.setUniformsValues({normScale: 1});
+	this.selectedPieceShader.setUniformsValues({timeFactor: 0});
+	this.selectedPieceShader.setUniformsValues({colour: vec3.fromValues(1,0,0)});
+
+	this.selectablePieceShader = new CGFshader(this.scene.gl, "shaders/MyShader2.vert", "shaders/MyShader2.frag");
+
+}
 /**
  * Initializes the game accordingly to the user input and sets up a new board given by prolog via server request
  */
@@ -166,7 +170,7 @@ MyGoRoGo.prototype.logPicking = function(){
 }
 
 /**
- * Displays nodes and all its elements
+ * Displays gorogo and all its elements
  */
 MyGoRoGo.prototype.display = function(){
 	this.logPicking();

@@ -1,3 +1,7 @@
+/**
+ * MyStartMovie
+ * @constructor
+ */
 function MyStartMovie(scene){
 	CGFobject.call(this,scene);
 
@@ -19,6 +23,7 @@ MyStartMovie.prototype.display = function () {
 
 	this.scene.pushMatrix();
 	this.scene.translate(0,15,0);
+	this.blackMaterial.apply();
 
 	this.scene.pushMatrix();
 	this.scene.rotate(10 * DEGREE_TO_RAD, 1, 0, 0);
@@ -29,7 +34,6 @@ MyStartMovie.prototype.display = function () {
 
 	this.scene.pushMatrix();
 	this.scene.scale(2,5,10);
-	this.blackMaterial.apply();
 	this.cube.display();
 	this.scene.popMatrix();
 

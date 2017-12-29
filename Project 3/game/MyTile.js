@@ -18,9 +18,6 @@ function MyTile(scene, x, z) {
 	this.x = x;
 	this.z = z;
 
-	this.highlight = false;
-	
-	
 	this.material = new CGFappearance(this.scene);
 	this.material.setAmbient(0,1,0,1);
 	this.material.setDiffuse(0,0.9,0,1);
@@ -68,42 +65,10 @@ MyTile.prototype.getPiece = function () {
 	return this.piece;
 }
 
-/**
- * Returns MyTile's row
- * @returns {*}
- */
-MyTile.prototype.getRow = function () {
-	return this.row;
-}
-
-/**
- * Returns MyTile's col
- * @returns {*}
- */
-MyTile.prototype.getCol = function () {
-	return this.col;
-}
-
 MyTile.prototype.getPos = function () {
 	return [this.x, this.z];
 }
 
 MyTile.prototype.getBoardPos = function () {
 	return [MyTile.toBoardPos[this.z.toString()], MyTile.toBoardPos[this.x.toString()]];
-}
-
-/**
- * Returns coordinates as string in format: Row-Col
- * @returns {string}
- */
-MyTile.prototype.getCoordinatesAsString = function () {
-	return (this.row + "-" + this.col);
-}
-
-/**
- * Sets the highlight value.
- * @param value
- */
-MyTile.prototype.setHighlight = function (value) {
-	this.highlight = value;
 }

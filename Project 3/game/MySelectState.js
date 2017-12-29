@@ -1,15 +1,17 @@
 /**
- * MyPlayer
+ * MySelectState
  * @constructor
  */
-
 function MySelectState(game,scene) {
 	this.game = game;
 	this.scene = scene;
+
 	this.selectedPiece = null;
 	this.validTiles = [];
+
 	this.pickingIdx = 0;
 	this.picking = true;
+
 	this.timeout = false;
 
 	this.initTime = null;
@@ -18,16 +20,10 @@ function MySelectState(game,scene) {
 		this.picking = false;
 		this.getBotPlay();
 	}
-
 }
 
 MySelectState.prototype = Object.create(CGFobject.prototype);
 MySelectState.prototype.constructor = MySelectState;
-
-
-MySelectState.prototype.getPickingIdx = function (){
-	return this.pickingIdx;
-}
 
 /**
  * Accordingly to the picking, selects a piece
@@ -112,7 +108,6 @@ MySelectState.prototype.display = function (){
 	this.pickingIdx = pickingIdx;
 }
 
-
 MySelectState.prototype.update = function (currTime){
 	let tFactor = Math.abs(Math.sin(currTime*Math.pow(10,-3)));
 	this.game.getSelectedPieceShader().setUniformsValues({timeFactor: tFactor});
@@ -132,7 +127,6 @@ MySelectState.prototype.update = function (currTime){
 			this.selectedPiece.setSelected(false);
 		this.getBotPlay();
 	}
-
 }
 
 MySelectState.prototype.getValidTiles = function () {
@@ -144,11 +138,9 @@ MySelectState.prototype.getValidTiles = function () {
 	let request = "getValidPlays("+encodedGame+","+this.selectedPiece.getType()+","+this.game.getTurn()+")";
 
 	gorogo.client.makeRequest(request, function(data){
-		console.log(data.target.response);
 		state.setValidTiles(state.parsePlays(data.target.response));
 	});
 }
-
 
 MySelectState.prototype.getBotPlay = function () {
 	let state = this;
@@ -163,7 +155,6 @@ MySelectState.prototype.getBotPlay = function () {
 	let request = "getPlay("+encodedGame+","+this.game.getTurn()+")";
 
 	gorogo.client.makeRequest(request, function(data){
-		console.log(data.target.response);
 		let play = state.parsePlay(data.target.response);
 		let piece = gorogo.getPieceOfType(play[1]);
 		let dstTile = gorogo.getTileAt(play[0]);
@@ -186,7 +177,6 @@ MySelectState.prototype.parsePlays = function (encodedPlays) {
 	return tiles;
 }
 
-
 MySelectState.prototype.parsePlay = function (encodedPlay) {
 	let res = encodedPlay.split("|");
 	let dest = [parseInt(res[0][2]),parseInt(res[0][4])];
@@ -195,7 +185,6 @@ MySelectState.prototype.parsePlay = function (encodedPlay) {
 }
 
 MySelectState.prototype.isPieceSelectable = function (piece){
-
 	let currentPlayer = this.game.getCurrentPlayerStr();
 
 	if(this.picking){
@@ -210,11 +199,14 @@ MySelectState.prototype.isPieceSelectable = function (piece){
 	return false;
 }
 
-
 MySelectState.prototype.setValidTiles = function (validTiles){
 	this.validTiles = validTiles;
 }
 
 MySelectState.prototype.setNextState = function (move) {
 	this.game.setState(new MyAnimateMoveState(this.game,this.scene,move));
+}
+
+MySelectState.prototype.getPickingIdx = function (){
+	return this.pickingIdx;
 }

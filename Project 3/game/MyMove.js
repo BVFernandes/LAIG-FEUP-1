@@ -2,15 +2,14 @@
  * MyMove
  * @constructor
  */
-
 function MyMove(game,piece,src,dst) {
 	this.game = game;
 	this.piece = piece;
+
 	this.srcPos = src;
 	this.dstTile = dst;
+
 	this.surroundedPieces = [];
-	this.timer = 0;
-	this.gameOver = false;
 }
 
 MyMove.prototype = Object.create(CGFobject.prototype);
@@ -23,21 +22,11 @@ MyMove.prototype.constructor = MyMove;
 }
 
  MyMove.prototype.addSurroundedPieces = function(pieces) {
-	/*this.surroundedPieces = this.surroundedPieces.concat(pieces);*/
 	for(let i = 0; i < pieces.length; i++)
 		this.surroundedPieces.push(pieces[i]);
 }
 
 /***************** Getters and Setters ***********************/
-
-/**
- * Checks if occurred game over with this move
- * @returns {boolean}
- */
-MyMove.prototype.isGameOver = function() {
-	return this.gameOver;
-}
-
 
 /**
  * Returns the piece to be moved
@@ -46,7 +35,6 @@ MyMove.prototype.isGameOver = function() {
 MyMove.prototype.getGame = function () {
 	return this.game;
 }
-
 
 /**
  * Sets the piece to be moved
@@ -64,7 +52,6 @@ MyMove.prototype.setPiece = function (piece) {
 MyMove.prototype.getPiece = function () {
 	return this.piece;
 }
-
 
  MyMove.prototype.getSurroundedPieces = function() {
 	return this.surroundedPieces;
@@ -108,15 +95,4 @@ MyMove.prototype.getDstTile = function () {
  */
 MyMove.prototype.getDstPos = function () {
 	return this.dstTile.getPos();
-}
-
-/**
- * Sets move animation
- * @param nodes
- */
-MyMove.prototype.setMoveAnimation = function (nodes) {
-	this.chooseAnimation();
-	this.piece.setAnimation(this.animation);
-	nodes.playState = Nodes.playState.MOVE_ANIMATION;
-	this.timer = nodes.elapsedTime;
 }

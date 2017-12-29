@@ -8,14 +8,16 @@ MyPlayer.types = [
  * MyPlayer
  * @constructor
  */
-
 function MyPlayer(name, x, z) {
 	this.name = name;
+
 	this.regularPieces = 10;
 	this.hengePieces = 2;
+
 	this.score = 0;
 	this.stackPos = [x,z];
 	this.stackHeight = 0;
+
 	this.typeIdx = 0;
 	this.type = MyPlayer.types[this.typeIdx];
 }
@@ -38,11 +40,9 @@ MyPlayer.prototype.getScore = function () {
 	return this.score;
 }
 
-
 MyPlayer.prototype.getName = function () {
 	return this.name;
 }
-
 
 MyPlayer.prototype.decreasePieces = function (type) {
 	if(type == "h")
@@ -58,7 +58,6 @@ MyPlayer.prototype.decreasePieces = function (type) {
 MyPlayer.prototype.isBot = function () {
 	return (this.type == "easyBot" || this.type == "hardBot");
 }
-
 
 /**
  * Gets type value

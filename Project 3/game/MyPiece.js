@@ -10,9 +10,11 @@ function MyPiece(scene, shader, type, x, z, player) {
 	this.scene = scene;
 	this.shader = shader;
 	this.type = type;
+
 	this.x = x;
 	this.y = 0.5;
 	this.z = z;
+
 	this.player = player;
 	this.initCoords = [x,this.y,z];
 	this.destCoords = null;
@@ -23,13 +25,10 @@ function MyPiece(scene, shader, type, x, z, player) {
 		this.object = new MyHengePiece(this.scene);
 
 	this.animation = null;
-
 	this.animationReady = 0;
-
 	this.animate = false;
 
 	this.placed = false;
-
 	this.cleared = false;
 
 	this.isSelected = false;
@@ -38,35 +37,25 @@ function MyPiece(scene, shader, type, x, z, player) {
 MyPiece.prototype = Object.create(CGFobject.prototype);
 MyPiece.prototype.constructor = MyPiece;
 
-
-
 /**
  * Displays a MyPiece
  */
 MyPiece.prototype.display = function () {
 	this.scene.pushMatrix();
 
-
-
-	if(this.animate){
-		//console.log(this.animation.getMatrix());
+	if(this.animate)
 		this.scene.multMatrix(this.animation.getMatrix());
-	}
 	else
 		this.scene.translate(this.x, this.y, this.z);
 
-	// if(this.isSelected)
-	//     this.scene.setActiveShader(this.scene.nodes.selectedShader);
-	// if(this.animation != null){
-	//     this.scene.multMatrix(this.animation.getMatrix(this.timer));
-	// }
 	if(this.isSelected)
 		this.scene.setActiveShader(this.shader);
+
 	this.object.display();
+
 	if(this.isSelected)
 		this.scene.setActiveShader(this.scene.defaultShader);
-	// if(this.isSelected)
-	//     this.scene.setActiveShader(this.scene.defaultShader);
+
 	this.scene.popMatrix();
 }
 
@@ -82,14 +71,11 @@ MyPiece.prototype.update = function (currTime) {
 	}
 
 	if(this.animation != null && !this.animate){
-		console.log("animate");
 		this.animate = true;
 	}
 
 	if(this.animation.end){
-
 		if(!this.placed){
-			console.log("End");
 			this.x = this.destCoords[0];
 			this.z = this.destCoords[1];
 			this.animate = false;
@@ -98,7 +84,6 @@ MyPiece.prototype.update = function (currTime) {
 			this.placed = true;
 		}
 		else if(!this.cleared){
-			console.log("End");
 			this.x = this.destCoords[0];
 			this.z = this.destCoords[1];
 			this.y = this.destCoords[2];
@@ -125,38 +110,20 @@ MyPiece.prototype.getTile = function () {
 	return this.tile;
 }
 
-
 MyPiece.prototype.setPlayer = function (player) {
 	this.player = player;
 }
-
 
 MyPiece.prototype.getPlayer = function () {
 	return this.player;
 }
 
 /**
- * Returns MyPiece colour, blue or red
- * @returns {*}
- */
-MyPiece.prototype.getColour = function () {
-	return this.colour;
-}
-
-/**
- * Returns MyPiece type, Node or Unit
+ * Returns MyPiece type
  * @returns {*}
  */
 MyPiece.prototype.getType = function () {
 	return this.type;
-}
-
-/**
- * Returns MyPiece name used in the board
- * @returns {*}
- */
-MyPiece.prototype.getUnit = function () {
-	return this.unit;
 }
 
 /**
@@ -171,37 +138,18 @@ MyPiece.prototype.meanPoint = function(point1, point2){
 }
 
 MyPiece.prototype.createMoveAnimation = function(coords) {
-
 	let startPoint = [this.x, 0.5, this.z];
 	let endPoint = [coords[0], 0.5, coords[1]];
 	let meanPoint = this.meanPoint(startPoint, endPoint);
 	let controlPoints = [startPoint, [meanPoint[0], 2, meanPoint[2]], endPoint];
 	let animation = new MyLinearAnimation(0,MOVE_ANIMATION_SPEED,controlPoints);
 
-	/*
-	controlPoints = [[this.x, 0.5, this.z],
-					 [this.x, 1, this.z],
-					 [coords[0], 1, coords[1]],
-					 [coords[0], 0.5, coords[1]]];
-
-	let animation = new MyBezierAnimation(0, ANIMATION_SPEED, controlPoints);
-	 */
 	let comboAnimation = new MyComboAnimation();
 	comboAnimation.addAnimation(animation);
 	return comboAnimation;
 }
 
 MyPiece.prototype.createClearAnimation = function() {
-	/*
-	let startPoint = [this.x, 0.5, this.z];
-	let endPoint = [this.x, 10, this.z];
-	let controlPoints = [startPoint, endPoint];
-	console.log(controlPoints);
-	let animation = new MyLinearAnimation(0,CLEAR_ANIMATION_SPEED,controlPoints);
-	let comboAnimation = new MyComboAnimation();
-	comboAnimation.addAnimation(animation);
-	return comboAnimation;
-	*/
 	this.destCoords = this.player.getStackPos();
 	let startPoint = [this.x, 0.5, this.z];
 	let endPoint = [this.destCoords[0], this.destCoords[2], this.destCoords[1]];
@@ -209,14 +157,6 @@ MyPiece.prototype.createClearAnimation = function() {
 	let controlPoints = [startPoint, [meanPoint[0], 2, meanPoint[2]], endPoint];
 	let animation = new MyLinearAnimation(0,MOVE_ANIMATION_SPEED,controlPoints);
 
-	/*
-	controlPoints = [[this.x, 0.5, this.z],
-					 [this.x, 1, this.z],
-					 [coords[0], 1, coords[1]],
-					 [coords[0], 0.5, coords[1]]];
-
-	let animation = new MyBezierAnimation(0, ANIMATION_SPEED, controlPoints);
-	 */
 	let comboAnimation = new MyComboAnimation();
 	comboAnimation.addAnimation(animation);
 	return comboAnimation;
@@ -234,7 +174,6 @@ MyPiece.prototype.setMoveAnimation = function(coords) {
 
 MyPiece.prototype.setClearAnimation = function() {
 	let coords = [0,0];
-	//this.animation = this.createMoveAnimation(coords);
 	this.animation = this.createClearAnimation();
 	this.animationReady = 0;
 }
