@@ -1,14 +1,13 @@
 /**
- * MyPlayer
+ * MyAnimateMoveState
  * @constructor
  */
-
 function MyAnimateMoveState(game,scene,move,replay) {
 	this.game = game;
 	this.scene = scene;
 	this.move = move;
 	this.selectedPiece = move.getPiece();
-	
+
 	this.replay = replay || false;
 
 	if(!this.replay)
@@ -20,20 +19,11 @@ function MyAnimateMoveState(game,scene,move,replay) {
 MyAnimateMoveState.prototype = Object.create(CGFobject.prototype);
 MyAnimateMoveState.prototype.constructor = MyAnimateMoveState;
 
-MyAnimateMoveState.prototype.logPicking = function (){
-	
-}
-
-MyAnimateMoveState.prototype.getPickingIdx = function (){
-	return 1;
-}
-
 MyAnimateMoveState.prototype.display = function (){
 
 	this.scene.pushMatrix();
 
 	let pieces = this.game.getPieces();
-
 
 	for(let j = 0; j < pieces.length; j++){
 		pieces[j].display();
@@ -41,7 +31,6 @@ MyAnimateMoveState.prototype.display = function (){
 
 	this.scene.popMatrix();
 }
-
 
 MyAnimateMoveState.prototype.update = function (currTime){
 	if(this.selectedPiece){
@@ -61,4 +50,12 @@ MyAnimateMoveState.prototype.setNextState = function () {
 		this.game.setState(new MyReplayClearState(this.game,this.scene));
 	else
 		this.game.setState(new MyAnimateClearState(this.game,this.scene));
+}
+
+MyAnimateMoveState.prototype.logPicking = function (){
+
+}
+
+MyAnimateMoveState.prototype.getPickingIdx = function (){
+	return 1;
 }

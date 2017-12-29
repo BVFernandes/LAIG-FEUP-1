@@ -10,7 +10,6 @@ MyAnimateClearState.state = {
  * MyAnimateClearState
  * @constructor
  */
-
 function MyAnimateClearState(game,scene) {
 	this.game = game;
 	this.scene = scene;
@@ -23,15 +22,6 @@ function MyAnimateClearState(game,scene) {
 
 MyAnimateClearState.prototype = Object.create(CGFobject.prototype);
 MyAnimateClearState.prototype.constructor = MyAnimateClearState;
-
-
-MyAnimateClearState.prototype.logPicking = function (){
-	
-}
-
-MyAnimateClearState.prototype.getPickingIdx = function (){
-	return 1;
-}
 
 MyAnimateClearState.prototype.display = function (){
 
@@ -71,21 +61,15 @@ MyAnimateClearState.prototype.update = function (currTime){
 	}
 }
 
-MyAnimateClearState.prototype.setSurroundedPieces = function (pieces){
-	this.surroundedPieces = pieces;
-}
-
 MyAnimateClearState.prototype.updateState = function (){
 	switch(this.state){
 	case MyAnimateClearState.state.INIT:
 		this.state = MyAnimateClearState.state.CLEAR_BOARD_SELF;
 		break;
 
-
 	case MyAnimateClearState.state.CLEAR_BOARD_SELF:
 		this.state = MyAnimateClearState.state.CHANGE_PLAYER;
 		break;
-
 
 	case MyAnimateClearState.state.CHANGE_PLAYER:
 		this.state = MyAnimateClearState.state.CLEAR_BOARD_OPPONENT;
@@ -126,7 +110,6 @@ MyAnimateClearState.prototype.updateGame = function () {
 	let gorogo = this.game;
 
 	let encodedGame = gorogo.toPlString();
-	//console.log(encodedGame);
 
 	let request = "updateGameWithPoints("+encodedGame+")";
 
@@ -136,12 +119,10 @@ MyAnimateClearState.prototype.updateGame = function () {
 		gorogo.setGame(res[0]);
 		let pieces = gorogo.clearSurroundedPieces(res[1]);
 		gorogo.getLatestMove().addSurroundedPieces(pieces);
-		//console.log(pieces);
 		state.setSurroundedPieces(pieces);
 		state.updateState();
 	});
 }
-
 
 MyAnimateClearState.prototype.parseUpdate = function (encodedUpdate) {
 	let res = encodedUpdate.split('!');
@@ -149,17 +130,27 @@ MyAnimateClearState.prototype.parseUpdate = function (encodedUpdate) {
 	encodedGame += "]";
 
 	let encodedPoints = (res[1].slice(0,-1)).split(']');
-	//console.log(encodedPoints);
 	let pointsLength = encodedPoints.length-1;
 	let points = [];
 	for(let i = 0; i < pointsLength; i++){
 		points.push([parseInt(encodedPoints[i][2]), parseInt(encodedPoints[i][4])]);
 	}
 
-	//console.log(points);
 	return [encodedGame,points];
+}
+
+MyAnimateClearState.prototype.setSurroundedPieces = function (pieces){
+	this.surroundedPieces = pieces;
 }
 
 MyAnimateClearState.prototype.setNextState = function () {
 	this.game.setState(new MySelectState(this.game,this.scene));
+}
+
+MyAnimateClearState.prototype.logPicking = function () {
+
+}
+
+MyAnimateClearState.prototype.getPickingIdx = function () {
+	return 1;
 }

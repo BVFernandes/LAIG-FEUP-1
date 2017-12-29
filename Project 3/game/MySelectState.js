@@ -29,6 +29,9 @@ MySelectState.prototype.getPickingIdx = function (){
 	return this.pickingIdx;
 }
 
+/**
+ * Accordingly to the picking, selects a piece
+ */
 MySelectState.prototype.logPicking = function ()
 {
 	if (this.scene.pickMode == false) {

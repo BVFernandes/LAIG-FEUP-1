@@ -8,7 +8,6 @@ MyBoard.toSymbol = {
  * MyBoard
  * @constructor
  */
-
 function MyBoard() {
 	this.board = [];
 	this.length = 5;
@@ -30,18 +29,6 @@ MyBoard.prototype.toPlString = function () {
 	}
 	encodedBoard += "]";
 	return encodedBoard;
-}
-
-/**
- * Updates board positions
- * @param srcRow
- * @param srcCol
- * @param dstRow
- * @param dstCol
- * @param element
- */
-MyBoard.prototype.updatePiecePosition = function (dstRow, dstCol, element) {
-	this.setElementAt(dstRow, dstCol, element);
 }
 
 /**
@@ -73,29 +60,18 @@ MyBoard.prototype.getBoardLength = function () {
 }
 
 /**
- * Returns current element at the given coordinates
- * @param Row
- * @param Col
- * @returns {*}
- */
-MyBoard.prototype.getElementAt = function (Row, Col) {
-	if(!this.checkValidPosition(Row, Col))
-		return "Invalid Position";
-	return this.board[Row][Col];
-}
-
-/**
  * Sets the element at the given coordinates
- * @param Row
- * @param Col
+ * @param pos
+ * @param player
  * @param element
- * @returns {string}
  */
 MyBoard.prototype.setElementAt = function (pos, player, type) {
 	let symbol;
+
 	if(type == "h")
 		symbol = 3;
 	else
 		symbol = MyBoard.toSymbol[player];
+		
 	this.board[pos[0]-1][pos[1]-1] = symbol;
 }

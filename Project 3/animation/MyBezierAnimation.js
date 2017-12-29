@@ -96,7 +96,6 @@ MyBezierAnimation.prototype.curveDistanceRecursive = function(points, depth) {
 	let left = [];
 	let right = [];
 
-	//console.log(points.length);
 	while(points.length > 1){
 		left.push(points[0]);
 		right.unshift(points[points.length-1]);
