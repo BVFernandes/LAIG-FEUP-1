@@ -597,7 +597,7 @@ MySceneGraph.prototype.parseLights = function(lightsNode) {
 
 		nodeNames = [];
 		for (var j = 0; j < grandChildren.length; j++) {
-			console.log(grandChildren[j].nodeName);
+			// console.log(grandChildren[j].nodeName);
 			nodeNames.push(grandChildren[j].nodeName);
 		}
 
@@ -1198,13 +1198,12 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 			if (this.animations[animationID] != null )
 				return "animation ID must be unique (conflict: ID = " + animationID + ")";
 
-			console.log("Processing animation "+animationID);
+			// console.log("Processing animation "+animationID);
 
 			var type = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo']);
-			if (type != null)
-				console.log("Animation: "+ type);
-			else
-				this.onXMLMinorError("Error in animation type");
+
+				if (type == null)
+					this.onXMLMinorError("Error in animation type");
 
 			let speed = null;
 			if(type != 'combo'){
@@ -1394,7 +1393,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			if (this.nodes[nodeID] != null )
 				return "node ID must be unique (conflict: ID = " + nodeID + ")";
 
-			console.log("Processing node "+nodeID);
+			// console.log("Processing node "+nodeID);
 
 			// Creates node.
 			this.nodes[nodeID] = new MyGraphNode(this,nodeID);
@@ -1414,7 +1413,6 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 			let visible = this.reader.getString(children[i], 'visible', false);
 
 			if(visible){
-				console.log(visible);
 				if (visible == "true"){
 					visible = true;
 				} else if(visible=="false"){
@@ -1589,7 +1587,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 				if (descendants[j].nodeName == "NODEREF")
 				{
 					var curId = this.reader.getString(descendants[j], 'id');
-					console.log("   Descendant: "+curId);
+					// console.log("   Descendant: "+curId);
 
 					if (curId == null )
 						this.onXMLMinorError("unable to parse descendant id");
@@ -1605,9 +1603,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 					{
 						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'circle', 'cylinder', 'sphere', 'triangle', 'patch']);
 
-						if (type != null)
-							console.log("Leaf: "+ type);
-						else
+						if (type == null)
 							this.onXMLMinorError("Error in leaf type");
 
 						var args=this.reader.getString(descendants[j],'args');

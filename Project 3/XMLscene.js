@@ -11,32 +11,20 @@ function XMLscene(interface) {
 
 	this.lightValues = {};
 
-	this.selectedSelectableNode = 0;
-	this.selectedExampleShader = 0;
-	this.selectedColourShader = 0;
-	this.animationStop = false;
-	this.animationLoop = true;
-	this.flagTFactor = false;
-	this.scaleFactor = 10.0;
-
-	this.redSelector = 0.0;
-	this.greenSelector = 0.0;
-	this.blueSelector = 0.0;
-
 	this.game;
-	this.turnTimeout = 0;
-	this.zoomCamera = 0.3;
+
 	this.doUndoMove = function() { if(this.game) this.game.undoMove();};
 	this.doStartGame = function() { if(this.game) this.game.startGame();};
 	this.doReplayGame = function() { if(this.game) this.game.replayGame();};
 
 	this.selectedPlayer1Type = 0;
 	this.selectedPlayer2Type = 0;
-	// this.selectedScene = 0;
+
 	this.graphs = [];
 	this.graphIdx = 0;
-	// this.selectedPerspective = 0;
 
+	this.turnTimeout = 0;
+	this.zoomCamera = 0.3;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -63,22 +51,20 @@ XMLscene.prototype.init = function(application) {
 	this.updatePeriod = 1 / 60 * 1000;	// update period in ms (1/60 * 1000 ms = 60 Hz)
 	this.setUpdatePeriod(this.updatePeriod);
 
+	this.initComponents();
+
+	this.game = new MyGoRoGo(this);
+
+	this.setPickEnabled(true);
+}
+
+XMLscene.prototype.initComponents=function() {
 	this.testShaders=[
 		new CGFshader(this.gl, "shaders/flat.vert", "shaders/flat.frag"),
 		new CGFshader(this.gl, "shaders/MyShader.vert", "shaders/MyShader.frag"),
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/sepia.frag"),
 		new CGFshader(this.gl, "shaders/texture3.vert", "shaders/convolution.frag")
 		];
-
-	this.selectedPieceShader = new CGFshader(this.gl, "shaders/MyShader2.vert", "shaders/MyShader2.frag");
-
-	this.game = new MyGoRoGo(this);
-
-	this.coloursShaders=[vec3.fromValues(0,0,1),vec3.fromValues(1,0,0), vec3.fromValues(0,1,0), vec3.fromValues(1,1,0), vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)];
-
-	this.setPickEnabled(true);
-	this.updateScaleFactor();
-	this.updateColourShader();
 }
 
 XMLscene.prototype.updateTurnTimeout=function(v) {
@@ -97,30 +83,6 @@ XMLscene.prototype.zoomOut=function() {
 	this.camera.zoom(-1);
 }
 
-
-/**
- * Handle changes in checkbox of animationStop and diffuse to all animations
- */
-XMLscene.prototype.updateAnimationStop=function(v) {
-	for(let id in this.graphs[this.graphIdx].comboAnimations)
-		this.graphs[this.graphIdx].comboAnimations[id].updateAnimationStop(v);
-}
-
-/**
- * Handle changes in checkbox of animationLoop and diffuse to all animations
- */
-XMLscene.prototype.updateAnimationLoop=function(v) {
-	for(let id in this.graphs[this.graphIdx].comboAnimations)
-		this.graphs[this.graphIdx].comboAnimations[id].setLoopAnimation(v);
-}
-
-/**
- * Handle changes in scalefactor on Interface and send to shaders
- */
-XMLscene.prototype.updateScaleFactor=function(v) {
-	this.testShaders[1].setUniformsValues({normScale: this.scaleFactor});
-}
-
 /**
  * Handle timeFactor to change shader according to a trignometric function
  */
@@ -134,32 +96,6 @@ XMLscene.prototype.updateTimeFactor=function(currTime) {
 	}
 
 	this.testShaders[1].setUniformsValues({timeFactor: tFactor});
-}
-
-/**
- * Handle colourShader to change shader according to a selected colour
- */
-XMLscene.prototype.updateColourShader=function(){
-	this.testShaders[1].setUniformsValues({colour: this.coloursShaders[this.selectedColourShader]});
-}
-
-XMLscene.prototype.updateRedSelector=function(v){
-	this.redSelector=v;
-	if(this.selectedColourShader == 4)
-		this.testShaders[1].setUniformsValues({colour: vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)});
-
-}
-
-XMLscene.prototype.updateGreenSelector=function(v){
-	this.greenSelector=v;
-	if(this.selectedColourShader == 4)
-		this.testShaders[1].setUniformsValues({colour: vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)});
-}
-
-XMLscene.prototype.updateBlueSelector=function(v){
-	this.blueSelector=v;
-	if(this.selectedColourShader == 4)
-		this.testShaders[1].setUniformsValues({colour: vec3.fromValues(this.redSelector, this.greenSelector, this.blueSelector)});
 }
 
 XMLscene.prototype.updateCamera=function(currTime){
@@ -184,7 +120,6 @@ XMLscene.prototype.updateCamera=function(currTime){
 			this.cameraIdx++;
 		}
 	}
-
 }
 
 /**
@@ -326,9 +261,9 @@ XMLscene.prototype.display = function() {
 		if(!this.interface.changeScene)
 			this.updateLights();
 
-
 		// Displays the scene.
-	this.graphs[this.graphIdx].displayScene();
+		this.graphs[this.graphIdx].displayScene();
+
 		if(this.game)
 			this.game.display();
 
@@ -359,6 +294,7 @@ XMLscene.prototype.update = function(currTime) {
 
 	this.updateTimeFactor(currTime);
 	this.updateCamera(currTime);
+	
 	if(this.game)
 		this.game.update(currTime);
 };

@@ -95,7 +95,7 @@ MySelectState.prototype.display = function (){
 		if(this.isPieceSelectable(pieces[j])){
 			this.scene.registerForPick(pickingIdx, pieces[j]);
 			pickingIdx++;
-			this.scene.setActiveShader(this.scene.selectedPieceShader);
+			this.scene.setActiveShader(this.game.selectablePieceShader);
 		}
 		pieces[j].display();
 		if(this.isPieceSelectable(pieces[j])){

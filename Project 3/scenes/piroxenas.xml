@@ -125,6 +125,21 @@
       <amplif_factor s="1" t="1" />
   </TEXTURE>
 
+  <TEXTURE id="gift1Texture">
+      <file path="images_casino/gift1Texture.jpg" />
+      <amplif_factor s="1" t="1" />
+  </TEXTURE>
+
+  <TEXTURE id="gift2Texture">
+      <file path="images_casino/gift2Texture.jpg" />
+      <amplif_factor s="1" t="1" />
+  </TEXTURE>
+
+  <TEXTURE id="gift3Texture">
+      <file path="images_casino/gift3Texture.jpg" />
+      <amplif_factor s="1" t="1" />
+  </TEXTURE>
+
   <TEXTURE id="snowWallTexture">
       <file path="images_casino/snowWall.jpg" />
       <amplif_factor s="1" t="1.1" />
@@ -135,7 +150,7 @@
      <file path="images_room/leather.jpg" />
      <amplif_factor s="1" t="1" />
    </TEXTURE>
-   
+
   </TEXTURES>
 
 
@@ -368,14 +383,62 @@
         <NODEREF id="gameStation1" />
         <NODEREF id="gameStation2" />
         <NODEREF id="christmastree" />
+        <NODEREF id="gifts" />
         </DESCENDANTS>
+    </NODE>
+
+    <NODE id="gifts">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="12" y="0" z="0.5" />
+
+      <DESCENDANTS>
+        <NODEREF id="gift1"/>
+        <NODEREF id="gift2"/>
+        <NODEREF id="gift3"/>
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="gift1">
+      <MATERIAL id="null" />
+      <TEXTURE id="gift1Texture" />
+
+      <TRANSLATION x="-1.1" y="0.5" z="0" />
+
+      <DESCENDANTS>
+        <NODEREF id="cube"/>
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="gift2">
+      <MATERIAL id="null" />
+      <TEXTURE id="gift2Texture" />
+
+      <TRANSLATION x="-0.5" y="1.5" z="0" />
+
+
+      <DESCENDANTS>
+        <NODEREF id="cube"/>
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="gift3">
+      <MATERIAL id="null" />
+      <TEXTURE id="gift3Texture" />
+
+      <TRANSLATION x="0.1" y="0.5" z="0" />
+
+      <DESCENDANTS>
+        <NODEREF id="cube"/>
+      </DESCENDANTS>
     </NODE>
 
     <NODE id="christmastree">
       <MATERIAL id="null" />
       <TEXTURE id="christmastreeGSTexture" />
 
-      <TRANSLATION x="1" y="0" z="10" />
+      <TRANSLATION x="7" y="0" z="10" />
      <SCALE sx="0.4" sy="0.25" sz="0.4" />
 
       <DESCENDANTS>
@@ -563,8 +626,8 @@
 
     <!-- The Back Wall -->
     <NODE id="wall_back">
-      <MATERIAL id="redWallMaterial" />
-      <TEXTURE id="wallTexture" />
+      <MATERIAL id="null" />
+      <TEXTURE id="snowWallTexture" />
 
       <TRANSLATION x="7.5" y="2.5" z="0" />
 
@@ -631,7 +694,7 @@
       <TEXTURE id="woodTexture" />
 
       <TRANSLATION x="7" y="0.5" z="7.5" />
-      <SCALE sx="0.5" sy="0.5" sz="0.5" />
+      <SCALE sx="0.65" sy="0.5" sz="0.65" />
       <ROTATION axis="x" angle="180" />
 
       <DESCENDANTS>

@@ -19,6 +19,8 @@ function MyGoRoGo(scene) {
 	this.selectedPieceShader.setUniformsValues({timeFactor: 0});
 	this.selectedPieceShader.setUniformsValues({colour: vec3.fromValues(1,0,0)});
 
+	this.selectablePieceShader = new CGFshader(this.scene.gl, "shaders/MyShader2.vert", "shaders/MyShader2.frag");
+
 	this.myShader2 = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
 	// this.selectedShader = new CGFshader(this.scene.gl, "shaders/selected.vert", "shaders/selected.frag");
 
@@ -38,7 +40,7 @@ function MyGoRoGo(scene) {
 	this.initializeBoard();
 	this.togglePlayer1Obj = new MyTogglePlayer(scene,this.whitePlayer);
 	this.togglePlayer2Obj = new MyTogglePlayer(scene,this.blackPlayer);
-	
+
 	this.state = null;
 }
 
