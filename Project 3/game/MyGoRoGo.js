@@ -11,7 +11,6 @@ function MyGoRoGo(scene) {
 
 	this.marker = new MyInfoMarker(scene, this);
 	this.board = new MyBoard();
-	this.togglePlayerObj = new MyTogglePlayer(scene);
 	this.startMovieObj = new MyStartMovie(scene);
 	this.startGameObj = new MyStartGame(scene);
 
@@ -37,7 +36,9 @@ function MyGoRoGo(scene) {
 
 	this.initializePlayers();
 	this.initializeBoard();
-
+	this.togglePlayer1Obj = new MyTogglePlayer(scene,this.whitePlayer);
+	this.togglePlayer2Obj = new MyTogglePlayer(scene,this.blackPlayer);
+	
 	this.state = null;
 }
 
@@ -219,6 +220,13 @@ MyGoRoGo.prototype.logPicking = function(){
 					let customId = this.scene.pickResults[i][1];
 					if(obj instanceof MyTogglePlayer){
 						console.log("MyTogglePlayer");
+						if(obj.player == this.whitePlayer){
+								this.whitePlayer.toggleType();
+								this.scene.selectedPlayer1Type = this.whitePlayer.getTypeIdx();
+							} else {
+								this.blackPlayer.toggleType();
+								this.scene.selectedPlayer2Type = this.blackPlayer.getTypeIdx();
+							}
 					}
 
 					if(obj instanceof MyStartMovie){
@@ -259,12 +267,23 @@ MyGoRoGo.prototype.display = function(){
 
 	this.marker.display();
 
-	this.scene.translate(0,0,20);
+	this.scene.translate(0,0,25);
+	this.displayObjects(pickingIdx);
 
-	this.scene.registerForPick(pickingIdx, this.togglePlayerObj);
-	this.togglePlayerObj.display();
+	this.scene.popMatrix();
+}
+
+MyGoRoGo.prototype.displayObjects = function (pickingIdx){
+	this.scene.registerForPick(pickingIdx, this.togglePlayer1Obj);
+	this.togglePlayer1Obj.display();
+	pickingIdx++;
+	this.scene.pushMatrix();
+	this.scene.translate(0,-7,0);
+	this.scene.registerForPick(pickingIdx, this.togglePlayer2Obj);
+	this.togglePlayer2Obj.display();
 	pickingIdx++;
 
+	this.scene.popMatrix();
 	this.scene.registerForPick(pickingIdx, this.startMovieObj);
 	this.startMovieObj.display();
 	pickingIdx++;
@@ -273,8 +292,6 @@ MyGoRoGo.prototype.display = function(){
 	this.startGameObj.display();
 
 	this.scene.clearPickRegistration();
-
-	this.scene.popMatrix();
 }
 
 

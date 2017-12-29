@@ -68,6 +68,10 @@ MyPlayer.prototype.getType = function () {
 	return this.type;
 }
 
+MyPlayer.prototype.getTypeIdx = function () {
+	return this.typeIdx;
+}
+
 /**
  * Sets type value
  * @param type
@@ -85,11 +89,11 @@ MyPlayer.prototype.toggleType = function () {
 	this.typeIdx++;
 	if(this.typeIdx >= MyPlayer.types.length)
 		this.typeIdx = 0;
-	this.type = MyPlayer.types[this.typeIdx];
+	// this.type = MyPlayer.types[this.typeIdx];
 }
 
 MyPlayer.prototype.getStackPos = function () {
-	let pos = [this.stackPos[0], this.stackPos[1], this.stackHeight]; 
+	let pos = [this.stackPos[0], this.stackPos[1], this.stackHeight];
 	this.stackHeight += 1;
 	return pos;
 }
