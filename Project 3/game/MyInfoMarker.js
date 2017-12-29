@@ -2,16 +2,28 @@ function MyInfoMarker(scene,game){
 	CGFobject.call(this,scene);
 
 	this.rect = new MyRectangle(scene,[-3,3],[3,-3]);
+	this.rectXL = new MyRectangle(scene,[-3,3],[3,-3]);
+
 	this.time = {hours : 0, minutes : 0, seconds : 0 };
 	this.timeout = {hours : 0, minutes : 0, seconds : 0 };
 	this.times = [this.time, this.timeout];
 
 	this.timeAppearance = new CGFappearance(this.scene);
 	this.timeAppearance.loadTexture("scenes/marker/time.png");
+	this.timeoutAppearance = new CGFappearance(this.scene);
+	this.timeoutAppearance.loadTexture("scenes/marker/timeout.png");
+	this.timesAppearance = [this.timeAppearance, this.timeoutAppearance];
+
 	this.scoreAppearance = new CGFappearance(this.scene);
-	this.scoreAppearance.loadTexture("scenes/marker/player_score.png");
+	this.scoreAppearance.loadTexture("scenes/marker/score.png");
 	this.twoDotsAppearance = new CGFappearance(this.scene);
 	this.twoDotsAppearance.loadTexture("scenes/marker/twodots.png");
+
+	this.player1Appearance = new CGFappearance(this.scene);
+	this.player1Appearance.loadTexture("scenes/marker/player1.png");
+	this.player2Appearance = new CGFappearance(this.scene);
+	this.player2Appearance.loadTexture("scenes/marker/player2.png");
+	this.playersAppearance = [this.player1Appearance, this.player2Appearance];
 
 	this.numbersTextures = [];
 	for(n=0; n<=9; n++){
@@ -32,7 +44,7 @@ MyInfoMarker.prototype.constructor = MyInfoMarker;
 MyInfoMarker.prototype.display = function () {
 
 	this.scene.pushMatrix();
-	this.scene.translate(-65,10,0);
+	this.scene.translate(-50,10,0);
 	this.scene.rotate(Math.PI,-1,0,0);
 	this.scene.rotate(Math.PI/2,0,-1,0);
 
@@ -51,20 +63,31 @@ MyInfoMarker.prototype.display = function () {
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix(); //p1 score
-	this.scene.translate(0,-6,0);
+	this.scene.translate(0,-6.2,0);
 	this.displayScore(this.game.whitePlayer);
+	this.scene.popMatrix();
+
+	// ------------------ "player score" (on z+) ------------------
+	this.scene.pushMatrix();
+	this.scene.scale(5,1,1);
+	this.scene.translate(-.5,-13,7);
+	this.scene.rotate(Math.PI,0,1,0);
+	this.scoreAppearance.apply();
+	this.rect.display();
 	this.scene.popMatrix();
 
 	this.scene.popMatrix();
 }
 
 MyInfoMarker.prototype.displayClock = function(timeIdx) {
+	this.scene.pushMatrix();
+
 	// ------------------ "time" (on z+) ------------------
 	this.scene.pushMatrix();
 	this.scene.scale(3,1,1);
 	this.scene.translate(-5,0,3);
 	this.scene.rotate(Math.PI,0,1,0);
-	this.timeAppearance.apply();
+	this.timesAppearance[timeIdx].apply();
 	this.rect.display();
 	this.scene.popMatrix();
 
@@ -93,28 +116,19 @@ MyInfoMarker.prototype.displayClock = function(timeIdx) {
 		this.rect.display();
 		this.scene.popMatrix();
 	}
+	this.scene.popMatrix();
 }
 
 MyInfoMarker.prototype.displayScore = function(player){
+	let number=1;
+	if(player.getName() == 'whitePlayer')
+		number = 0;
 	// ------------------ "player score" (on z+) ------------------
 	this.scene.pushMatrix();
 	this.scene.scale(5,1,1);
-	this.scene.translate(-.5,0,3);
+	this.scene.translate(-1.8,0,7);
 	this.scene.rotate(Math.PI,0,1,0);
-	this.scoreAppearance.apply();
-	this.rect.display();
-	this.scene.popMatrix();
-
-	let number=1;
-	// ------------------ player number (on z+) ------------------
-	this.scene.pushMatrix();
-	this.scene.scale(.5,.5,1);
-	this.scene.translate(-5.5,0,2.8);
-	this.scene.rotate(Math.PI,0,1,0);
-	if(player.getName() == 'whitePlayer')
-		number = 0;
-
-	this.numbersTextures[number].apply();
+	this.playersAppearance[number].apply();
 	this.rect.display();
 	this.scene.popMatrix();
 
@@ -122,7 +136,7 @@ MyInfoMarker.prototype.displayScore = function(player){
 	let score=player.getScore();
 
 	this.scene.pushMatrix();
-	this.scene.scale(.5,.5,1);
+	this.scene.scale(2/5,0.9,1);
 	this.scene.translate(30,0,3.01);
 	this.scene.rotate(Math.PI,0,1,0);
 	this.numbersTextures[score].apply();
@@ -174,5 +188,5 @@ MyInfoMarker.prototype.applyNumber = function(n,timeIdx){
 		break;
 	}
 	this.numbersTextures[number].apply();
-	this.rect.updateTexCoords(-6,-6);
+	this.rect.updateTexCoords(6,6);
 }
