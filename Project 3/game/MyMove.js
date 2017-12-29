@@ -16,9 +16,10 @@ MyMove.prototype = Object.create(CGFobject.prototype);
 MyMove.prototype.constructor = MyMove;
 
 MyMove.prototype.resetPieces = function() {
-	this.piece.resetPos();
 	for(let i = 0; i < this.surroundedPieces.length; i++)
-		this.surroundedPieces[i].setCleared(false);
+		this.surroundedPieces[i].resetCleared();
+	
+	this.piece.resetPos();
 }
 
 MyMove.prototype.addSurroundedPieces = function(pieces) {

@@ -97,6 +97,10 @@ MyPlayer.prototype.getStackPos = function () {
 	return pos;
 }
 
+MyPlayer.prototype.decStack = function () {
+	this.stackHeight -= 1;
+}
+
 MyPlayer.prototype.resetStack = function () {
 	this.stackHeight = 0;
 }

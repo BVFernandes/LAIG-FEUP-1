@@ -17,6 +17,7 @@ function MyPiece(scene, shader, type, x, z, player) {
 
 	this.player = player;
 	this.initCoords = [x,this.y,z];
+	this.placedCoords = null;
 	this.destCoords = null;
 
 	if(this.type == "n")
@@ -177,12 +178,12 @@ MyPiece.prototype.createClearAnimation = function() {
  */
 MyPiece.prototype.setMoveAnimation = function(coords) {
 	this.destCoords = coords;
+	this.placedCoords = coords;
 	this.animation = this.createMoveAnimation(coords);
 	this.animationReady = 0;
 }
 
 MyPiece.prototype.setClearAnimation = function() {
-	let coords = [0,0];
 	this.animation = this.createClearAnimation();
 	this.animationReady = 0;
 }
@@ -196,6 +197,14 @@ MyPiece.prototype.resetPos = function () {
 	this.y = this.initCoords[1];
 	this.z = this.initCoords[2];
 	this.placed = false;
+	this.cleared = false;
+}
+
+MyPiece.prototype.resetCleared = function () {
+	this.player.decStack();
+	this.x = this.placedCoords[0];
+	this.y = 0.5;
+	this.z = this.placedCoords[1];
 	this.cleared = false;
 }
 
