@@ -82,6 +82,11 @@ MyGoRoGo.prototype.initVisualComponents = function() {
 
 	this.selectablePieceShader = new CGFshader(this.scene.gl, "shaders/MyShader2.vert", "shaders/MyShader2.frag");
 
+	this.goRoGoAppearance = new CGFappearance(this.scene);
+	this.goRoGoAppearance.loadTexture("scenes/marker/gorogo.png");
+	this.rect = new MyRectangle(this.scene,[-3,3],[3,-3]);
+	this.rect.updateTexCoords(6,6);
+
 }
 /**
  * Initializes the game accordingly to the user input and sets up a new board given by prolog via server request
@@ -189,8 +194,18 @@ MyGoRoGo.prototype.display = function(){
 
 	this.scene.translate(0,0,25);
 	this.displayObjects(pickingIdx);
-
 	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+	this.scene.translate(-69,35,0);
+	this.scene.scale(13,2.3,13);
+	this.scene.rotate(Math.PI/2,0,1,0);
+
+	this.goRoGoAppearance.apply();
+	this.rect.display();
+	this.scene.popMatrix();
+
+
 }
 
 MyGoRoGo.prototype.displayObjects = function (pickingIdx){
