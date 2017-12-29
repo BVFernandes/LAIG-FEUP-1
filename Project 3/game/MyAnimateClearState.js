@@ -93,7 +93,8 @@ MyAnimateClearState.prototype.endOfGame = function () {
 		let winner = data.target.response;
 		if(winner != "none"){
 			//TRATAR AQUI DO FINAL DE JOGO
-			alert("Winner is "+winner+"!");
+			let winnerString = "Winner is "+winner+"!";
+			alertify.alert('Winner',winnerString);
 			gorogo.addMove(new MyMove(encodedGame,null,null,null));
 			gorogo.setGameOver(true);
 		}

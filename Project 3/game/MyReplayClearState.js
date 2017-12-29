@@ -58,7 +58,7 @@ MyReplayClearState.prototype.update = function (currTime){
 
 MyReplayClearState.prototype.setNextState = function () {
 	if(this.nextMove.getPiece() == null){
-		alert("End of replay");
+		alertify.alert('Movie', 'End of replay');
 		this.replayEnded = true;
 	}
 	else
