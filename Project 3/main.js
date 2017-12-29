@@ -49,7 +49,6 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
 
 	myScene.graphs = [myGraph,myGraph2,myGraph3];
 
-
 	// start
 	app.run();
 	}

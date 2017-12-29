@@ -35,7 +35,7 @@ MyInterface.prototype.init = function(application) {
  * Adds a folder containing the IDs of the lights passed as parameter.
  */
 MyInterface.prototype.addLightsGroup = function() {
-	if(this.changeScene || this.firstTime != 0){
+	if(this.changeScene && this.firstTime != 0){
 	 	this.visualSettingsGroup.removeFolder("Lights");
 	}
 
