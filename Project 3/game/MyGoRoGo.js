@@ -211,11 +211,10 @@ MyGoRoGo.prototype.display = function(){
 	this.displayObjects(pickingIdx);
 
 	this.scene.pushMatrix();
-	 this.scene.translate(-30, 40, 20);
+	this.scene.translate(-46.7, 32, 20);
 	this.scene.scale(40,10,40);
 	this.scene.rotate(Math.PI,1,0,0);
 	this.scene.rotate(Math.PI/2,0,1,0);
-
 	this.goRoGoAppearance.bind();
 	this.rect.display();
 	this.goRoGoAppearance.unbind();

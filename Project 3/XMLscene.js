@@ -54,7 +54,7 @@ XMLscene.prototype.init = function(application) {
 	this.initComponents();
 
 	this.game = new MyGoRoGo(this);
-	
+
 	this.sceneSongs = [null,null,new Audio('./scenes/music/christmas.mp3')];
 	//this.audio.volume=0.2;
 
@@ -191,7 +191,7 @@ XMLscene.prototype.updateLights = function () {
  * Initializes the scene cameras.
  */
 XMLscene.prototype.initCameras = function() {
-	this.camera = new CGFcamera(0.6,0.5,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
+	this.camera = new CGFcamera(0.6,0.5,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 4, 0));
 
 	this.camera.orbit('y', 45*DEGREE_TO_RAD);
 
@@ -314,17 +314,17 @@ XMLscene.prototype.setShader = function(shader){
 }
 
 XMLscene.prototype.playSceneMusic = function(){
-	
+
 	for(let i = 0; i < this.sceneSongs.length; i++){
 		if(this.sceneSongs[i]){
 			this.sceneSongs[i].pause();
 			this.sceneSongs[i].currentTime = 0;
 		}
 	}
-	
+
 	if(this.sceneSongs[this.graphIdx]){
 		console.log("Change Music");
 		this.sceneSongs[this.graphIdx].loop = true;
 		this.sceneSongs[this.graphIdx].play();
-	}	
+	}
 }
