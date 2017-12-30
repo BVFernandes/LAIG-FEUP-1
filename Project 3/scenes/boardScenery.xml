@@ -128,12 +128,6 @@
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-    <!-- Television screen texture -->
-    <TEXTURE id="lionkingTexture">
-      <file path="images_room/reileao1.jpg" />
-      <amplif_factor s="1.8" t="0.8" />
-    </TEXTURE>
-
     <!-- Speaker texture -->
     <TEXTURE id="speakerTexture">
       <file path="images_room/speaker.jpg" />
@@ -187,15 +181,6 @@
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
-    <!-- Pyramid material -->
-    <MATERIAL id="piramideMaterial">
-      <shininess value="1" />
-      <specular r="0" g="0" b="0" a="1" />
-      <diffuse r="1.0" g="0.68" b="0.4" a="1" />
-      <ambient r="0.2" g="0.2" b="0.2" a="1" />
-      <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
     <!-- Another Floor material -->
     <MATERIAL id="floorMaterial">
       <shininess value="1" />
@@ -229,15 +214,6 @@
       <specular r="1" g="1" b="1" a="1" />
       <diffuse r="0" g="0" b="0" a="1" />
       <ambient r="0.5" g="0.5" b="0.5" a="1" />
-      <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-    <!-- A black material -->
-    <MATERIAL id="blackMaterial">
-      <shininess value="1" />
-      <specular r="0" g="0" b="0" a="1" />
-      <diffuse r="0" g="0" b="0" a="1" />
-      <ambient r="0.05" g="0.05" b="0.05" a="1" />
       <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
@@ -292,63 +268,62 @@
   <!-- The animations -->
   <ANIMATIONS>
 
-    <!--
     <ANIMATION id="robot_linear_anim1" type="linear" speed="3">
-    <controlpoint xx="1.5" yy="0" zz="12"/>
-    <controlpoint xx="1.5" yy="0" zz="2"/>
-    <controlpoint xx="7" yy="0" zz="4"/>
-  </ANIMATION>
+      <controlpoint xx="1.5" yy="0" zz="12"/>
+      <controlpoint xx="1.5" yy="0" zz="2"/>
+      <controlpoint xx="7" yy="0" zz="4"/>
+    </ANIMATION>
 
-  <ANIMATION id="robot_linear_anim2" type="linear" speed="3">
-  <controlpoint xx="7" yy="0" zz="10"/>
-  <controlpoint xx="14" yy="0" zz="11"/>
-  <controlpoint xx="11" yy="0" zz="14"/>
-  <controlpoint xx="7" yy="0" zz="11"/>
-</ANIMATION>
+    <ANIMATION id="robot_linear_anim2" type="linear" speed="3">
+      <controlpoint xx="7" yy="0" zz="10"/>
+      <controlpoint xx="14" yy="0" zz="11"/>
+      <controlpoint xx="11" yy="0" zz="14"/>
+      <controlpoint xx="7" yy="0" zz="11"/>
+    </ANIMATION>
 
-<ANIMATION id="robot_linear_anim3" type="linear" speed="3">
-<controlpoint xx="7" yy="0" zz="3"/>
-<controlpoint xx="14" yy="0" zz="3"/>
-<controlpoint xx="11" yy="0" zz="4"/>
-<controlpoint xx="10" yy="0" zz="9"/>
-</ANIMATION>
+    <ANIMATION id="robot_linear_anim3" type="linear" speed="3">
+      <controlpoint xx="7" yy="0" zz="3"/>
+      <controlpoint xx="14" yy="0" zz="3"/>
+      <controlpoint xx="11" yy="0" zz="4"/>
+      <controlpoint xx="10" yy="0" zz="9"/>
+    </ANIMATION>
 
-<ANIMATION id="robot_linear_anim4" type="linear" speed="3">
-<controlpoint xx="8" yy="0" zz="11"/>
-<controlpoint xx="1.5" yy="0" zz="12"/>
-</ANIMATION>
+    <ANIMATION id="robot_linear_anim4" type="linear" speed="3">
+      <controlpoint xx="8" yy="0" zz="11"/>
+      <controlpoint xx="1.5" yy="0" zz="12"/>
+    </ANIMATION>
 
-<ANIMATION id="robot_circular_anim1" type="circular" speed="3" centerx="7" centery="0" centerz="7" radius="3" startang="90" rotang="-180" />
+    <ANIMATION id="robot_circular_anim1" type="circular" speed="3" centerx="7" centery="0" centerz="7" radius="3" startang="90" rotang="-180" />
 
-<ANIMATION id="robot_circular_anim2" type="circular" speed="3" centerx="7" centery="0" centerz="7" radius="4" startang="-90" rotang="-180" />
+    <ANIMATION id="robot_circular_anim2" type="circular" speed="3" centerx="7" centery="0" centerz="7" radius="4" startang="-90" rotang="-180" />
 
-<ANIMATION id="robot_circular_anim3" type="circular" speed="3" centerx="8" centery="0" centerz="9" radius="2" startang="0" rotang="-90" />
+    <ANIMATION id="robot_circular_anim3" type="circular" speed="3" centerx="8" centery="0" centerz="9" radius="2" startang="0" rotang="-90" />
 
-<ANIMATION id="plane_circular_anim1" type="circular" speed="15" centerx="7.5" centery="2" centerz="14" radius="1" startang="-90" rotang="-360" />
+    <ANIMATION id="plane_circular_anim1" type="circular" speed="15" centerx="7.5" centery="2" centerz="14" radius="1" startang="-90" rotang="-360" />
 
-<ANIMATION id="plane_circular_anim2" type="circular" speed="3" centerx="8" centery="0" centerz="9" radius="2" startang="0" rotang="-90" />
+    <ANIMATION id="plane_circular_anim2" type="circular" speed="3" centerx="8" centery="0" centerz="9" radius="2" startang="0" rotang="-90" />
 
-<ANIMATION id="plane_bezier_anim1" type="bezier" speed="10">
-<controlpoint xx="5" yy="2" zz="3"/>
-<controlpoint xx="18" yy="10" zz="2.5"/>
-<controlpoint xx="20" yy="5" zz="18"/>
-<controlpoint xx="7.5" yy="2" zz="15"/>
-</ANIMATION>
+    <ANIMATION id="plane_bezier_anim1" type="bezier" speed="10">
+      <controlpoint xx="5" yy="2" zz="3"/>
+      <controlpoint xx="18" yy="10" zz="2.5"/>
+      <controlpoint xx="20" yy="5" zz="18"/>
+      <controlpoint xx="7.5" yy="2" zz="15"/>
+    </ANIMATION>
 
-<ANIMATION id="plane_bezier_anim2" type="bezier" speed="10">
-<controlpoint xx="7.5" yy="2" zz="15"/>
-<controlpoint xx="0" yy="5" zz="13"/>
-<controlpoint xx="0" yy="7" zz="2.5"/>
-<controlpoint xx="5" yy="2" zz="3"/>
-</ANIMATION>
+    <ANIMATION id="plane_bezier_anim2" type="bezier" speed="10">
+      <controlpoint xx="7.5" yy="2" zz="15"/>
+      <controlpoint xx="0" yy="5" zz="13"/>
+      <controlpoint xx="0" yy="7" zz="2.5"/>
+      <controlpoint xx="5" yy="2" zz="3"/>
+    </ANIMATION>
 
-<ANIMATION id="robot_combo_anim" type="combo">
-<SPANREF id="robot_linear_anim2"/>
-<SPANREF id="robot_circular_anim2"/>
-<SPANREF id="robot_linear_anim3"/>
-</ANIMATION>
--->
-</ANIMATIONS>
+    <ANIMATION id="robot_combo_anim" type="combo">
+      <SPANREF id="robot_linear_anim2"/>
+      <SPANREF id="robot_circular_anim2"/>
+      <SPANREF id="robot_linear_anim3"/>
+    </ANIMATION>
+
+  </ANIMATIONS>
 
 
 <!-- The nodes -->
@@ -362,9 +337,7 @@
     <TEXTURE id="null" />
 
     <DESCENDANTS>
-      <NODEREF id="ghost_board" />
-      <!-- <NODEREF id="white_piece" />
-      <NODEREF id="black_piece" /> -->
+      <NODEREF id="board" />
       <NODEREF id="room" />
     </DESCENDANTS>
   </NODE>
@@ -426,375 +399,6 @@
 
     <DESCENDANTS>
       <LEAF type="cylinder" args="0.8 1.2 1.2 20 20 1 1" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 1-1 -->
-  <NODE id="ghost_circles" visible="true" >
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <DESCENDANTS>
-
-      <!-- Row 1 -->
-      <NODEREF id="ghost_circle_1-1" />
-      <NODEREF id="ghost_circle_1-2" />
-      <NODEREF id="ghost_circle_1-3" />
-      <NODEREF id="ghost_circle_1-4" />
-      <NODEREF id="ghost_circle_1-5" />
-
-      <!-- Row 2 -->
-      <NODEREF id="ghost_circle_2-1" />
-      <NODEREF id="ghost_circle_2-2" />
-      <NODEREF id="ghost_circle_2-3" />
-      <NODEREF id="ghost_circle_2-4" />
-      <NODEREF id="ghost_circle_2-5" />
-
-      <!-- Row 3 -->
-      <NODEREF id="ghost_circle_3-1" />
-      <NODEREF id="ghost_circle_3-2" />
-      <NODEREF id="ghost_circle_3-3" />
-      <NODEREF id="ghost_circle_3-4" />
-      <NODEREF id="ghost_circle_3-5" />
-
-      <!-- Row 4 -->
-      <NODEREF id="ghost_circle_4-1" />
-      <NODEREF id="ghost_circle_4-2" />
-      <NODEREF id="ghost_circle_4-3" />
-      <NODEREF id="ghost_circle_4-4" />
-      <NODEREF id="ghost_circle_4-5" />
-
-      <!-- Row 5 -->
-      <NODEREF id="ghost_circle_5-1" />
-      <NODEREF id="ghost_circle_5-2" />
-      <NODEREF id="ghost_circle_5-3" />
-      <NODEREF id="ghost_circle_5-4" />
-      <NODEREF id="ghost_circle_5-5" />
-
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 1-1 -->
-  <NODE id="ghost_circle_1-1" visible="true">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-7" y="0" z="-7" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 1-2 -->
-  <NODE id="ghost_circle_1-2">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-3.5" y="0" z="-7" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 1-3 -->
-  <NODE id="ghost_circle_1-3">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0" y="0" z="-7" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 1-4 -->
-  <NODE id="ghost_circle_1-4">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="3.5" y="0" z="-7" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 1-5 -->
-  <NODE id="ghost_circle_1-5">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="7" y="0" z="-7" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 2-1 -->
-  <NODE id="ghost_circle_2-1">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-7" y="0" z="-3.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 2-2 -->
-  <NODE id="ghost_circle_2-2">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-3.5" y="0" z="-3.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 1-3 -->
-  <NODE id="ghost_circle_2-3">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0" y="0" z="-3.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 2-4 -->
-  <NODE id="ghost_circle_2-4">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="3.5" y="0" z="-3.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 2-5 -->
-  <NODE id="ghost_circle_2-5">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="7" y="0" z="-3.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 3-1 -->
-  <NODE id="ghost_circle_3-1">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-7" y="0" z="0" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 3-2 -->
-  <NODE id="ghost_circle_3-2">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-3.5" y="0" z="0" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 3-3 -->
-  <NODE id="ghost_circle_3-3">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0" y="0" z="0" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 3-4 -->
-  <NODE id="ghost_circle_3-4">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="3.5" y="0" z="0" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 3-5 -->
-  <NODE id="ghost_circle_3-5">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="7" y="0" z="0" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 4-1 -->
-  <NODE id="ghost_circle_4-1">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-7" y="0" z="3.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 4-2 -->
-  <NODE id="ghost_circle_4-2">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-3.5" y="0" z="3.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 4-3 -->
-  <NODE id="ghost_circle_4-3">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0" y="0" z="3.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 4-4 -->
-  <NODE id="ghost_circle_4-4">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="3.5" y="0" z="3.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 4-5 -->
-  <NODE id="ghost_circle_4-5">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="7" y="0" z="3.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 5-1 -->
-  <NODE id="ghost_circle_5-1">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-7" y="0" z="7" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 5-2 -->
-  <NODE id="ghost_circle_5-2">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-3.5" y="0" z="7" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 5-3 -->
-  <NODE id="ghost_circle_5-3">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0" y="0" z="7" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 5-4 -->
-  <NODE id="ghost_circle_5-4">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="3.5" y="0" z="7" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle 5-5 -->
-  <NODE id="ghost_circle_5-5">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="7" y="0" z="7" />
-
-    <DESCENDANTS>
-      <NODEREF id="ghost_circle" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Circle -->
-  <NODE id="ghost_circle">
-    <MATERIAL id="darkMaterial" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0" y="0.6" z="0" />
-    <ROTATION axis="x" angle="-90" />
-
-    <DESCENDANTS>
-      <LEAF type="circle" args="20" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Ghost Board -->
-  <NODE id="ghost_board">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <DESCENDANTS>
-      <NODEREF id="board" />
-      <!-- <NODEREF id="ghost_circles" /> -->
     </DESCENDANTS>
   </NODE>
 
@@ -916,9 +520,7 @@
       <NODEREF id="walls" />
       <NODEREF id="floor_lamp" />
       <NODEREF id="couch" />
-      <NODEREF id="tv_table" />
       <NODEREF id="shelf" />
-      <NODEREF id="television" />
       <NODEREF id="painting1" />
       <NODEREF id="painting2" />
       <NODEREF id="carpet" />
@@ -1169,106 +771,6 @@
     </DESCENDANTS>
   </NODE>
 
-  <!-- TV Table -->
-  <NODE id="tv_table">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="1.5" y="0" z="7.5" />
-
-    <DESCENDANTS>
-      <NODEREF id="table_top" />
-      <NODEREF id="table_legs" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Table Top -->
-  <NODE id="table_top">
-    <MATERIAL id="woodMaterial" />
-    <TEXTURE id="woodTexture" />
-
-    <TRANSLATION x="0" y="1" z="0" />
-    <SCALE sx="2.5" sy="0.5" sz="5"/>
-
-    <DESCENDANTS>
-      <NODEREF id="cube" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Table Legs -->
-  <NODE id="table_legs">
-    <MATERIAL id="speakerMaterial" />
-    <TEXTURE id="null" />
-
-    <DESCENDANTS>
-      <NODEREF id="table_legs1" />
-      <NODEREF id="table_legs2" />
-      <NODEREF id="table_legs3" />
-      <NODEREF id="table_legs4" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Table Legs1 -->
-  <NODE id="table_legs1">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-0.9" y="0" z="-2.2" />
-
-    <DESCENDANTS>
-      <NODEREF id="table_leg" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Table Legs2 -->
-  <NODE id="table_legs2">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0.9" y="0" z="-2.2" />
-
-    <DESCENDANTS>
-      <NODEREF id="table_leg" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Table Legs3 -->
-  <NODE id="table_legs3">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-0.9" y="0" z="2.2" />
-
-    <DESCENDANTS>
-      <NODEREF id="table_leg" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Table Legs4 -->
-  <NODE id="table_legs4">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0.9" y="0" z="2.2" />
-
-    <DESCENDANTS>
-      <NODEREF id="table_leg" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Table Leg -->
-  <NODE id="table_leg">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <SCALE sx="0.2" sy="0.8" sz="0.2" />
-    <ROTATION axis="x" angle="-90" />
-
-    <DESCENDANTS>
-      <LEAF type="cylinder" args="1.5 1 1 20 20 0 0" />
-    </DESCENDANTS>
-  </NODE>
-
   <!-- Shelf -->
   <NODE id="shelf">
     <MATERIAL id="null" />
@@ -1418,145 +920,6 @@
           <CPOINT xx="0.8" yy="0.4" zz="0" ww="1" />
         </CPLINE>
       </LEAF>
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Television -->
-  <NODE id="television">
-    <MATERIAL id="blackMaterial" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="2" y="2.25" z="7.5"/>
-    <ROTATION axis="y" angle="90" />
-    <SCALE sx="1.2" sy="2" sz="1" />
-
-    <DESCENDANTS>
-      <NODEREF id="tv_main" />
-      <NODEREF id="tv_sec" />
-      <NODEREF id="tv_thrd" />
-      <NODEREF id="tv_screen" />
-      <NODEREF id="tv_antenna" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Television main box -->
-  <NODE id="tv_main">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <SCALE sx="2" sy="1" sz="1" />
-
-    <DESCENDANTS>
-      <NODEREF id="cube" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Television second box -->
-  <NODE id="tv_sec">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0" y="0" z="-0.65"/>
-    <SCALE sx="1.8" sy="0.8" sz="0.3" />
-
-    <DESCENDANTS>
-      <NODEREF id="cube" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Television third box -->
-  <NODE id="tv_thrd">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0" y="0" z="-1"/>
-    <SCALE sx="1" sy="0.6" sz="0.4" />
-
-    <DESCENDANTS>
-      <NODEREF id="cube" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Television screen -->
-  <NODE id="tv_screen">
-    <MATERIAL id="defaultMaterial" />
-    <TEXTURE id="lionkingTexture" />
-
-    <TRANSLATION x="0" y="0" z="0.5"/>
-    <ROTATION axis="z" angle="180"/>
-
-    <DESCENDANTS>
-      <!-- <LEAF  type="rectangle" args="-0.9 0.4 0.9 -0.4" /> -->
-      <LEAF  type="patch" args="20 20" >
-        <CPLINE>
-          <CPOINT xx="-0.9" yy="-0.4" zz="0" ww="1" />
-          <CPOINT xx="-0.9" yy="0.4" zz="0" ww="1" />
-        </CPLINE>
-
-        <CPLINE>
-          <CPOINT xx="0" yy="-0.4" zz="0.2" ww="1" />
-          <CPOINT xx="0" yy="0.4" zz="0.2" ww="1" />
-        </CPLINE>
-
-        <CPLINE>
-          <CPOINT xx="0.9" yy="-0.4" zz="0" ww="1" />
-          <CPOINT xx="0.9" yy="0.4" zz="0" ww="1" />
-        </CPLINE>
-      </LEAF>
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Television antenna -->
-  <NODE id="tv_antenna">
-    <MATERIAL id="metalMaterial" />
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="0.5" y="0.5025" z="0"/>
-    <ROTATION axis="y" angle="-30"/>
-
-    <DESCENDANTS>
-      <NODEREF id="tv_antenna_base" />
-      <NODEREF id="tv_antenna_wire_l" />
-      <NODEREF id="tv_antenna_wire_r" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Television antenna base -->
-  <NODE id="tv_antenna_base">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <SCALE sx="0.15" sy="0.005" sz="0.15" />
-
-    <DESCENDANTS>
-      <LEAF type="sphere" args="2 5 20" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Television antenna right wire -->
-  <NODE id="tv_antenna_wire_l">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <!-- <TRANSLATION x="0" y="0" z="-1"/> -->
-    <ROTATION axis="z" angle="-20"/>
-    <ROTATION axis="x" angle="-90"/>
-
-    <DESCENDANTS>
-      <LEAF type="cylinder" args="0.7 0.01 0.01 5 5 0 0" />
-    </DESCENDANTS>
-  </NODE>
-
-  <!-- Television antenna left wire -->
-  <NODE id="tv_antenna_wire_r">
-    <MATERIAL id="null" />
-    <TEXTURE id="null" />
-
-    <ROTATION axis="z" angle="30"/>
-    <ROTATION axis="x" angle="-90"/>
-
-    <DESCENDANTS>
-      <LEAF type="cylinder" args="0.5 0.01 0.01 5 5 0 0" />
     </DESCENDANTS>
   </NODE>
 
@@ -1969,7 +1332,7 @@
     <MATERIAL id="metalMaterial" />
     <TEXTURE id="null" />
 
-    <!--
+
     <ANIMATIONREFS>
     <ANIMATIONREF id="robot_linear_anim1"/>
     <ANIMATIONREF id="robot_circular_anim1"/>
@@ -1977,7 +1340,7 @@
     <ANIMATIONREF id="robot_circular_anim3"/>
     <ANIMATIONREF id="robot_linear_anim4"/>
   </ANIMATIONREFS>
--->
+
 
 <DESCENDANTS>
   <NODEREF id="robot_vaccum_cleaner_top" />
@@ -2016,13 +1379,13 @@
   <MATERIAL id="null" />
   <TEXTURE id="null" />
 
-  <!--
+
   <ANIMATIONREFS>
   <ANIMATIONREF id="plane_bezier_anim1"/>
   <ANIMATIONREF id="plane_circular_anim1"/>
   <ANIMATIONREF id="plane_bezier_anim2"/>
 </ANIMATIONREFS>
--->
+
 
 <DESCENDANTS>
   <NODEREF id="paper_plane_bottom" />
