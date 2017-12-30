@@ -56,12 +56,14 @@ MySelectState.prototype.logPicking = function ()
 							console.log("Selected Piece");
 							this.selectedPiece = obj;
 							this.selectedPiece.setSelected(true);
+							this.scene.playSelectSFX();
 							this.getValidTiles();
 						}
 						else if(this.selectedPiece == obj){
 							this.selectedPiece.setSelected(false);
 							this.selectedPiece = null;
 							this.validTiles = [];
+							this.scene.playDeselectSFX();
 						}
 
 					}

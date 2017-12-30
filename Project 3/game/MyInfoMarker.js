@@ -116,7 +116,7 @@ MyInfoMarker.prototype.display = function () {
 
 
 	this.scene.pushMatrix(); //timeout
-	this.scene.translate(0.1,-7,0);
+	this.scene.translate(0.1,-8,0);
 	this.displayClock(1);
 	this.scene.popMatrix();
 
@@ -129,12 +129,17 @@ MyInfoMarker.prototype.displayClock = function(timeIdx) {
 
 	// ------------------ "time" (on z+) ------------------
 	this.scene.pushMatrix();
-	this.scene.translate(-10,0,0.51);
-	this.scene.scale(4,2,1);
+	if(timeIdx){
+		this.scene.translate(-4,0,0.51);
+		this.scene.scale(5,3,1);
+	}
+	else{
+		this.scene.translate(-9,0,0.51);
+		this.scene.scale(4,2,1);
+	}
 	this.timesAppearance[timeIdx].bind();
 	this.rect.display();
 	this.scene.popMatrix();
-
 
 
 	// ------------------ time (on z+) ------------------
@@ -143,7 +148,7 @@ MyInfoMarker.prototype.displayClock = function(timeIdx) {
 	for(let i=0; i<6; i++){
 		this.scene.pushMatrix(); //hours 1
 		if(timeIdx == 1){
-			this.scene.translate(9,0,0);
+			this.scene.translate(3,0,0);
 			timeout_flag = 4;
 		}
 		this.scene.translate(offset,0,0.51);
@@ -170,7 +175,6 @@ MyInfoMarker.prototype.displayClock = function(timeIdx) {
 		this.scene.popMatrix();
 	}
 
-	//this.scene.popMatrix();
 }
 
 MyInfoMarker.prototype.displayScore = function(player){

@@ -66,6 +66,8 @@ MyInterface.prototype.addGameSettingsGroup = function(){
 			
 	group.add(this.scene, 'musicOn').name('Music').onChange(function(v)
 			{ obj.scene.updateSceneMusic(v); });
+			
+	group.add(this.scene, 'sfxOn').name('Sound FX');
 }
 
 MyInterface.prototype.addVisualSettingsGroup = function(){

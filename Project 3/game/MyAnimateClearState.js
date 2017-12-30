@@ -104,7 +104,7 @@ MyAnimateClearState.prototype.endOfGame = function () {
 	gorogo.client.makeRequest(request, function(data){
 		let winner = data.target.response;
 		if(winner != "none"){
-			state.scene.sfxSongs[0].play();
+			state.scene.playVictorySFX();
 			let winnerString = "Winner is "+winner+"!";
 			alertify.alert('Winner',winnerString);
 			gorogo.addMove(new MyMove(encodedGame,null,null,null));

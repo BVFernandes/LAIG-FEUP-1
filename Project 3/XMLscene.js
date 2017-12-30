@@ -25,6 +25,7 @@ function XMLscene(interface) {
 
 	this.turnTimeout = 0;
 	this.musicOn = true;
+	this.sfxOn = true;
 	this.zoomCamera = 0.3;
 }
 
@@ -57,7 +58,7 @@ XMLscene.prototype.init = function(application) {
 	this.game = new MyGoRoGo(this);
 
 	this.sceneSongs = [null,new Audio('./scenes/music/lionking.mp3'),new Audio('./scenes/music/christmas.mp3')];
-	this.sfxSongs = [new Audio('./scenes/music/victory.mp3')];
+	this.sfxSongs = [new Audio('./scenes/music/select.mp3'), new Audio('./scenes/music/deselect.mp3'), new Audio('./scenes/music/victory.mp3')];
 	//this.audio.volume=0.2;
 
 	this.setPickEnabled(true);
@@ -350,5 +351,23 @@ XMLscene.prototype.playSceneMusic = function(){
 		console.log("Change Music");
 		this.sceneSongs[this.graphIdx].loop = true;
 		this.sceneSongs[this.graphIdx].play();
+	}
+}
+
+XMLscene.prototype.playSelectSFX = function(){
+	if(this.sfxOn){
+		this.sfxSongs[0].play();
+	}
+}
+
+XMLscene.prototype.playDeselectSFX = function(){
+	if(this.sfxOn){
+		this.sfxSongs[1].play();
+	}
+}
+
+XMLscene.prototype.playVictorySFX = function(){
+	if(this.sfxOn){
+		this.sfxSongs[2].play();
 	}
 }
