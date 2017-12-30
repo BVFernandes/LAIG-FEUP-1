@@ -55,23 +55,23 @@ MyGoRoGo.prototype.initializeBoard = function () {
 		}
 	}
 
-	for (let i = -6; i <= 6; i+=2.6) {
+	for (let i = -5; i <= 5; i+=2.5) {
 		for(let j = -16; j <= -13; j+=2.6){
 			this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "n", i, j, this.blackPlayer));
 		}
 	}
 
 	for(let i = -1.75; i <= 1.75; i+=2.5)
-		this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "h", i, -18.5, this.blackPlayer));
+		this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "h", i, -18.8, this.blackPlayer));
 
-	for (let i = -6; i <= 6; i+=2.6) {
+	for (let i = -5; i <= 5; i+=2.5) {
 		for(let j = 16; j >= 13; j-=2.6){
 			this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "n", i, j, this.whitePlayer));
 		}
 	}
 
 	for(let i = -2.5; i <= 2.5; i+= 2.5)
-		this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "h", i, 18.5, this.whitePlayer));
+		this.pieces.push(new MyPiece(this.scene, this.selectedPieceShader, "h", i, 18.8, this.whitePlayer));
 
 }
 
@@ -190,13 +190,11 @@ MyGoRoGo.prototype.display = function(){
 	}
 
 	this.scene.pushMatrix();
-
 	this.marker.display();
 	this.tvScene.display();
-	
-	this.scene.translate(0,0,25);
-	this.displayObjects(pickingIdx);
 	this.scene.popMatrix();
+
+	this.displayObjects(pickingIdx);
 
 	this.scene.pushMatrix();
 	this.scene.translate(-69,35,0);
@@ -211,23 +209,35 @@ MyGoRoGo.prototype.display = function(){
 }
 
 MyGoRoGo.prototype.displayObjects = function (pickingIdx){
+
 	this.scene.registerForPick(pickingIdx, this.togglePlayer1Obj);
-	this.togglePlayer1Obj.display();
-	pickingIdx++;
+
 	this.scene.pushMatrix();
-	this.scene.translate(0,-7,0);
-	this.scene.registerForPick(pickingIdx, this.togglePlayer2Obj);
-	this.togglePlayer2Obj.display();
+	this.scene.translate(-23,-2,20);
+	this.togglePlayer1Obj.display();
+	this.scene.popMatrix();
 	pickingIdx++;
 
+	this.scene.registerForPick(pickingIdx, this.togglePlayer2Obj);
+	this.scene.pushMatrix();
+	this.scene.translate(-23,-2,-20);
+	this.togglePlayer2Obj.display();
 	this.scene.popMatrix();
+	pickingIdx++;
+
+
 	this.scene.registerForPick(pickingIdx, this.startMovieObj);
+	this.scene.pushMatrix();
+	this.scene.translate(-23,4,20);
+	this.scene.scale(1,0.8,0.8);
 	this.startMovieObj.display();
+	this.scene.popMatrix();
 	pickingIdx++;
 
 	this.scene.registerForPick(pickingIdx, this.startGameObj);
+	this.scene.pushMatrix();
+	this.scene.translate(-23,-8,-20);
 	this.startGameObj.display();
-
 	this.scene.clearPickRegistration();
 }
 
