@@ -7,13 +7,13 @@ function MyInfoMarker(scene,game){
 	this.time = {hours : 0, minutes : 0, seconds : 0 };
 	this.timeout = {hours : 0, minutes : 0, seconds : 0 };
 	this.times = [this.time, this.timeout];
-	
+
 	this.defaultMaterial = new CGFappearance(this.scene);
 	this.defaultMaterial.setAmbient(1,1,1,1);
 	this.defaultMaterial.setDiffuse(1,1,1,1);
 	this.defaultMaterial.setSpecular(1,1,1,1);
 	this.defaultMaterial.setShininess(10);
-	
+
 	this.blackMaterial = new CGFappearance(this.scene);
 	this.blackMaterial.setAmbient(0,0,0,1);
 	this.blackMaterial.setDiffuse(0,0,0,1);
@@ -51,60 +51,60 @@ MyInfoMarker.prototype.display = function () {
 	this.scene.translate(-25,8,0);
 	this.scene.rotate(Math.PI/4,0,0,1);
 	this.scene.rotate(Math.PI/2,0,1,0);
-	
+
 	this.scene.pushMatrix(); //board
 	this.scene.scale(30,20,1);
 	this.blackMaterial.apply();
 	this.board.display();
 	this.scene.popMatrix();
-	
+
 	this.defaultMaterial.apply();
-	
+
 	this.scene.pushMatrix(); //timeout
 	this.scene.translate(0,8,0);
 	this.displayClock(0);
 	this.scene.popMatrix();
-	
+
 	this.scene.pushMatrix();
 	this.scene.translate(0,4,0.51);
 	this.scene.scale(5,1,1);
 	this.scoreAppearance.bind();
 	this.rect.display();
 	this.scene.popMatrix();
-	
+
 	this.scene.pushMatrix(); //p1 score
 	this.scene.translate(-7,-1,0);
 	this.displayScore(this.game.whitePlayer);
 	this.scene.popMatrix();
-	
+
 	this.scene.pushMatrix(); //p2 score
 	this.scene.translate(7,-1,0);
 	this.displayScore(this.game.blackPlayer);
 	this.scene.popMatrix();
-	
+
 	//Set
-	this.scene.pushMatrix();	
-	this.scene.translate(0,-1.5,0.51);
+	this.scene.pushMatrix();
+	this.scene.translate(0.1,-1.5,0.51);
 	this.scene.scale(5,1,1);
 	this.scoreAppearance.bind();
 	this.rect.display();
 	this.scene.popMatrix();
-	
+
 	//Total
-	this.scene.pushMatrix();		
-	this.scene.translate(0,-3.5,0.51);
+	this.scene.pushMatrix();
+	this.scene.translate(0.1,-3.5,0.51);
 	this.scene.scale(5,1,1);
 	this.scoreAppearance.bind();
 	this.rect.display();
 	this.scene.popMatrix();
-	
-	
+
+
 	this.scene.pushMatrix(); //timeout
-	this.scene.translate(0,-7,0);
+	this.scene.translate(0.1,-7,0);
 	this.displayClock(1);
 	this.scene.popMatrix();
-	
-	
+
+
 	this.scene.popMatrix();
 }
 
@@ -118,9 +118,9 @@ MyInfoMarker.prototype.displayClock = function(timeIdx) {
 	this.timesAppearance[timeIdx].bind();
 	this.rect.display();
 	this.scene.popMatrix();
-	
 
-	
+
+
 	// ------------------ time (on z+) ------------------
 	let offset=0;
 	for(let i=0; i<6; i++){
@@ -145,7 +145,7 @@ MyInfoMarker.prototype.displayClock = function(timeIdx) {
 		this.rect.display();
 		this.scene.popMatrix();
 	}
-	
+
 	//this.scene.popMatrix();
 }
 
@@ -170,8 +170,8 @@ MyInfoMarker.prototype.displayScore = function(player){
 	this.numbersTextures[score].bind();
 	this.rect.display();
 	this.scene.popMatrix();
-	
-	
+
+
 	this.scene.pushMatrix();
 	this.scene.translate(0,-2.5,0.51);
 	this.scene.scale(1.5,1,1);

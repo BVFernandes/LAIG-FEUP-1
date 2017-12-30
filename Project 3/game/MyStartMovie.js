@@ -20,6 +20,12 @@ function MyStartMovie(scene){
 	this.greenMaterial.setSpecular(0,1,0,1);
 	this.greenMaterial.setShininess(50);
 
+	this.plasticMaterial = new CGFappearance(this.scene);
+	this.plasticMaterial.setAmbient(0.1,0.1,0.1,1);
+	this.plasticMaterial.setDiffuse(0.1,0.1,0.1,1);
+	this.plasticMaterial.setSpecular(0.1,0.1,0.1,1);
+	this.plasticMaterial.setShininess(50);
+
 }
 
 MyStartMovie.prototype = Object.create(CGFobject.prototype);
@@ -29,17 +35,18 @@ MyStartMovie.prototype.display = function () {
 
 	this.scene.pushMatrix();
 	this.scene.translate(0,15,0);
-	this.blackMaterial.apply();
 
 	this.scene.pushMatrix();
 	this.scene.rotate(10 * DEGREE_TO_RAD, 1, 0, 0);
 	this.scene.translate(0,4,-0.5);
 	this.scene.scale(2,2,10);
+	this.plasticMaterial.apply();
 	this.cube.display();
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix();
 	this.scene.scale(2,5,10);
+	this.blackMaterial.apply();
 	this.cube.display();
 	this.scene.popMatrix();
 

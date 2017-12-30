@@ -84,10 +84,8 @@ MyGoRoGo.prototype.initVisualComponents = function() {
 
 	this.selectablePieceShader = new CGFshader(this.scene.gl, "shaders/MyShader2.vert", "shaders/MyShader2.frag");
 
-	this.goRoGoAppearance = new CGFappearance(this.scene);
-	this.goRoGoAppearance.loadTexture("scenes/marker/gorogo.png");
-	this.rect = new MyRectangle(this.scene,[-3,3],[3,-3]);
-	this.rect.updateTexCoords(6,6);
+	this.goRoGoAppearance = new CGFtexture(this.scene,"./scenes/marker/gorogo.png");
+	this.rect = new MyRectangle(this.scene,[-0.5,0.5],[0.5,-0.5]);
 
 }
 /**
@@ -213,12 +211,14 @@ MyGoRoGo.prototype.display = function(){
 	this.displayObjects(pickingIdx);
 
 	this.scene.pushMatrix();
-	this.scene.translate(-69,35,0);
-	this.scene.scale(13,2.3,13);
+	 this.scene.translate(-30, 40, 20);
+	this.scene.scale(40,10,40);
+	this.scene.rotate(Math.PI,1,0,0);
 	this.scene.rotate(Math.PI/2,0,1,0);
 
-	this.goRoGoAppearance.apply();
+	this.goRoGoAppearance.bind();
 	this.rect.display();
+	this.goRoGoAppearance.unbind();
 	this.scene.popMatrix();
 
 
