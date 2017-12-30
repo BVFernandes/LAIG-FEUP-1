@@ -37,7 +37,7 @@ MyTogglePlayer.prototype.display = function () {
 
 	this.scene.pushMatrix();
 
-	switch ((this.player.getName() == "whitePlayer" ? this.scene.selectedPlayer1Type : this.scene.selectedPlayer2Type)) {
+	switch (parseInt(this.player.getName() == "whitePlayer" ? this.scene.selectedPlayer1Type : this.scene.selectedPlayer2Type)) {
 	case 0:
 		this.blackMaterial.apply();
 		break;
