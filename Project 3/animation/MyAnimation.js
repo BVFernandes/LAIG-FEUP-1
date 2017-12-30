@@ -2,14 +2,14 @@
  * MyAnimation
  * @constructor
  **/
-function MyAnimation(id, velocity) {
+function MyAnimation(id, velocity, loop) {
 	if (this.constructor === MyAnimation) {
 		throw new Error("Can't instantiate abstract class!");
 	}
 
 	this.end = false;
 	this.stop = false;
-	this.loop = false;
+	this.loop = loop || true;
 
 	this.id=id;
 	this.velocity = velocity;

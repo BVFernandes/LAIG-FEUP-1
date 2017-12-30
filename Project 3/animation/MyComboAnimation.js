@@ -2,8 +2,8 @@
  * MyComboAnimation
  * @constructor
  **/
-function MyComboAnimation(id) {
-	MyAnimation.call(this,id,null);
+function MyComboAnimation(id, loop) {
+	MyAnimation.call(this,id,null,loop);
 
 	this.animations=[];
 	this.currAnimation = 0;

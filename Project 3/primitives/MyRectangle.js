@@ -49,11 +49,11 @@ MyRectangle.prototype.initBuffers = function () {
 	this.maxT=(this.leftTop[1]-this.rightBottom[1]); // delta y
 
 	this.texCoords = [
-		0,0,
-		this.maxS,0,
-		0,this.maxT,
-		this.maxS,this.maxT
-		];
+		0, this.maxT,
+		this.maxS, this.maxT,
+		0, 0,
+		this.maxS, 0
+	];
 
 	this.initGLBuffers();
 };

@@ -275,7 +275,7 @@
     </ANIMATION>
 
     <ANIMATION id="robot_linear_anim2" type="linear" speed="3">
-      <controlpoint xx="7" yy="0" zz="10"/>
+      <controlpoint xx="7" yy="0" zz="11"/>
       <controlpoint xx="14" yy="0" zz="11"/>
       <controlpoint xx="11" yy="0" zz="14"/>
       <controlpoint xx="7" yy="0" zz="11"/>
@@ -293,8 +293,8 @@
       <controlpoint xx="1.5" yy="0" zz="12"/>
     </ANIMATION>
 
-    <ANIMATION id="robot_circular_anim1" type="circular" speed="3" centerx="7" centery="0" centerz="7" radius="3" startang="90" rotang="-180" />
-
+    <ANIMATION id="robot_circular_anim1" type="circular" speed="3" centerx="7" centery="0" centerz="7.5" radius="3.5" startang="90" rotang="-180" />
+	
     <ANIMATION id="robot_circular_anim2" type="circular" speed="3" centerx="7" centery="0" centerz="7" radius="4" startang="-90" rotang="-180" />
 
     <ANIMATION id="robot_circular_anim3" type="circular" speed="3" centerx="8" centery="0" centerz="9" radius="2" startang="0" rotang="-90" />
