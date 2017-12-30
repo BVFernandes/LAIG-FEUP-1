@@ -15,6 +15,7 @@ function MyPlayer(name, x, z) {
 	this.hengePieces = 2;
 
 	this.score = 0;
+	this.victories = 0;
 	this.stackPos = [x,z];
 	this.stackHeight = 0;
 
@@ -44,6 +45,27 @@ MyPlayer.prototype.getScore = function () {
  */
 MyPlayer.prototype.getName = function () {
 	return this.name;
+}
+
+/**
+ * Returns number of victories
+ */
+MyPlayer.prototype.getVictories = function () {
+	return this.victories;
+}
+
+/**
+ * Increments number of victories
+ */
+MyPlayer.prototype.incVictories = function () {
+	this.victories++;
+}
+
+/**
+ * Returns number of victories
+ */
+MyPlayer.prototype.resetVictories = function () {
+	this.victories=0;
 }
 
 /**
@@ -103,6 +125,7 @@ MyPlayer.prototype.toggleType = function () {
 	this.typeIdx++;
 	if(this.typeIdx >= MyPlayer.types.length)
 		this.typeIdx = 0;
+	this.resetVictories();
 }
 
 /**

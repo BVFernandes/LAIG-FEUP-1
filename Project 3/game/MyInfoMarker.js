@@ -190,6 +190,7 @@ MyInfoMarker.prototype.displayScore = function(player){
 
 	// ------------------ score (on z+) ------------------
 	let score = player.getScore();
+	let victories = player.getVictories();
 
 	this.scene.pushMatrix();
 	this.scene.translate(0,-0.5,0.51);
@@ -202,7 +203,7 @@ MyInfoMarker.prototype.displayScore = function(player){
 	this.scene.pushMatrix();
 	this.scene.translate(0,-2.5,0.51);
 	this.scene.scale(1.5,1,1);
-	this.numbersTextures[score].bind();
+	this.numbersTextures[victories].bind();
 	this.rect.display();
 	this.scene.popMatrix();
 }

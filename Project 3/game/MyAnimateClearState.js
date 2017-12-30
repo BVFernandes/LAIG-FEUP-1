@@ -109,6 +109,11 @@ MyAnimateClearState.prototype.endOfGame = function () {
 			alertify.alert('Winner',winnerString);
 			gorogo.addMove(new MyMove(encodedGame,null,null,null));
 			gorogo.setGameOver(true);
+			if(winner == gorogo.whitePlayer.getName()){
+				gorogo.whitePlayer.incVictories();
+			}else {
+				gorogo.blackPlayer.incVictories();
+			}
 		}
 		else{
 			gorogo.setNextTurn();
@@ -129,7 +134,6 @@ MyAnimateClearState.prototype.updateGame = function () {
 	let request = "updateGameWithPoints("+encodedGame+")";
 
 	gorogo.client.makeRequest(request, function(data){
-		console.log(data.target.response);
 		let res = state.parseUpdate(data.target.response);
 		gorogo.setGame(res[0]);
 		let pieces = gorogo.clearSurroundedPieces(res[1]);
