@@ -139,16 +139,24 @@ MyInfoMarker.prototype.displayClock = function(timeIdx) {
 
 	// ------------------ time (on z+) ------------------
 	let offset=0;
+	let timeout_flag=0;
 	for(let i=0; i<6; i++){
 		this.scene.pushMatrix(); //hours 1
+		if(timeIdx == 1){
+			this.scene.translate(9,0,0);
+			timeout_flag = 4;
+		}
 		this.scene.translate(offset,0,0.51);
 		this.scene.scale(1.5,1,1);
-		this.applyNumber(i,timeIdx);
+		this.applyNumber(i+timeout_flag,timeIdx);
 		this.rect.display();
 		this.scene.popMatrix();
 		offset+=2;
 		if(i%2 == 1)
 			offset+=1;
+		if(timeIdx == 1 && i == 1){
+			return;
+		}
 	}
 
 
