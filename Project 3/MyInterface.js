@@ -108,11 +108,14 @@ MyInterface.prototype.addGameModeList = function(group){
 
 MyInterface.prototype.addScenesList = function(group){
 	let obj = this;
+	let scene = this.scene;
 	group.add(this.scene, 'graphIdx', {
 		'Default': 0,
 		'Test': 1,
 		'Piroxenas' : 2 ,
 	}).name('Scene').onChange(function(){
+		console.log("Where's the music");
+		scene.playSceneMusic();
 		obj.changeScene = true;
 		obj.scene.onGraphLoaded();});
 }
