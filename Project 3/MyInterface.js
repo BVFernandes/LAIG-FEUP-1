@@ -97,13 +97,13 @@ MyInterface.prototype.addGameModeList = function(group){
 		'Human': 0,
 		'Easy CPU': 1,
 		'Hard CPU': 2,
-	}).name('Player 1');
+	}).name('Player 1').listen();
 
 	group.add(this.scene, 'selectedPlayer2Type', {
 		'Human': 0,
 		'Easy CPU': 1,
 		'Hard CPU': 2,
-	}).name('Player 2');
+	}).name('Player 2').listen();
 }
 
 MyInterface.prototype.addScenesList = function(group){

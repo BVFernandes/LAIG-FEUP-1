@@ -15,6 +15,7 @@ function MyGoRoGo(scene) {
 	this.board = new MyBoard();
 	this.startMovieObj = new MyStartMovie(scene);
 	this.startGameObj = new MyStartGame(scene);
+	this.tvScene = new MyTVScene(scene);
 
 	this.turn;
 	this.gameOver = false;
@@ -191,7 +192,8 @@ MyGoRoGo.prototype.display = function(){
 	this.scene.pushMatrix();
 
 	this.marker.display();
-
+	this.tvScene.display();
+	
 	this.scene.translate(0,0,25);
 	this.displayObjects(pickingIdx);
 	this.scene.popMatrix();
