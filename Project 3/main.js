@@ -20,7 +20,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
 	'animation/MyBezierAnimation.js', 'animation/MyBezierSelfRotAnimation.js', 'animation/MyComboAnimation.js',
 	'game/MyGoRoGo.js', 'game/MyPiece.js', 'game/MyRegularPiece.js', 'game/MyHengePiece.js', 'game/MyTile.js', 'game/MyPlayer.js',
 	'game/MyMove.js', 'game/MyBoard.js', 'game/MySelectState.js', 'game/MyAnimateMoveState.js', 'game/MyAnimateClearState.js', 'game/MyReplayClearState.js',
-	'Client.js', 'game/MyInfoMarker.js', 'game/MyTogglePlayer.js','game/MyStartMovie.js', 'game/MyStartGame.js', 'game/MyTVScene.js',
+	'Client.js', 'game/MyInfoMarker.js', 'game/MyTogglePlayer.js','game/MyStartMovie.js', 'game/MyStartGame.js', 'game/MyTVScene.js', 'game/MyChristmasScene.js',
 
 	main=function()
 	{

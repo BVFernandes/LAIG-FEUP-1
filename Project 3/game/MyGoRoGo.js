@@ -16,6 +16,7 @@ function MyGoRoGo(scene) {
 	this.startMovieObj = new MyStartMovie(scene);
 	this.startGameObj = new MyStartGame(scene);
 	this.tvScene = new MyTVScene(scene);
+	this.christmasScene = new MyChristmasScene(scene);
 
 	this.turn;
 	this.gameOver = false;
@@ -191,7 +192,6 @@ MyGoRoGo.prototype.display = function(){
 
 	this.scene.pushMatrix();
 	this.marker.display();
-	this.tvScene.display();
 	this.scene.popMatrix();
 
 	this.displayObjects(pickingIdx);
@@ -210,8 +210,23 @@ MyGoRoGo.prototype.display = function(){
 
 MyGoRoGo.prototype.displayObjects = function (pickingIdx){
 
-	this.scene.registerForPick(pickingIdx, this.togglePlayer1Obj);
+	this.scene.registerForPick(pickingIdx, this.tvScene);
+	this.scene.pushMatrix();
+	this.scene.translate(-35,20,5);
+	this.scene.scale(3,3,3);
+	this.tvScene.display();
+	this.scene.popMatrix();
+	pickingIdx++;
 
+	this.scene.registerForPick(pickingIdx, this.christmasScene);
+	this.scene.pushMatrix();
+	this.scene.translate(-35,17.5,-5);
+	this.scene.scale(4,4,4);
+	this.christmasScene.display();
+	this.scene.popMatrix();
+	pickingIdx++;
+
+	this.scene.registerForPick(pickingIdx, this.togglePlayer1Obj);
 	this.scene.pushMatrix();
 	this.scene.translate(-23,-2,20);
 	this.togglePlayer1Obj.display();
