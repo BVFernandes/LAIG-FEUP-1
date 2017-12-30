@@ -57,6 +57,7 @@ XMLscene.prototype.init = function(application) {
 	this.game = new MyGoRoGo(this);
 
 	this.sceneSongs = [null,new Audio('./scenes/music/lionking.mp3'),new Audio('./scenes/music/christmas.mp3')];
+	this.sfxSongs = [new Audio('./scenes/music/victory.mp3')];
 	//this.audio.volume=0.2;
 
 	this.setPickEnabled(true);
@@ -201,7 +202,7 @@ XMLscene.prototype.initCameras = function() {
 	this.deltaCam = 0;
 }
 
-/** 
+/**
  * Handler called when the graph is finally loaded.
  * As loading is asynchronous, this may be called already after the application has started the run loop
  */
@@ -334,7 +335,7 @@ XMLscene.prototype.unpauseSceneMusic = function(){
 
 
 XMLscene.prototype.playSceneMusic = function(){
-	
+
 	if(!this.musicOn)
 		return;
 
