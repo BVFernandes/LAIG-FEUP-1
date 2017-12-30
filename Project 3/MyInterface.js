@@ -59,9 +59,13 @@ MyInterface.prototype.addGameSettingsGroup = function(){
 
 	this.addGameModeList(group);
 
-	obj=this;
+	let obj=this;
+	
 	group.add(this.scene, 'turnTimeout',0,60).name('Turn Timeout').onChange(function(v)
 			{ obj.scene.updateTurnTimeout(v); });
+			
+	group.add(this.scene, 'musicOn').name('Music').onChange(function(v)
+			{ obj.scene.updateSceneMusic(v); });
 }
 
 MyInterface.prototype.addVisualSettingsGroup = function(){

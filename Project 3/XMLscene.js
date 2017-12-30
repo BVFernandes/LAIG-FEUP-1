@@ -24,6 +24,7 @@ function XMLscene(interface) {
 	this.graphIdx = 0;
 
 	this.turnTimeout = 0;
+	this.musicOn = true;
 	this.zoomCamera = 0.3;
 }
 
@@ -313,7 +314,28 @@ XMLscene.prototype.setShader = function(shader){
 	}
 }
 
+XMLscene.prototype.updateSceneMusic = function(v){
+	if(this.sceneSongs[this.graphIdx]){
+		if(v){
+			this.sceneSongs[this.graphIdx].loop = true;
+			this.sceneSongs[this.graphIdx].play();
+		}
+		else
+			this.sceneSongs[this.graphIdx].pause();
+
+	}
+}
+
+XMLscene.prototype.unpauseSceneMusic = function(){
+	if(this.sceneSongs[this.graphIdx])
+		this.sceneSongs[this.graphIdx].play();
+}
+
+
 XMLscene.prototype.playSceneMusic = function(){
+	
+	if(!this.musicOn)
+		return;
 
 	for(let i = 0; i < this.sceneSongs.length; i++){
 		if(this.sceneSongs[i]){
