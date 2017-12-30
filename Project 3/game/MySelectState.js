@@ -26,7 +26,7 @@ MySelectState.prototype = Object.create(CGFobject.prototype);
 MySelectState.prototype.constructor = MySelectState;
 
 /**
- * Accordingly to the picking, selects a piece
+ * Selects a piece according to the picking
  */
 MySelectState.prototype.logPicking = function ()
 {
@@ -68,15 +68,16 @@ MySelectState.prototype.logPicking = function ()
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
 			}
-			//this.scene.pickResults.splice(0,this.scene.pickResults.length);
 		}
 	}
 }
 
-MySelectState.prototype.display = function (){
-	this.logPicking();
-	//this.scene.clearPickRegistration();
 
+/**
+ * Displays and registers objects for picking
+ */
+MySelectState.prototype.display = function (){
+	
 	this.scene.pushMatrix();
 
 	let pieces = this.game.getPieces();
@@ -108,6 +109,10 @@ MySelectState.prototype.display = function (){
 	this.pickingIdx = pickingIdx;
 }
 
+/**
+ * Updates state
+ * @param currTime
+ */
 MySelectState.prototype.update = function (currTime){
 	let tFactor = Math.abs(Math.sin(currTime*Math.pow(10,-3)));
 	this.game.getSelectedPieceShader().setUniformsValues({timeFactor: tFactor});
@@ -129,6 +134,9 @@ MySelectState.prototype.update = function (currTime){
 	}
 }
 
+/**
+ * Makes a request to the prolog server to find what tiles are valid
+ */
 MySelectState.prototype.getValidTiles = function () {
 	let state = this;
 	let gorogo = this.game;
@@ -142,6 +150,9 @@ MySelectState.prototype.getValidTiles = function () {
 	});
 }
 
+/**
+ * Makes a request to the prolog server to find a bot play
+ */
 MySelectState.prototype.getBotPlay = function () {
 	let state = this;
 	let gorogo = this.game;
@@ -165,6 +176,9 @@ MySelectState.prototype.getBotPlay = function () {
 	});
 }
 
+/**
+ * Makes a request to the prolog server to find what tiles are valid
+ */
 MySelectState.prototype.parsePlays = function (encodedPlays) {
 	let plays  = encodedPlays.split(']');
 	let playsLength = plays.length-2;
@@ -177,6 +191,10 @@ MySelectState.prototype.parsePlays = function (encodedPlays) {
 	return tiles;
 }
 
+/**
+ * Returns the parsed result of an enconded play response from the prolog server
+ * @param encodedPlay
+ */
 MySelectState.prototype.parsePlay = function (encodedPlay) {
 	let res = encodedPlay.split("|");
 	let dest = [parseInt(res[0][2]),parseInt(res[0][4])];
@@ -184,6 +202,10 @@ MySelectState.prototype.parsePlay = function (encodedPlay) {
 	return [dest,type];
 }
 
+/**
+ * Returns if a piece is selectable
+ * @param piece
+ */
 MySelectState.prototype.isPieceSelectable = function (piece){
 	let currentPlayer = this.game.getCurrentPlayerStr();
 
@@ -199,14 +221,25 @@ MySelectState.prototype.isPieceSelectable = function (piece){
 	return false;
 }
 
+/**
+ * Sets valid tiles to @param validTiles
+ * @param validTiles
+ */
 MySelectState.prototype.setValidTiles = function (validTiles){
 	this.validTiles = validTiles;
 }
 
+/**
+ * Sets next state after the current is done
+ * @param move
+ */
 MySelectState.prototype.setNextState = function (move) {
 	this.game.setState(new MyAnimateMoveState(this.game,this.scene,move));
 }
 
+/**
+ * Returns the next valid picking index to be used
+ */
 MySelectState.prototype.getPickingIdx = function (){
 	return this.pickingIdx;
 }

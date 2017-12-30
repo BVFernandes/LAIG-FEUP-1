@@ -32,11 +32,9 @@ MyTile.prototype.constructor = MyTile;
 
 
 /**
- * Displays MyTile and respective piece, if it exists
- * @param currentMove
- * @param pickingMode
+ * Displays tile
  */
-MyTile.prototype.display = function (currentMove, pickingMode) {
+MyTile.prototype.display = function () {
 	this.scene.pushMatrix();
 
 	this.scene.translate(this.x, 0.6, this.z);
@@ -59,16 +57,21 @@ MyTile.prototype.setPiece = function (piece) {
 
 /**
  * Returns piece
- * @returns {*|null}
  */
 MyTile.prototype.getPiece = function () {
 	return this.piece;
 }
 
+/**
+ * Returns postion
+ */
 MyTile.prototype.getPos = function () {
 	return [this.x, this.z];
 }
 
+/**
+ * Returns postion in board coordinates
+ */
 MyTile.prototype.getBoardPos = function () {
 	return [MyTile.toBoardPos[this.z.toString()], MyTile.toBoardPos[this.x.toString()]];
 }

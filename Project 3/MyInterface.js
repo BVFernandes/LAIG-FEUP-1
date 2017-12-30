@@ -125,6 +125,8 @@ MyInterface.prototype.addScenesList = function(group){
 }
 
 MyInterface.prototype.addPerspectiveList = function(group){
+	
+	let obj = this;
 
 	group.add(this.scene, 'cameraIdx', {
 		'Center': 0,

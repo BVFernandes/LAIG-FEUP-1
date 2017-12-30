@@ -23,6 +23,9 @@ function MyAnimateClearState(game,scene) {
 MyAnimateClearState.prototype = Object.create(CGFobject.prototype);
 MyAnimateClearState.prototype.constructor = MyAnimateClearState;
 
+/**
+ * Displays and registers objects for picking
+ */
 MyAnimateClearState.prototype.display = function (){
 
 	this.scene.pushMatrix();
@@ -36,7 +39,10 @@ MyAnimateClearState.prototype.display = function (){
 	this.scene.popMatrix();
 }
 
-
+/**
+ * Updates state
+ * @param currTime
+ */
 MyAnimateClearState.prototype.update = function (currTime){
 
 	for(let i = 0; i < this.surroundedPieces.length; i++){
@@ -61,6 +67,9 @@ MyAnimateClearState.prototype.update = function (currTime){
 	}
 }
 
+/**
+ * Updates current state
+ */
 MyAnimateClearState.prototype.updateState = function (){
 	switch(this.state){
 	case MyAnimateClearState.state.INIT:
@@ -81,6 +90,9 @@ MyAnimateClearState.prototype.updateState = function (){
 	}
 }
 
+/**
+ * Makes a request to the prolog server to find if the game has ended and who is the winner
+ */
 MyAnimateClearState.prototype.endOfGame = function () {
 	let state = this;
 	let gorogo = this.game;
@@ -105,7 +117,9 @@ MyAnimateClearState.prototype.endOfGame = function () {
 	});
 }
 
-
+/**
+ * Makes a request to the prolog server to update the game
+ */
 MyAnimateClearState.prototype.updateGame = function () {
 	let state = this;
 	let gorogo = this.game;
@@ -125,6 +139,10 @@ MyAnimateClearState.prototype.updateGame = function () {
 	});
 }
 
+/**
+ * Returns the parsed result of an enconded updated game response from the prolog server
+ * @param encodedUpdate
+ */
 MyAnimateClearState.prototype.parseUpdate = function (encodedUpdate) {
 	let res = encodedUpdate.split('!');
 	let encodedGame = res[0].slice(0,-1);
@@ -140,18 +158,32 @@ MyAnimateClearState.prototype.parseUpdate = function (encodedUpdate) {
 	return [encodedGame,points];
 }
 
+/**
+ * Sets surrounded pieces to @param pieces
+ * @param pieces
+ */
 MyAnimateClearState.prototype.setSurroundedPieces = function (pieces){
 	this.surroundedPieces = pieces;
 }
 
+/**
+ * Sets next state after the current is done
+ * @param move
+ */
 MyAnimateClearState.prototype.setNextState = function () {
 	this.game.setState(new MySelectState(this.game,this.scene));
 }
 
+/**
+ * Selects a piece according to the picking
+ */
 MyAnimateClearState.prototype.logPicking = function () {
 
 }
 
+/**
+ * Returns the next valid picking index to be used
+ */
 MyAnimateClearState.prototype.getPickingIdx = function () {
 	return 1;
 }

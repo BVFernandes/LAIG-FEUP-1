@@ -17,8 +17,7 @@ MyBoard.prototype = Object.create(CGFobject.prototype);
 MyBoard.prototype.constructor = MyBoard;
 
 /**
- * Puts a js board in a pl struct
- * @returns {void|XML}
+ * Returns enconded board in prolog format
  */
 MyBoard.prototype.toPlString = function () {
 	let encodedBoard = "[";
@@ -33,7 +32,6 @@ MyBoard.prototype.toPlString = function () {
 
 /**
  * Returns the board matrix
- * @returns {Array}
  */
 MyBoard.prototype.getBoard = function () {
 	return this.board;
@@ -60,10 +58,10 @@ MyBoard.prototype.getBoardLength = function () {
 }
 
 /**
- * Sets the element at the given coordinates
+ * Sets the element at the given position
  * @param pos
  * @param player
- * @param element
+ * @param type
  */
 MyBoard.prototype.setElementAt = function (pos, player, type) {
 	let symbol;

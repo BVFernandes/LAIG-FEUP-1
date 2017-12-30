@@ -24,6 +24,9 @@ function MyReplayClearState(game,scene) {
 MyReplayClearState.prototype = Object.create(CGFobject.prototype);
 MyReplayClearState.prototype.constructor = MyReplayClearState;
 
+/**
+ * Displays and registers objects for picking
+ */
 MyReplayClearState.prototype.display = function (){
 	this.scene.pushMatrix();
 
@@ -36,7 +39,10 @@ MyReplayClearState.prototype.display = function (){
 	this.scene.popMatrix();
 }
 
-
+/**
+ * Updates state
+ * @param currTime
+ */
 MyReplayClearState.prototype.update = function (currTime){
 	if(this.replayEnded)
 		return;
@@ -56,6 +62,10 @@ MyReplayClearState.prototype.update = function (currTime){
 
 }
 
+/**
+ * Sets next state after the current is done
+ * @param move
+ */
 MyReplayClearState.prototype.setNextState = function () {
 	if(this.nextMove.getPiece() == null){
 		alertify.alert('Movie', 'End of replay');
@@ -65,10 +75,16 @@ MyReplayClearState.prototype.setNextState = function () {
 		this.game.setState(new MyAnimateMoveState(this.game,this.scene,this.nextMove, true));
 }
 
+/**
+ * Selects a piece according to the picking
+ */
 MyReplayClearState.prototype.logPicking = function (){
 
 }
 
+/**
+ * Returns the next valid picking index to be used
+ */
 MyReplayClearState.prototype.getPickingIdx = function (){
 	return 1;
 }

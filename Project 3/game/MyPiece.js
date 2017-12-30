@@ -39,7 +39,7 @@ MyPiece.prototype = Object.create(CGFobject.prototype);
 MyPiece.prototype.constructor = MyPiece;
 
 /**
- * Displays a MyPiece
+ * Displays piece
  */
 MyPiece.prototype.display = function () {
 	this.scene.pushMatrix();
@@ -60,6 +60,10 @@ MyPiece.prototype.display = function () {
 	this.scene.popMatrix();
 }
 
+/**
+ * Updates piece
+ * @param currTime
+ */
 MyPiece.prototype.update = function (currTime) {
 	if(this.animation == null)
 		return;
@@ -96,7 +100,7 @@ MyPiece.prototype.update = function (currTime) {
 }
 
 /**
- * Sets MyPiece actual tile
+ * Sets placing tile
  * @param tile
  */
 MyPiece.prototype.setTile = function (tile) {
@@ -104,24 +108,29 @@ MyPiece.prototype.setTile = function (tile) {
 }
 
 /**
- * Returns actual tile
- * @returns {null|*}
+ * Returns placing tile
  */
 MyPiece.prototype.getTile = function () {
 	return this.tile;
 }
 
+/**
+ * Sets player
+ * @param player
+ */
 MyPiece.prototype.setPlayer = function (player) {
 	this.player = player;
 }
 
+/**
+ * Returns player
+ */
 MyPiece.prototype.getPlayer = function () {
 	return this.player;
 }
 
 /**
- * Returns MyPiece type
- * @returns {*}
+ * Returns type
  */
 MyPiece.prototype.getType = function () {
 	return this.type;
@@ -129,15 +138,25 @@ MyPiece.prototype.getType = function () {
 
 /**
  * Sets the selected value
+ * @param value
  */
 MyPiece.prototype.setSelected = function (value) {
 	this.isSelected=value;
 }
 
+/**
+ * Returns the mean points between two points
+ * @param point1
+ * @param point2
+ */
 MyPiece.prototype.meanPoint = function(point1, point2){
 	return [(point2[0]+point1[0])/2.0, (point2[1]+point1[1])/2.0, (point2[2]+point1[2])/2.0];
 }
 
+/**
+ * Returns the animation when a piece is played to the position @param coords
+ * @param coords
+ */
 MyPiece.prototype.createMoveAnimation = function(coords) {
 	
 	controlPoints = [[this.x, 0.5, this.z],
@@ -152,6 +171,9 @@ MyPiece.prototype.createMoveAnimation = function(coords) {
 	return comboAnimation;
 }
 
+/**
+ * Returns the animation when a piece is cleared
+ */
 MyPiece.prototype.createClearAnimation = function() {
 	this.destCoords = this.player.getStackPos();
 	let startPoint = [this.x, 0.5, this.z];
@@ -166,8 +188,8 @@ MyPiece.prototype.createClearAnimation = function() {
 }
 
 /**
- * Sets MyPiece animation
- * @param animation
+ * Sets the animation when a piece is played to the position @param coords
+ * @param coords
  */
 MyPiece.prototype.setMoveAnimation = function(coords) {
 	this.destCoords = coords;
@@ -176,15 +198,24 @@ MyPiece.prototype.setMoveAnimation = function(coords) {
 	this.animationReady = 0;
 }
 
+/**
+ * Sets the animation when a piece is cleared
+ */
 MyPiece.prototype.setClearAnimation = function() {
 	this.animation = this.createClearAnimation();
 	this.animationReady = 0;
 }
 
+/**
+ * Returns current position
+ */
 MyPiece.prototype.getPos = function () {
 	return [this.x, this.z];
 }
 
+/**
+ * Resets values to inital
+ */
 MyPiece.prototype.resetPos = function () {
 	this.x = this.initCoords[0];
 	this.y = this.initCoords[1];
@@ -193,6 +224,9 @@ MyPiece.prototype.resetPos = function () {
 	this.cleared = false;
 }
 
+/**
+ * Clears clear state
+ */
 MyPiece.prototype.resetCleared = function () {
 	this.player.decStack();
 	this.x = this.placedCoords[0];
@@ -201,22 +235,39 @@ MyPiece.prototype.resetCleared = function () {
 	this.cleared = false;
 }
 
+/**
+ * Returns if animation is happening
+ */
 MyPiece.prototype.getAnimate = function() {
 	return this.animate;
 }
 
+/**
+ * Sets animation flag to @param value
+ * @param value
+ */
 MyPiece.prototype.setAnimate = function(value) {
 	this.animate = value;
 }
 
+/**
+ * Returns if piece is placed on board
+ */
 MyPiece.prototype.getPlaced = function () {
 	return this.placed;
 }
 
+/**
+ * Returns if piece is cleared
+ */
 MyPiece.prototype.getCleared = function () {
 	return this.cleared;
 }
 
+/**
+ * Sets cleared flag to @param cleared
+ * @param cleared
+ */
 MyPiece.prototype.setCleared = function (cleared) {
 	this.cleared = cleared;
 }

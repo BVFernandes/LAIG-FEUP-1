@@ -76,6 +76,9 @@ MyGoRoGo.prototype.initializeBoard = function () {
 
 }
 
+/**
+ * Initializes visual components such as shaders and materials
+ */
 MyGoRoGo.prototype.initVisualComponents = function() {
 	this.selectedPieceShader = new CGFshader(this.scene.gl, "shaders/MyShader.vert", "shaders/MyShader.frag");
 	this.selectedPieceShader.setUniformsValues({normScale: 1});
@@ -133,6 +136,9 @@ MyGoRoGo.prototype.resetPieces = function () {
 		this.pieces[i].resetPos();
 }
 
+/**
+ * Displays and registers objects for picking
+ */
 MyGoRoGo.prototype.logPicking = function(){
 
 	if(this.state)
@@ -168,7 +174,7 @@ MyGoRoGo.prototype.logPicking = function(){
 
 					if(obj instanceof MyTVScene){
 						console.log("MyTVScene");
-						if(this.scene.graph != 1){
+						if(this.scene.graphIdx != 1){
 							this.scene.graphIdx = 1;
 							this.scene.playSceneMusic();
 							this.scene.interface.changeScene = true;
@@ -227,6 +233,10 @@ MyGoRoGo.prototype.display = function(){
 
 }
 
+/**
+ * Displays interactable elements
+ * @param pickingIdx
+ */
 MyGoRoGo.prototype.displayObjects = function (pickingIdx){
 
 	this.scene.registerForPick(pickingIdx, this.tvScene);
@@ -294,10 +304,18 @@ MyGoRoGo.prototype.update = function(currTime) {
 	this.marker.updateTime(this.delta);
 }
 
+/**
+ * Adds a move to saved moves
+ * @param move
+ */
 MyGoRoGo.prototype.addMove = function (move) {
 	this.moves.push(move);
 }
 
+/**
+ * Returns the first piece found that belongs to the current player and is of a certain type
+ * @param type
+ */
 MyGoRoGo.prototype.getPieceOfType = function (type) {
 	for(let i = 0; i < this.pieces.length; i++){
 		if(!this.pieces[i].getPlaced() && this.pieces[i].getPlayer().getName() == this.getCurrentPlayerStr() && this.pieces[i].getType() == type){
@@ -308,6 +326,10 @@ MyGoRoGo.prototype.getPieceOfType = function (type) {
 	return null;
 }
 
+/**
+ * Sets clear animation to the surrounded pieces placed at board points
+ * @param points
+ */
 MyGoRoGo.prototype.clearSurroundedPieces = function (points) {
 	let pieces = [];
 	for(let i = 0; i < points.length; i++){
@@ -319,11 +341,18 @@ MyGoRoGo.prototype.clearSurroundedPieces = function (points) {
 	return pieces;
 }
 
+/**
+ * Returns the tile at board position
+ * @param pos
+ */
 MyGoRoGo.prototype.getTileAt = function (pos) {
 	let idx = (pos[1]-1)*this.board.getBoardLength()+pos[0]-1;
 	return this.tiles[idx];
 }
 
+/**
+ * Undoes the most recent move
+ */
 MyGoRoGo.prototype.undoMove = function () {
 	if(this.state instanceof MySelectState && !this.getCurrentPlayer().isBot()){
 		let move = this.getLatestMove();
@@ -337,6 +366,9 @@ MyGoRoGo.prototype.undoMove = function () {
 	}
 }
 
+/**
+ * Starts the replay of the latest game played
+ */
 MyGoRoGo.prototype.replayGame = function () {
 	if(this.gameOver){
 		this.currMove = 0;
@@ -347,19 +379,31 @@ MyGoRoGo.prototype.replayGame = function () {
 	}
 }
 
+/**
+ * Returns saved moves
+ */
 MyGoRoGo.prototype.getMoves = function () {
 	return this.moves;
 }
 
+/**
+ * Returns the current move, pointed by currMove
+ */
 MyGoRoGo.prototype.getCurrentMove = function () {
 	return this.moves[this.currMove];
 }
 
+/**
+ * Returns the next move, increasing the move pointer
+ */
 MyGoRoGo.prototype.getNextMove = function () {
 	this.currMove++;
 	return this.moves[this.currMove];
 }
 
+/**
+ * Returns the latest move saved
+ */
 MyGoRoGo.prototype.getLatestMove = function () {
 	let movesNo = this.moves.length;
 	if(movesNo)
@@ -368,10 +412,18 @@ MyGoRoGo.prototype.getLatestMove = function () {
 		return null;
 }
 
+/**
+ * Sets the state to a new state
+ * @param state
+ */
 MyGoRoGo.prototype.setState = function (state) {
 	this.state = state;
 }
 
+/**
+ * Returns the parsed result of an enconded game response from the prolog server
+ * @param encondedGame
+ */
 MyGoRoGo.prototype.parseGame = function (encondedGame) {
 	let encodedBoard = encondedGame.slice(2,61);
 
@@ -399,18 +451,31 @@ MyGoRoGo.prototype.parseGame = function (encondedGame) {
 	return [encodedBoard,encodedWhite,encodedBlack,curr];
 }
 
+/**
+ * Returns shader used when a piece is selected
+ */
 MyGoRoGo.prototype.getSelectedPieceShader = function () {
 	return this.selectedPieceShader;
 }
 
+/**
+ * Returns current player
+ */
 MyGoRoGo.prototype.getCurrentPlayer = function () {
 	return this.currentPlayer;
 }
 
+/**
+ * Returns current player's string
+ */
 MyGoRoGo.prototype.getCurrentPlayerStr = function () {
 	return this.currentPlayer.getName();
 }
 
+/**
+ * Sets current player according to player string
+ * @param player
+ */
 MyGoRoGo.prototype.setCurrentPlayer = function (player) {
 	if(player == "whitePlayer")
 		this.currentPlayer = this.whitePlayer;
@@ -418,6 +483,9 @@ MyGoRoGo.prototype.setCurrentPlayer = function (player) {
 		this.currentPlayer = this.blackPlayer;
 }
 
+/**
+ * Sets next player
+ */
 MyGoRoGo.prototype.setNextPlayer = function () {
 	if(this.currentPlayer == this.whitePlayer)
 		this.currentPlayer = this.blackPlayer;
@@ -425,10 +493,17 @@ MyGoRoGo.prototype.setNextPlayer = function () {
 		this.currentPlayer = this.whitePlayer;
 }
 
+/**
+ * Returns enconded game in prolog format
+ */
 MyGoRoGo.prototype.toPlString = function () {
 	return "[" + this.board.toPlString() + "," + this.whitePlayer.toPlString() + "," + this.blackPlayer.toPlString() + "," + this.getCurrentPlayerStr()+ "]";
 }
 
+/**
+ * Returns enconded game in prolog format with current player's type overloaded to @param newType
+ * @param newType
+ */
 MyGoRoGo.prototype.toPlStringTypeOvl = function (newType) {
 	let previousType = this.currentPlayer.getType();
 
@@ -441,6 +516,10 @@ MyGoRoGo.prototype.toPlStringTypeOvl = function (newType) {
 	return encodedGame;
 }
 
+/**
+ * Sets game attributes according to @param encodedGame received from prolog server
+ * @param encodedGame
+ */
 MyGoRoGo.prototype.setGame = function (encodedGame) {
 	let res = this.parseGame(encodedGame);
 	this.board.setBoard(res[0]);
@@ -449,23 +528,18 @@ MyGoRoGo.prototype.setGame = function (encodedGame) {
 	this.setCurrentPlayer(res[3]);
 }
 
+/**
+ * Sets GameOver to @param state
+ * @param state
+ */
 MyGoRoGo.prototype.setGameOver = function (state) {
 	this.gameOver = state;
-}
-
-/**
- * This function removes the selection in all highlighted pieces
- */
-MyGoRoGo.prototype.deselectPieces = function () {
-	for(var i = 0; i < this.pieces.length; i++){
-		this.pieces[i].setSelected(false);
-	}
 }
 
 /****************************************** Getters and setters  ******************************************************/
 
 /**
- * Returns the current board in use
+ * Returns board
  * @returns {Board}
  */
 MyGoRoGo.prototype.getBoard = function(){
@@ -473,41 +547,66 @@ MyGoRoGo.prototype.getBoard = function(){
 }
 
 /**
- * Returns the current board in use
- * @returns {Board}
+ * Returns tiles
  */
 MyGoRoGo.prototype.getTiles = function(){
 	return this.tiles;
 }
 
+/**
+ * Returns pieces
+ */
 MyGoRoGo.prototype.getPieces = function(){
 	return this.pieces;
 }
 
+/**
+ * Returns current turn
+ */
 MyGoRoGo.prototype.getTurn = function(){
 	return this.turn;
 }
 
+/**
+ * Sets turn to @param turn
+ * @param turn
+ */
 MyGoRoGo.prototype.setTurn = function(turn){
 	this.turn = turn;
 }
 
+/**
+ * Sets next turn
+ */
 MyGoRoGo.prototype.setNextTurn = function(){
 	this.turn++;
 }
 
+/**
+ * Sets previous turn
+ */
 MyGoRoGo.prototype.setPreviousTurn = function(){
 	this.turn--;
 }
 
+/**
+ * Returns timeout value
+ */
 MyGoRoGo.prototype.getTurnTimeout = function(){
 	return this.turnTimeout;
 }
 
+/**
+ * Returns time left until timeout to @param time
+ * @param time
+ */
 MyGoRoGo.prototype.setTimeout = function(time){
 	this.timeout = time;
 }
 
+/**
+ * Returns time left until timeout
+ */
 MyGoRoGo.prototype.getTimeout = function(){
 	return this.timeout;
 }

@@ -201,7 +201,8 @@ XMLscene.prototype.initCameras = function() {
 	this.deltaCam = 0;
 }
 
-/* Handler called when the graph is finally loaded.
+/** 
+ * Handler called when the graph is finally loaded.
  * As loading is asynchronous, this may be called already after the application has started the run loop
  */
 XMLscene.prototype.onGraphLoaded = function()
