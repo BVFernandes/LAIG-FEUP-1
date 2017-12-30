@@ -28,6 +28,9 @@ function MyRegularPiece(scene, color) {
 MyRegularPiece.prototype = Object.create(CGFobject.prototype);
 MyRegularPiece.prototype.constructor =MyRegularPiece;
 
+/**
+ * Displays regular piece
+ */
 MyRegularPiece.prototype.display = function() {
 	this.scene.pushMatrix();
 	this.scene.rotate(-90*DEGREE_TO_RAD, 1, 0, 0);

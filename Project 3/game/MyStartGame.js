@@ -24,6 +24,9 @@ function MyStartGame(scene){
 MyStartGame.prototype = Object.create(CGFobject.prototype);
 MyStartGame.prototype.constructor=MyStartGame;
 
+/**
+ * Displays startGame Object
+ */
 MyStartGame.prototype.display = function () {
 	this.scene.pushMatrix();
 	this.scene.translate(0,22,0);

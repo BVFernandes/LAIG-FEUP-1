@@ -25,6 +25,9 @@ function MyHengePiece(scene) {
 MyHengePiece.prototype = Object.create(CGFobject.prototype);
 MyHengePiece.prototype.constructor = MyHengePiece;
 
+/**
+ * Displays henge piece
+ */
 MyHengePiece.prototype.display = function() {
 
 	this.scene.pushMatrix();

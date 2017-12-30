@@ -38,6 +38,9 @@ function MyTVScene(scene){
 MyTVScene.prototype = Object.create(CGFobject.prototype);
 MyTVScene.prototype.constructor=MyTVScene;
 
+/**
+ * Displays tvScene Object
+ */
 MyTVScene.prototype.display = function () {
 
 	this.scene.pushMatrix();

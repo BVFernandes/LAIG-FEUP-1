@@ -31,6 +31,9 @@ function MyStartMovie(scene){
 MyStartMovie.prototype = Object.create(CGFobject.prototype);
 MyStartMovie.prototype.constructor=MyStartMovie;
 
+/**
+ * Displays startMovie object
+ */
 MyStartMovie.prototype.display = function () {
 
 	this.scene.pushMatrix();

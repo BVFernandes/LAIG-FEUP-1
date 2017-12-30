@@ -29,6 +29,9 @@ function MyChristmasScene(scene){
 MyChristmasScene.prototype = Object.create(CGFobject.prototype);
 MyChristmasScene.prototype.constructor=MyChristmasScene;
 
+/**
+ * Displays Christmas SnowBall object
+ */
 MyChristmasScene.prototype.display = function () {
 
 	this.scene.pushMatrix();

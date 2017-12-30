@@ -1,3 +1,8 @@
+/**
+ * MyInfoMarker
+ * @param gl {WebGLRenderingContext}
+ * @constructor
+ */
 function MyInfoMarker(scene,game){
 	CGFobject.call(this,scene);
 
@@ -27,17 +32,17 @@ function MyInfoMarker(scene,game){
 	this.scoreAppearance = new CGFtexture(this.scene,"./scenes/marker/score.png");
 	this.setAppearance = new CGFtexture(this.scene,"./scenes/marker/set.png");
 	this.totalAppearance = new CGFtexture(this.scene,"./scenes/marker/total.png");
-	
+
 	this.twoDotsAppearance = new CGFtexture(this.scene,"./scenes/marker/twodots.png");
 
 	this.whiteAppearance = new CGFtexture(this.scene,"./scenes/marker/white.png");
 	this.whiteSelectedAppearance = new CGFtexture(this.scene,"./scenes/marker/white_selected.png");
 	this.blackAppearance = new CGFtexture(this.scene,"./scenes/marker/black.png");
 	this.blackSelectedAppearance = new CGFtexture(this.scene,"./scenes/marker/black_selected.png");
-	
+
 	this.playersAppearance = [this.whiteAppearance, this.blackAppearance];
 	this.playersSelectedAppearance = [this.whiteSelectedAppearance, this.blackSelectedAppearance];
-	
+
 
 	this.numbersTextures = [];
 	for(n=0; n<=9; n++){
@@ -54,6 +59,9 @@ function MyInfoMarker(scene,game){
 MyInfoMarker.prototype = Object.create(CGFobject.prototype);
 MyInfoMarker.prototype.constructor = MyInfoMarker;
 
+/**
+ * Displays infomarker
+ */
 MyInfoMarker.prototype.display = function () {
 	this.scene.pushMatrix();
 	this.scene.translate(-25,8,0);

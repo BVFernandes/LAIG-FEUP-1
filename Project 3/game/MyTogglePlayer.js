@@ -33,6 +33,9 @@ function MyTogglePlayer(scene, player){
 MyTogglePlayer.prototype = Object.create(CGFobject.prototype);
 MyTogglePlayer.prototype.constructor=MyTogglePlayer;
 
+/**
+ * Displays player object
+ */
 MyTogglePlayer.prototype.display = function () {
 
 	this.scene.pushMatrix();
