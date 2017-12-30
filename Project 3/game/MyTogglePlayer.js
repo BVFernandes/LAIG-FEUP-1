@@ -12,19 +12,19 @@ function MyTogglePlayer(scene, player){
 	this.redMaterial.setAmbient(1,0,0,1);
 	this.redMaterial.setDiffuse(1,0,0,1);
 	this.redMaterial.setSpecular(0.5,0,0,0.5);
-	this.redMaterial.setShininess(255);
+	this.redMaterial.setShininess(1);
 
 	this.greenMaterial = new CGFappearance(this.scene);
 	this.greenMaterial.setAmbient(0,1,0,1);
 	this.greenMaterial.setDiffuse(0,1,0,1);
-	this.greenMaterial.setSpecular(0,0.5,0,1);
-	this.greenMaterial.setShininess(255);
+	this.greenMaterial.setSpecular(0,0.5,0,0.5);
+	this.greenMaterial.setShininess(1);
 
 	this.blackMaterial = new CGFappearance(this.scene);
 	this.blackMaterial.setAmbient(0,0,0,1);
 	this.blackMaterial.setDiffuse(0,0,0,1);
-	this.blackMaterial.setSpecular(0.5,0.5,0.5,1);
-	this.blackMaterial.setShininess(255);
+	this.blackMaterial.setSpecular(0,0,0,0.5);
+	this.blackMaterial.setShininess(1);
 
 	this.rect = new MyRectangle(scene,[-0.5,0.5], [0.5,-0.5]);
 	this.sphere = new MySphere(scene, 1, 20, 20);
@@ -36,7 +36,8 @@ MyTogglePlayer.prototype.constructor=MyTogglePlayer;
 MyTogglePlayer.prototype.display = function () {
 
 	this.scene.pushMatrix();
-	switch (this.player.getTypeIdx()) {
+
+	switch ((this.player.getName() == "whitePlayer" ? this.scene.selectedPlayer1Type : this.scene.selectedPlayer2Type)) {
 	case 0:
 		this.blackMaterial.apply();
 		break;
@@ -47,6 +48,7 @@ MyTogglePlayer.prototype.display = function () {
 		this.redMaterial.apply();
 		break;
 	default:
+		this.blackMaterial.apply();
 		break;
 	}
 	this.scene.translate(0,5,0);

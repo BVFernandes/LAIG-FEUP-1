@@ -12,13 +12,13 @@ function MyStartGame(scene){
 	this.whiteMaterial.setAmbient(0.3,0.3,0.3,1);
 	this.whiteMaterial.setDiffuse(0.5,0.5,0.5,1);
 	this.whiteMaterial.setSpecular(0.5,0.5,0.5,0.5);
-	this.whiteMaterial.setShininess(255);
+	this.whiteMaterial.setShininess(50);
 
 	this.blackMaterial = new CGFappearance(this.scene);
 	this.blackMaterial.setAmbient(0,0,0,1);
 	this.blackMaterial.setDiffuse(0,0,0,1);
-	this.blackMaterial.setSpecular(1,1,1,1);
-	this.blackMaterial.setShininess(255);
+	this.blackMaterial.setSpecular(0,0,0,1);
+	this.blackMaterial.setShininess(50);
 }
 
 MyStartGame.prototype = Object.create(CGFobject.prototype);

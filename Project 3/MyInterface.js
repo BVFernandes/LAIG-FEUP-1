@@ -111,13 +111,13 @@ MyInterface.prototype.addScenesList = function(group){
 	let scene = this.scene;
 	group.add(this.scene, 'graphIdx', {
 		'Default': 0,
-		'Test': 1,
-		'Piroxenas' : 2 ,
+		'TV Room': 1,
+		'Christmas Room' : 2 ,
 	}).name('Scene').onChange(function(){
 		console.log("Where's the music");
 		scene.playSceneMusic();
 		obj.changeScene = true;
-		obj.scene.onGraphLoaded();});
+		obj.scene.onGraphLoaded();}).listen();
 }
 
 MyInterface.prototype.addPerspectiveList = function(group){

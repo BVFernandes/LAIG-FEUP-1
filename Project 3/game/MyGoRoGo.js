@@ -168,6 +168,22 @@ MyGoRoGo.prototype.logPicking = function(){
 						this.startGame();
 					}
 
+					if(obj instanceof MyTVScene){
+						console.log("MyTVScene");
+						this.scene.graphIdx = 1;
+						this.scene.playSceneMusic();
+						this.scene.interface.changeScene = true;
+						this.scene.onGraphLoaded();
+					}
+
+					if(obj instanceof MyChristmasScene){
+						console.log("MyChristmasScene");
+						this.scene.graphIdx = 2;
+						this.scene.playSceneMusic();
+						this.scene.interface.changeScene = true;
+						this.scene.onGraphLoaded();
+					}
+
 					console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
 			}

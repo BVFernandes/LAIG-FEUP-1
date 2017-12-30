@@ -54,7 +54,7 @@
       <specular r="0.6" g="0.6" b="0.6" a="1.0" />
     </LIGHT>
 
-	<LIGHT id="light4">
+    <LIGHT id="light4">
       <enable value ="1" />
       <position  x="0" y="8" z="-25" w="1" />
       <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
@@ -74,7 +74,7 @@
 
   <!-- Textures -->
   <TEXTURES>
-       <!-- Wood Floor texture -->
+    <!-- Wood Floor texture -->
     <TEXTURE id="woodFloorTexture">
       <file path="images_room/floor.jpg" />
       <amplif_factor s="1" t="1" />
@@ -104,59 +104,59 @@
       <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-	<!-- Board top texture -->
-	<TEXTURE id="boardTopTexture">
+    <!-- Board top texture -->
+    <TEXTURE id="boardTopTexture">
       <file path="images_board/boardTop.jpg" />
       <amplif_factor s="1" t="1" />
-	</TEXTURE>
+    </TEXTURE>
 
-  <TEXTURE id="gameGSTexture">
+    <TEXTURE id="gameGSTexture">
       <file path="images_casino/gameGS.png" />
       <amplif_factor s="1.5" t="1" />
-  </TEXTURE>
+    </TEXTURE>
 
-  <TEXTURE id="footballGSTexture">
+    <TEXTURE id="footballGSTexture">
       <file path="images_casino/footballGS.jpg" />
       <amplif_factor s="1" t="1" />
-  </TEXTURE>
+    </TEXTURE>
 
-  <TEXTURE id="christmastreeGSTexture">
+    <TEXTURE id="christmastreeGSTexture">
       <file path="images_casino/christmastree.jpg" />
       <amplif_factor s="1" t="1" />
-  </TEXTURE>
+    </TEXTURE>
 
-  <TEXTURE id="gift1Texture">
+    <TEXTURE id="gift1Texture">
       <file path="images_casino/gift1Texture.jpg" />
       <amplif_factor s="1" t="1" />
-  </TEXTURE>
+    </TEXTURE>
 
-  <TEXTURE id="gift2Texture">
+    <TEXTURE id="gift2Texture">
       <file path="images_casino/gift2Texture.jpg" />
       <amplif_factor s="1" t="1" />
-  </TEXTURE>
+    </TEXTURE>
 
-  <TEXTURE id="gift3Texture">
+    <TEXTURE id="gift3Texture">
       <file path="images_casino/gift3Texture.jpg" />
       <amplif_factor s="1" t="1" />
-  </TEXTURE>
+    </TEXTURE>
 
-  <TEXTURE id="snowWallTexture">
+    <TEXTURE id="snowWallTexture">
       <file path="images_casino/snowWall.jpg" />
       <amplif_factor s="1" t="1.1" />
-  </TEXTURE>
+    </TEXTURE>
 
-  <!-- Leather texture -->
-   <TEXTURE id="leatherTexture">
-     <file path="images_room/leather.jpg" />
-     <amplif_factor s="1" t="1" />
-   </TEXTURE>
+    <!-- Leather texture -->
+    <TEXTURE id="leatherTexture">
+      <file path="images_room/leather.jpg" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
 
   </TEXTURES>
 
 
   <MATERIALS>
 
-	 <!-- Metal material -->
+    <!-- Metal material -->
     <MATERIAL id="metalMaterial">
       <shininess value="255" />
       <specular r="1" g="1" b="1" a="0.5" />
@@ -249,7 +249,7 @@
   <!-- The nodes -->
   <NODES>
 
-	<ROOT id="root" />
+    <ROOT id="root" />
 
     <!-- The root node -->
     <NODE id="root">
@@ -258,11 +258,11 @@
 
       <DESCENDANTS>
         <NODEREF id="board" />
-		    <NODEREF id="room" />
+        <NODEREF id="room" />
       </DESCENDANTS>
     </NODE>
 
-	<!-- Board -->
+    <!-- Board -->
     <NODE id="board">
       <MATERIAL id="metalMaterial" />
       <TEXTURE id="null" />
@@ -270,11 +270,11 @@
       <SCALE sx="20" sy="1" sz="20" />
 
       <DESCENDANTS>
-         <NODEREF id="boardCube" />
+        <NODEREF id="boardCube" />
       </DESCENDANTS>
     </NODE>
 
-	<!-- Unitary Cube -->
+    <!-- Unitary Cube -->
     <NODE id="boardCube">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -367,13 +367,13 @@
     </NODE>
 
 
-	<!-- The root node -->
+    <!-- The root node -->
     <NODE id="room" selectable="true">
       <MATERIAL id="defaultMaterial" />
       <TEXTURE id="null" />
 
-	  <TRANSLATION x="-70" y="-8" z="-75" />
-	  <SCALE sx="10" sy="10" sz="10" />
+      <TRANSLATION x="-70" y="-8" z="-75" />
+      <SCALE sx="10" sy="10" sz="10" />
 
       <DESCENDANTS>
         <NODEREF id="floor" />
@@ -384,7 +384,7 @@
         <NODEREF id="gameStation2" />
         <NODEREF id="christmastree" />
         <NODEREF id="gifts" />
-        </DESCENDANTS>
+      </DESCENDANTS>
     </NODE>
 
     <NODE id="gifts">
@@ -439,7 +439,7 @@
       <TEXTURE id="christmastreeGSTexture" />
 
       <TRANSLATION x="7" y="0" z="10" />
-     <SCALE sx="0.4" sy="0.25" sz="0.4" />
+      <SCALE sx="0.4" sy="0.25" sz="0.4" />
 
       <DESCENDANTS>
         <NODEREF id="pyramid"/>
@@ -451,7 +451,7 @@
       <TEXTURE id="leatherTexture" />
 
       <TRANSLATION x="1" y="0" z="3" />
-     <SCALE sx="1" sy="1.5" sz="1.5" />
+      <SCALE sx="1" sy="1.5" sz="1.5" />
 
       <DESCENDANTS>
         <NODEREF id="baseGS"/>
@@ -466,7 +466,7 @@
       <TEXTURE id="leatherTexture" />
 
       <TRANSLATION x="1" y="0" z="12" />
-	     <SCALE sx="1" sy="1.5" sz="1.5" />
+      <SCALE sx="1" sy="1.5" sz="1.5" />
       <DESCENDANTS>
         <NODEREF id="baseGS"/>
         <NODEREF id="backGS"/>
@@ -594,7 +594,7 @@
       <SCALE sx="0.7" sy="0.7" sz="0.7" />
 
       <DESCENDANTS>
-          <LEAF  type="rectangle" args="-0.5 0.5 0.5 -0.5" />
+        <LEAF  type="rectangle" args="-0.5 0.5 0.5 -0.5" />
       </DESCENDANTS>
     </NODE>
 
@@ -675,7 +675,7 @@
       </DESCENDANTS>
     </NODE>
 
-      <!-- Carpet -->
+    <!-- Carpet -->
     <NODE id="carpet">
       <MATERIAL id="redWallMaterial" />
       <TEXTURE id="carpetTexture" />
@@ -688,7 +688,7 @@
       </DESCENDANTS>
     </NODE>
 
-      <!-- Table Center -->
+    <!-- Table Center -->
     <NODE id="table_center">
       <MATERIAL id="woodMaterial" />
       <TEXTURE id="woodTexture" />

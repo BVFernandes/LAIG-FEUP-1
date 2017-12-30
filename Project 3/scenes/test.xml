@@ -54,7 +54,7 @@
       <specular r="0.6" g="0.6" b="0.6" a="1.0" />
     </LIGHT>
 
-	<LIGHT id="tretas4">
+    <LIGHT id="tretas4">
       <enable value ="1" />
       <position  x="0" y="8" z="-25" w="1" />
       <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
@@ -93,17 +93,17 @@
     </TEXTURE>
 
     <!-- Board top texture -->
-  	<TEXTURE id="boardTopTexture">
-        <file path="images_board/boardTop.jpg" />
-        <amplif_factor s="1" t="1" />
-  	</TEXTURE>
+    <TEXTURE id="boardTopTexture">
+      <file path="images_board/boardTop.jpg" />
+      <amplif_factor s="1" t="1" />
+    </TEXTURE>
 
   </TEXTURES>
 
 
   <MATERIALS>
 
-	 <!-- Metal material -->
+    <!-- Metal material -->
     <MATERIAL id="metalMaterial">
       <shininess value="255" />
       <specular r="1" g="1" b="1" a="0.5" />
@@ -187,7 +187,7 @@
   <!-- The nodes -->
   <NODES>
 
-	<ROOT id="root" />
+    <ROOT id="root" />
 
     <!-- The root node -->
     <NODE id="root">
@@ -196,11 +196,11 @@
 
       <DESCENDANTS>
         <NODEREF id="board" />
-		    <NODEREF id="room" />
+        <NODEREF id="room" />
       </DESCENDANTS>
     </NODE>
 
-	<!-- Board -->
+    <!-- Board -->
     <NODE id="board">
       <MATERIAL id="metalMaterial" />
       <TEXTURE id="null" />
@@ -208,11 +208,11 @@
       <SCALE sx="20" sy="1" sz="20" />
 
       <DESCENDANTS>
-         <NODEREF id="boardCube" />
+        <NODEREF id="boardCube" />
       </DESCENDANTS>
     </NODE>
 
-	<!-- Unitary Cube -->
+    <!-- Unitary Cube -->
     <NODE id="boardCube">
       <MATERIAL id="null" />
       <TEXTURE id="null" />
@@ -305,20 +305,20 @@
     </NODE>
 
 
-	<!-- The root node -->
+    <!-- The root node -->
     <NODE id="room" selectable="true">
       <MATERIAL id="defaultMaterial" />
       <TEXTURE id="null" />
 
-	  <TRANSLATION x="-70" y="-8" z="-75" />
-	  <SCALE sx="10" sy="10" sz="10" />
+      <TRANSLATION x="-70" y="-8" z="-75" />
+      <SCALE sx="10" sy="10" sz="10" />
 
       <DESCENDANTS>
         <NODEREF id="floor" />
         <NODEREF id="walls" />
         <NODEREF id="carpet" />
         <NODEREF id="table_center" />
-        </DESCENDANTS>
+      </DESCENDANTS>
     </NODE>
 
     <!-- The floor -->
@@ -384,7 +384,7 @@
       </DESCENDANTS>
     </NODE>
 
-      <!-- Carpet -->
+    <!-- Carpet -->
     <NODE id="carpet">
       <MATERIAL id="redWallMaterial" />
       <TEXTURE id="carpetTexture" />
@@ -397,7 +397,7 @@
       </DESCENDANTS>
     </NODE>
 
-      <!-- Table Center -->
+    <!-- Table Center -->
     <NODE id="table_center">
       <MATERIAL id="woodMaterial" />
       <TEXTURE id="woodTexture" />

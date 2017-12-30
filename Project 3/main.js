@@ -44,8 +44,8 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
 	// create and load graph, and associate it to scene.
 	// Check console for loading errors
 	var myGraph = new MySceneGraph(filename, myScene);
-	var myGraph2 = new MySceneGraph("test.xml", myScene);
-	var myGraph3 = new MySceneGraph("piroxenas.xml", myScene);
+	var myGraph2 = new MySceneGraph("boardScenery.xml", myScene);
+	var myGraph3 = new MySceneGraph("christmas.xml", myScene);
 
 	myScene.graphs = [myGraph,myGraph2,myGraph3];
 
