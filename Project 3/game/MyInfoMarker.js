@@ -25,11 +25,19 @@ function MyInfoMarker(scene,game){
 	this.timesAppearance = [this.timeAppearance, this.timeoutAppearance];
 
 	this.scoreAppearance = new CGFtexture(this.scene,"./scenes/marker/score.png");
+	this.setAppearance = new CGFtexture(this.scene,"./scenes/marker/set.png");
+	this.totalAppearance = new CGFtexture(this.scene,"./scenes/marker/total.png");
+	
 	this.twoDotsAppearance = new CGFtexture(this.scene,"./scenes/marker/twodots.png");
 
-	this.player1Appearance = new CGFtexture(this.scene,"./scenes/marker/player1.png");
-	this.player2Appearance = new CGFtexture(this.scene,"./scenes/marker/player2.png");
-	this.playersAppearance = [this.player1Appearance, this.player2Appearance];
+	this.whiteAppearance = new CGFtexture(this.scene,"./scenes/marker/white.png");
+	this.whiteSelectedAppearance = new CGFtexture(this.scene,"./scenes/marker/white_selected.png");
+	this.blackAppearance = new CGFtexture(this.scene,"./scenes/marker/black.png");
+	this.blackSelectedAppearance = new CGFtexture(this.scene,"./scenes/marker/black_selected.png");
+	
+	this.playersAppearance = [this.whiteAppearance, this.blackAppearance];
+	this.playersSelectedAppearance = [this.whiteSelectedAppearance, this.blackSelectedAppearance];
+	
 
 	this.numbersTextures = [];
 	for(n=0; n<=9; n++){
@@ -67,7 +75,7 @@ MyInfoMarker.prototype.display = function () {
 
 	this.scene.pushMatrix();
 	this.scene.translate(0,4,0.51);
-	this.scene.scale(5,1,1);
+	this.scene.scale(5,2,1);
 	this.scoreAppearance.bind();
 	this.rect.display();
 	this.scene.popMatrix();
@@ -85,16 +93,16 @@ MyInfoMarker.prototype.display = function () {
 	//Set
 	this.scene.pushMatrix();
 	this.scene.translate(0.1,-1.5,0.51);
-	this.scene.scale(5,1,1);
-	this.scoreAppearance.bind();
+	this.scene.scale(5,2.5,1);
+	this.setAppearance.bind();
 	this.rect.display();
 	this.scene.popMatrix();
 
 	//Total
 	this.scene.pushMatrix();
 	this.scene.translate(0.1,-3.5,0.51);
-	this.scene.scale(5,1,1);
-	this.scoreAppearance.bind();
+	this.scene.scale(5,2.5,1);
+	this.totalAppearance.bind();
 	this.rect.display();
 	this.scene.popMatrix();
 
@@ -157,7 +165,10 @@ MyInfoMarker.prototype.displayScore = function(player){
 	this.scene.pushMatrix();
 	this.scene.translate(0,2,0.51);
 	this.scene.scale(7,3,1);
-	this.playersAppearance[number].bind();
+	if(player.getName() == this.game.getCurrentPlayerStr())
+		this.playersSelectedAppearance[number].bind();
+	else
+		this.playersAppearance[number].bind();
 	this.rect.display();
 	this.scene.popMatrix();
 

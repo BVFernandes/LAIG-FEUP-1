@@ -1,5 +1,5 @@
 var MOVE_ANIMATION_SPEED = 10;
-var CLEAR_ANIMATION_SPEED = 2;
+var CLEAR_ANIMATION_SPEED = 15;
 
 /**
  * MyPiece
@@ -146,13 +146,6 @@ MyPiece.prototype.createMoveAnimation = function(coords) {
 					 [coords[0], 0.5, coords[1]]];
 
 	let animation = new MyBezierSelfRotAnimation(0, MOVE_ANIMATION_SPEED, controlPoints, 360);
-	/*
-	let startPoint = [this.x, 0.5, this.z];
-	let endPoint = [coords[0], 0.5, coords[1]];
-	let meanPoint = this.meanPoint(startPoint, endPoint);
-	let controlPoints = [startPoint, [meanPoint[0], 2, meanPoint[2]], endPoint];
-	let animation = new MyLinearAnimation(0,MOVE_ANIMATION_SPEED,controlPoints);
-	*/
 
 	let comboAnimation = new MyComboAnimation();
 	comboAnimation.addAnimation(animation);
@@ -164,10 +157,10 @@ MyPiece.prototype.createClearAnimation = function() {
 	let startPoint = [this.x, 0.5, this.z];
 	let endPoint = [this.destCoords[0], this.destCoords[2], this.destCoords[1]];
 	let meanPoint = this.meanPoint(startPoint, endPoint);
-	let controlPoints = [startPoint, [meanPoint[0], 2, meanPoint[2]], endPoint];
-	let animation = new MyLinearAnimation(0,MOVE_ANIMATION_SPEED,controlPoints);
+	let controlPoints = [startPoint, [meanPoint[0], 3, meanPoint[2]], endPoint];
+	let animation = new MyLinearAnimation(null, CLEAR_ANIMATION_SPEED, controlPoints);
 
-	let comboAnimation = new MyComboAnimation();
+	let comboAnimation = new MyComboAnimation(null,false);
 	comboAnimation.addAnimation(animation);
 	return comboAnimation;
 }
