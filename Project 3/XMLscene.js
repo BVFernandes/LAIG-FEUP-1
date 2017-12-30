@@ -55,7 +55,7 @@ XMLscene.prototype.init = function(application) {
 
 	this.game = new MyGoRoGo(this);
 
-	this.sceneSongs = [null,null,new Audio('./scenes/music/christmas.mp3')];
+	this.sceneSongs = [null,new Audio('./scenes/music/lionking.mp3'),new Audio('./scenes/music/christmas.mp3')];
 	//this.audio.volume=0.2;
 
 	this.setPickEnabled(true);
