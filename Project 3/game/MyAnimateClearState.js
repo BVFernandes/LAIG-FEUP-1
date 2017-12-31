@@ -105,8 +105,7 @@ MyAnimateClearState.prototype.endOfGame = function () {
 		let winner = data.target.response;
 		if(winner != "none"){
 			state.scene.playVictorySFX();
-			let winnerString = "Winner is "+winner+"!";
-			alertify.alert('Winner',winnerString);
+			alertify.alert('Winner',state.getWinnerStr(winner));
 			gorogo.addMove(new MyMove(encodedGame,null,null,null));
 			gorogo.setGameOver(true);
 			if(winner == gorogo.whitePlayer.getName()){
@@ -176,6 +175,20 @@ MyAnimateClearState.prototype.setSurroundedPieces = function (pieces){
  */
 MyAnimateClearState.prototype.setNextState = function () {
 	this.game.setState(new MySelectState(this.game,this.scene));
+}
+
+/**
+ * Returns the winner string
+ */
+MyAnimateClearState.prototype.getWinnerStr = function (winner) {
+	let winnerStr = "Congratulations, ";
+	if(winner == "whitePlayer")
+		winnerStr += "White ";
+	else
+		winnerStr += "Black ";
+	
+	winnerStr += "Won!";
+	return winnerStr;
 }
 
 /**
