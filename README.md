@@ -1,7 +1,6 @@
 # LAIG-FEUP
 Repository to host Graphical Applications Laboratory projects.
 
-LAIG is a course given at FEUP in the third year of the Master in Informatics and Computing Engineering.
  
 ## Goals
 
@@ -42,7 +41,7 @@ The goal was to develop a graphical interface for a Prolog game developed in the
 |:---:|:---:|
 | Player Vs Player | Game Movie |
 
-[How to Play]()
+[How to Play](https://github.com/diogotorres97/LAIG-FEUP/blob/master/Project%203/docs/User%20Manual.pdf)
 
 ## Team 
 [Bruno Piedade](https://github.com/Kubix20)
