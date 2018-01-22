@@ -1,89 +1,53 @@
 # LAIG-FEUP
+Repository to host Graphical Applications Laboratory projects.
 
-# To do
-
-## 1. Criação da Cena de Jogo
-
-- Falta o ambiente de jogo (mais que um)
-
-
-## 2. Modelação e movimento das peças de jogo
-
-### Modelação
-- Falta a modelaço da peça ghost
-
-### Movimento das peças de jogo
-- Click no rato para selecionar + mostrar qual selecionada
-- Click na posição final + movimento com animação
-
-
-## 3. Visualização
-
-### Iluminação
-- Fontes de luz adequadas
-
-### Ambientes de jogo
-- Permitir a troca entre os diferentes temas de jogo
-
-## 4. Funcionalidades genéricas do jogo
-- Interface GUI + Objetos Selecionáveis
-
-### Nivel de dificuldade
-### Tipo de jogo(H/M, H/H, M/M)
-### Undo (anular até x jogadas)
-### Rodar a câmara entre pontos de vidas pre definidos(at least 2) + animação
-
-
-## 5. Outras funcionalidades
-### 5.1 Marcardor
-- Registar os resultados do jogo
-  -> Score atual + Contador de vitórias
-- Relógio que conta o tempo
-
-### 5.2 Filme do Jogo
-- Guarde a sequência de jogadas efetuadas de forma a poder reproduzi-las através de uma animação sem interação (repetição de um conjunto de jogadas).
-
-### 5.3 Medição do tempo de jogo
-- Acrescente a facilidade de definir e controlar o tempo máximo para efetuar uma jogada. Esse tempo deve ser visível para os jogadores, e quando terminar o jogador deve perder a vez ou perder o jogo (dependendo do tipo de jogo). 
-
-## 6 Outras Implementações
-
-
-
-
-
-## Critérios de Avaliação
-   ### Criação da cena de jogo (4.5 valores)
-   
-        Tabuleiro  
-        Aspeto geral        
-        Jogabilidade, interação, criatividade
-        
-   ### Peças (4.5 valores)
-   
-        Modelação        
-        Movimento e animação por imagens chave.
-        
-   ### Visualização (3 valores)
-   
-        Iluminação        
-        Ambientes de jogo
-        
-   ### Funcionalidades genéricas do jogo (2.5 valores)
-   
-        Nível de dificuldade        
-        Tipo de jogo        
-        Undo        
-        Rotação da câmara entre pontos de vista pré-definidos
+LAIG is a course given at FEUP in the third year of the Master in Informatics and Computing Engineering.
  
-   ### Outras Funcionalidades (1.5 valores)
-      
-      Marcador      
-      Filme do jogo       
-      Medição do tempo de jogo
+## Goals
 
-  ### Software (4 valores)
-        
-       Estrutura e parametrização       
-       Interligação com Programação em Lógica
+### Project 1
+The main goal of this project was to build a 3D graphic application. It reads the components of a given scene, specified by a text file, and displays it.
+
+The text file must comply with a defined language, LSX - Language of Scenes in XML, which obeys to a concept widely used in Computer Graphics: Scene graph. Furthermore, the syntax follows the XML tags format.
+ 
+Therefore, the application reads and transverses all the lsx nodes, while simultaneously builds the respective data structure - scene graph. After reading and loading the info, the scene is then displayed.
+
+| [<img src="/res/P1View1.jpg" width="256" heigth="256">](/res/P1View1.jpg)                                                               | [<img src="/res/P1View2.jpg" width="256" heigth="256">](/res/P1View2.jpg)                                                               | [<img src="/res/P1View3.jpg" width="256" heigth="256">](/res/P1View3.jpg) |
+|:---:|:---:|:---:|
+| View 1 | View 2 | View 3 |
+
+### Project 2
+The goal of this project was to add new graphic functionalities to the work developed in the last project.
+
+As such, by using the parser previously developed and extending the LSX language, we added the following features: 
+* Animations (Linear, Circular and Bezier) 
+* Shaders based in GLSL ES 1.0
+
+| [<img src="/res/MainScene.jpg" width="256" heigth="256">](/res/MainScene.jpg)                                                           | [<img src="/res/Animations.gif" width="256" heigth="256">](/res/Animations.gif)                                                         | [<img src="/res/Boards.gif" width="256" heigth="256">](/res/Boards.gif) |
+|:---:|:---:|:---:|
+| Scene | Animations and Shaders | Boards |
+
+### Project 3
+The goal was to develop a graphical interface for a Prolog game developed in the [Logic Programming]() course, which in our case was the puzzle game GoRoGo.
+
+#### Features
+* Player Vs Player, [Player Vs AI](/res/PlayerVsAI.gif), AI Vs AI (with two difficulty modes)
+* Undo last play
+* Game Movie
+* Switching between predefined scenarios
+* Switching between predefined cameras
+* Game statistics and player turn timer
+
+| [<img src="/res/PlayerVsPlayer.gif" width="256" heigth="256">](/res/PlayerVsPlayer.gif)                                               | [<img src="/res/GameMovie.gif" width="256" heigth="256">](/res/GameMovie.gif) |
+|:---:|:---:|
+| Player Vs Player | Game Movie |
+
+[How to Play]()
+
+## Team 
+[Bruno Piedade](https://github.com/Kubix20)
+
+[Diogo Torres](https://github.com/diogotorres97)
+
+
 
