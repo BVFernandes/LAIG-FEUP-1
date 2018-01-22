@@ -11,7 +11,7 @@ The text file must comply with a defined language, LSX - Language of Scenes in X
  
 Therefore, the application reads and transverses all the lsx nodes, while simultaneously builds the respective data structure - scene graph. After reading and loading the info, the scene is then displayed.
 
-| [<img src="/res/P1View1.jpg" width="256" heigth="256">](/res/P1View1.jpg)                                                               | [<img src="/res/P1View2.jpg" width="256" heigth="256">](/res/P1View2.jpg)                                                               | [<img src="/res/P1View3.jpg" width="256" heigth="256">](/res/P1View3.jpg) |
+| [<img src="/Project%201/docs/res/room_1.PNG" width="256" heigth="256">](/Project%201/docs/res/room_1.PNG)                                                               | [<img src="/Project%201/docs/res/room_2.PNG" width="256" heigth="256">](/Project%201/docs/res/room_2.PNG)                                                               | [<img src="/Project%201/docs/res/room_3.PNG" width="256" heigth="256">](/Project%201/docs/res/room_3.PNG) |
 |:---:|:---:|:---:|
 | View 1 | View 2 | View 3 |
 
@@ -22,9 +22,9 @@ As such, by using the parser previously developed and extending the LSX language
 * Animations (Linear, Circular and Bezier) 
 * Shaders based in GLSL ES 1.0
 
-| [<img src="/res/MainScene.jpg" width="256" heigth="256">](/res/MainScene.jpg)                                                           | [<img src="/res/Animations.gif" width="256" heigth="256">](/res/Animations.gif)                                                         | [<img src="/res/Boards.gif" width="256" heigth="256">](/res/Boards.gif) |
+| [<img src="/Project%202/docs/res/room_1.PNG" width="256" heigth="256">](/Project%202/docs/res/room_1.PNG)                                                               | [<img src="/Project%202/docs/res/room_2.PNG" width="256" heigth="256">](/Project%202/docs/res/room_2.PNG)                                                               | [<img src="/Project%202/docs/res/room_3.PNG" width="256" heigth="256">](/Project%202/docs/res/room_3.PNG) |
 |:---:|:---:|:---:|
-| Scene | Animations and Shaders | Boards |
+| Scene | Shader on Couch | Shader on Root |
 
 ### Project 3
 The goal was to develop a graphical interface for a Prolog game developed in the [Logic Programming]() course, which in our case was the puzzle game GoRoGo.
@@ -37,9 +37,9 @@ The goal was to develop a graphical interface for a Prolog game developed in the
 * Switching between predefined cameras
 * Game statistics and player turn timer
 
-| [<img src="/res/PlayerVsPlayer.gif" width="256" heigth="256">](/res/PlayerVsPlayer.gif)                                               | [<img src="/res/GameMovie.gif" width="256" heigth="256">](/res/GameMovie.gif) |
-|:---:|:---:|
-| Player Vs Player | Game Movie |
+| [<img src="/Project%203/docs/res/LAIG3_T1_G06_1.png" width="256" heigth="256">](/Project%203/docs/res/LAIG3_T1_G06_1.png)                                                               | [<img src="/Project%203/docs/res/LAIG3_T1_G06_4.png" width="256" heigth="256">](/Project%203/docs/res/LAIG3_T1_G06_4.png)                                                               | [<img src="/Project%203/docs/res/LAIG3_T1_G06_2.png" width="256" heigth="256">](/Project%203/docs/res/LAIG3_T1_G06_2.png) |
+|:---:|:---:|:---:|
+| Scene | Game | Victory
 
 [How to Play](https://github.com/diogotorres97/LAIG-FEUP/blob/master/Project%203/docs/User%20Manual.pdf)
 
