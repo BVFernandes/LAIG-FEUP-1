@@ -22,7 +22,7 @@ As such, by using the parser previously developed and extending the LSX language
 * Animations (Linear, Circular and Bezier) 
 * Shaders based in GLSL ES 1.0
 
-| [<img src="/Project%202/docs/res/room_1.PNG" width="256" heigth="256">](/Project%202/docs/res/room_1.PNG)                                                               | [<img src="/Project%202/docs/res/room_2.PNG" width="256" heigth="256">](/Project%202/docs/res/room_2.PNG)                                                               | [<img src="/Project%202/docs/res/room_3.PNG" width="256" heigth="256">](/Project%202/docs/res/room_3.PNG) |
+| [<img src="/Project%202/docs/res/room_1.png" width="256" heigth="256">](/Project%202/docs/res/room_1.png)                                                               | [<img src="/Project%202/docs/res/room_2.png" width="256" heigth="256">](/Project%202/docs/res/room_2.png)                                                               | [<img src="/Project%202/docs/res/room_3.png" width="256" heigth="256">](/Project%202/docs/res/room_3.png) |
 |:---:|:---:|:---:|
 | Scene | Shader on Couch | Shader on Root |
 
