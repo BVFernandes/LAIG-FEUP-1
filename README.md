@@ -30,7 +30,7 @@ As such, by using the parser previously developed and extending the LSX language
 The goal was to develop a graphical interface for a Prolog game developed in the [Logic Programming]() course, which in our case was the puzzle game GoRoGo.
 
 #### Features
-* Player Vs Player, [Player Vs AI](/res/PlayerVsAI.gif), AI Vs AI (with two difficulty modes)
+* Player Vs Player, Player Vs AI, AI Vs AI (with two difficulty modes)
 * Undo last play
 * Game Movie
 * Switching between predefined scenarios
